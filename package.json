@@ -1,8 +1,8 @@
 {
-	"name": "runner",
+	"name": "dungeon-dashers-2",
 	"version": "0.1.0",
-	"private": true,
 	"dependencies": {
+		"mobile-detect": "git+https://github.com/Bucky24/mobile-detect.git",
 		"react": "16.8.2",
 		"react-canvas": "git+https://github.com/Bucky24/react-canvas.git",
 		"react-dom": "16.8.2",
@@ -13,9 +13,6 @@
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
-	},
-	"eslintConfig": {
-		"extends": "react-app"
 	},
 	"browserslist": [
 		">0.2%",
