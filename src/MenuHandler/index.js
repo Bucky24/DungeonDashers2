@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Canvas } from 'react-canvas';
+import { Canvas } from '@bucky24/react-canvas';
 import MainMenu from '../MainMenu';
 //import './style.css';
 
