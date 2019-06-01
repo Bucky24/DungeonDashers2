@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MenuHandler from '../MenuHandler';
+import GameMap from '../GameMap';
+
 import './style.css';
 
 import { getPane } from '../store/getters/ui';
@@ -12,9 +14,7 @@ class App extends Component {
 
 		return <div className="App">
 			{ pane === Panes.HOME && <MenuHandler width={width} height={height} /> }
-			{ pane === Panes.GAME && <div>
-				Game window
-			</div>}
+			{ pane === Panes.GAME && <GameMap width={width} height={height} /> }
 		</div>;
 	}
 }
