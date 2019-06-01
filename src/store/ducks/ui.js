@@ -8,7 +8,7 @@ export const Panes = {
 };
 
 const defaultState = {
-	uiPane: Panes.GAME
+	uiPane: Panes.HOME
 };
 
 export default (state = defaultState, action) => {

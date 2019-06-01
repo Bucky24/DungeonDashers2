@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Canvas, Shape } from '@bucky24/react-canvas';
+import { Canvas, Shape, Image } from '@bucky24/react-canvas';
 
 import SampleMap from '../Samples/sample1.json';
 
+// images for tiles
+import Ground1 from '../assets/ground1.png';
+
+const tileMap = {
+	'ground1': Ground1
+};
+
 class GameMap extends Component {
 	render() {
-		console.log(SampleMap);
 		const { width, height } = this.props;
 		return (<Canvas width={width} height={height}>
 			{ /* draw the background */ }
@@ -22,6 +28,15 @@ class GameMap extends Component {
 				color="#000"
 				fill={true}
 			/>
+			{ SampleMap.tiles.map((tile) => {
+				return <Image
+					x={tile.x * 32}
+					y={tile.y * 32}
+					width={32}
+					height={32}
+					src={tileMap[tile.tile]}
+				/>;
+			})}
 		</Canvas>);
 	}
 }

@@ -2,13 +2,13 @@
   "name": "dungeon-dashers-2",
   "version": "0.1.0",
   "dependencies": {
-    "@bucky24/react-canvas": "0.3.2",
+    "@bucky24/react-canvas": "0.4.0",
     "mobile-detect": "git+https://github.com/Bucky24/mobile-detect.git",
     "react": "16.8.3",
     "react-dom": "16.8.2",
-    "react-redux": "^7.0.3",
+    "react-redux": "7.0.3",
     "react-scripts": "2.1.5",
-    "redux": "^4.0.1"
+    "redux": "4.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

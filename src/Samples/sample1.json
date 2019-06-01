@@ -1,11 +1,31 @@
 {
-	width: 40,
-	height: 40,
-	tiles: [
+	"width": 40,
+	"height": 40,
+	"tiles": [
 		{
-			tile: 'ground1',
-			x: 5,
-			y: 5
+			"tile": "ground1",
+			"x": 5,
+			"y": 5
+		},
+		{
+			"tile": "ground1",
+			"x": 6,
+			"y": 5
+		},
+		{
+			"tile": "ground1",
+			"x": 6,
+			"y": 5
+		},
+		{
+			"tile": "ground1",
+			"x": 7,
+			"y": 5
+		},
+		{
+			"tile": "ground1",
+			"x": 8,
+			"y": 5
 		}
 	]
 }
