@@ -4,7 +4,10 @@ import { Container, Text } from '@bucky24/react-canvas';
 import Button from '../Button';
 //import './style.css';
 
+import Sample1 from '../Samples/sample1.json';
+
 import { Panes, setUIPane } from '../store/ducks/ui';
+import { setGame } from '../store/ducks/game';
 
 class MainMenu extends Component {
 	render() {
@@ -20,6 +23,7 @@ class MainMenu extends Component {
 				height={50}
 				text="SINGLEPLAYER"
 				onClick={() => {
+					this.props.loadGame();
 					setPane(Panes.GAME);
 				}}
 			/>
@@ -65,6 +69,10 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		setPane: (pane) => {
 			dispatch(setUIPane(pane));
+		},
+		loadGame: () => {
+			const game = Sample1;
+			dispatch(setGame(game));
 		}
 	};
 };

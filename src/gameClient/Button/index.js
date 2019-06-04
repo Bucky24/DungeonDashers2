@@ -8,7 +8,7 @@ const propTypes = {
 	width: PropTypes.number,
 	height: PropTypes.number,
 	text: PropTypes.string,
-	onClick: PropTypes.func.required
+	onClick: PropTypes.func.isRequired
 };
 
 class Button extends CanvasComponent {
