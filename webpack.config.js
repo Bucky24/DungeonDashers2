@@ -57,5 +57,8 @@ module.exports = {
 			template: path.join(__dirname, 'public', "index.html")
 		}),
 		new ProgressBarPlugin()
-	]
+	],
+	devServer: {
+		port: 3000
+	}
 };
