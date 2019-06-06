@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Canvas, Shape, Image } from '@bucky24/react-canvas';
+import Door from '../Door';
 
-import { getTiles, getCharacters, getWalkable } from '../store/getters/game';
-import { setCharacter } from '../store/ducks/game';
+import { getTiles, getCharacters, getWalkable, getObjects } from '../store/getters/game';
+import { setCharacter, setObject } from '../store/ducks/game';
 
 // images for tiles
 import Ground1 from '../assets/ground1.png';
@@ -13,6 +14,8 @@ import Terrain3 from '../assets/terrain3.png';
 import Terrain4 from '../assets/terrain4.png';
 // images for characters
 import Character1 from '../assets/character1.png';
+// objects
+import Door1 from '../assets/door1.png';
 
 const tileMap = {
 	'ground1': Ground1,
@@ -26,11 +29,20 @@ const characterList = [
 	Character1
 ];
 
+const objectList = {
+	'door': {
+		image: Door1,
+		yOff: -13,
+		height: 45
+	}
+};
+
 class GameMap extends Component {
 	constructor(props) {
 		super(props);
 		
 		this.moveActiveChar = this.moveActiveChar.bind(this);
+		this.handleCollision = this.handleCollision.bind(this);
 	}
 	moveActiveChar(xOff, yOff) {
 		// assume active is number 1 for now
@@ -41,11 +53,37 @@ class GameMap extends Component {
 		
 		const key = `${newX}_${newY}`;
 		
-		if (this.props.walkable.includes(key)) {
-			this.props.setCharacter({
-				x: newX,
-				y: newY
-			}, activeIndex);
+		if (!this.props.walkable.includes(key)) {
+			return;
+		}
+		this.props.setCharacter({
+			x: newX,
+			y: newY
+		}, activeIndex);
+		
+		// check to see if we impacted an object
+		const objectsCollided = this.props.objects.filter((object) => {
+			return object.key === key;
+		});
+		
+		if (objectsCollided.length > 0) {
+			for (let i=0;i<objectsCollided.length;i++) {
+				this.handleCollision({
+					type: 'player',
+					index: activeIndex
+				}, objectsCollided[i]);
+			}
+		}
+	}
+	handleCollision(obj1, obj2) {
+		// simple for now, more complex later
+		if (obj1.type === 'player' && obj2.type === 'door') {
+			// open the door
+			if (!obj2.isOpen) {
+				this.props.setObject(obj2.id, {
+					isOpen: true
+				});
+			}
 		}
 	}
 	render() {
@@ -87,6 +125,15 @@ class GameMap extends Component {
 					src={tileMap[tile.tile]}
 				/>;
 			})}
+			{ this.props.objects.map((object) => {
+				if (object.type === 'door') {
+					return <Door
+						x={object.x}
+						y={object.y}
+						isOpen={object.isOpen}
+					/>
+				}
+			})}
 			{ this.props.characters.map((characterPos, index) => {
 				const image = characterList[index];
 				// since character images are 96 pixels, and we
@@ -108,7 +155,8 @@ const mapStateToProps = (state) => {
 	return {
 		tiles: getTiles(state),
 		characters: getCharacters(state),
-		walkable: getWalkable(state)
+		walkable: getWalkable(state),
+		objects: getObjects(state)
 	};
 };
 
@@ -116,6 +164,9 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		setCharacter: (data, index) => {
 			return dispatch(setCharacter(data, index));
+		},
+		setObject: (id, data) => {
+			return dispatch(setObject(id, data));
 		}
 	};
 };

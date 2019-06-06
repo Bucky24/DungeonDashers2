@@ -18,9 +18,15 @@
 		{ "tile": "ground1", "x": 5, "y": 8 },
 		{ "tile": "ground1", "x": 8, "y": 6 },
 		{ "tile": "ground1", "x": 8, "y": 7 },
-		{ "tile": "ground1", "x": 8, "y": 8 }
+		{ "tile": "ground1", "x": 8, "y": 8 },
+		{ "tile": "ground1", "x": 8, "y": 9 },
+		{ "tile": "ground1", "x": 8, "y": 10 },
+		{ "tile": "ground1", "x": 8, "y": 11 }
 	],
 	"characters": [
 		{ "x": 5, "y": 5 }
+	],
+	"objects": [
+		{ "type": "door", "id": 1, "x": 8, "y": 6 }
 	]
 }
