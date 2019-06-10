@@ -28,5 +28,8 @@
 	],
 	"objects": [
 		{ "type": "door", "id": 1, "x": 8, "y": 6 }
+	],
+	"enemies": [
+		{ "type": "bat", "id": 1, "trigger": 1, "x": 8, "y": 10}
 	]
 }

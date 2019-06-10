@@ -2,9 +2,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Canvas, Shape, Image } from '@bucky24/react-canvas';
 import Door from '../Door';
+import ObjectWithHealth from '../ObjectWithHealth';
 
-import { getTiles, getCharacters, getWalkable, getObjects } from '../store/getters/game';
-import { setCharacter, setObject } from '../store/ducks/game';
+import {
+	getTiles,
+	getCharacters,
+	getWalkable,
+	getObjects,
+	getInactiveEnemies,
+	getActiveEnemies
+} from '../store/getters/game';
+import {
+	setCharacter,
+	setObject,
+	activateEnemy,
+	harmEnemy
+} from '../store/ducks/game';
 
 // images for tiles
 import Ground1 from '../assets/ground1.png';
@@ -16,6 +29,8 @@ import Terrain4 from '../assets/terrain4.png';
 import Character1 from '../assets/character1.png';
 // objects
 import Door1 from '../assets/door1.png';
+// enemies
+import EnemyBat from '../assets/enemyBat.png';
 
 const tileMap = {
 	'ground1': Ground1,
@@ -34,6 +49,13 @@ const objectList = {
 		image: Door1,
 		yOff: -13,
 		height: 45
+	}
+};
+
+const enemyList = {
+	'bat': {
+		image: EnemyBat,
+		height: 32
 	}
 };
 
@@ -56,25 +78,56 @@ class GameMap extends Component {
 		if (!this.props.walkable.includes(key)) {
 			return;
 		}
-		this.props.setCharacter({
-			x: newX,
-			y: newY
-		}, activeIndex);
 		
 		// check to see if we impacted an object
 		const objectsCollided = this.props.objects.filter((object) => {
 			return object.key === key;
 		});
 		
+		let canMove = true;
 		if (objectsCollided.length > 0) {
 			for (let i=0;i<objectsCollided.length;i++) {
-				this.handleCollision({
+				const allowMovement = this.handleCollision({
 					type: 'player',
 					index: activeIndex
 				}, objectsCollided[i]);
+				if (!allowMovement) {
+					canMove = false;
+				}
 			}
 		}
+		
+		const enemiesCollided = this.props.activeEnemies.filter((enemy) => {
+			const objKey = `${enemy.x}_${enemy.y}`;
+			return objKey === key;
+		});
+		
+		if (enemiesCollided.length > 0) {
+			for (let i=0;i<enemiesCollided.length;i++) {
+				const enemy = {
+					type: 'enemy',
+					enemyType: enemiesCollided[i].type,
+					id: enemiesCollided[i].id
+				}
+				const allowMovement = this.handleCollision({
+					type: 'player',
+					index: activeIndex
+				}, enemy);
+				if (!allowMovement) {
+					canMove = false;
+				}
+			}
+		}
+		
+		if (canMove) {
+			this.props.setCharacter({
+				x: newX,
+				y: newY
+			}, activeIndex);
+		}
 	}
+	
+	// returns false if player cannot move there
 	handleCollision(obj1, obj2) {
 		// simple for now, more complex later
 		if (obj1.type === 'player' && obj2.type === 'door') {
@@ -83,8 +136,25 @@ class GameMap extends Component {
 				this.props.setObject(obj2.id, {
 					isOpen: true
 				});
+				// find all enemies that should be activated by this door
+				const enemiesToActivate = this.props.inactiveEnemies.filter((enemy) => {
+					return enemy.trigger === obj2.id;
+				});
+				
+				if (enemiesToActivate.length > 0) {
+					const enemyIDs = enemiesToActivate.forEach((enemy) => {
+						this.props.activateEnemy(enemy.id);
+					});
+				}
 			}
+		} else if (obj1.type === 'player' && obj2.type === 'enemy') {
+			// hurt the enemy!
+			this.props.harmEnemy(obj2.id, 5);
+			
+			return false;
 		}
+		
+		return true;
 	}
 	render() {
 		const { width, height } = this.props;
@@ -139,12 +209,26 @@ class GameMap extends Component {
 				// since character images are 96 pixels, and we
 				// want to draw from the feet, we have to go 2 up
 				const drawPosition = characterPos.y-2;
-				return <Image
-					x={characterPos.x * 32}
-					y={drawPosition * 32}
+				return <ObjectWithHealth
+					x={characterPos.x}
+					y={drawPosition}
 					width={32}
 					height={96}
-					src={image}
+					image={image}
+					hp={1}
+					maxHP={1}
+				/>;
+			})}
+			{ this.props.activeEnemies.map((enemy) => {
+				const imageData = enemyList[enemy.type];
+				return <ObjectWithHealth
+					x={enemy.x}
+					y={enemy.y}
+					width={32}
+					height={imageData.height}
+					image={imageData.image}
+					hp={enemy.hp}
+					maxHP={10}
 				/>;
 			})}
 		</Canvas>);
@@ -156,7 +240,9 @@ const mapStateToProps = (state) => {
 		tiles: getTiles(state),
 		characters: getCharacters(state),
 		walkable: getWalkable(state),
-		objects: getObjects(state)
+		objects: getObjects(state),
+		inactiveEnemies: getInactiveEnemies(state),
+		activeEnemies: getActiveEnemies(state)
 	};
 };
 
@@ -167,6 +253,12 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		setObject: (id, data) => {
 			return dispatch(setObject(id, data));
+		},
+		activateEnemy: (id) => {
+			return dispatch(activateEnemy(id));
+		},
+		harmEnemy: (id, amount) => {
+			return dispatch(harmEnemy(id, amount));
 		}
 	};
 };

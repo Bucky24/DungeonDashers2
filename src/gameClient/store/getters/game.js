@@ -13,3 +13,11 @@ export const getWalkable = (state) => {
 export const getObjects = (state) => {
 	return state.game.objects || [];
 }
+
+export const getInactiveEnemies = (state) => {
+	return state.game.inactiveEnemies || [];
+}
+
+export const getActiveEnemies = (state) => {
+	return state.game.activeEnemies || [];
+}

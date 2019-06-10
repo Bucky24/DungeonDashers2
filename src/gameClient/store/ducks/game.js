@@ -2,7 +2,10 @@ export const Constants = {
 	SET_GAME_TILES: 'GAME/SET_GAME_TILES',
 	SET_GAME_CHARACTER: 'GAME/SET_GAME_CHARACTER',
 	SET_GAME: 'GAME/SET_GAME',
-	SET_OBJECT: 'GAME/SET_GAME_OBJECt'
+	SET_OBJECT: 'GAME/SET_GAME_OBJECT',
+	ACTIVATE_ENEMY: 'GAME/ACTIVATE_ENEMY',
+	SET_ACTIVE_ENEMY: 'GAME/SET_ACTIVE_ENEMY',
+	HARM_ENEMY: 'GAME/HARM_ENEMY'
 };
 
 const defaultState = {
@@ -10,6 +13,8 @@ const defaultState = {
 	characters: [],
 	walkable: [],
 	objects: [],
+	inactiveEnemies: [],
+	activeEnemies: [],
 	width: 0,
 	height: 0,
 };
@@ -21,6 +26,12 @@ const WalkableTiles = [
 const collidableObjects = [
 	
 ];
+
+const enemyBaseStats = {
+	bat: {
+		hp: 10
+	}
+};
 
 const getWalkable = (tiles, objects) => {
 	const objectKeys = objects.map((object) => {
@@ -85,7 +96,9 @@ export default (state = defaultState, action) => {
 			objects: newObjects,
 			width: action.data.width,
 			height: action.data.height,
-			walkable: getWalkable(action.data.tiles, newObjects)
+			walkable: getWalkable(action.data.tiles, newObjects),
+			inactiveEnemies: action.data.enemies,
+			activeEnemies: []
 		};
 		
 		return newState;
@@ -106,6 +119,72 @@ export default (state = defaultState, action) => {
 		return {
 			...state,
 			objects: newObjects
+		};
+	} else if (action.type === Constants.ACTIVATE_ENEMY) {
+		const index = state.inactiveEnemies.findIndex((obj) => {
+			return obj.id === action.id;
+		});
+		if (index === -1) {
+			throw new Error(`Unable to find inactive enemy for id ${action.id}`);
+		}
+		
+		const newInactiveEnemies = [...state.inactiveEnemies];
+		const enemy = state.inactiveEnemies[index];
+		const newActiveEnemies = [
+			...state.activeEnemies,
+			{
+				...enemy,
+				...enemyBaseStats[enemy.type]
+			}
+		];
+		newInactiveEnemies.splice(index, 1);
+		
+		return {
+			...state,
+			inactiveEnemies: newInactiveEnemies,
+			activeEnemies: newActiveEnemies
+		};
+	} else if (action.type === Constants.SET_ACTIVE_ENEMY) {
+		const index = state.activeEnemies.findIndex((obj) => {
+			return obj.id === action.id;
+		});
+		if (index === -1) {
+			throw new Error(`Unable to find active enemy for id ${action.id}`);
+		}
+		
+		const newEnemies = [...state.activeEnemies];
+		newEnemies[index] = {
+			...state.activeEnemies[index],
+			...action.data
+		};
+	
+		return {
+			...state,
+			activeEnemies: newEnemies
+		};
+	} else if (action.type === Constants.HARM_ENEMY) {
+		const index = state.activeEnemies.findIndex((obj) => {
+			return obj.id === action.id;
+		});
+		if (index === -1) {
+			throw new Error(`Unable to find active enemy for id ${action.id}`);
+		}
+		
+		const enemy = {
+			...state.activeEnemies[index]
+		};
+		
+		const newEnemies = [...state.activeEnemies];
+		enemy.hp -= action.amount;
+		if (enemy.hp <= 0) {
+			newEnemies.splice(index, 1);
+		} else {
+			newEnemies[index] = enemy;
+		}
+	
+		return {
+			...state,
+			activeEnemies: newEnemies
 		};
 	} else {
 		return state;
@@ -141,5 +220,28 @@ export const setObject = (id, data) => {
 		type: Constants.SET_OBJECT,
 		id,
 		data
+	};
+}
+
+export const activateEnemy = (id) => {
+	return {
+		type: Constants.ACTIVATE_ENEMY,
+		id
+	};
+}
+
+export const setEnemy = (id, data) => {
+	return {
+		type: Constants.SET_ACTIVE_ENEMY,
+		id,
+		data
+	};
+}
+
+export const harmEnemy = (id, amount) => {
+	return {
+		type: Constants.HARM_ENEMY,
+		id,
+		amount
 	};
 }
