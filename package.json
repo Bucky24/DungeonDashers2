@@ -14,10 +14,11 @@
     "redux": "4.0.1",
     "resolve": "1.10.0"
   },
+  "main": "./src/gameClientElectron/main.js",
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server --no-info --content-base build/",
     "build": "webpack",
-    "electron": "NODE_ENV=development npm run build && NODE_ENV=development electron ./src/gameClientElectron/main.js"
+    "electron": "NODE_ENV=development npm run build && NODE_ENV=development electron ."
   },
   "browserslist": [
     ">0.2%",
