@@ -5,7 +5,6 @@ var ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 module.exports = {
 	mode: process.env.NODE_ENV,
-	entry: './src/gameClient/index.js',
 	output: {
 		path: path.resolve(__dirname, 'build'),
 		filename: 'main.bundle.js'
