@@ -1,13 +1,22 @@
-var path = require('path');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+
+const systemWeb = path.resolve(__dirname, 'src', 'common', 'system', 'systemWeb.js');
+const systemElectron = path.resolve(__dirname, 'src', 'common', 'system', 'systemElectron.js');
+const useSystem = process.env.ELECTRON ? systemElectron : systemWeb;
 
 module.exports = {
 	mode: process.env.NODE_ENV,
 	output: {
 		path: path.resolve(__dirname, 'build'),
 		filename: 'main.bundle.js'
+	},
+	resolve: {
+		alias: {
+			'system': useSystem
+		}
 	},
 	module: {
 		rules: [

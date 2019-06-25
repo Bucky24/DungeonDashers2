@@ -6,6 +6,8 @@ rm dd2_game.zip
 unzip electron-v5.0.2-win32-ia32.zip -d electron_game
 mv electron_game/electron.exe electron_game/dd2.exe
 mkdir electron_game/resources/app
+echo Building new app
+ELECTRON=true npm run build-game
 echo Copying app
 cp -rp build electron_game/resources/app
 cp -p package.json electron_game/resources/app

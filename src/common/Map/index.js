@@ -53,12 +53,31 @@ const propTypes = {
 	objects: PropTypes.array.isRequired,
 	characters: PropTypes.array.isRequired,
 	enemies: PropTypes.array.isRequired,
-	onKeyUp: PropTypes.func
+	onKeyUp: PropTypes.func,
+	onClick: PropTypes.func
 };
+
+const SQUARE_SIZE = 32;
 
 class Map extends CanvasComponent {
 	constructor(props) {
 		super(props);
+		
+        this.bounds = {
+            x: props.x,
+            y: props.y,
+            width: props.width,
+            height: props.height
+        };
+	}
+	
+	componentDidUpdate() {
+        this.bounds = {
+            x: this.props.x,
+            y: this.props.y,
+            width: this.props.width,
+            height: this.props.height
+        };
 	}
 	
 	onKeyUp(evt) {
@@ -66,6 +85,14 @@ class Map extends CanvasComponent {
 			this.props.onKeyUp(evt);
 		}
 	}
+	
+    onMouseUp({ x, y, button }, overMe) {
+        if (overMe && this.props.onClick) {
+        	const squareX = Math.floor((x - this.props.x)/SQUARE_SIZE);
+			const squareY = Math.floor((y - this.props.y)/SQUARE_SIZE);
+			this.props.onClick(squareX, squareY, button);
+        }
+    }
 
 	render() {
 		const { x, y, width, height, onKeyUp } = this.props;

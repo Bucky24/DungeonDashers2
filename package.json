@@ -1,8 +1,8 @@
 {
   "name": "dungeon-dashers-2",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "dependencies": {
-    "@bucky24/react-canvas": "0.5.1",
+    "@bucky24/react-canvas": "0.6.0",
     "css-loader": "1.0.0",
     "dotenv": "6.0.0",
     "dotenv-expand": "4.2.0",
@@ -18,11 +18,11 @@
   "scripts": {
     "start-game": "NODE_ENV=development webpack-dev-server --no-info --content-base build/ --config webpack.config.game.js",
     "build-game": "webpack --config webpack.config.game.js",
-    "electron-game": "NODE_ENV=development npm run build-game && NODE_ENV=development electron .",
+    "electron-game": "ELECTRON=true NODE_ENV=development npm run build-game && NODE_ENV=development electron .",
     "start-editor": "NODE_ENV=development webpack-dev-server --no-info --content-base build/ --config webpack.config.editor.js",
     "build-editor": "webpack --config webpack.config.editor.js",
-    "electron-editor": "NODE_ENV=development npm run build-editor && NODE_ENV=development electron .",
-	"build": "npm run build-game && npm run build-editor"
+    "electron-editor": "ELECTRON=true NODE_ENV=development npm run build-editor && NODE_ENV=development electron .",
+    "build": "npm run build-game && npm run build-editor"
   },
   "browserslist": [
     ">0.2%",
