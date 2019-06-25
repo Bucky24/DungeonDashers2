@@ -8,7 +8,8 @@ const propTypes = {
 	width: PropTypes.number,
 	height: PropTypes.number,
 	text: PropTypes.string,
-	onClick: PropTypes.func.isRequired
+	onClick: PropTypes.func.isRequired,
+	toggle: PropTypes.bool
 };
 
 class Button extends CanvasComponent {
@@ -37,7 +38,13 @@ class Button extends CanvasComponent {
 		}
 	}
 	render() {
-		const color = this.state.mouseOver ? '#0f0' : '#f00';
+		let color = '#f00';
+		if (this.props.toggle) {
+			color = '#00f';
+		}
+		if (this.state.mouseOver) {
+			color = '#0f0';
+		}
 		return (<Container>
 			<Shape
 				x={this.props.x}

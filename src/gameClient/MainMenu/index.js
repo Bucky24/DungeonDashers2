@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Text } from '@bucky24/react-canvas';
-import Button from '../Button';
+import Button from '../../common/Button';
 //import './style.css';
 
 import Sample1 from '../Samples/sample1.json';
