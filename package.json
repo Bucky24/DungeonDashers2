@@ -14,7 +14,7 @@
     "redux": "4.0.1",
     "resolve": "1.10.0"
   },
-  "main": "./src/gameClientElectron/main.js",
+  "main": "./src/electronClient/main.js",
   "scripts": {
     "start-game": "NODE_ENV=development webpack-dev-server --no-info --content-base build/ --config webpack.config.game.js",
     "build-game": "webpack --config webpack.config.game.js",

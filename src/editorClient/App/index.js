@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Canvas, Shape, ButtonTypes } from '@bucky24/react-canvas';
+import { Canvas, Shape, ButtonTypes, Text } from '@bucky24/react-canvas';
 import ToolBar from '../ToolBar';
 import BottomBar from '../BottomBar';
 import Map from '../../common/Map';
+import Button from '../../common/Button';
+import { saveFile, Types } from 'system';
+import TextField from '../../common/TextField'
 
 import './style.css';
+
+const ACTIVE_VERSION = 1;
 
 const TOOL_LIST = [
 	{ id: 'select', name: 'Select' },
@@ -19,7 +24,8 @@ class App extends Component {
 		
 		this.state = {
 			activeTool: null,
-			tiles: []
+			tiles: [],
+			fileName: ''
 		};
 		
 		this.handleClick = this.handleClick.bind(this);
@@ -56,6 +62,16 @@ class App extends Component {
 			});
 		}
 	}
+	
+	buildMap() {
+		return {
+			version: ACTIVE_VERSION,
+			// sizes stubbed for now
+			width: 40,
+			height: 40,
+			tiles: this.state.tiles
+		};
+	}
 
 	render() {
 		const { width, height, pane } = this.props;
@@ -76,12 +92,48 @@ class App extends Component {
 						});
 					}}
 				/>
+				<Button
+					x={0}
+					y={height-50}
+					width={100}
+					height={50}
+					text="Save"
+					onClick={() => {
+						const file = this.state.fileName
+						if (!file || file === '') {
+							alert('Unable to save file, no filename given');
+							return;
+						}
+						const fullName = `${file}.map`;
+						const mapData = this.buildMap();
+						saveFile(Types.MAP, fullName, mapData).then((data) => {
+							alert(`File saved to ${data}`);
+						});
+					}}
+				/>
 				<BottomBar
 					x={100}
 					y={height-100}
 					width={width-100}
 					height={100}
 					activeTool={this.state.activeTool}
+				/>
+				<Text
+					x={100}
+					y={height-86}
+				>
+					Filename:
+				</Text>
+				<TextField
+					x={150}
+					y={height-100}
+					width={300}
+					height={20}
+					onChange={(newText) => {
+						this.setState({
+							fileName: newText
+						});
+					}}
 				/>
 				<Map
 					x={100}

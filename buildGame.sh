@@ -12,7 +12,7 @@ echo Copying app
 cp -rp build electron_game/resources/app
 cp -p package.json electron_game/resources/app
 mkdir electron_game/resources/app/src
-cp -rp src/gameClientElectron electron_game/resources/app/src
+cp -rp src/electronClient electron_game/resources/app/src
 echo Creating zip
 zip -r dd2_game electron_game
 mkdir -p dist

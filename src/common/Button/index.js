@@ -27,6 +27,14 @@ class Button extends CanvasComponent {
 			height: this.props.height
 		};
 	}
+	componentDidUpdate() {
+		this.bounds = {
+			x: this.props.x,
+			y: this.props.y,
+			width: this.props.width,
+			height: this.props.height
+		};
+	}
 	onMouseMove(data, overMe) {
 		this.setState({
 			mouseOver: overMe
