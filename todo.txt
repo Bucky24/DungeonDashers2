@@ -1,5 +1,5 @@
 For v0.3.0
-* Editor can place enemies, characters, objects
+* Editor can place enemies, characters, objects - done
 * Editor can save levels - done
 * Game can load saved levels - done
 * Treasure chests and gold tracking
