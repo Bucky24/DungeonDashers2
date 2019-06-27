@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Text } from '@bucky24/react-canvas';
 import Button from '../../common/Button';
-//import './style.css';
-
-import Sample1 from '../Samples/sample1.json';
+import { loadFile, Types } from 'system';
 
 import { Panes, setUIPane } from '../store/ducks/ui';
 import { setGame } from '../store/ducks/game';
@@ -23,8 +21,10 @@ class MainMenu extends Component {
 				height={50}
 				text="SINGLEPLAYER"
 				onClick={() => {
-					this.props.loadGame();
-					setPane(Panes.GAME);
+					loadFile(Types.MAP, 'sample1').then((data) => {
+						this.props.loadGame(data);
+						setPane(Panes.GAME);
+					});
 				}}
 			/>
 			<Button
@@ -70,9 +70,8 @@ const mapDispatchToProps = (dispatch) => {
 		setPane: (pane) => {
 			dispatch(setUIPane(pane));
 		},
-		loadGame: () => {
-			const game = Sample1;
-			dispatch(setGame(game));
+		loadGame: (gameData) => {
+			dispatch(setGame(gameData));
 		}
 	};
 };
