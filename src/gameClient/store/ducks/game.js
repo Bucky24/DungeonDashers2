@@ -89,6 +89,21 @@ export default (state = defaultState, action) => {
 				key: `${object.x}_${object.y}`
 			};
 		});
+		// any enemy without a trigger is active immediately
+		const inactiveEnemies = [];
+		const activeEnemies = [];
+		action.data.enemies.forEach((enemy) => {
+			if (enemy.trigger) {
+				inactiveEnemies.push(enemy);
+			} else {
+				const newEnemy = {
+					...enemy
+				};
+				newEnemy.hp = enemyBaseStats[enemy.type].hp;
+				activeEnemies.push(newEnemy);
+			}
+		})
+		
 		const newState = {
 			...state,
 			tiles: action.data.tiles,
@@ -97,8 +112,8 @@ export default (state = defaultState, action) => {
 			width: action.data.width,
 			height: action.data.height,
 			walkable: getWalkable(action.data.tiles, newObjects),
-			inactiveEnemies: action.data.enemies,
-			activeEnemies: []
+			inactiveEnemies,
+			activeEnemies
 		};
 		
 		return newState;

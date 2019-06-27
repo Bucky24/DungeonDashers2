@@ -123,8 +123,8 @@ class Map extends CanvasComponent {
 			{ this.props.objects.map((object) => {
 				if (object.type === 'door') {
 					return <Door
-						x={x + object.x}
-						y={y + object.y}
+						x={x/SQUARE_SIZE + object.x}
+						y={y/SQUARE_SIZE + object.y}
 						isOpen={object.isOpen}
 					/>
 				}
@@ -135,8 +135,8 @@ class Map extends CanvasComponent {
 				// want to draw from the feet, we have to go 2 up
 				const drawPosition = characterPos.y-2;
 				return <ObjectWithHealth
-					x={x + characterPos.x}
-					y={y + drawPosition}
+					x={x/SQUARE_SIZE + characterPos.x}
+					y={y/SQUARE_SIZE + drawPosition}
 					width={32}
 					height={96}
 					image={image}
@@ -147,8 +147,8 @@ class Map extends CanvasComponent {
 			{ this.props.enemies.map((enemy) => {
 				const imageData = enemyList[enemy.type];
 				return <ObjectWithHealth
-					x={x + enemy.x}
-					y={y + enemy.y}
+					x={x/SQUARE_SIZE + enemy.x}
+					y={y/SQUARE_SIZE + enemy.y}
 					width={32}
 					height={imageData.height}
 					image={imageData.image}

@@ -15,7 +15,9 @@ const ACTIVE_VERSION = 1;
 const TOOL_LIST = [
 	{ id: 'select', name: 'Select' },
 	{ id: 'terrain', name: 'Terrain' },
-	{ id: 'object', name: 'Object' }
+	{ id: 'object', name: 'Object' },
+	{ id: 'enemy', name: 'Enemy' },
+	{ id: 'character', name: 'Character' }
 ];
 
 class App extends Component {
@@ -25,7 +27,10 @@ class App extends Component {
 		this.state = {
 			activeTool: null,
 			tiles: [],
-			fileName: ''
+			fileName: '',
+			characters: [{ x: 0, y: 2 }],
+			objects: [],
+			enemies: []
 		};
 		
 		this.handleClick = this.handleClick.bind(this);
@@ -60,6 +65,59 @@ class App extends Component {
 			this.setState({
 				tiles: newTiles
 			});
+		} else if (this.state.activeTool === 'character') {
+			// for now just set coords of first character
+			this.setState({
+				characters: [{ x, y }]
+			});
+		} else if (this.state.activeTool === 'enemy') {
+			const newEnemies = [...this.state.enemies];
+			const objIndex = locateObjectAt(this.state.enemies, x, y);
+			if (button === ButtonTypes.LEFT) {
+				const enemy = {
+					type: "bat",
+					id: newEnemies.length + 1,
+					x,
+					y
+				}
+				if (objIndex === -1) {
+					newEnemies.push(enemy);
+				} else {
+					newEnemies[objIndex] = enemy;
+				}
+			} else if (button === ButtonTypes.RIGHT) {
+				if (objIndex !== -1) {
+					newEnemies.splice(objIndex ,1);
+				}
+			}
+			
+			this.setState({
+				enemies: newEnemies
+			});
+		} else if (this.state.activeTool === 'object') {
+			const newObjects = [...this.state.objects];
+			const objIndex = locateObjectAt(this.state.objects, x, y);
+			if (button === ButtonTypes.LEFT) {
+				const object = {
+					type: "door",
+					id: newObjects.length + 1,
+					x,
+					y
+				}
+				if (objIndex === -1) {
+					newObjects.push(object);
+				} else {
+					newObjects[objIndex] = object;
+				}
+			} else if (button === ButtonTypes.RIGHT) {
+				if (objIndex !== -1) {
+					newObjects.splice(objIndex ,1);
+				}
+			}
+			
+			this.setState({
+				objects: newObjects
+			});
 		}
 	}
 	
@@ -70,9 +128,9 @@ class App extends Component {
 			width: 40,
 			height: 40,
 			tiles: this.state.tiles,
-			objects: [],
-			characters: [],
-			enemies: []
+			objects: this.state.objects,
+			characters: this.state.characters,
+			enemies: this.state.enemies
 		};
 	}
 
@@ -144,9 +202,9 @@ class App extends Component {
 					width={width-100}
 					height={height-100}
 					tiles={this.state.tiles}
-					enemies={[]}
-					objects={[]}
-					characters={[]}
+					enemies={this.state.enemies}
+					objects={this.state.objects}
+					characters={this.state.characters}
 					onClick={(x, y, button) => {
 						this.handleClick(x, y, button);
 					}}
