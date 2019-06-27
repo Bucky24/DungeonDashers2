@@ -19,7 +19,8 @@ export const saveFile = (type, path, data) => {
 
 export const loadFile = (type, path) => {
 	return new Promise((resolve, reject) => {
-		request('loadFile', { type, path, data }, (success, result, error) => {
+		console.log('Attempting to load file of type', type, 'at', path);
+		request('loadFile', { type, path }, (success, result, error) => {
 			if (!success) {
 				reject(error);
 			}
@@ -27,7 +28,17 @@ export const loadFile = (type, path) => {
 			resolve(result);
 		});
 	});
-	if (type === Types.MAP) {
-		return Promise.resolve(Sample1);
-	}
+}
+
+export const getFileList = (type) => {
+	return new Promise((resolve, reject) => {
+		console.log('Attempting to load file list type', type);
+		request('getFileList', { type }, (success, result, error) => {
+			if (!success) {
+				reject(error);
+			}
+			
+			resolve(result);
+		});
+	});
 }

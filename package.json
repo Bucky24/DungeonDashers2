@@ -40,6 +40,7 @@
     "file-loader": "2.0.0",
     "html-webpack-plugin": "4.0.0-alpha.2",
     "image-webpack-loader": "^5.0.0",
+    "json-loader": "^0.5.7",
     "progress-bar-webpack-plugin": "^1.12.1",
     "style-loader": "0.23.1",
     "url-loader": "1.1.2",

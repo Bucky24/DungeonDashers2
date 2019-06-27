@@ -4,7 +4,8 @@ export const Constants = {
 
 export const Panes = {
 	HOME: 'home',
-	GAME: 'game'
+	GAME: 'game',
+	MAP_SELECT: 'map_select'
 };
 
 const defaultState = {

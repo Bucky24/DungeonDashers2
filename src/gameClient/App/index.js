@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MenuHandler from '../MenuHandler';
 import GameMap from '../GameMap';
+import MapSelect from '../MapSelect';
 
 import './style.css';
 
@@ -14,7 +15,8 @@ class App extends Component {
 
 		return <div className="App">
 			{ pane === Panes.HOME && <MenuHandler width={width} height={height} /> }
-			{ pane === Panes.GAME && <GameMap width={width} height={height} /> }
+			{ pane === Panes.GAME && <GameMap width={width} height={height} /> }		
+			{ pane === Panes.MAP_SELECT && <MapSelect width={width} height={height} /> }
 		</div>;
 	}
 }

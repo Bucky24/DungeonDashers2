@@ -21,13 +21,24 @@ if (!fs.existsSync(myTempDir)) {
 }
 
 const TypeDirMap = {
-	[Types.MAP]: path.join(myTempDir, 'custom_maps')
+	[Types.MAP]: {
+		path: path.join(__dirname, '..', 'data', 'maps'),
+		create: true,
+		ext: 'map'
+	},
+	[Types.MAP_CUSTOM]: {
+		path: path.join(myTempDir, 'custom_maps'),
+		ext: 'map'
+	}
 }
 
-Object.values(TypeDirMap).forEach((dir) => {
-	if (!fs.existsSync(dir)) {
-		console.log('Creating application directory', dir);
-		fs.mkdirSync(dir);
+Object.values(TypeDirMap).forEach(({ path, create }) => {
+	if (!create) {
+		return;
+	}
+	if (!fs.existsSync(path)) {
+		console.log('Creating application directory', path);
+		fs.mkdirSync(path);
 	}
 });
 
@@ -38,11 +49,13 @@ ipc.on('saveFile', (event, { id, __data }) => {
 		// first remove any problem things in the filename
 		myPath = myPath.replace(['..'], '');
 	
-		const dir = TypeDirMap[type];
+		const dirObj = TypeDirMap[type];
 	
-		if (!dir) {
+		if (!dirObj) {
 			throw new Error(`Invalid file type ${type}`);
 		}
+		
+		const dir = dirObj.path;
 		
 		const fullPath = path.join(dir, myPath);
 		console.log('going to save file', fullPath);
@@ -55,6 +68,92 @@ ipc.on('saveFile', (event, { id, __data }) => {
 			id,
 			success: true,
 			data: fullPath
+		});
+	} catch (error) {
+		console.error(error);
+		event.sender.send('response', {
+			id,
+			success: false,
+			error: error.message
+		});
+	}
+});
+
+ipc.on('loadFile', (event, { id, __data }) => {
+	try {
+		const { type } = __data;
+		let myPath = __data.path;
+		// first remove any problem things in the filename
+		myPath = myPath.replace(['..'], '');
+	
+		const dirObj = TypeDirMap[type];
+	
+		if (!dirObj) {
+			throw new Error(`Invalid file type ${type}`);
+		}
+		
+		const dir = dirObj.path;
+		
+		const fullPath = path.join(dirObj.path, `${myPath}.${dirObj.ext}`);
+		console.log('going to load file', fullPath);
+		
+		const data = fs.readFileSync(fullPath, 'utf8');
+		let dataJson;
+		try {
+			dataJson = JSON.parse(data);
+		} catch (error) {
+			throw new Error('error processing json, got ', data);
+		}
+		
+		event.sender.send('response', {
+			id,
+			success: true,
+			data: dataJson
+		});
+		
+	} catch (error) {
+		console.error(error);
+		event.sender.send('response', {
+			id,
+			success: false,
+			error: error.message
+		});
+	}
+});
+
+ipc.on('getFileList', (event, { id, __data }) => {
+	try {
+		const { type } = __data;
+	
+		const dirObj = TypeDirMap[type];
+	
+		if (!dirObj) {
+			throw new Error(`Invalid file type ${type}`);
+		}
+		
+		fs.readdir(dirObj.path, function(err, items) {
+			try {
+				const resultItems = [];
+			    for (var i=0; i<items.length; i++) {
+					const ext = path.extname(items[i]);
+					if (ext === `.${dirObj.ext}`) {
+						resultItems.push(path.basename(items[i], ext));
+					}
+			    }
+			
+				event.sender.send('response', {
+					id,
+					success: true,
+					data: resultItems
+				});
+			} catch (error) {
+				console.error(error);
+				event.sender.send('response', {
+					id,
+					success: false,
+					error: error.message
+				});
+			}
 		});
 	} catch (error) {
 		console.error(error);

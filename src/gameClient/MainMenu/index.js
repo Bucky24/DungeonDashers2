@@ -21,10 +21,7 @@ class MainMenu extends Component {
 				height={50}
 				text="SINGLEPLAYER"
 				onClick={() => {
-					loadFile(Types.MAP, 'sample1').then((data) => {
-						this.props.loadGame(data);
-						setPane(Panes.GAME);
-					});
+					setPane(Panes.MAP_SELECT);
 				}}
 			/>
 			<Button

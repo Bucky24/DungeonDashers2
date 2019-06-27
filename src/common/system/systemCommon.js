@@ -2,7 +2,8 @@
 
 module.exports = {
 	Types: {
-		MAP: 'map'
+		MAP: 'map',
+		MAP_CUSTOM: 'map_custom'
 	}
 };
 

@@ -69,7 +69,10 @@ class App extends Component {
 			// sizes stubbed for now
 			width: 40,
 			height: 40,
-			tiles: this.state.tiles
+			tiles: this.state.tiles,
+			objects: [],
+			characters: [],
+			enemies: []
 		};
 	}
 
@@ -106,7 +109,7 @@ class App extends Component {
 						}
 						const fullName = `${file}.map`;
 						const mapData = this.buildMap();
-						saveFile(Types.MAP, fullName, mapData).then((data) => {
+						saveFile(Types.MAP_CUSTOM, fullName, mapData).then((data) => {
 							alert(`File saved to ${data}`);
 						});
 					}}
