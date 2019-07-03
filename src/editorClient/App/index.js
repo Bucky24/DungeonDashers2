@@ -5,7 +5,7 @@ import ToolBar from '../ToolBar';
 import BottomBar from '../BottomBar';
 import Map from '../../common/Map';
 import Button from '../../common/Button';
-import { saveFile, Types } from 'system';
+import { saveFile, Types, loadFile } from 'system';
 import TextField from '../../common/TextField'
 
 import './style.css';
@@ -30,7 +30,9 @@ class App extends Component {
 			fileName: '',
 			characters: [{ x: 0, y: 2 }],
 			objects: [],
-			enemies: []
+			enemies: [],
+			width: 40,
+			height: 40
 		};
 		
 		this.handleClick = this.handleClick.bind(this);
@@ -125,8 +127,8 @@ class App extends Component {
 		return {
 			version: ACTIVE_VERSION,
 			// sizes stubbed for now
-			width: 40,
-			height: 40,
+			width: this.state.width,
+			height: this.state.height,
 			tiles: this.state.tiles,
 			objects: this.state.objects,
 			characters: this.state.characters,
@@ -170,6 +172,33 @@ class App extends Component {
 						saveFile(Types.MAP_CUSTOM, fullName, mapData).then((data) => {
 							alert(`File saved to ${data}`);
 						});
+					}}
+				/>
+				<Button
+					x={0}
+					y={height-100}
+					width={100}
+					height={50}
+					text="Load"
+					onClick={() => {
+						const file = this.state.fileName
+						if (!file || file === '') {
+							alert('Unable to load file, no filename given');
+							return;
+						}
+						loadFile(Types.MAP_CUSTOM, file).then((data) => {
+							this.setState({
+								tiles: data.tiles || [],
+								enemies: data.enemies || [],
+								objects: data.objects || [],
+								characters: data.characters || [],
+								width: data.width,
+								height: data.height
+							})
+							console.log('data is', data);
+						}).catch((error) => {
+							alert(error);
+						})
 					}}
 				/>
 				<BottomBar

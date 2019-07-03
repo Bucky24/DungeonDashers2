@@ -4,6 +4,8 @@ For v0.3.0
 * Game can load saved levels - done
 * Treasure chests and gold tracking
 * Maybe another type of enemy?
+* Editor can load custom levels to edit - done
+
 Would like to have:
 * Combat turns
 * Enemies/characters defined by data (makes it much easier to add new ones in later on)

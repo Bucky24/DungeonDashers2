@@ -14,6 +14,8 @@ export const saveFile = (type, path, data) => {
 export const loadFile = (type, path) => {
 	if (type === Types.MAP) {
 		return Promise.resolve(Sample1);
+	} else if (type === Types.MAP_CUSTOM) {
+		return Promise.resolve(Sample1);
 	}
 	
 	return Promise.reject('unknown type');
