@@ -29,6 +29,10 @@ const TypeDirMap = {
 	[Types.MAP_CUSTOM]: {
 		path: path.join(myTempDir, 'custom_maps'),
 		ext: 'map'
+	},
+	[Types.ENEMY]: {
+		path: path.join(__dirname, '..', 'data', 'enemies'),
+		ext: 'enemy'
 	}
 }
 
@@ -109,6 +113,47 @@ ipc.on('loadFile', (event, { id, __data }) => {
 			id,
 			success: true,
 			data: dataJson
+		});
+		
+	} catch (error) {
+		console.error(error);
+		event.sender.send('response', {
+			id,
+			success: false,
+			error: error.message
+		});
+	}
+});
+
+ipc.on('loadImage', (event, { id, __data }) => {
+	try {
+		const { type } = __data;
+		let myPath = __data.path;
+		// first remove any problem things in the filename
+		myPath = myPath.replace(['..'], '');
+	
+		const dirObj = TypeDirMap[type];
+	
+		if (!dirObj) {
+			throw new Error(`Invalid image file type ${type}`);
+		}
+		
+		const dir = dirObj.path;
+		
+		const fullPath = path.join(dirObj.path, myPath);
+		console.log('going to load image file', fullPath);
+		
+		let ext = path.extname(myPath);
+		// chop the period
+		ext = ext.substr(1);
+		
+		const data = fs.readFileSync(fullPath, { encoding: 'base64' });
+		const fullData = `data:image/${ext};base64,${data}`;
+		
+		event.sender.send('response', {
+			id,
+			success: true,
+			data: fullData
 		});
 		
 	} catch (error) {

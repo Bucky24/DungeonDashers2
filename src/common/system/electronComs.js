@@ -23,3 +23,15 @@ export const request = (type, data, cb) => {
 		id
 	});
 }
+
+export const promiseRequest = (type, data) => {
+	return new Promise((resolve, reject) => {
+		request(type, data, (success, result, error) => {
+			if (!success) {
+				reject(error);
+			}
+			
+			resolve(result);
+		});
+	});
+};

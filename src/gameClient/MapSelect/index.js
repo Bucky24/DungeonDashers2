@@ -66,9 +66,8 @@ class MapSelect extends Component {
 			const inactiveEnemies = [];
 			const activeEnemies = [];
 			data.enemies.forEach((enemy) => {
-				const newEnemy = {
-					...enemy
-				};
+				const newEnemy = Object.assign({}, enemy);
+
 				newEnemy.hp = enemyBaseStats[enemy.type].maxHP;
 				if (enemy.trigger) {
 					inactiveEnemies.push(newEnemy);
