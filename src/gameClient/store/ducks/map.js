@@ -1,7 +1,9 @@
+import { getEnemyData } from '../getters/gameData';
+
 export const Constants = {
 	SET_GAME_TILES: 'GAME/SET_GAME_TILES',
 	SET_GAME_CHARACTER: 'GAME/SET_GAME_CHARACTER',
-	SET_GAME: 'GAME/SET_GAME',
+	SET_MAP: 'GAME/SET_MAP',
 	SET_OBJECT: 'GAME/SET_GAME_OBJECT',
 	ACTIVATE_ENEMY: 'GAME/ACTIVATE_ENEMY',
 	SET_ACTIVE_ENEMY: 'GAME/SET_ACTIVE_ENEMY',
@@ -18,46 +20,6 @@ const defaultState = {
 	width: 0,
 	height: 0,
 };
-
-const WalkableTiles = [
-	'ground1'
-];
-
-const collidableObjects = [
-	
-];
-
-const enemyBaseStats = {
-	bat: {
-		hp: 10
-	}
-};
-
-const getWalkable = (tiles, objects) => {
-	const objectKeys = objects.map((object) => {
-		if (collidableObjects.includes(object.type)) {
-			return object.key;
-		}
-	});
-	const walkable = tiles.map((tile) => {
-		if (WalkableTiles.includes(tile.tile)) {
-			return {
-				x: tile.x,
-				y: tile.y
-			};
-		}
-	}).filter((data) => {
-		return !!data
-	})
-	.map((data) => {
-		return `${data.x}_${data.y}`;
-	})
-	.filter((key) => {
-		return !objectKeys.includes(key);
-	});
-	
-	return walkable;
-}
 
 export default (state = defaultState, action) => {
 	if (action.type === Constants.SET_GAME_TILES) {
@@ -82,38 +44,10 @@ export default (state = defaultState, action) => {
 		};
 
 		return newState;
-	} else if (action.type === Constants.SET_GAME) {
-		const newObjects = action.data.objects.map((object) => {
-			return {
-				...object,
-				key: `${object.x}_${object.y}`
-			};
-		});
-		// any enemy without a trigger is active immediately
-		const inactiveEnemies = [];
-		const activeEnemies = [];
-		action.data.enemies.forEach((enemy) => {
-			if (enemy.trigger) {
-				inactiveEnemies.push(enemy);
-			} else {
-				const newEnemy = {
-					...enemy
-				};
-				newEnemy.hp = enemyBaseStats[enemy.type].hp;
-				activeEnemies.push(newEnemy);
-			}
-		})
-		
+	} else if (action.type === Constants.SET_MAP) {
 		const newState = {
 			...state,
-			tiles: action.data.tiles,
-			characters: action.data.characters,
-			objects: newObjects,
-			width: action.data.width,
-			height: action.data.height,
-			walkable: getWalkable(action.data.tiles, newObjects),
-			inactiveEnemies,
-			activeEnemies
+			...action.data
 		};
 		
 		return newState;
@@ -148,8 +82,7 @@ export default (state = defaultState, action) => {
 		const newActiveEnemies = [
 			...state.activeEnemies,
 			{
-				...enemy,
-				...enemyBaseStats[enemy.type]
+				...enemy
 			}
 		];
 		newInactiveEnemies.splice(index, 1);
@@ -223,9 +156,9 @@ export const setCharacter = (data, index) => {
 	};
 };
 
-export const setGame = (data) => {
+export const setMap = (data) => {
 	return {
-		type: Constants.SET_GAME,
+		type: Constants.SET_MAP,
 		data
 	};
 }

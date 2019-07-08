@@ -5,7 +5,6 @@ import Button from '../../common/Button';
 import { loadFile, Types } from 'system';
 
 import { Panes, setUIPane } from '../store/ducks/ui';
-import { setGame } from '../store/ducks/game';
 
 class MainMenu extends Component {
 	render() {
@@ -66,9 +65,6 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		setPane: (pane) => {
 			dispatch(setUIPane(pane));
-		},
-		loadGame: (gameData) => {
-			dispatch(setGame(gameData));
 		}
 	};
 };

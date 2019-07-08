@@ -5,7 +5,42 @@ import Button from '../../common/Button';
 import { getFileList, loadFile, Types } from 'system';
 
 import { Panes, setUIPane } from '../store/ducks/ui';
-import { setGame } from '../store/ducks/game';
+import { setMap } from '../store/ducks/map';
+import { getEnemyData } from '../store/getters/gameData';
+
+const WalkableTiles = [
+	'ground1'
+];
+
+const collidableObjects = [
+	
+];
+
+const getWalkable = (tiles, objects) => {
+	const objectKeys = objects.map((object) => {
+		if (collidableObjects.includes(object.type)) {
+			return object.key;
+		}
+	});
+	const walkable = tiles.map((tile) => {
+		if (WalkableTiles.includes(tile.tile)) {
+			return {
+				x: tile.x,
+				y: tile.y
+			};
+		}
+	}).filter((data) => {
+		return !!data
+	})
+	.map((data) => {
+		return `${data.x}_${data.y}`;
+	})
+	.filter((key) => {
+		return !objectKeys.includes(key);
+	});
+	
+	return walkable;
+}
 
 class MapSelect extends Component {
 	constructor(props) {
@@ -19,7 +54,40 @@ class MapSelect extends Component {
 	
 	loadMap(type, mapName) {
 		loadFile(type, mapName).then((data) => {
-			this.props.loadGame(data);
+			// process the data
+			const enemyBaseStats = this.props.enemyData;
+			const newObjects = data.objects.map((object) => {
+				return {
+					...object,
+					key: `${object.x}_${object.y}`
+				};
+			});
+			// any enemy without a trigger is active immediately
+			const inactiveEnemies = [];
+			const activeEnemies = [];
+			data.enemies.forEach((enemy) => {
+				const newEnemy = {
+					...enemy
+				};
+				newEnemy.hp = enemyBaseStats[enemy.type].maxHP;
+				if (enemy.trigger) {
+					inactiveEnemies.push(newEnemy);
+				} else {
+					activeEnemies.push(newEnemy);
+				}
+			});
+		
+			const newMap = {
+				tiles: data.tiles,
+				characters: data.characters,
+				objects: newObjects,
+				width: data.width,
+				height: data.height,
+				walkable: getWalkable(data.tiles, newObjects),
+				inactiveEnemies,
+				activeEnemies
+			};
+			this.props.setMap(newMap);
 			this.props.setPane(Panes.GAME);
 		});
 	}
@@ -58,6 +126,7 @@ class MapSelect extends Component {
 			</Text>
 			{ this.state.maps.map((mapName, index) => {
 				return <Button
+					key={`base_${index}`}
 					x={0}
 					y={50*index + 20}
 					width={200}
@@ -73,6 +142,7 @@ class MapSelect extends Component {
 			</Text>
 			{ this.state.customMaps.map((mapName, index) => {
 				return <Button
+					key={`custom_${index}`}
 					x={200}
 					y={50*index + 20}
 					width={200}
@@ -89,7 +159,7 @@ class MapSelect extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		
+		enemyData: getEnemyData(state)
 	};
 };
 
@@ -98,8 +168,8 @@ const mapDispatchToProps = (dispatch) => {
 		setPane: (pane) => {
 			dispatch(setUIPane(pane));
 		},
-		loadGame: (gameData) => {
-			dispatch(setGame(gameData));
+		setMap: (gameData) => {
+			dispatch(setMap(gameData));
 		}
 	};
 };

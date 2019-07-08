@@ -47,7 +47,7 @@ module.exports = {
 				]
 			},
 			{
-				test: /\.map$/,
+				test: /\.(map|enemy)$/,
 				loader: 'json-loader'
 			}
 		]

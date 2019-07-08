@@ -10,13 +10,16 @@ import {
 	getObjects,
 	getInactiveEnemies,
 	getActiveEnemies
-} from '../store/getters/game';
+} from '../store/getters/map';
 import {
 	setCharacter,
 	setObject,
 	activateEnemy,
 	harmEnemy
-} from '../store/ducks/game';
+} from '../store/ducks/map';
+import {
+	getEnemyData
+} from '../store/getters/gameData';
 
 class GameMap extends Component {
 	constructor(props) {
@@ -141,6 +144,7 @@ class GameMap extends Component {
 						this.moveActiveChar(0, -1);
 					}
 				}}
+				enemyData={this.props.enemyData}
 			/>
 		</Canvas>);
 	}
@@ -153,7 +157,8 @@ const mapStateToProps = (state) => {
 		walkable: getWalkable(state),
 		objects: getObjects(state),
 		inactiveEnemies: getInactiveEnemies(state),
-		activeEnemies: getActiveEnemies(state)
+		activeEnemies: getActiveEnemies(state),
+		enemyData: getEnemyData(state)
 	};
 };
 

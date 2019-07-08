@@ -1,23 +1,23 @@
 export const getTiles = (state) => {
-	return state.game.tiles || [];
+	return state.map.tiles || [];
 }
 
 export const getCharacters = (state) => {
-	return state.game.characters || [];
+	return state.map.characters || [];
 }
 
 export const getWalkable = (state) => {
-	return state.game.walkable || [];
+	return state.map.walkable || [];
 }
 
 export const getObjects = (state) => {
-	return state.game.objects || [];
+	return state.map.objects || [];
 }
 
 export const getInactiveEnemies = (state) => {
-	return state.game.inactiveEnemies || [];
+	return state.map.inactiveEnemies || [];
 }
 
 export const getActiveEnemies = (state) => {
-	return state.game.activeEnemies || [];
+	return state.map.activeEnemies || [];
 }

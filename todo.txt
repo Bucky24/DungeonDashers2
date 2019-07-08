@@ -5,8 +5,14 @@ For v0.3.0
 * Treasure chests and gold tracking
 * Maybe another type of enemy?
 * Editor can load custom levels to edit - done
+* Enemies defined by data
 
-Would like to have:
+For v0.4.0
+* Better editor experience
+* Characters/Objects defined by data
+* Editor for custom enemies/characters/objects
+* Ability to define a campaign as a series of maps
+* Ability to start/load a campaign
+* Multiple characters on a map
 * Combat turns
-* Enemies/characters defined by data (makes it much easier to add new ones in later on)
-* Some basic structure for equipment.
+* Some basic structure for equipment

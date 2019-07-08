@@ -1,0 +1,9 @@
+{
+	"version": 1,
+	"maxHP": 10,
+	"imageData": {
+		"image": "./bat.png",
+		"width": 32,
+		"height": 32
+	}
+}

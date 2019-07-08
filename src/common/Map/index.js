@@ -14,8 +14,6 @@ import Terrain4 from '../assets/terrain4.png';
 import Character1 from '../assets/character1.png';
 // objects
 import Door1 from '../assets/door1.png';
-// enemies
-import EnemyBat from '../assets/enemyBat.png';
 
 const tileMap = {
 	'ground1': Ground1,
@@ -37,13 +35,6 @@ const objectList = {
 	}
 };
 
-const enemyList = {
-	'bat': {
-		image: EnemyBat,
-		height: 32
-	}
-};
-
 const propTypes = {
 	x: PropTypes.number.isRequired,
 	y: PropTypes.number.isRequired,
@@ -54,7 +45,8 @@ const propTypes = {
 	characters: PropTypes.array.isRequired,
 	enemies: PropTypes.array.isRequired,
 	onKeyUp: PropTypes.func,
-	onClick: PropTypes.func
+	onClick: PropTypes.func,
+	enemyData: PropTypes.object.isRequired
 };
 
 const SQUARE_SIZE = 32;
@@ -111,8 +103,9 @@ class Map extends CanvasComponent {
 				color="#000"
 				fill={true}
 			/>
-			{ this.props.tiles.map((tile) => {
+			{ this.props.tiles.map((tile, index) => {
 				return <Image
+					key={`tile_${index}`}
 					x={x+ tile.x * 32}
 					y={y+ tile.y * 32}
 					width={32}
@@ -120,9 +113,10 @@ class Map extends CanvasComponent {
 					src={tileMap[tile.tile]}
 				/>;
 			})}
-			{ this.props.objects.map((object) => {
+			{ this.props.objects.map((object, index) => {
 				if (object.type === 'door') {
 					return <Door
+						key={`object_${index}`}
 						x={x/SQUARE_SIZE + object.x}
 						y={y/SQUARE_SIZE + object.y}
 						isOpen={object.isOpen}
@@ -135,6 +129,7 @@ class Map extends CanvasComponent {
 				// want to draw from the feet, we have to go 2 up
 				const drawPosition = characterPos.y-2;
 				return <ObjectWithHealth
+					key={`character_${index}`}
 					x={x/SQUARE_SIZE + characterPos.x}
 					y={y/SQUARE_SIZE + drawPosition}
 					width={32}
@@ -144,16 +139,21 @@ class Map extends CanvasComponent {
 					maxHP={1}
 				/>;
 			})}
-			{ this.props.enemies.map((enemy) => {
-				const imageData = enemyList[enemy.type];
+			{ this.props.enemies.map((enemy, index) => {
+				const enemyData = this.props.enemyData[enemy.type];
+				if (!enemyData) {
+					console.error(`Unknown enemy type ${enemy.type}`);
+					return null;
+				}
 				return <ObjectWithHealth
+					key={`enemy_${index}`}
 					x={x/SQUARE_SIZE + enemy.x}
 					y={y/SQUARE_SIZE + enemy.y}
-					width={32}
-					height={imageData.height}
-					image={imageData.image}
+					width={enemyData.imageData.width}
+					height={enemyData.imageData.height}
+					image={enemyData.imageData.image}
 					hp={enemy.hp}
-					maxHP={10}
+					maxHP={enemyData.maxHP}
 				/>;
 			})}
 		</Container>);

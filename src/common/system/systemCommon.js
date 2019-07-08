@@ -3,7 +3,8 @@
 module.exports = {
 	Types: {
 		MAP: 'map',
-		MAP_CUSTOM: 'map_custom'
+		MAP_CUSTOM: 'map_custom',
+		ENEMY: 'enemy'
 	}
 };
 

@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 import ui from './ducks/ui';
-import game from './ducks/game';
+import map from './ducks/map';
+import gameData from './ducks/gameData';
 
 const reducers = {
 	ui,
-	game
+	map,
+	gameData
 };
 
 export default combineReducers(reducers);

@@ -6,6 +6,9 @@ export * from './systemCommon';
 
 import Sample1 from '../../data/maps/sample1.map';
 
+import Bat from '../../data/enemies/bat.enemy';
+import BatImage from '../../data/enemies/bat.png';
+
 export const saveFile = (type, path, data) => {
 	console.log('stub method saveFile saving', type, path, data);
 	return Promise.resolve('stub');
@@ -27,4 +30,17 @@ export const getFileList = (type) => {
 	} else if (type === Types.MAP_CUSTOM) {
 		return Promise.resolve([]);
 	}
+}
+
+export const getBaseEnemyList = () => {
+	return [
+		{
+			...Bat,
+			type: 'bat',
+			imageData: {
+				...Bat.imageData,
+				image: BatImage
+			}
+		}
+	];
 }

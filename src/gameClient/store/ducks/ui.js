@@ -3,13 +3,14 @@ export const Constants = {
 };
 
 export const Panes = {
+	LOAD: 'load',
 	HOME: 'home',
 	GAME: 'game',
 	MAP_SELECT: 'map_select'
 };
 
 const defaultState = {
-	uiPane: Panes.HOME
+	uiPane: Panes.LOAD
 };
 
 export default (state = defaultState, action) => {
