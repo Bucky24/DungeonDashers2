@@ -55,7 +55,7 @@ class Loader extends Component {
 		})
 		.then((enemyTypes) => {
 			this.props.setBaseEnemies(enemyTypes);
-		})
+		});
 	}
 
 	componentDidMount() {

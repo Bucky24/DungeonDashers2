@@ -1,0 +1,6 @@
+For v0.3.0
+* Editor can place enemies, characters, objects
+* Editor can save levels
+* Game can load saved levels
+* Editor can load custom levels to edit
+* Enemies defined by data

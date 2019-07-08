@@ -1,11 +1,6 @@
 For v0.3.0
-* Editor can place enemies, characters, objects - done
-* Editor can save levels - done
-* Game can load saved levels - done
 * Treasure chests and gold tracking
 * Maybe another type of enemy?
-* Editor can load custom levels to edit - done
-* Enemies defined by data
 
 For v0.4.0
 * Better editor experience
