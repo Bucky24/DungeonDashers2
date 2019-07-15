@@ -7,7 +7,8 @@ export const Constants = {
 	SET_OBJECT: 'GAME/SET_GAME_OBJECT',
 	ACTIVATE_ENEMY: 'GAME/ACTIVATE_ENEMY',
 	SET_ACTIVE_ENEMY: 'GAME/SET_ACTIVE_ENEMY',
-	HARM_ENEMY: 'GAME/HARM_ENEMY'
+	HARM_ENEMY: 'GAME/HARM_ENEMY',
+	REMOVE_OBJECT: 'GAME/REMOVE_OBJECT'
 };
 
 const defaultState = {
@@ -134,6 +135,23 @@ export default (state = defaultState, action) => {
 			...state,
 			activeEnemies: newEnemies
 		};
+	} else if (action.type === Constants.REMOVE_OBJECT) {
+		const newObjects = [
+			...state.objects
+		];
+		const index = newObjects.findIndex((obj) => {
+			return obj.id === action.id;
+		});
+		if (index === -1) {
+			throw new Error(`Unable to find object for id ${action.id}`);
+		}
+		
+		newObjects.splice(index, 1);
+		
+		return {
+			...state,
+			objects: newObjects
+		};
 	} else {
 		return state;
 	}
@@ -191,5 +209,12 @@ export const harmEnemy = (id, amount) => {
 		type: Constants.HARM_ENEMY,
 		id,
 		amount
+	};
+}
+
+export const removeObject = (id) => {
+	return {
+		type: Constants.REMOVE_OBJECT,
+		id
 	};
 }

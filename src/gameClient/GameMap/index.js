@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Canvas } from '@bucky24/react-canvas';
+import { Canvas, Text, Rect } from '@bucky24/react-canvas';
 import Map from '../../common/Map';
 
 import {
@@ -15,11 +15,18 @@ import {
 	setCharacter,
 	setObject,
 	activateEnemy,
-	harmEnemy
+	harmEnemy,
+	removeObject
 } from '../store/ducks/map';
 import {
 	getEnemyData
 } from '../store/getters/gameData';
+import {
+	addGold
+} from '../store/ducks/campaign';
+import {
+	getGold
+} from '../store/getters/campaign';
 
 class GameMap extends Component {
 	constructor(props) {
@@ -114,6 +121,9 @@ class GameMap extends Component {
 			this.props.harmEnemy(obj2.id, 5);
 			
 			return false;
+		} else if (obj1.type === 'player' && obj2.type === 'chest') {
+			this.props.removeObject(obj2.id);
+			this.props.addGold(obj2.amount)
 		}
 		
 		return true;
@@ -146,6 +156,20 @@ class GameMap extends Component {
 				}}
 				enemyData={this.props.enemyData}
 			/>
+			<Rect
+				x={0}
+				y={0}
+				x2={100}
+				y2={14}
+				color="#fff"
+				fill={true}
+			/>
+			<Text
+				x={0}
+				y={12}
+			>
+				Gold: {this.props.gold}
+			</Text>
 		</Canvas>);
 	}
 }
@@ -158,7 +182,8 @@ const mapStateToProps = (state) => {
 		objects: getObjects(state),
 		inactiveEnemies: getInactiveEnemies(state),
 		activeEnemies: getActiveEnemies(state),
-		enemyData: getEnemyData(state)
+		enemyData: getEnemyData(state),
+		gold: getGold(state)
 	};
 };
 
@@ -175,8 +200,14 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		harmEnemy: (id, amount) => {
 			return dispatch(harmEnemy(id, amount));
+		},
+		removeObject: (id) => {
+			return dispatch(removeObject(id));
+		},
+		addGold: (amount) => {
+			return dispatch(addGold(amount));
 		}
-	};
+ 	};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameMap);

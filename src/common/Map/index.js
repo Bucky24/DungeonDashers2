@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Shape, Image, CanvasComponent, Container, Canvas } from '@bucky24/react-canvas';
 import Door from '../Door';
 import ObjectWithHealth from '../ObjectWithHealth';
+import Object from '../Object';
 
 // images for tiles
 import Ground1 from '../assets/ground1.png';
@@ -14,6 +15,7 @@ import Terrain4 from '../assets/terrain4.png';
 import Character1 from '../assets/character1.png';
 // objects
 import Door1 from '../assets/door1.png';
+import Chest1 from '../assets/chest1.png';
 
 const tileMap = {
 	'ground1': Ground1,
@@ -32,6 +34,12 @@ const objectList = {
 		image: Door1,
 		yOff: -13,
 		height: 45
+	},
+	'chest': {
+		image: Chest1,
+		yOff: 0,
+		height: 32,
+		width: 32
 	}
 };
 
@@ -120,6 +128,17 @@ class Map extends CanvasComponent {
 						x={x/SQUARE_SIZE + object.x}
 						y={y/SQUARE_SIZE + object.y}
 						isOpen={object.isOpen}
+					/>
+				} else {
+					const data = objectList[object.type];
+					return <Object
+						key={`object_${index}`}
+						x={x + object.x * SQUARE_SIZE}
+						y={y + object.y * SQUARE_SIZE}
+						image={data.image}
+						yOff={data.yOff}
+						height={data.height}
+						width={data.width}
 					/>
 				}
 			})}

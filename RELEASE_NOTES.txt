@@ -4,3 +4,4 @@ For v0.3.0
 * Game can load saved levels
 * Editor can load custom levels to edit
 * Enemies defined by data
+* Treasure chests and gold tracking

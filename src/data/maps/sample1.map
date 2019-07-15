@@ -27,7 +27,9 @@
 		{ "x": 5, "y": 5 }
 	],
 	"objects": [
-		{ "type": "door", "id": 1, "x": 8, "y": 6 }
+		{ "type": "door", "id": 1, "x": 8, "y": 6 },
+		{ "type": "chest", "id": 2, "x": 8, "y": 7, "amount": 100 },
+		{ "type": "chest", "id": 2, "x": 8, "y": 8, "amount": 200 }
 	],
 	"enemies": [
 		{ "type": "bat", "id": 1, "trigger": 1, "x": 8, "y": 10}
