@@ -1,7 +1,3 @@
-For v0.3.0
-* Treasure chests and gold tracking
-* Maybe another type of enemy?
-
 For v0.4.0
 * Better editor experience
 * Characters/Objects defined by data

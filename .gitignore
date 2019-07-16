@@ -1,6 +1,7 @@
 node_modules
 npm-debug.log
 build
-electron_app
+electron_game
+electron_editor
 dist
 electron-v5.0.2-win32-ia32.zip

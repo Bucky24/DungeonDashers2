@@ -5,3 +5,4 @@ For v0.3.0
 * Editor can load custom levels to edit
 * Enemies defined by data
 * Treasure chests and gold tracking
+* Added skeleton enemy

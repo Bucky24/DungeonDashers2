@@ -21,15 +21,15 @@ class ObjectWithHealth extends Component {
 
 		return <Container>
 			<Image
-				x={x * 32}
-				y={y * 32}
+				x={x}
+				y={y}
 				width={width}
 				height={height}
 				src={image}
 			/>;
 			<Shape
-				x={x*32}
-				y={y*32 + height}
+				x={x}
+				y={y + height}
 				points={[
 					{ x: 0, y: -10 },
 					{ x: width, y: -10 },
@@ -40,8 +40,8 @@ class ObjectWithHealth extends Component {
 				fill={true}
 			/>
 			<Shape
-				x={x*32}
-				y={y*32 + height}
+				x={x}
+				y={y + height}
 				points={[
 					{ x: 0, y: -10 },
 					{ x: hpWidth, y: -10 },

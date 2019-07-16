@@ -149,8 +149,8 @@ class Map extends CanvasComponent {
 				const drawPosition = characterPos.y-2;
 				return <ObjectWithHealth
 					key={`character_${index}`}
-					x={x/SQUARE_SIZE + characterPos.x}
-					y={y/SQUARE_SIZE + drawPosition}
+					x={x + characterPos.x*SQUARE_SIZE}
+					y={y + drawPosition*SQUARE_SIZE}
 					width={32}
 					height={96}
 					image={image}
@@ -164,10 +164,14 @@ class Map extends CanvasComponent {
 					console.error(`Unknown enemy type ${enemy.type}`);
 					return null;
 				}
+				const actualEnemyY = enemy.y * SQUARE_SIZE;
+				// if enemy is over 32 in height, we need to subtract by
+				// that much so it shows up on correct square
+				const actualYPosition = actualEnemyY - (enemyData.imageData.height-32);
 				return <ObjectWithHealth
 					key={`enemy_${index}`}
-					x={x/SQUARE_SIZE + enemy.x}
-					y={y/SQUARE_SIZE + enemy.y}
+					x={x + enemy.x * SQUARE_SIZE}
+					y={y + actualYPosition}
 					width={enemyData.imageData.width}
 					height={enemyData.imageData.height}
 					image={enemyData.imageData.image}
