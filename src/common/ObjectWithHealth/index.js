@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Image, Shape } from '@bucky24/react-canvas';
+import { Container, Image, Shape, Rect } from '@bucky24/react-canvas';
 
 class ObjectWithHealth extends Component {
 	constructor(props) {
@@ -13,7 +13,8 @@ class ObjectWithHealth extends Component {
 			height,
 			image,
 			maxHP,
-			hp
+			hp,
+			selected
 		} = this.props;
 		
 		const widthPerPixel = width / maxHP;
@@ -29,7 +30,7 @@ class ObjectWithHealth extends Component {
 			/>;
 			<Shape
 				x={x}
-				y={y + height}
+				y={y}
 				points={[
 					{ x: 0, y: -10 },
 					{ x: width, y: -10 },
@@ -41,7 +42,7 @@ class ObjectWithHealth extends Component {
 			/>
 			<Shape
 				x={x}
-				y={y + height}
+				y={y}
 				points={[
 					{ x: 0, y: -10 },
 					{ x: hpWidth, y: -10 },
@@ -51,6 +52,14 @@ class ObjectWithHealth extends Component {
 				color="#0f0"
 				fill={true}
 			/>
+			{ selected && <Rect
+				x={x}
+				y={y}
+				x2={x+width}
+				y2={y+height}
+				color="#f00"
+				fill={false}
+			/>}
 		</Container>;
 	}
 }

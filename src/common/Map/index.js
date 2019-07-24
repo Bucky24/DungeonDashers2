@@ -13,6 +13,7 @@ import Terrain3 from '../assets/terrain3.png';
 import Terrain4 from '../assets/terrain4.png';
 // images for characters
 import Character1 from '../assets/character1.png';
+import Character2 from '../assets/character2.png';
 // objects
 import Door1 from '../assets/door1.png';
 import Chest1 from '../assets/chest1.png';
@@ -26,7 +27,8 @@ const tileMap = {
 };
 
 const characterList = [
-	Character1
+	Character1,
+	Character2
 ];
 
 const objectList = {
@@ -142,19 +144,20 @@ class Map extends CanvasComponent {
 					/>
 				}
 			})}
-			{ this.props.characters.map((characterPos, index) => {
+			{ this.props.characters.map((characterObj, index) => {
 				const image = characterList[index];
 				// since character images are 96 pixels, and we
 				// want to draw from the feet, we have to go 2 up
-				const drawPosition = characterPos.y-2;
+				const drawPosition = characterObj.y-2;
 				return <ObjectWithHealth
 					key={`character_${index}`}
-					x={x + characterPos.x*SQUARE_SIZE}
+					x={x + characterObj.x*SQUARE_SIZE}
 					y={y + drawPosition*SQUARE_SIZE}
 					width={32}
 					height={96}
 					image={image}
 					hp={1}
+					selected={characterObj.selected}
 					maxHP={1}
 				/>;
 			})}

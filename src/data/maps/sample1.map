@@ -4,7 +4,6 @@
 	"tiles": [
 		{ "tile": "ground1", "x": 5, "y": 5 },
 		{ "tile": "ground1", "x": 6, "y": 5 },
-		{ "tile": "ground1", "x": 6, "y": 5 },
 		{ "tile": "ground1", "x": 7, "y": 5 },
 		{ "tile": "ground1", "x": 8, "y": 5 },
 		{ "tile": "terrain1", "x": 7, "y": 6 },
@@ -21,10 +20,15 @@
 		{ "tile": "ground1", "x": 8, "y": 8 },
 		{ "tile": "ground1", "x": 8, "y": 9 },
 		{ "tile": "ground1", "x": 8, "y": 10 },
-		{ "tile": "ground1", "x": 8, "y": 11 }
+		{ "tile": "ground1", "x": 8, "y": 11 },
+		{ "tile": "ground1", "x": 4, "y": 5 },
+		{ "tile": "ground1", "x": 4, "y": 6 },
+		{ "tile": "ground1", "x": 4, "y": 7 },
+		{ "tile": "ground1", "x": 4, "y": 8 }
 	],
 	"characters": [
-		{ "x": 5, "y": 5 }
+		{ "x": 5, "y": 5 },
+		{ "x": 4, "y": 5 }
 	],
 	"objects": [
 		{ "type": "door", "id": 1, "x": 8, "y": 6 },
@@ -33,6 +37,6 @@
 	],
 	"enemies": [
 		{ "type": "bat", "id": 1, "trigger": 1, "x": 8, "y": 10},
-		{ "type": "skeleton", "id": 2, "x": 6, "y": 5}
+		{ "type": "skeleton", "id": 2, "x": 8, "y": 5}
 	]
 }

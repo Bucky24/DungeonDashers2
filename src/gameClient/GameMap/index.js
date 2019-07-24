@@ -16,7 +16,8 @@ import {
 	setObject,
 	activateEnemy,
 	harmEnemy,
-	removeObject
+	removeObject,
+	setActiveCharacter
 } from '../store/ducks/map';
 import {
 	getEnemyData
@@ -36,8 +37,9 @@ class GameMap extends Component {
 		this.handleCollision = this.handleCollision.bind(this);
 	}
 	moveActiveChar(xOff, yOff) {
-		// assume active is number 1 for now
-		const activeIndex = 0;
+		const activeIndex = this.props.characters.findIndex((char) => {
+			return char.selected;
+		});
 		const activeChar = this.props.characters[activeIndex];
 		const newX = activeChar.x + xOff;
 		const newY = activeChar.y + yOff;
@@ -64,6 +66,15 @@ class GameMap extends Component {
 					canMove = false;
 				}
 			}
+		}
+		
+		const charactersCollided = this.props.characters.filter((object) => {
+			const objKey = `${object.x}_${object.y}`;
+			return objKey === key;
+		});
+		
+		if (charactersCollided.length > 0) {
+			canMove = false;
 		}
 		
 		const enemiesCollided = this.props.activeEnemies.filter((enemy) => {
@@ -152,6 +163,15 @@ class GameMap extends Component {
 						this.moveActiveChar(0, 1);
 					} else if (code === 'ArrowUp') {
 						this.moveActiveChar(0, -1);
+					} else if (code === 'Enter') {
+						let activeIndex = this.props.characters.findIndex((char) => {
+							return char.selected;
+						});
+						activeIndex ++;
+						if (activeIndex >= this.props.characters.length) {
+							activeIndex = 0;
+						}
+						this.props.setActiveCharacter(activeIndex);
 					}
 				}}
 				enemyData={this.props.enemyData}
@@ -206,6 +226,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		addGold: (amount) => {
 			return dispatch(addGold(amount));
+		},
+		setActiveCharacter: (index) => {
+			dispatch(setActiveCharacter(index));
 		}
  	};
 };

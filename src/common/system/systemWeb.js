@@ -8,6 +8,8 @@ import Sample1 from '../../data/maps/sample1.map';
 
 import Bat from '../../data/enemies/bat.enemy';
 import BatImage from '../../data/enemies/bat.png';
+import Skeleton from '../../data/enemies/skeleton.enemy';
+import SkeletonImage from '../../data/enemies/skeleton.png';
 
 export const saveFile = (type, path, data) => {
 	console.log('stub method saveFile saving', type, path, data);
@@ -40,6 +42,14 @@ export const getBaseEnemyList = () => {
 			imageData: {
 				...Bat.imageData,
 				image: BatImage
+			}
+		},
+		{
+			...Skeleton,
+			type: 'skeleton',
+			imageData: {
+				...Skeleton.imageData,
+				image: SkeletonImage
 			}
 		}
 	];

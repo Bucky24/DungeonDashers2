@@ -6,3 +6,6 @@ v0.3.0
 * Enemies defined by data
 * Treasure chests and gold tracking
 * Added skeleton enemy
+
+v0.4.0
+* Multiple characters on a map

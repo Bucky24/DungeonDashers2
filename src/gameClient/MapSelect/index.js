@@ -5,7 +5,7 @@ import Button from '../../common/Button';
 import { getFileList, loadFile, Types } from 'system';
 
 import { Panes, setUIPane } from '../store/ducks/ui';
-import { setMap } from '../store/ducks/map';
+import { setMap, setActiveCharacter } from '../store/ducks/map';
 import { getEnemyData } from '../store/getters/gameData';
 
 const WalkableTiles = [
@@ -87,6 +87,7 @@ class MapSelect extends Component {
 				activeEnemies
 			};
 			this.props.setMap(newMap);
+			this.props.setActiveCharacter(0);
 			this.props.setPane(Panes.GAME);
 		});
 	}
@@ -169,6 +170,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		setMap: (gameData) => {
 			dispatch(setMap(gameData));
+		},
+		setActiveCharacter: (index) => {
+			dispatch(setActiveCharacter(index));
 		}
 	};
 };

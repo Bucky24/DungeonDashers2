@@ -1,14 +1,13 @@
-import { getEnemyData } from '../getters/gameData';
-
 export const Constants = {
-	SET_GAME_TILES: 'GAME/SET_GAME_TILES',
-	SET_GAME_CHARACTER: 'GAME/SET_GAME_CHARACTER',
-	SET_MAP: 'GAME/SET_MAP',
-	SET_OBJECT: 'GAME/SET_GAME_OBJECT',
-	ACTIVATE_ENEMY: 'GAME/ACTIVATE_ENEMY',
-	SET_ACTIVE_ENEMY: 'GAME/SET_ACTIVE_ENEMY',
-	HARM_ENEMY: 'GAME/HARM_ENEMY',
-	REMOVE_OBJECT: 'GAME/REMOVE_OBJECT'
+	SET_GAME_TILES: 'MAP/SET_GAME_TILES',
+	SET_GAME_CHARACTER: 'MAP/SET_GAME_CHARACTER',
+	SET_MAP: 'MAP/SET_MAP',
+	SET_OBJECT: 'MAP/SET_GAME_OBJECT',
+	ACTIVATE_ENEMY: 'MAP/ACTIVATE_ENEMY',
+	SET_ACTIVE_ENEMY: 'MAP/SET_ACTIVE_ENEMY',
+	HARM_ENEMY: 'MAP/HARM_ENEMY',
+	REMOVE_OBJECT: 'MAP/REMOVE_OBJECT',
+	SET_ACTIVE_CHARACTER: 'MAP/SET_ACTIVE_CHARACTER'
 };
 
 const defaultState = {
@@ -152,6 +151,23 @@ export default (state = defaultState, action) => {
 			...state,
 			objects: newObjects
 		};
+	} else if (action.type === Constants.SET_ACTIVE_CHARACTER) {
+		// this does two things. First, makes sure we spread the characters
+		// so we don't modify original object. Second, set selected to false.
+		// we will update appropriate character to true later.
+		const newCharacters = state.characters.map((character) => {
+			return {
+				...character,
+				selected: false
+			}
+		});
+		// object has been spread, we can modify it
+		newCharacters[action.index].selected = true;
+		
+		return {
+			...state,
+			characters: newCharacters
+		};
 	} else {
 		return state;
 	}
@@ -216,5 +232,12 @@ export const removeObject = (id) => {
 	return {
 		type: Constants.REMOVE_OBJECT,
 		id
+	};
+}
+
+export const setActiveCharacter = (index) => {
+	return {
+		type: Constants.SET_ACTIVE_CHARACTER,
+		index
 	};
 }

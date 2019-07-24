@@ -24,13 +24,6 @@ class Loader extends Component {
 		];
 	}
 	
-	loadMap(type, mapName) {
-		loadFile(type, mapName).then((data) => {
-			this.props.loadMap(data);
-			this.props.setPane(Panes.GAME);
-		});
-	}
-	
 	runStep() {
 		if (this.state.currentStep >= this.toLoad.length) {
 			this.props.setPane(Panes.HOME);
