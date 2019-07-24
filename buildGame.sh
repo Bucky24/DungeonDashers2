@@ -3,18 +3,23 @@
 echo Cleanup old app
 rm -rf electron_game
 rm dd2_game.zip
-unzip electron-v5.0.2-win32-ia32.zip -d electron_game
+rm dist/dd2_game.zip
+unzip electron-v5.0.2-win32-ia32.zip -d electron_game 1>/dev/null
 mv electron_game/electron.exe electron_game/dd2.exe
 mkdir electron_game/resources/app
-echo Building new app
+echo Building new game
 ELECTRON=true npm run build-game
 echo Copying app
 cp -rp build electron_game/resources/app
 cp -p package.json electron_game/resources/app
 mkdir electron_game/resources/app/src
 cp -rp src/electronClient electron_game/resources/app/src
+cp -rp src/common electron_game/resources/app/src
+cp -rp src/data electron_game/resources/app/src
 echo Creating zip
-zip -r dd2_game electron_game
+cd electron_game
+zip -r dd2_game * 1>/dev/null
+cd ..
 mkdir -p dist
-mv dd2_game.zip dist
+mv electron_game/dd2_game.zip dist
 echo Done!
