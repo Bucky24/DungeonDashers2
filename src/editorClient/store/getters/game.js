@@ -1,23 +1,7 @@
-export const getTiles = (state) => {
-	return state.game.tiles || [];
+export const getFile = (state) => {
+	return state.game.fileName || '';
 }
 
-export const getCharacters = (state) => {
-	return state.game.characters || [];
-}
-
-export const getWalkable = (state) => {
-	return state.game.walkable || [];
-}
-
-export const getObjects = (state) => {
-	return state.game.objects || [];
-}
-
-export const getInactiveEnemies = (state) => {
-	return state.game.inactiveEnemies || [];
-}
-
-export const getActiveEnemies = (state) => {
-	return state.game.activeEnemies || [];
+export const getMap = (state) => {
+	return state.game.map || {};
 }

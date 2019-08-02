@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
 	Container,
 	Shape,
 	ButtonTypes,
 	Text,
-	CanvasComponent
+	Canvas
 } from '@bucky24/react-canvas';
-import { saveFile, Types, loadFile } from 'system';
+
+import { setMap } from '../store/ducks/game';
+import { getMap } from '../store/getters/game';
 
 import ToolBar from '../ToolBar';
 import BottomBar from '../BottomBar';
@@ -24,25 +27,41 @@ const TOOL_LIST = [
 	{ id: 'character', name: 'Character' }
 ];
 
-class Editor extends CanvasComponent {
+const terrainData = {
+	'ground1': 'Ground 1'
+};
+
+const objectData = {
+	'door': 'Door',
+	'chest': 'Chest'
+};
+
+class Editor extends React.Component {
 	constructor(props) {
 		super(props);
-		
+
+		const data = props.map;
+
 		this.state = {
 			activeTool: null,
+			activeID: null,
 			tiles: [],
 			fileName: '',
-			characters: [{ x: 0, y: 2 }],
-			objects: [],
-			enemies: [],
-			width: 40,
-			height: 40
+			tiles: data.tiles || [],
+			enemies: data.enemies || [],
+			objects: data.objects || [],
+			characters: data.characters || [{ x: 0, y: 2 }],
+			width: data.width,
+			height: data.height
 		};
-		
+
 		this.handleClick = this.handleClick.bind(this);
 	}
 
-	handleClick(x, y, button) {
+	handleClick(x, y, button, cb) {
+		if (this.state.activeID === null) {
+			return;
+		}
 		const locateObjectAt = (array, x, y) => {
 			return array.findIndex((elem) => {
 				return elem.x === x && elem.y === y;
@@ -53,7 +72,7 @@ class Editor extends CanvasComponent {
 			const tileIndex = locateObjectAt(this.state.tiles, x, y);
 			if (button === ButtonTypes.LEFT) {
 				const tile = {
-					tile: 'ground1',
+					tile: this.state.activeID,
 					x,
 					y
 				}
@@ -70,18 +89,18 @@ class Editor extends CanvasComponent {
 			
 			this.setState({
 				tiles: newTiles
-			});
+			}, cb);
 		} else if (this.state.activeTool === 'character') {
 			// for now just set coords of first character
 			this.setState({
 				characters: [{ x, y }]
-			});
+			}, cb);
 		} else if (this.state.activeTool === 'enemy') {
 			const newEnemies = [...this.state.enemies];
 			const objIndex = locateObjectAt(this.state.enemies, x, y);
 			if (button === ButtonTypes.LEFT) {
 				const enemy = {
-					type: "bat",
+					type: this.state.activeID,
 					id: newEnemies.length + 1,
 					x,
 					y
@@ -99,13 +118,13 @@ class Editor extends CanvasComponent {
 			
 			this.setState({
 				enemies: newEnemies
-			});
+			}, cb);
 		} else if (this.state.activeTool === 'object') {
 			const newObjects = [...this.state.objects];
 			const objIndex = locateObjectAt(this.state.objects, x, y);
 			if (button === ButtonTypes.LEFT) {
 				const object = {
-					type: "door",
+					type: this.state.activeID,
 					id: newObjects.length + 1,
 					x,
 					y
@@ -123,10 +142,10 @@ class Editor extends CanvasComponent {
 			
 			this.setState({
 				objects: newObjects
-			});
+			}, cb);
 		}
 	}
-	
+
 	buildMap() {
 		return {
 			version: ACTIVE_VERSION,
@@ -139,108 +158,95 @@ class Editor extends CanvasComponent {
 			enemies: this.state.enemies
 		};
 	}
+	
+	updateMap() {
+		const map = this.buildMap();
+		this.props.setMap(map);
+	}
 
 	render() {
 		const { width, height, pane } = this.props;
+		
+		const enemiesWithHealth = this.state.enemies.map((enemy) => {
+			const data = this.props.enemyData[enemy.type];
+			return {
+				...enemy,
+				hp: data.maxHP
+			};
+		});
 
-	return <Container>
-			<ToolBar
-				width={100}
-				height={height}
-				activeTool={this.state.activeTool}
-				tools={TOOL_LIST}
-				setActiveTool={(newTool) => {
-					this.setState({
-						activeTool: newTool
-					});
-				}}
-			/>
-			<Button
-				x={0}
-				y={height-50}
-				width={100}
-				height={50}
-				text="Save"
-				onClick={() => {
-					const file = this.state.fileName
-					if (!file || file === '') {
-						alert('Unable to save file, no filename given');
-						return;
-					}
-					const fullName = `${file}.map`;
-					const mapData = this.buildMap();
-					saveFile(Types.MAP_CUSTOM, fullName, mapData).then((data) => {
-						alert(`File saved to ${data}`);
-					});
-				}}
-			/>
-			<Button
-				x={0}
-				y={height-100}
-				width={100}
-				height={50}
-				text="Load"
-				onClick={() => {
-					const file = this.state.fileName
-					if (!file || file === '') {
-						alert('Unable to load file, no filename given');
-						return;
-					}
-					loadFile(Types.MAP_CUSTOM, file).then((data) => {
-						this.setState({
-							tiles: data.tiles || [],
-							enemies: data.enemies || [],
-							objects: data.objects || [],
-							characters: data.characters || [],
-							width: data.width,
-							height: data.height
-						})
-						console.log('data is', data);
-					}).catch((error) => {
-						alert(error);
-					})
-				}}
-			/>
-			<BottomBar
-				x={100}
-				y={height-100}
-				width={width-100}
-				height={100}
-				activeTool={this.state.activeTool}
-			/>
-			<Text
-				x={100}
-				y={height-86}
-			>
-				Filename:
-			</Text>
-			<TextField
-				x={150}
-				y={height-100}
-				width={300}
-				height={20}
-				onChange={(newText) => {
-					this.setState({
-						fileName: newText
-					});
-				}}
-			/>
-			<Map
-				x={100}
-				y={0}
-				width={width-100}
+		return <div>
+			<Canvas
+				width={width}
 				height={height-100}
-				tiles={this.state.tiles}
-				enemies={this.state.enemies}
-				objects={this.state.objects}
-				characters={this.state.characters}
-				onClick={(x, y, button) => {
-					this.handleClick(x, y, button);
-				}}
+				onClick={this.handleClick}
+			>
+				<Container>
+					<ToolBar
+						width={100}
+						height={height}
+						activeTool={this.state.activeTool}
+						tools={TOOL_LIST}
+						setActiveTool={(newTool) => {
+							this.setState({
+								activeTool: newTool,
+								activeID: null
+							});
+						}}
+					/>
+					<BottomBar
+						x={100}
+						y={height-100}
+						width={width-100}
+						height={100}
+						activeTool={this.state.activeTool}
+					/>
+					<Map
+						x={100}
+						y={0}
+						width={width-100}
+						height={height-100}
+						tiles={this.state.tiles}
+						enemies={enemiesWithHealth}
+						objects={this.state.objects}
+						characters={this.state.characters}
+						onClick={(x, y, button) => {
+							this.handleClick(x, y, button, () => {
+								this.updateMap();
+							});
+						}}
+						enemyData={this.props.enemyData}
+					/>
+				</Container>
+			</Canvas>
+			<BottomBar
+				activeTool={this.state.activeTool}
 				enemyData={this.props.enemyData}
+				terrainList={terrainData}
+				setActiveID={(activeID) => {
+					this.setState({
+						activeID
+					});
+				}}
+				objectList={objectData}
+				activeID={this.state.activeID}
 			/>
-		</Container>;
+		</div>;
 	}
 }
 
-export default Editor;
+const mapStateToProps = (state) => {
+	return {
+		map: getMap(state)
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		setMap: (map) => {
+			dispatch(setMap(map));
+		}
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Editor);

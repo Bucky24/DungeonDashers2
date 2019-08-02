@@ -1,0 +1,17 @@
+.tabInner {
+	display: flex;
+	border-bottom: 1px solid grey;
+}
+
+.tab {
+	background-color: lightgrey;
+	padding: 10px;
+	border-top-left-radius: 9px;
+	border-top-right-radius: 9px;
+	cursor: pointer;
+	margin-right: 5px;
+}
+
+.selected {
+	background-color: grey;
+}
