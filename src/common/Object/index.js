@@ -8,7 +8,7 @@ class Object extends Component {
 	render() {
 		const { x, y, image, yOff, height, width } = this.props;
 
-		const drawPosition = y-yOff;
+		const drawPosition = y-(yOff || 0);
 		return <Container>
 			<Image
 				x={x}

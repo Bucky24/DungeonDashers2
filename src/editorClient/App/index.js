@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Canvas } from '@bucky24/react-canvas';
-import { saveFile, Types, loadFile, getBaseEnemyList } from 'system';
+import {
+	saveFile,
+	Types,
+	loadFile,
+	getBaseEnemyList,
+	getBaseObjectList
+} from 'system';
 import Editor from '../Editor'
 import TabBar from '../../common/TabBar';
 import MainTab from '../MainTab';
@@ -13,7 +19,8 @@ class App extends Component {
 		super(props);
 		
 		this.state = {
-			enemyData: {}
+			enemyData: {},
+			objectData: {}
 		}
 	}
 	
@@ -26,8 +33,17 @@ class App extends Component {
 				[enemy.type]: enemy
 			};
 		}, {})
+		// fetch object data
+		const objectData = await getBaseObjectList();
+		const objectDataMap = objectData.reduce((obj, object) => {
+			return {
+				...obj,
+				[object.type]: object
+			};
+		}, {})
 		this.setState({
-			enemyData: enemyDataMap
+			enemyData: enemyDataMap,
+			objectData: objectDataMap
 		});
 	}
 
@@ -38,6 +54,7 @@ class App extends Component {
 			width={width}
 			height={height-100}
 			enemyData={this.state.enemyData}
+			objectData={this.state.objectData}
 		/>;
 		
 		const mainTab = <MainTab />;

@@ -31,11 +31,6 @@ const terrainData = {
 	'ground1': 'Ground 1'
 };
 
-const objectData = {
-	'door': 'Door',
-	'chest': 'Chest'
-};
-
 class Editor extends React.Component {
 	constructor(props) {
 		super(props);
@@ -216,6 +211,7 @@ class Editor extends React.Component {
 							});
 						}}
 						enemyData={this.props.enemyData}
+						objectData={this.props.objectData}
 					/>
 				</Container>
 			</Canvas>
@@ -228,7 +224,7 @@ class Editor extends React.Component {
 						activeID
 					});
 				}}
-				objectList={objectData}
+				objectData={this.props.objectData}
 				activeID={this.state.activeID}
 			/>
 		</div>;

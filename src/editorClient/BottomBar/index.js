@@ -10,7 +10,7 @@ const BottomBar = ({
 	terrainList,
 	activeID,
 	setActiveID,
-	objectList
+	objectData
 }) => {
 	let dataList;
 	
@@ -28,7 +28,13 @@ const BottomBar = ({
 			}, {});
 			break;
 		case 'object':
-			dataList = objectList || {};
+			dataList = objectData || {};
+			dataList = Object.keys(dataList).reduce((obj, key) => {
+				return {
+					...obj,
+					[key]: key
+				}
+			}, {});
 			break;
 	}
 	
