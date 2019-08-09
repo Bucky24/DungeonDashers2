@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Shape, Text, Canvas } from '@bucky24/react-canvas';
 import {
-	getBaseEnemyList
+	getBaseEnemyList,
+	getBaseObjectList
 } from 'system';
 
 import { Panes, setUIPane } from '../store/ducks/ui';
-import { setBaseEnemies } from '../store/ducks/gameData';
+import {
+	setBaseEnemies,
+	setBaseObjects
+} from '../store/ducks/gameData';
 
 class Loader extends Component {
 	constructor(props) {
@@ -18,9 +22,11 @@ class Loader extends Component {
 	
 		this.runStep = this.runStep.bind(this);
 		this.loadBaseEnemy = this.loadBaseEnemy.bind(this);
-		
+		this.loadBaseObjects = this.loadBaseObjects.bind(this);
+
 		this.toLoad = [
-			{ name: 'Base Enemy Config', fn: this.loadBaseEnemy }
+			{ name: 'Base Enemy Config', fn: this.loadBaseEnemy },
+			{ name: 'Base Object Config', fn: this.loadBaseObjects }
 		];
 	}
 	
@@ -48,6 +54,16 @@ class Loader extends Component {
 		})
 		.then((enemyTypes) => {
 			this.props.setBaseEnemies(enemyTypes);
+		});
+	}
+	
+	loadBaseObjects() {
+		return Promise.resolve()
+		.then(() => {
+			return getBaseObjectList();
+		})
+		.then((objectTypes) => {
+			this.props.setBaseObjects(objectTypes);
 		});
 	}
 
@@ -96,6 +112,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		setBaseEnemies: (enemyData) => {
 			dispatch(setBaseEnemies(enemyData));
+		},
+		setBaseObjects: (data) => {
+			dispatch(setBaseObjects(data));
 		}
 	};
 };

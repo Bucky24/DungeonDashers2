@@ -33,6 +33,10 @@ const TypeDirMap = {
 	[Types.ENEMY]: {
 		path: path.join(__dirname, '..', 'data', 'enemies'),
 		ext: 'enemy'
+	},
+	[Types.OBJECT]: {
+		path: path.join(__dirname, '..', 'data', 'objects'),
+		ext: 'object'
 	}
 }
 
@@ -93,7 +97,7 @@ ipc.on('loadFile', (event, { id, __data }) => {
 		const dirObj = TypeDirMap[type];
 	
 		if (!dirObj) {
-			throw new Error(`Invalid file type ${type}`);
+			throw new Error(`Invalid file type '${type}'`);
 		}
 		
 		const dir = dirObj.path;
@@ -135,7 +139,7 @@ ipc.on('loadImage', (event, { id, __data }) => {
 		const dirObj = TypeDirMap[type];
 	
 		if (!dirObj) {
-			throw new Error(`Invalid image file type ${type}`);
+			throw new Error(`Invalid image file type '${type}'`);
 		}
 		
 		const dir = dirObj.path;

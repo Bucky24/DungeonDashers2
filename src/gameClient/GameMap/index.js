@@ -20,7 +20,8 @@ import {
 	setActiveCharacter
 } from '../store/ducks/map';
 import {
-	getEnemyData
+	getEnemyData,
+	getObjectData
 } from '../store/getters/gameData';
 import {
 	addGold
@@ -175,6 +176,7 @@ class GameMap extends Component {
 					}
 				}}
 				enemyData={this.props.enemyData}
+				objectData={this.props.objectData}
 			/>
 			<Rect
 				x={0}
@@ -203,7 +205,8 @@ const mapStateToProps = (state) => {
 		inactiveEnemies: getInactiveEnemies(state),
 		activeEnemies: getActiveEnemies(state),
 		enemyData: getEnemyData(state),
-		gold: getGold(state)
+		gold: getGold(state),
+		objectData: getObjectData(state)
 	};
 };
 

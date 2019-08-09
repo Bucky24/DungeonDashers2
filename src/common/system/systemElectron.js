@@ -43,28 +43,36 @@ export const getFileList = (type) => {
 	});
 }
 
-export const getBaseEnemyList = async () => {
-	const enemyList = await promiseRequest('getFileList', { type: Types.ENEMY });
+const getBaseList = async (type) => {
+	const list = await promiseRequest('getFileList', { type });
 	
-	const enemyDataList = [];
-	for (const enemy of enemyList) {
+	const dataList = [];
+	for (const entry of list) {
 		const data = await promiseRequest('loadFile', {
-			type: Types.ENEMY,
-			path: enemy
+			type,
+			path: entry
 		});
-		data.type = enemy;
+		data.type = entry;
 		
 		if (data.imageData && data.imageData.image) {
 			const image = await promiseRequest('loadImage', {
-				type: Types.ENEMY,
+				type,
 				path: data.imageData.image
 			});
 
 			data.imageData.image = image;
 		}
 		
-		enemyDataList.push(data);
+		dataList.push(data);
 	}
 	
-	return enemyDataList;
+	return dataList;
+}
+
+export const getBaseEnemyList = () => {
+	return getBaseList(Types.ENEMY);
+}
+
+export const getBaseObjectList = async () => {
+	return getBaseList(Types.OBJECT);
 }

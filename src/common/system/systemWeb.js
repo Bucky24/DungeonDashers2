@@ -10,6 +10,10 @@ import Bat from '../../data/enemies/bat.enemy';
 import BatImage from '../../data/enemies/bat.png';
 import Skeleton from '../../data/enemies/skeleton.enemy';
 import SkeletonImage from '../../data/enemies/skeleton.png';
+import Door from '../../data/objects/door.object';
+import DoorImage from '../../data/objects/door.png';
+import Chest from '../../data/objects/chest.object';
+import ChestImage from '../../data/objects/chest.png';
 
 export const saveFile = (type, path, data) => {
 	console.log('stub method saveFile saving', type, path, data);
@@ -50,6 +54,27 @@ export const getBaseEnemyList = () => {
 			imageData: {
 				...Skeleton.imageData,
 				image: SkeletonImage
+			}
+		}
+	];
+}
+
+export const getBaseObjectList = () => {
+	return [
+		{
+			...Door,
+			type: 'door',
+			imageData: {
+				...Door.imageData,
+				image: DoorImage
+			}
+		},
+		{
+			...Chest,
+			type: 'chest',
+			imageData: {
+				...Chest.imageData,
+				image: ChestImage
 			}
 		}
 	];

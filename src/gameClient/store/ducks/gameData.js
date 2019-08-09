@@ -1,9 +1,11 @@
 export const Constants = {
-	SET_BASE_ENEMIES: 'GAME_DATA/SET_BASE_ENEMIES'
+	SET_BASE_ENEMIES: 'GAME_DATA/SET_BASE_ENEMIES',
+	SET_BASE_OBJECTS: 'GAME_DATA/SET_BASE_OBJECTS'
 };
 
 const defaultState = {
-	baseEnemies: []
+	baseEnemies: [],
+	baseObjects: []
 };
 
 export default (state = defaultState, action) => {
@@ -11,6 +13,13 @@ export default (state = defaultState, action) => {
 		const newState = {
 			...state,
 			baseEnemies: action.enemies
+		}
+		
+		return newState;
+	} else if (action.type === Constants.SET_BASE_OBJECTS) {
+		const newState = {
+			...state,
+			baseObjects: action.objects
 		}
 		
 		return newState;
@@ -27,3 +36,11 @@ export const setBaseEnemies = (enemies) => {
 		enemies
 	};
 };
+
+export const setBaseObjects = (objects) => {
+	return {
+		type: Constants.SET_BASE_OBJECTS,
+		objects
+	};
+};
+

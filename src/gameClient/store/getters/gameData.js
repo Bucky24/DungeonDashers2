@@ -13,3 +13,19 @@ export const getEnemyData = (state) => {
 	
 	return map;
 }
+
+export const getObjectData = (state) => {
+	// eventually custom enemies will be here too
+	const objectList = [
+		...state.gameData.baseObjects || []
+	];
+	
+	const map = objectList.reduce((list, obj) => {
+		return {
+			...list,
+			[obj.type]: obj
+		}
+	}, {});
+	
+	return map;
+}

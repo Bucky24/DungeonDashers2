@@ -4,7 +4,8 @@ module.exports = {
 	Types: {
 		MAP: 'map',
 		MAP_CUSTOM: 'map_custom',
-		ENEMY: 'enemy'
+		ENEMY: 'enemy',
+		OBJECT: 'object'
 	}
 };
 

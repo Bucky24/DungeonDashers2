@@ -14,9 +14,6 @@ import Terrain4 from '../assets/terrain4.png';
 // images for characters
 import Character1 from '../assets/character1.png';
 import Character2 from '../assets/character2.png';
-// objects
-import Door1 from '../assets/door1.png';
-import Chest1 from '../assets/chest1.png';
 
 const tileMap = {
 	'ground1': Ground1,
@@ -31,20 +28,6 @@ const characterList = [
 	Character2
 ];
 
-const objectList = {
-	'door': {
-		image: Door1,
-		yOff: -13,
-		height: 45
-	},
-	'chest': {
-		image: Chest1,
-		yOff: 0,
-		height: 32,
-		width: 32
-	}
-};
-
 const propTypes = {
 	x: PropTypes.number.isRequired,
 	y: PropTypes.number.isRequired,
@@ -56,7 +39,8 @@ const propTypes = {
 	enemies: PropTypes.array.isRequired,
 	onKeyUp: PropTypes.func,
 	onClick: PropTypes.func,
-	enemyData: PropTypes.object.isRequired
+	enemyData: PropTypes.object.isRequired,
+	doorData: PropTypes.object.isRequired
 };
 
 const SQUARE_SIZE = 32;
@@ -124,23 +108,24 @@ class Map extends CanvasComponent {
 				/>;
 			})}
 			{ this.props.objects.map((object, index) => {
+				const data = this.props.objectData[object.type];
 				if (object.type === 'door') {
 					return <Door
 						key={`object_${index}`}
 						x={x/SQUARE_SIZE + object.x}
 						y={y/SQUARE_SIZE + object.y}
 						isOpen={object.isOpen}
+						image={data.imageData.image}
 					/>
 				} else {
-					const data = objectList[object.type];
 					return <Object
 						key={`object_${index}`}
 						x={x + object.x * SQUARE_SIZE}
 						y={y + object.y * SQUARE_SIZE}
-						image={data.image}
+						image={data.imageData.image}
 						yOff={data.yOff}
-						height={data.height}
-						width={data.width}
+						height={data.imageData.height}
+						width={data.imageData.width}
 					/>
 				}
 			})}
