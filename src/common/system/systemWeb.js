@@ -5,6 +5,7 @@ import { Types } from './systemCommon';
 export * from './systemCommon';
 
 import Sample1 from '../../data/maps/sample1.map';
+import Campaign1 from '../../data/campaigns/campaign1/index.camp'
 
 import Bat from '../../data/enemies/bat.enemy';
 import BatImage from '../../data/enemies/bat.png';
@@ -25,6 +26,8 @@ export const loadFile = (type, path) => {
 		return Promise.resolve(Sample1);
 	} else if (type === Types.MAP_CUSTOM) {
 		return Promise.resolve(Sample1);
+	} else if (type === Types.CAMPAIGN_CUSTOM) {
+		return Promise.resolve(Campaign1);
 	}
 	
 	return Promise.reject('unknown type');
@@ -35,6 +38,8 @@ export const getFileList = (type) => {
 		return Promise.resolve(['sample1']);
 	} else if (type === Types.MAP_CUSTOM) {
 		return Promise.resolve([]);
+	} else if (type === Types.CAMPAIGN_CUSTOM) {
+		return Promise.resolve(['campaign1']);
 	}
 }
 

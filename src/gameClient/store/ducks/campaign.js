@@ -1,10 +1,12 @@
 export const Constants = {
 	RESET_ALL: 'CAMP/RESET',
-	ADD_GOLD: 'CAMP/ADD_GOLD'
+	ADD_GOLD: 'CAMP/ADD_GOLD',
+	ADD_CHARACTER: 'CAMP/ADD_CHARACTER'
 };
 
 const defaultState = {
-	gold: 0
+	gold: 0,
+	characterData: {}
 };
 
 export default (state = defaultState, action) => {
@@ -17,6 +19,22 @@ export default (state = defaultState, action) => {
 				...state,
 				gold: Math.max(state.gold + action.amount, 0)
 			};
+		case Constants.ADD_CHARACTER:
+			if (state.characterData[action.id]) {
+				return state;
+			}
+
+			return {
+				...state,
+				characterData: {
+					...state.characterData,
+					[action.id]: {
+						weapon: null,
+						armor: null,
+						shield: null
+					}
+				}
+			}
 		default:
 			return state;
 	}
@@ -29,4 +47,11 @@ export const addGold = (amount) => {
 		type: Constants.ADD_GOLD,
 		amount
 	};
+};
+
+export const createCharacter = (id) => {
+	return {
+		type: Constants.ADD_CHARACTER,
+		id
+	}
 };

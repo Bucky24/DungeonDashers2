@@ -5,7 +5,8 @@ module.exports = {
 		MAP: 'map',
 		MAP_CUSTOM: 'map_custom',
 		ENEMY: 'enemy',
-		OBJECT: 'object'
+		OBJECT: 'object',
+		CAMPAIGN_CUSTOM: 'campaign_custom'
 	}
 };
 

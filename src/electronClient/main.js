@@ -23,12 +23,12 @@ if (!fs.existsSync(myTempDir)) {
 const TypeDirMap = {
 	[Types.MAP]: {
 		path: path.join(__dirname, '..', 'data', 'maps'),
-		create: true,
 		ext: 'map'
 	},
 	[Types.MAP_CUSTOM]: {
 		path: path.join(myTempDir, 'custom_maps'),
-		ext: 'map'
+		ext: 'map',
+		create: true
 	},
 	[Types.ENEMY]: {
 		path: path.join(__dirname, '..', 'data', 'enemies'),
@@ -37,6 +37,11 @@ const TypeDirMap = {
 	[Types.OBJECT]: {
 		path: path.join(__dirname, '..', 'data', 'objects'),
 		ext: 'object'
+	},
+	[Types.CAMPAIGN_CUSTOM]: {
+		path: path.join(myTempDir, 'custom_campaigns'),
+		ext: 'camp',
+		create: true
 	}
 }
 
@@ -181,6 +186,15 @@ ipc.on('getFileList', (event, { id, __data }) => {
 		}
 		
 		fs.readdir(dirObj.path, function(err, items) {
+			if (err) {
+				console.error(err);
+				event.sender.send('response', {
+					id,
+					success: true,
+					data: []
+				});
+				return;
+			}
 			try {
 				const resultItems = [];
 			    for (var i=0; i<items.length; i++) {

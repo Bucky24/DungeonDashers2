@@ -11,6 +11,7 @@ import {
 import Editor from '../Editor'
 import TabBar from '../../common/TabBar';
 import MainTab from '../MainTab';
+import Campaign from '../Campaign';
 
 import Styles from './style.css';
 
@@ -58,14 +59,16 @@ class App extends Component {
 		/>;
 		
 		const mainTab = <MainTab />;
+		const campaignTab = <Campaign />;
 
 		return <div className="App">
 			<TabBar
 				tabs={[
-					{ id: 'main', name: 'Main', elem: mainTab },
-					{ id: 'map', name: 'Map', elem: mapTab }
+					{ id: 'main', name: 'Scenario Main', elem: mainTab },
+					{ id: 'map', name: 'Map', elem: mapTab },
+					{ id: 'campaign', name: 'Campaign', elem: campaignTab }
 				]}
-				selectedTab='main'
+				selectedTab='campaign'
 			/>
 		</div>;
 	}
