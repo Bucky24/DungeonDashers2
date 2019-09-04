@@ -2,7 +2,6 @@ For v0.4.0
 * Editor handles multiple characters
 * Characters defined by data
 * Editor for custom enemies/characters/objects
-* Ability to define a campaign as a series of maps
 * Ability to start/load a campaign
 * Combat turns
 * Some basic structure for equipment
