@@ -7,7 +7,8 @@ export const Constants = {
 	SET_ACTIVE_ENEMY: 'MAP/SET_ACTIVE_ENEMY',
 	HARM_ENEMY: 'MAP/HARM_ENEMY',
 	REMOVE_OBJECT: 'MAP/REMOVE_OBJECT',
-	SET_ACTIVE_CHARACTER: 'MAP/SET_ACTIVE_CHARACTER'
+	SET_ACTIVE_CHARACTER: 'MAP/SET_ACTIVE_CHARACTER',
+	SET_MAP_META: 'MAP/SET_MAP_META'
 };
 
 const defaultState = {
@@ -19,6 +20,8 @@ const defaultState = {
 	activeEnemies: [],
 	width: 0,
 	height: 0,
+	activeMap: '',
+	customMap: false
 };
 
 export default (state = defaultState, action) => {
@@ -168,6 +171,12 @@ export default (state = defaultState, action) => {
 			...state,
 			characters: newCharacters
 		};
+	} else if (action.type === Constants.SET_MAP_META) {
+		return {
+			...state,
+			activeMap: action.mapName,
+			customMap: action.customMap
+		}
 	} else {
 		return state;
 	}
@@ -239,5 +248,13 @@ export const setActiveCharacter = (index) => {
 	return {
 		type: Constants.SET_ACTIVE_CHARACTER,
 		index
+	};
+}
+
+export const setMapMeta = (mapName, customMap) => {
+	return {
+		type: Constants.SET_MAP_META,
+		mapName,
+		customMap
 	};
 }

@@ -12,3 +12,4 @@ v0.4.0
 * Better editor experience
 * Objects defined by data
 * Editor can save/load campaigns
+* Ability to save/load single maps

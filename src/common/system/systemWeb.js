@@ -5,7 +5,7 @@ import { Types } from './systemCommon';
 export * from './systemCommon';
 
 import Sample1 from '../../data/maps/sample1.map';
-import Campaign1 from '../../data/campaigns/campaign1/index.camp'
+import Campaign1 from '../../data/campaigns/campaign1.camp'
 
 import Bat from '../../data/enemies/bat.enemy';
 import BatImage from '../../data/enemies/bat.png';
@@ -28,6 +28,24 @@ export const loadFile = (type, path) => {
 		return Promise.resolve(Sample1);
 	} else if (type === Types.CAMPAIGN_CUSTOM) {
 		return Promise.resolve(Campaign1);
+	} else if (type === Types.CAMPAIGN) {
+		return Promise.resolve(Campaign1);
+	} else if (type === Types.SAVED_MAP) {
+		return Promise.resolve({
+			map: 'map1',
+			custom: false,
+			inactiveEnemies: [],
+			activeEnemies: [
+				{ "type": "bat", "id": 1, "trigger": 1, "x": 8, "y": 10, "hp": 10, "maxHp": 10 }
+			],
+			objects: [
+				{ "type": "door", "id": 1, "x": 8, "y": 6, "isOpen": true },
+			],
+			characters: [
+				{ "x": 5, "y": 6 },
+				{ "x": 4, "y": 6 }
+			]
+		});
 	}
 	
 	return Promise.reject('unknown type');
@@ -40,6 +58,12 @@ export const getFileList = (type) => {
 		return Promise.resolve([]);
 	} else if (type === Types.CAMPAIGN_CUSTOM) {
 		return Promise.resolve(['campaign1']);
+	} else if (type === Types.CAMPAIGN) {
+		return Promise.resolve(['campaign1']);
+	} else if (type === Types.SAVED_CAMPAIGN) {
+		return Promise.resolve(['saved_campaign_sample']);
+	} else if (type === Types.SAVED_MAP) {
+		return Promise.resolve(['saved_map_sample']);
 	}
 }
 

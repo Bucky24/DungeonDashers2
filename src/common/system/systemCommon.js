@@ -6,7 +6,10 @@ module.exports = {
 		MAP_CUSTOM: 'map_custom',
 		ENEMY: 'enemy',
 		OBJECT: 'object',
-		CAMPAIGN_CUSTOM: 'campaign_custom'
+		CAMPAIGN_CUSTOM: 'campaign_custom',
+		CAMPAIGN: 'campaign',
+		SAVED_CAMPAIGN: 'saved_campaign',
+		SAVED_MAP: 'saved_map'
 	}
 };
 

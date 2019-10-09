@@ -20,7 +20,7 @@ class MainMenu extends Component {
 				height={50}
 				text="SINGLEPLAYER"
 				onClick={() => {
-					setPane(Panes.MAP_SELECT);
+					setPane(Panes.SAVE_LOAD);
 				}}
 			/>
 			<Button

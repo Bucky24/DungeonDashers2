@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MenuHandler from '../MenuHandler';
 import GameMap from '../GameMap';
-import MapSelect from '../MapSelect';
+import NewMapSelect from '../NewMapSelect';
 import Loader from '../Loader';
+import SaveLoadSelect from '../SaveLoadSelect';
+import LoadGameSelect from '../LoadGameSelect';
 
 import './style.css';
 
@@ -18,7 +20,9 @@ class App extends Component {
 			{ pane === Panes.LOAD && <Loader width={width} height={height} /> }
 			{ pane === Panes.HOME && <MenuHandler width={width} height={height} /> }
 			{ pane === Panes.GAME && <GameMap width={width} height={height} /> }		
-			{ pane === Panes.MAP_SELECT && <MapSelect width={width} height={height} /> }
+			{ pane === Panes.NEW_MAP_SELECT && <NewMapSelect width={width} height={height} /> }		
+			{ pane === Panes.SAVE_LOAD && <SaveLoadSelect width={width} height={height} /> }
+			{ pane === Panes.LOAD_GAME_SELECT && <LoadGameSelect width={width} height={height} />}
 		</div>;
 	}
 }

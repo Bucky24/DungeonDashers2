@@ -1,12 +1,14 @@
 export const Constants = {
 	RESET_ALL: 'CAMP/RESET',
 	ADD_GOLD: 'CAMP/ADD_GOLD',
-	ADD_CHARACTER: 'CAMP/ADD_CHARACTER'
+	ADD_CHARACTER: 'CAMP/ADD_CHARACTER',
+	SET_ACTIVE_CAMPAIGN: 'CAMP/SET_ACTIVE_CAMPAIGN'
 };
 
 const defaultState = {
 	gold: 0,
-	characterData: {}
+	characterData: {},
+	campaign: null
 };
 
 export default (state = defaultState, action) => {
@@ -35,6 +37,11 @@ export default (state = defaultState, action) => {
 					}
 				}
 			}
+		case Constants.SET_ACTIVE_CAMPAIGN:
+			return {
+				...state,
+				campaign: action.campaign
+			}
 		default:
 			return state;
 	}
@@ -53,5 +60,12 @@ export const createCharacter = (id) => {
 	return {
 		type: Constants.ADD_CHARACTER,
 		id
-	}
+	};
+};
+
+export const setActiveCampaign = (campaign) => {
+	return {
+		type: Constants.SET_ACTIVE_CAMPAIGN,
+		campaign
+	};
 };

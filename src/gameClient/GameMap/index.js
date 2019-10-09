@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Canvas, Text, Rect } from '@bucky24/react-canvas';
+
 import Map from '../../common/Map';
+import Button from '../../common/Button';
+
+import { saveMap } from '../../common/utils/saver';
 
 import {
 	getTiles,
@@ -9,7 +13,8 @@ import {
 	getWalkable,
 	getObjects,
 	getInactiveEnemies,
-	getActiveEnemies
+	getActiveEnemies,
+	getMapMeta
 } from '../store/getters/map';
 import {
 	setCharacter,
@@ -192,6 +197,24 @@ class GameMap extends Component {
 			>
 				Gold: {this.props.gold}
 			</Text>
+			<Button
+				x={0}
+				y={height-50}
+				width={200}
+				height={50}
+				text="Save"
+				onClick={() => {
+					const gameObj = {
+						activeEnemies: this.props.activeEnemies,
+						inactiveEnemies: this.props.inactiveEnemies,
+						objects: this.props.objects,
+						characters: this.props.characters,
+						map: this.props.mapMeta.activeMap,
+						custom: this.props.mapMeta.customMap
+					};
+					saveMap('saveGame', gameObj);
+				}}
+			/>
 		</Canvas>);
 	}
 }
@@ -206,7 +229,8 @@ const mapStateToProps = (state) => {
 		activeEnemies: getActiveEnemies(state),
 		enemyData: getEnemyData(state),
 		gold: getGold(state),
-		objectData: getObjectData(state)
+		objectData: getObjectData(state),
+		mapMeta: getMapMeta(state)
 	};
 };
 

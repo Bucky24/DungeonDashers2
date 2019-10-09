@@ -21,3 +21,10 @@ export const getInactiveEnemies = (state) => {
 export const getActiveEnemies = (state) => {
 	return state.map.activeEnemies || [];
 }
+
+export const getMapMeta = (state) => {
+	return {
+		activeMap: state.map.activeMap,
+		customMap: state.map.customMap
+	};
+}
