@@ -28,8 +28,8 @@
 		{ "tile": "ground1", "x": 4, "y": 8 }
 	],
 	"characters": [
-		{ "x": 5, "y": 5 },
-		{ "x": 4, "y": 5 }
+		{ "ident": "character1", "x": 5, "y": 5 },
+		{ "ident": "character2", "x": 4, "y": 5 }
 	],
 	"objects": [
 		{ "type": "door", "id": 1, "x": 8, "y": 6 },

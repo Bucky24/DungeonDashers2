@@ -29,3 +29,21 @@ export const getObjectData = (state) => {
 	
 	return map;
 }
+
+export const getCharacterData = (state) => {
+	// eventually custom characters will be here too
+	const characterList = [
+		...state.gameData.baseCharacters || []
+	];
+	
+	const map = characterList.reduce((list, obj) => {
+		return {
+			...list,
+			[obj.ident]: obj
+		}
+	}, {});
+	
+	console.log('map is', map);
+	
+	return map;
+}

@@ -9,7 +9,8 @@ module.exports = {
 		CAMPAIGN_CUSTOM: 'campaign_custom',
 		CAMPAIGN: 'campaign',
 		SAVED_CAMPAIGN: 'saved_campaign',
-		SAVED_MAP: 'saved_map'
+		SAVED_MAP: 'saved_map',
+		CHARACTER: 'character'
 	}
 };
 

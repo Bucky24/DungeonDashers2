@@ -11,9 +11,6 @@ import Terrain1 from '../assets/terrain1.png';
 import Terrain2 from '../assets/terrain2.png';
 import Terrain3 from '../assets/terrain3.png';
 import Terrain4 from '../assets/terrain4.png';
-// images for characters
-import Character1 from '../assets/character1.png';
-import Character2 from '../assets/character2.png';
 
 const tileMap = {
 	'ground1': Ground1,
@@ -22,11 +19,6 @@ const tileMap = {
 	'terrain3': Terrain3,
 	'terrain4': Terrain4
 };
-
-const characterList = [
-	Character1,
-	Character2
-];
 
 const propTypes = {
 	x: PropTypes.number.isRequired,
@@ -40,7 +32,8 @@ const propTypes = {
 	onKeyUp: PropTypes.func,
 	onClick: PropTypes.func,
 	enemyData: PropTypes.object.isRequired,
-	doorData: PropTypes.object.isRequired
+	doorData: PropTypes.object.isRequired,
+	characterData: PropTypes.object.isRequired
 };
 
 const SQUARE_SIZE = 32;
@@ -130,7 +123,8 @@ class Map extends CanvasComponent {
 				}
 			})}
 			{ this.props.characters.map((characterObj, index) => {
-				const image = characterList[index];
+				const data = this.props.characterData[characterObj.ident];
+				const { imageData } = data;
 				// since character images are 96 pixels, and we
 				// want to draw from the feet, we have to go 2 up
 				const drawPosition = characterObj.y-2;
@@ -138,9 +132,9 @@ class Map extends CanvasComponent {
 					key={`character_${index}`}
 					x={x + characterObj.x*SQUARE_SIZE}
 					y={y + drawPosition*SQUARE_SIZE}
-					width={32}
-					height={96}
-					image={image}
+					width={imageData.width}
+					height={imageData.height}
+					image={imageData.image}
 					hp={1}
 					selected={characterObj.selected}
 					maxHP={1}

@@ -1,0 +1,9 @@
+{
+	"ident": "character2",
+	"version": 1,
+	"imageData": {
+		"image": "./character2.png",
+		"width": 32,
+		"height": 92
+	}
+}

@@ -76,3 +76,7 @@ export const getBaseEnemyList = () => {
 export const getBaseObjectList = async () => {
 	return getBaseList(Types.OBJECT);
 }
+
+export const getBaseCharacterList = async () => {
+	return getBaseList(Types.CHARACTER);
+}

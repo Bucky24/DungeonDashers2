@@ -36,6 +36,8 @@ class Editor extends React.Component {
 		super(props);
 
 		const data = props.map;
+		
+		const defaultCharacters = [{ ident: 'character1', x: 0, y: 2 }];
 
 		this.state = {
 			activeTool: null,
@@ -45,7 +47,7 @@ class Editor extends React.Component {
 			tiles: data.tiles || [],
 			enemies: data.enemies || [],
 			objects: data.objects || [],
-			characters: data.characters || [{ x: 0, y: 2 }],
+			characters: data.characters || defaultCharacters,
 			width: data.width,
 			height: data.height
 		};
@@ -54,7 +56,7 @@ class Editor extends React.Component {
 	}
 
 	handleClick(x, y, button, cb) {
-		if (this.state.activeID === null) {
+		if (this.state.activeID === null && this.state.activeTool !== 'character') {
 			return;
 		}
 		const locateObjectAt = (array, x, y) => {
@@ -88,7 +90,7 @@ class Editor extends React.Component {
 		} else if (this.state.activeTool === 'character') {
 			// for now just set coords of first character
 			this.setState({
-				characters: [{ x, y }]
+				characters: [{ ident: 'character1', x, y }]
 			}, cb);
 		} else if (this.state.activeTool === 'enemy') {
 			const newEnemies = [...this.state.enemies];
@@ -212,6 +214,7 @@ class Editor extends React.Component {
 						}}
 						enemyData={this.props.enemyData}
 						objectData={this.props.objectData}
+						characterData={this.props.characterData}
 					/>
 				</Container>
 			</Canvas>

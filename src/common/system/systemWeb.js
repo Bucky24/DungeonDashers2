@@ -5,7 +5,7 @@ import { Types } from './systemCommon';
 export * from './systemCommon';
 
 import Sample1 from '../../data/maps/sample1.map';
-import Campaign1 from '../../data/campaigns/campaign1.camp'
+import Campaign1 from '../../data/campaigns/campaign1.camp';
 
 import Bat from '../../data/enemies/bat.enemy';
 import BatImage from '../../data/enemies/bat.png';
@@ -15,6 +15,10 @@ import Door from '../../data/objects/door.object';
 import DoorImage from '../../data/objects/door.png';
 import Chest from '../../data/objects/chest.object';
 import ChestImage from '../../data/objects/chest.png';
+import Character1 from '../../data/characters/character1.char';
+import Character1Image from '../../data/characters/character1.png';
+import Character2 from '../../data/characters/character2.char';
+import Character2Image from '../../data/characters/character2.png';
 
 export const saveFile = (type, path, data) => {
 	console.log('stub method saveFile saving', type, path, data);
@@ -104,6 +108,25 @@ export const getBaseObjectList = () => {
 			imageData: {
 				...Chest.imageData,
 				image: ChestImage
+			}
+		}
+	];
+}
+
+export const getBaseCharacterList = () => {
+	return [
+		{
+			...Character1,
+			imageData: {
+				...Character1.imageData,
+				image: Character1Image
+			}
+		},
+		{
+			...Character2,
+			imageData: {
+				...Character2.imageData,
+				image: Character2Image
 			}
 		}
 	];

@@ -56,6 +56,10 @@ const TypeDirMap = {
 		path: path.join(myTempDir, 'saved_campaigns'),
 		ext: 'save',
 		create: true
+	},
+	[Types.CHARACTER]: {
+		path: path.join(__dirname, '..', 'data', 'characters'),
+		ext: 'char'
 	}
 }
 

@@ -6,7 +6,8 @@ import {
 	Types,
 	loadFile,
 	getBaseEnemyList,
-	getBaseObjectList
+	getBaseObjectList,
+	getBaseCharacterList
 } from 'system';
 import Editor from '../Editor'
 import TabBar from '../../common/TabBar';
@@ -21,7 +22,8 @@ class App extends Component {
 		
 		this.state = {
 			enemyData: {},
-			objectData: {}
+			objectData: {},
+			characterData: {}
 		}
 	}
 	
@@ -33,7 +35,7 @@ class App extends Component {
 				...obj,
 				[enemy.type]: enemy
 			};
-		}, {})
+		}, {});
 		// fetch object data
 		const objectData = await getBaseObjectList();
 		const objectDataMap = objectData.reduce((obj, object) => {
@@ -41,10 +43,19 @@ class App extends Component {
 				...obj,
 				[object.type]: object
 			};
-		}, {})
+		}, {});
+		// fetch character data
+		const characterData = await getBaseCharacterList();
+		const characterDataMap = characterData.reduce((obj, character) => {
+			return {
+				...obj,
+				[character.ident]: character
+			};
+		}, {});
 		this.setState({
 			enemyData: enemyDataMap,
-			objectData: objectDataMap
+			objectData: objectDataMap,
+			characterData: characterDataMap
 		});
 	}
 
@@ -56,6 +67,7 @@ class App extends Component {
 			height={height-100}
 			enemyData={this.state.enemyData}
 			objectData={this.state.objectData}
+			characterData={this.state.characterData}
 		/>;
 		
 		const mainTab = <MainTab />;
