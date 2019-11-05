@@ -10,32 +10,36 @@ const BottomBar = ({
 	terrainList,
 	activeID,
 	setActiveID,
-	objectData
+	objectData,
+	characterData
 }) => {
-	let dataList;
+	let dataList = {};
+	
+	let needsReduction = true;
 	
 	switch (activeTool) {
 		case 'terrain':
 			dataList = terrainList || {};
+			needsReduction = false;
 			break;
 		case 'enemy':
 			dataList = enemyData || {};
-			dataList = Object.keys(dataList).reduce((obj, key) => {
-				return {
-					...obj,
-					[key]: key
-				}
-			}, {});
 			break;
 		case 'object':
 			dataList = objectData || {};
-			dataList = Object.keys(dataList).reduce((obj, key) => {
-				return {
-					...obj,
-					[key]: key
-				}
-			}, {});
 			break;
+		case 'character':
+			dataList = characterData || {};
+			break;
+	}
+	
+	if (needsReduction) {
+		dataList = Object.keys(dataList).reduce((obj, key) => {
+			return {
+				...obj,
+				[key]: key
+			}
+		}, {});
 	}
 	
 	return <div className={styles.bottomOuter}>

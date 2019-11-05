@@ -9,7 +9,10 @@ v0.3.0
 
 v0.4.0
 * Multiple characters on a map
+* Editor handles multiple characters
 * Better editor experience
 * Objects/Characters defined by data
 * Editor can save/load campaigns
 * Ability to save/load single maps
+
+NOTES: v0.4.0 is not compatible with maps or saves from earlier versions.

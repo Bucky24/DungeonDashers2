@@ -37,6 +37,11 @@ class Editor extends React.Component {
 
 		const data = props.map;
 		
+		const characterData = {
+			"character1": {},
+			"character2": {}
+		};
+		
 		const defaultCharacters = [{ ident: 'character1', x: 0, y: 2 }];
 
 		this.state = {
@@ -56,7 +61,7 @@ class Editor extends React.Component {
 	}
 
 	handleClick(x, y, button, cb) {
-		if (this.state.activeID === null && this.state.activeTool !== 'character') {
+		if (this.state.activeID === null) {
 			return;
 		}
 		const locateObjectAt = (array, x, y) => {
@@ -88,9 +93,38 @@ class Editor extends React.Component {
 				tiles: newTiles
 			}, cb);
 		} else if (this.state.activeTool === 'character') {
+			const newCharacters = [];
+			let foundIndex = locateObjectAt(this.state.characters, x, y);
+			let identIndex = -1;
+			// cheap copy, could be done better but eh
+			this.state.characters.forEach((character, index) => {
+				newCharacters.push({ ...character });
+				if (character.ident === this.state.activeID) {
+					identIndex = index;
+				}
+			});
+			if (button === ButtonTypes.LEFT) {
+				if (identIndex >= 0) {
+					// updating existing character
+					newCharacters[identIndex].x = x;
+					newCharacters[identIndex].y = y;
+				} else {
+					// add new character
+					newCharacters.push({
+						ident: this.state.activeID,
+						x,
+						y
+					});
+				}
+			} else if (button === ButtonTypes.RIGHT) {
+				if (foundIndex >= 0) {
+					// remove the character from the map
+					newCharacters.splice(foundIndex, 1);
+				}
+			}
 			// for now just set coords of first character
 			this.setState({
-				characters: [{ ident: 'character1', x, y }]
+				characters: newCharacters
 			}, cb);
 		} else if (this.state.activeTool === 'enemy') {
 			const newEnemies = [...this.state.enemies];
@@ -229,6 +263,7 @@ class Editor extends React.Component {
 				}}
 				objectData={this.props.objectData}
 				activeID={this.state.activeID}
+				characterData={this.props.characterData}
 			/>
 		</div>;
 	}

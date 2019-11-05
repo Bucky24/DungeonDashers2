@@ -4,3 +4,10 @@ For v0.4.0
 * Ability to start/load a campaign
 * Combat turns
 * Some basic structure for equipment
+
+For v0.5.0
+* More accurate controls
+* More "true to original" menus
+* Start of triggers system
+* Better enemy AI
+* Allow campaigns and single maps to have custom objects
