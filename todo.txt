@@ -1,5 +1,4 @@
 For v0.4.0
-* Editor handles multiple characters
 * Editor for custom enemies/characters/objects
 * Ability to start/load a campaign
 * Combat turns
