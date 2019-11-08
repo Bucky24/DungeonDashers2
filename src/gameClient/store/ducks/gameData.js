@@ -25,7 +25,7 @@ export default (state = defaultState, action) => {
 		}
 		
 		return newState;
-	}else if (action.type === Constants.SET_BASE_CHARACTERS) {
+	} else if (action.type === Constants.SET_BASE_CHARACTERS) {
 		const newState = {
 			...state,
 			baseCharacters: action.characters

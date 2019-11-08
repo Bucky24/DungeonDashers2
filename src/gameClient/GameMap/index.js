@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Canvas, Text, Rect } from '@bucky24/react-canvas';
+import { Canvas, Text, Rect, Container } from '@bucky24/react-canvas';
 
 import Map from '../../common/Map';
 import Button from '../../common/Button';
@@ -14,7 +14,8 @@ import {
 	getObjects,
 	getInactiveEnemies,
 	getActiveEnemies,
-	getMapMeta
+	getMapMeta,
+	inBattle
 } from '../store/getters/map';
 import {
 	setCharacter,
@@ -36,20 +37,37 @@ import {
 	getGold
 } from '../store/getters/campaign';
 
+import BattleHandler from '../EnemyHandler/battle';
+
 class GameMap extends Component {
 	constructor(props) {
 		super(props);
 		
 		this.moveActiveChar = this.moveActiveChar.bind(this);
 		this.handleCollision = this.handleCollision.bind(this);
+		this.nextCharacter = this.nextCharacter.bind(this);
 	}
-	moveActiveChar(xOff, yOff) {
+	activeCharacter() {
 		const activeIndex = this.props.characters.findIndex((char) => {
 			return char.selected;
 		});
 		const activeChar = this.props.characters[activeIndex];
+		
+		return {
+			activeChar,
+			activeIndex
+		};
+	}
+
+	moveActiveChar(xOff, yOff) {
+		const { activeChar, activeIndex } = this.activeCharacter();
 		const newX = activeChar.x + xOff;
 		const newY = activeChar.y + yOff;
+		
+		let canMove = true;
+		let canAct = true;
+		let totalPoints = 1;
+		const fightPoints = 5;
 		
 		const key = `${newX}_${newY}`;
 		
@@ -57,12 +75,18 @@ class GameMap extends Component {
 			return;
 		}
 		
+		if (this.props.inBattle) {
+			if (activeChar.actionPoints < totalPoints) {
+				// no movement for you
+				return;
+			}
+		}
+		
 		// check to see if we impacted an object
 		const objectsCollided = this.props.objects.filter((object) => {
 			return object.key === key;
 		});
 		
-		let canMove = true;
 		if (objectsCollided.length > 0) {
 			for (let i=0;i<objectsCollided.length;i++) {
 				const allowMovement = this.handleCollision({
@@ -81,15 +105,21 @@ class GameMap extends Component {
 		});
 		
 		if (charactersCollided.length > 0) {
+			canAct = false;
 			canMove = false;
 		}
-		
+
 		const enemiesCollided = this.props.activeEnemies.filter((enemy) => {
 			const objKey = `${enemy.x}_${enemy.y}`;
 			return objKey === key;
 		});
 		
 		if (enemiesCollided.length > 0) {
+			totalPoints = fightPoints;
+			if (activeChar.actionPoints < totalPoints) {
+				// no fight for you
+				return;
+			}
 			for (let i=0;i<enemiesCollided.length;i++) {
 				const enemy = {
 					type: 'enemy',
@@ -109,8 +139,25 @@ class GameMap extends Component {
 		if (canMove) {
 			this.props.setCharacter({
 				x: newX,
-				y: newY
+				y: newY,
 			}, activeIndex);
+		}
+		
+		if (!this.props.inBattle) {
+			totalPoints = 0;
+		}
+		
+		if (canAct) {
+			// get data again just in case
+			const { activeChar, activeIndex } = this.activeCharacter();
+			this.props.setCharacter({
+				actionPoints: activeChar.actionPoints - totalPoints
+			}, activeIndex);
+			
+			if (activeChar.actionPoints - totalPoints <= 0) {
+				// no more movement. Switch to the next character
+				this.nextCharacter();
+			}
 		}
 	}
 	
@@ -132,6 +179,10 @@ class GameMap extends Component {
 					const enemyIDs = enemiesToActivate.forEach((enemy) => {
 						this.props.activateEnemy(enemy.id);
 					});
+					
+					// at this point reset the active player's action points
+					console.log('resetting active player');
+					this.resetActivePlayersActions();
 				}
 			}
 		} else if (obj1.type === 'player' && obj2.type === 'enemy') {
@@ -146,7 +197,34 @@ class GameMap extends Component {
 		
 		return true;
 	}
+	
+	resetActivePlayersActions() {
+		const { activeChar, activeIndex } = this.activeCharacter();
+		const characterData = this.props.characterData[activeChar.ident];
+		// reset the action points
+		this.props.setCharacter({
+			actionPoints: characterData.actionPoints
+		}, activeIndex);
+	}
+	
+	async nextCharacter() {
+		let { activeIndex } = this.activeCharacter();
+		this.resetActivePlayersActions();
+		activeIndex ++;
+		if (activeIndex >= this.props.characters.length) {
+			activeIndex = 0;
+			if (this.props.inBattle) {
+				await BattleHandler();
+			}
+		}
+		this.props.setActiveCharacter(activeIndex);
+		// reset the action points for this new character just in case
+		this.resetActivePlayersActions();
+	}
+	
 	render() {
+		const { activeChar } = this.activeCharacter();
+		const activeCharData = activeChar ? this.props.characterData[activeChar.ident] : {};
 		const { width, height } = this.props;
 		return (<Canvas
 			width={width}
@@ -171,14 +249,7 @@ class GameMap extends Component {
 					} else if (code === 'ArrowUp') {
 						this.moveActiveChar(0, -1);
 					} else if (code === 'Enter') {
-						let activeIndex = this.props.characters.findIndex((char) => {
-							return char.selected;
-						});
-						activeIndex ++;
-						if (activeIndex >= this.props.characters.length) {
-							activeIndex = 0;
-						}
-						this.props.setActiveCharacter(activeIndex);
+						this.nextCharacter();
 					}
 				}}
 				enemyData={this.props.enemyData}
@@ -217,6 +288,30 @@ class GameMap extends Component {
 					saveMap('saveGame', gameObj);
 				}}
 			/>
+			{ this.props.inBattle && <Container>
+				<Rect
+					x={width/2-100}
+					y={height-50}
+					x2={width/2+100}
+					y2={height}
+					color="#fff"
+					fill={true}
+				/>
+				{ activeChar && <Container>
+					<Text
+						x={width/2-100}
+						y={height-40}
+					>
+						Active character {activeChar.ident}
+					</Text>
+					<Text
+						x={width/2-100}
+						y={height-30}
+					>
+						Action points {activeChar.actionPoints}/{activeCharData.actionPoints}
+					</Text>
+				</Container>}
+			</Container>}
 		</Canvas>);
 	}
 }
@@ -233,7 +328,8 @@ const mapStateToProps = (state) => {
 		gold: getGold(state),
 		objectData: getObjectData(state),
 		mapMeta: getMapMeta(state),
-		characterData: getCharacterData(state)
+		characterData: getCharacterData(state),
+		inBattle: inBattle(state)
 	};
 };
 

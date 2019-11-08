@@ -35,7 +35,7 @@ const getWalkable = (tiles, objects) => {
 	return walkable;
 }
 
-export const loadExistingMap = async (saveFileName, enemyData, setMap, setActiveCharacter, setMapMeta) => {
+export const loadExistingMap = async (saveFileName, enemyData, characterData, setMap, setActiveCharacter, setMapMeta) => {
 	const saveFile = await loadFile(Types.SAVED_MAP, saveFileName);
 	
 	const mapName = saveFile.map;
@@ -48,11 +48,11 @@ export const loadExistingMap = async (saveFileName, enemyData, setMap, setActive
 	data.characters = saveFile.characters;
 	data.objects = saveFile.objects;
 	
-	processMapData(data, enemyData, setMap, setActiveCharacter);
+	processMapData(data, enemyData, characterData, setMap, setActiveCharacter);
 	setMapMeta(mapName, mapType);
 };
 
-export const loadNewMap = async (type, mapName, enemyData, setMap, setActiveCharacter, setMapMeta) => {
+export const loadNewMap = async (type, mapName, enemyData, characterData, setMap, setActiveCharacter, setMapMeta) => {
 	const data = await loadMapBase(type, mapName);
 
 	const inactiveEnemies = [];
@@ -71,11 +71,11 @@ export const loadNewMap = async (type, mapName, enemyData, setMap, setActiveChar
 	data.inactiveEnemies = inactiveEnemies;
 	data.activeEnemies = activeEnemies;
 
-	processMapData(data, enemyData, setMap, setActiveCharacter);
+	processMapData(data, enemyData, characterData, setMap, setActiveCharacter);
 	setMapMeta(mapName, type === Types.MAP_CUSTOM);
 };
 
-const processMapData = (data, enemyData, setMap, setActiveCharacter) => {
+const processMapData = (data, enemyData, characterData, setMap, setActiveCharacter) => {
 	// process the data
 	const newObjects = data.objects.map((object) => {
 		return {
@@ -83,10 +83,18 @@ const processMapData = (data, enemyData, setMap, setActiveCharacter) => {
 			key: `${object.x}_${object.y}`
 		};
 	});
+	
+	const newCharacters = data.characters.map((character) => {
+		const data = characterData[character.ident];
+		return {
+			...character,
+			actionPoints: character.actionPoints || data.actionPoints
+		};
+	});
 
 	const newMap = {
 		tiles: data.tiles,
-		characters: data.characters,
+		characters: newCharacters,
 		objects: newObjects,
 		width: data.width,
 		height: data.height,

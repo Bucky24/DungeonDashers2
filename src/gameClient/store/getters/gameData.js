@@ -43,7 +43,5 @@ export const getCharacterData = (state) => {
 		}
 	}, {});
 	
-	console.log('map is', map);
-	
 	return map;
 }

@@ -4,6 +4,7 @@
 	"imageData": {
 		"image": "./character2.png",
 		"width": 32,
-		"height": 92
-	}
+		"height": 96
+	},
+	"actionPoints": 20
 }

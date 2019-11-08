@@ -6,7 +6,7 @@ import { getFileList, loadFile, Types } from 'system';
 
 import { Panes, setUIPane } from '../store/ducks/ui';
 import { setMap, setActiveCharacter, setMapMeta } from '../store/ducks/map';
-import { getEnemyData } from '../store/getters/gameData';
+import { getEnemyData, getCharacterData } from '../store/getters/gameData';
 import { loadNewMap, loadCampaign } from '../../common/utils/loader';
 import { setActiveCampaign } from '../store/ducks/campaign';
 
@@ -24,7 +24,7 @@ class NewMapSelect extends Component {
 	}
 	
 	loadMap(type, mapName) {
-		loadNewMap(type, mapName, this.props.enemyData, this.props.setMap, this.props.setActiveCharacter, this.props.setMapMeta);
+		loadNewMap(type, mapName, this.props.enemyData, this.props.characterData, this.props.setMap, this.props.setActiveCharacter, this.props.setMapMeta);
 		this.props.setPane(Panes.GAME);
 	}
 
@@ -179,7 +179,8 @@ class NewMapSelect extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		enemyData: getEnemyData(state)
+		enemyData: getEnemyData(state),
+		characterData: getCharacterData(state)
 	};
 };
 

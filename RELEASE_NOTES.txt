@@ -14,5 +14,6 @@ v0.4.0
 * Objects/Characters defined by data
 * Editor can save/load campaigns
 * Ability to save/load single maps
+* Combat turns
 
 NOTES: v0.4.0 is not compatible with maps or saves from earlier versions.

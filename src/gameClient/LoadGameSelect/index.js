@@ -8,7 +8,7 @@ import Button from '../../common/Button';
 
 import { Panes, setUIPane } from '../store/ducks/ui';
 import { setMap, setActiveCharacter, setMapMeta } from '../store/ducks/map';
-import { getEnemyData } from '../store/getters/gameData';
+import { getEnemyData, getCharacterData } from '../store/getters/gameData';
 
 class LoadGameSelect extends Component {
 	constructor(props) {
@@ -98,7 +98,7 @@ class LoadGameSelect extends Component {
 						height={50}
 						text={mapName}
 						onClick={() => {
-							loadExistingMap(mapName, this.props.enemyData, this.props.setMap, this.props.setActiveCharacter, this.props.setMapMeta);
+							loadExistingMap(mapName, this.props.enemyData, this.props.characterData, this.props.setMap, this.props.setActiveCharacter, this.props.setMapMeta);
 							this.props.setPane(Panes.GAME);
 						}}
 					/>;
@@ -128,7 +128,8 @@ class LoadGameSelect extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		enemyData: getEnemyData(state)
+		enemyData: getEnemyData(state),
+		characterData: getCharacterData(state)
 	};
 };
 

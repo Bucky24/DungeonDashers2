@@ -1,7 +1,5 @@
 For v0.4.0
-* Editor for custom enemies/characters/objects
 * Ability to start/load a campaign
-* Combat turns
 * Some basic structure for equipment
 
 For v0.5.0
@@ -9,4 +7,7 @@ For v0.5.0
 * More "true to original" menus
 * Start of triggers system
 * Better enemy AI
+* Editor for custom enemies/characters/objects
 * Allow campaigns and single maps to have custom objects
+* Win conditions on maps
+* Campaign progression through completing maps

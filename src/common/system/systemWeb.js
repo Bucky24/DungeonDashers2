@@ -46,8 +46,8 @@ export const loadFile = (type, path) => {
 				{ "type": "door", "id": 1, "x": 8, "y": 6, "isOpen": true },
 			],
 			characters: [
-				{ "x": 5, "y": 6 },
-				{ "x": 4, "y": 6 }
+				{ "x": 5, "y": 6, "ident": "character1" },
+				{ "x": 4, "y": 6, "ident": "character2" }
 			]
 		});
 	}

@@ -28,3 +28,7 @@ export const getMapMeta = (state) => {
 		customMap: state.map.customMap
 	};
 }
+
+export const inBattle = (state) => {
+	return getActiveEnemies(state).length > 0;
+}
