@@ -16,5 +16,6 @@ v0.4.0
 * Ability to save/load single maps
 * Combat turns
 * Ability to start/load a campaign
+* Very minimal structure for equipment
 
 NOTES: v0.4.0 is not compatible with maps or saves from earlier versions.

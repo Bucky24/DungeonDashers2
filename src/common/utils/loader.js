@@ -83,12 +83,13 @@ const processMapData = (data, enemyData, characterData, setMap, setActiveCharact
 			key: `${object.x}_${object.y}`
 		};
 	});
-	
+
 	const newCharacters = data.characters.map((character) => {
 		const data = characterData[character.ident];
 		return {
 			...character,
-			actionPoints: character.actionPoints || data.actionPoints
+			actionPoints: character.actionPoints || data.actionPoints,
+			equipment: character.equipment || []
 		};
 	});
 

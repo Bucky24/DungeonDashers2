@@ -28,7 +28,7 @@
 		{ "tile": "ground1", "x": 4, "y": 8 }
 	],
 	"characters": [
-		{ "ident": "character1", "x": 5, "y": 5 },
+		{ "ident": "character1", "x": 5, "y": 5, "equipment": [{ "type": "sword" }] },
 		{ "ident": "character2", "x": 4, "y": 5 }
 	],
 	"objects": [
