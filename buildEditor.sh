@@ -4,7 +4,7 @@ echo Cleanup old app
 rm -rf electron_editor
 rm dd2_editor.zip
 rm dist/dd2_editor.zip
-unzip electron-v5.0.2-win32-ia32.zip -d electron_editor 1>/dev/null
+unzip electron-v6.1.5-win32-ia32.zip -d electron_editor 1>/dev/null
 mv electron_editor/electron.exe electron_editor/dd2_editor.exe
 mkdir electron_editor/resources/app
 echo Building new editor
