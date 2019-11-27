@@ -1,5 +1,4 @@
 For v0.4.0
-* Ability to start/load a campaign
 * Some basic structure for equipment
 
 For v0.5.0

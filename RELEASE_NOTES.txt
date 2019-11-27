@@ -15,5 +15,6 @@ v0.4.0
 * Editor can save/load campaigns
 * Ability to save/load single maps
 * Combat turns
+* Ability to start/load a campaign
 
 NOTES: v0.4.0 is not compatible with maps or saves from earlier versions.
