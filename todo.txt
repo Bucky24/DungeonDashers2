@@ -1,5 +1,5 @@
 For v0.5.0
-* More accurate controls
+* More "true to original" game controls
 * More "true to original" menus
 * Start of triggers system
 * Better enemy AI

@@ -1,0 +1,44 @@
+This is meant to be rough notes on how triggers work, for internal development (otherwise I'll get confused). Once the system is more finalized, I will need to make a new system.
+
+General structure:
+
+{
+	"conditions": [
+		{
+			"type": "<type of condition>",
+			"data": {
+				...necessary data for the condition
+			}
+		}
+	],
+	"effects": [
+		{
+			"type": "<type of effect>",
+			"data": {
+				...necessary data for the effect
+			}
+		}
+	]
+}
+
+Conditions:
+
+variableCheck - compares two game variables
+
+data:
+
+variable (see below for variables) - the variable to check
+operator - the operator to use for the check. Support for == right now
+comparisonVariable (see below) - the variable to compare the first one with
+
+Effects:
+
+winGame - triggers the game win condition
+
+data: none
+
+Variables:
+
+totalCharacters - the total characters the player started with
+totalCharactersAlive - the total characters the player currently has
+charactersOnPortal - the total number of characters that are standing on a portal

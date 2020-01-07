@@ -3,6 +3,7 @@ import ui from './ducks/ui';
 import map from './ducks/map';
 import gameData from './ducks/gameData';
 import campaign from './ducks/campaign';
+import { createStore , compose } from 'redux';
 
 const reducers = {
 	ui,
@@ -11,4 +12,11 @@ const reducers = {
 	campaign
 };
 
-export default combineReducers(reducers);
+const combinedReducers = combineReducers(reducers);
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const createStoreWithMiddleware = composeEnhancers()(createStore);
+
+const store = createStoreWithMiddleware(combinedReducers);
+
+export default store;

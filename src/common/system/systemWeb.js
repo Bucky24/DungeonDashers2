@@ -11,10 +11,14 @@ import Bat from '../../data/enemies/bat.enemy';
 import BatImage from '../../data/enemies/bat.png';
 import Skeleton from '../../data/enemies/skeleton.enemy';
 import SkeletonImage from '../../data/enemies/skeleton.png';
+
 import Door from '../../data/objects/door.object';
 import DoorImage from '../../data/objects/door.png';
 import Chest from '../../data/objects/chest.object';
 import ChestImage from '../../data/objects/chest.png';
+import Portal from '../../data/objects/portal.object';
+import PortalImage from '../../data/objects/portal.png';
+
 import Character1 from '../../data/characters/character1.char';
 import Character1Image from '../../data/characters/character1.png';
 import Character2 from '../../data/characters/character2.char';
@@ -108,6 +112,14 @@ export const getBaseObjectList = () => {
 			imageData: {
 				...Chest.imageData,
 				image: ChestImage
+			}
+		},
+		{
+			...Portal,
+			type: 'portal',
+			imageData: {
+				...Portal.imageData,
+				image: PortalImage
 			}
 		}
 	];

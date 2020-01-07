@@ -34,10 +34,32 @@
 	"objects": [
 		{ "type": "door", "id": 1, "x": 8, "y": 6 },
 		{ "type": "chest", "id": 2, "x": 8, "y": 7, "amount": 100 },
-		{ "type": "chest", "id": 2, "x": 8, "y": 8, "amount": 200 }
+		{ "type": "chest", "id": 3, "x": 8, "y": 8, "amount": 200 },
+		{ "type": "portal", "id": 4, "x": 8, "y": 10 },
+		{ "type": "portal", "id": 5, "x": 8, "y": 11 }
 	],
 	"enemies": [
 		{ "type": "bat", "id": 1, "trigger": 1, "x": 8, "y": 10},
 		{ "type": "skeleton", "id": 2, "x": 8, "y": 5}
+	],
+	"triggers": [
+		{
+			"conditions": [
+				{
+					"type": "variableCheck",
+					"data": {
+						"variable": "totalCharactersAlive",
+						"operator": "==",
+						"comparisonVariable": "charactersOnPortal"
+					}
+				}
+			],
+			"effects": [
+				{
+					"type": "winGame",
+					"data": {}
+				}
+			]
+		}
 	]
 }
