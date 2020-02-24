@@ -19,3 +19,7 @@ v0.4.0
 * Very minimal structure for equipment
 
 NOTES: v0.4.0 is not compatible with maps or saves from earlier versions.
+
+v0.5.0
+* Start of triggers system
+* Win conditions on maps

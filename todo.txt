@@ -1,11 +1,9 @@
 For v0.5.0
 * More "true to original" game controls
 * More "true to original" menus
-* Start of triggers system
 * Better enemy AI
 * Editor for custom enemies/characters/objects
 * Allow campaigns and single maps to have custom objects
-* Win conditions on maps
 * Campaign progression through completing maps
 * At least two pieces of equipment
 * Ability to remove and equip equipment to characters
