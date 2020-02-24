@@ -32,3 +32,7 @@ export const getMapMeta = (state) => {
 export const inBattle = (state) => {
 	return getActiveEnemies(state).length > 0;
 }
+
+export const getTriggers = (state) => {
+	return state.map.triggers;
+}

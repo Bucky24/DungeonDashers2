@@ -38,6 +38,7 @@ import {
 } from '../store/getters/campaign';
 
 import BattleHandler from '../EnemyHandler/battle';
+import { handleTriggers } from '../Triggers/triggerHandler';
 
 class GameMap extends Component {
 	constructor(props) {
@@ -141,6 +142,7 @@ class GameMap extends Component {
 				x: newX,
 				y: newY,
 			}, activeIndex);
+			handleTriggers();
 		}
 		
 		if (!this.props.inBattle) {

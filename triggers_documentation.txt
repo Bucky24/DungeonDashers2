@@ -3,6 +3,7 @@ This is meant to be rough notes on how triggers work, for internal development (
 General structure:
 
 {
+	"id": <number>,
 	"conditions": [
 		{
 			"type": "<type of condition>",
@@ -18,8 +19,13 @@ General structure:
 				...necessary data for the effect
 			}
 		}
-	]
+	],
+	"repeats": <false|true>,
 }
+
+Repeats:
+
+Determines if the trigger repeats or not. If it does not repeat, it will fire once then never again.
 
 Conditions:
 

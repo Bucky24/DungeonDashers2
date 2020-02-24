@@ -73,6 +73,6 @@ module.exports = {
 		new ProgressBarPlugin()
 	],
 	devServer: {
-		port: 3000
+		port: 3001
 	}
 };

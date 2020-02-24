@@ -8,7 +8,8 @@ export const Panes = {
 	GAME: 'game',
 	NEW_MAP_SELECT: 'new_map_select',
 	SAVE_LOAD: 'save_load',
-	LOAD_GAME_SELECT: 'load_game_select'
+	LOAD_GAME_SELECT: 'load_game_select',
+	WON_GAME: 'won_game'
 };
 
 const defaultState = {

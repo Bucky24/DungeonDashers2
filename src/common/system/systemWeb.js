@@ -5,6 +5,7 @@ import { Types } from './systemCommon';
 export * from './systemCommon';
 
 import Sample1 from '../../data/maps/sample1.map';
+import Sample2 from '../../data/maps/sample2.map';
 import Campaign1 from '../../data/campaigns/campaign1.camp';
 
 import Bat from '../../data/enemies/bat.enemy';
@@ -31,9 +32,9 @@ export const saveFile = (type, path, data) => {
 
 export const loadFile = (type, path) => {
 	if (type === Types.MAP) {
-		return Promise.resolve(Sample1);
+		return Promise.resolve(Sample2);
 	} else if (type === Types.MAP_CUSTOM) {
-		return Promise.resolve(Sample1);
+		return Promise.resolve(Sample2);
 	} else if (type === Types.CAMPAIGN_CUSTOM) {
 		return Promise.resolve(Campaign1);
 	} else if (type === Types.CAMPAIGN) {

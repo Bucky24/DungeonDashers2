@@ -101,7 +101,8 @@ const processMapData = (data, enemyData, characterData, setMap, setActiveCharact
 		height: data.height,
 		walkable: getWalkable(data.tiles, newObjects),
 		inactiveEnemies: data.inactiveEnemies,
-		activeEnemies: data.activeEnemies
+		activeEnemies: data.activeEnemies,
+		triggers: data.triggers,
 	};
 	
 	setMap(newMap);

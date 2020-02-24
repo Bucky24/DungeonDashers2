@@ -6,6 +6,7 @@ import NewMapSelect from '../NewMapSelect';
 import Loader from '../Loader';
 import SaveLoadSelect from '../SaveLoadSelect';
 import LoadGameSelect from '../LoadGameSelect';
+import WonGame from '../WonGame/wonGame';
 
 import './style.css';
 
@@ -22,7 +23,8 @@ class App extends Component {
 			{ pane === Panes.GAME && <GameMap width={width} height={height} /> }		
 			{ pane === Panes.NEW_MAP_SELECT && <NewMapSelect width={width} height={height} /> }		
 			{ pane === Panes.SAVE_LOAD && <SaveLoadSelect width={width} height={height} /> }
-			{ pane === Panes.LOAD_GAME_SELECT && <LoadGameSelect width={width} height={height} />}
+			{ pane === Panes.LOAD_GAME_SELECT && <LoadGameSelect width={width} height={height} /> }
+			{ pane === Panes.WON_GAME && <WonGame width={width} height={height} /> }
 		</div>;
 	}
 }
