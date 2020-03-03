@@ -33,13 +33,28 @@
 	],
 	"objects": [
 		{ "type": "door", "id": 1, "x": 8, "y": 6 },
-		{ "type": "chest", "id": 2, "x": 8, "y": 7, "amount": 100 },
-		{ "type": "chest", "id": 3, "x": 8, "y": 8, "amount": 200 },
+		{ "type": "chest", "id": 2, "x": 8, "y": 7, "contains": [
+			{
+				"type": "currency",
+				"data": {
+					"type": "gold",
+					"amount": 100
+				}
+			}
+		]},
+		{ "type": "chest", "id": 3, "x": 8, "y": 8, "contains": [
+			{
+				"type": "equipment",
+				"data": {
+					"type": "sword"
+				}
+			}
+		]},
 		{ "type": "portal", "id": 4, "x": 8, "y": 10 },
 		{ "type": "portal", "id": 5, "x": 8, "y": 11 }
 	],
 	"enemies": [
-		{ "type": "bat", "id": 1, "trigger": 1, "x": 8, "y": 10},
+		{ "type": "bat", "id": 1, "doorTrigger": 1, "x": 8, "y": 10},
 		{ "type": "skeleton", "id": 2, "x": 8, "y": 5}
 	],
 	"triggers": [

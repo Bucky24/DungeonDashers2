@@ -1,0 +1,61 @@
+Maps {
+	version: number,
+	width: number,
+	height: number,
+	tiles: Tile[],
+	characters: Character[],
+	objects: Object[],
+	enemies: Enemy[],
+	triggers: Trigger[]
+}
+
+Tile {
+	tile: string,
+	x: number,
+	y: number
+}
+
+Character {
+	ident: string,
+	x: number,
+	y: number,
+	equipment: Equipment[]
+}
+
+Equipment {
+	type: string
+}
+
+Object {
+	type: string,
+	x: number,
+	y: number,
+	id: number,
+	contains?: Treasure[]
+}
+
+Treasure {
+	type: string,
+	data: CurrencyTreasure | EquipmentTreasure
+}
+
+CurrencyTreasure {
+	type: string,
+	amount: number
+}
+
+EquipmentTreasure {
+	equipment: Equipment[]
+}
+
+Enemy {
+	type: string,
+	id: number,
+	doorTrigger: number,
+	x: number,
+	y: number
+}
+
+Trigger {
+	<see triggers_documentation>
+}

@@ -1,12 +1,21 @@
 For v0.5.0
+* Add in a way to save the game
 * More "true to original" game controls
 * More "true to original" menus
 * Better enemy AI
-* Editor for custom enemies/characters/objects
+* Editor for custom objects
 * Allow campaigns and single maps to have custom objects
 * Campaign progression through completing maps
 * At least two pieces of equipment
 * Ability to remove and equip equipment to characters
-* Ability to put equipment in chests
 * More enemies
 * More map tiles
+
+For v0.6.0
+* Handle conditions that can't repeat
+* Brainstorm additional conditions that might be useful
+* Editor for custom characters
+* Allow custom characters in maps and campaigns
+* Editor for equipment
+* All original base characters
+* Replicate the first original campaign scenario

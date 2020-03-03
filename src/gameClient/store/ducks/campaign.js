@@ -2,13 +2,15 @@ export const Constants = {
 	RESET_ALL: 'CAMP/RESET',
 	ADD_GOLD: 'CAMP/ADD_GOLD',
 	ADD_CHARACTER: 'CAMP/ADD_CHARACTER',
-	SET_ACTIVE_CAMPAIGN: 'CAMP/SET_ACTIVE_CAMPAIGN'
+	SET_ACTIVE_CAMPAIGN: 'CAMP/SET_ACTIVE_CAMPAIGN',
+	ADD_EQUIPMENT: 'CAMP/ADD_EQUIPMENT'
 };
 
 const defaultState = {
 	gold: 0,
 	characterData: {},
-	campaign: null
+	campaign: null,
+	floatingEquipment: []
 };
 
 export default (state = defaultState, action) => {
@@ -42,6 +44,14 @@ export default (state = defaultState, action) => {
 				...state,
 				campaign: action.campaign
 			}
+		case Constants.ADD_EQUIPMENT:
+			return {
+				...state,
+				floatingEquipment: [
+					...state.floatingEquipment,
+					action.equipment
+				]
+			}
 		default:
 			return state;
 	}
@@ -67,5 +77,12 @@ export const setActiveCampaign = (campaign) => {
 	return {
 		type: Constants.SET_ACTIVE_CAMPAIGN,
 		campaign
+	};
+};
+
+export const addEquipment = (equipment) => {
+	return {
+		type: Constants.ADD_EQUIPMENT,
+		equipment
 	};
 };

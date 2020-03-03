@@ -23,7 +23,8 @@ import {
 	activateEnemy,
 	harmEnemy,
 	removeObject,
-	setActiveCharacter
+	setActiveCharacter,
+	addEquipment
 } from '../store/ducks/map';
 import {
 	getEnemyData,
@@ -163,6 +164,20 @@ class GameMap extends Component {
 		}
 	}
 	
+	handleItemCredit(itemList) {
+		itemList.forEach((item) => {
+			switch (item.type) {
+			case "currency":
+				// ignore the currency type for now
+				this.props.addGold(item.data.amount);
+				break;
+			case "equipment":
+				this.props.
+				break;
+			}
+		})
+	}
+	
 	// returns false if player cannot move there
 	handleCollision(obj1, obj2) {
 		// simple for now, more complex later
@@ -174,7 +189,7 @@ class GameMap extends Component {
 				});
 				// find all enemies that should be activated by this door
 				const enemiesToActivate = this.props.inactiveEnemies.filter((enemy) => {
-					return enemy.trigger === obj2.id;
+					return enemy.doorTrigger === obj2.id;
 				});
 				
 				if (enemiesToActivate.length > 0) {
@@ -183,7 +198,6 @@ class GameMap extends Component {
 					});
 					
 					// at this point reset the active player's action points
-					console.log('resetting active player');
 					this.resetActivePlayersActions();
 				}
 			}
@@ -194,7 +208,7 @@ class GameMap extends Component {
 			return false;
 		} else if (obj1.type === 'player' && obj2.type === 'chest') {
 			this.props.removeObject(obj2.id);
-			this.props.addGold(obj2.amount)
+			this.handleItemCredit(obj2.contains);
 		}
 		
 		return true;
@@ -357,6 +371,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		setActiveCharacter: (index) => {
 			dispatch(setActiveCharacter(index));
+		},
+		addEquipment: (equipment) => {
+			dispatch(addEquipment(equipment));
 		}
  	};
 };
