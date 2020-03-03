@@ -41,14 +41,6 @@ class LoadGameSelect extends Component {
 			width={width}
 			height={height}
 		>
-			<Rect
-				x={0}
-				y={0}
-				x2={width}
-				y2={height}
-				color="#fff"
-				fill={true}
-			/>
 			<Button
 				x={0}
 				y={height-50}

@@ -3,53 +3,58 @@ import { connect } from 'react-redux';
 import { Container, Text } from '@bucky24/react-canvas';
 import Button from '../../common/Button';
 import { loadFile, Types } from 'system';
+import VerticalMenu from '../../common/Inputs/VerticalMenu'
 
 import { Panes, setUIPane } from '../store/ducks/ui';
 
 class MainMenu extends Component {
 	render() {
-		const { setPane } = this.props;
+		const { setPane, width, height } = this.props;
+		
+		const midX = width/2 - 50;
+		const bottomBuffer = 60;
+		const buttonHeight = 30;
+		const padding = 10;
+		const startY = height - bottomBuffer - (buttonHeight+padding) * 5
+		
+		const buttons = [
+			{
+				text: "SINGLEPLAYER",
+				id: "single"
+			},
+			{
+				text: "MULTIPLAYER",
+				id: "multi"
+			},
+			{
+				text: "OPTIONS",
+				id: "options"
+			},
+			{
+				text: "CREDITS",
+				id: "credits"
+			},
+			{
+				text: "QUIT",
+				id: "quit"
+			}
+		]
+
 		return (<Container>
-			<Text x={100} y={100}>
-				Main Menu
-			</Text>
-			<Button
-				x={0}
-				y={200}
+			<VerticalMenu
+				buttons={buttons}
+				midX={midX}
+				startY={startY}
+				padding={padding}
+				height={buttonHeight}
 				width={100}
-				height={50}
-				text="SINGLEPLAYER"
-				onClick={() => {
-					setPane(Panes.SAVE_LOAD);
+				onSelect={(id) => {
+					switch(id) {
+					case "single":
+						setPane(Panes.SAVE_LOAD);
+						break;
+					}
 				}}
-			/>
-			<Button
-				x={110}
-				y={200}
-				width={100}
-				height={50}
-				text="MULTIPLAYER"
-			/>
-			<Button
-				x={220}
-				y={200}
-				width={100}
-				height={50}
-				text="OPTIONS"
-			/>
-			<Button
-				x={330}
-				y={200}
-				width={100}
-				height={50}
-				text="CREDITS"
-			/>
-			<Button
-				x={440}
-				y={200}
-				width={100}
-				height={50}
-				text="QUIT"
 			/>
 		</Container>);
 	}

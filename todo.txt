@@ -1,7 +1,6 @@
 For v0.5.0
 * Add in a way to save the game
 * More "true to original" game controls
-* More "true to original" menus
 * Better enemy AI
 * Editor for custom objects
 * Allow campaigns and single maps to have custom objects
@@ -19,3 +18,5 @@ For v0.6.0
 * Editor for equipment
 * All original base characters
 * Replicate the first original campaign scenario
+* Character special skills
+* Better menus for load and saving

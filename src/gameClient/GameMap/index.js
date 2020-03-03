@@ -24,7 +24,6 @@ import {
 	harmEnemy,
 	removeObject,
 	setActiveCharacter,
-	addEquipment
 } from '../store/ducks/map';
 import {
 	getEnemyData,
@@ -32,7 +31,8 @@ import {
 	getCharacterData
 } from '../store/getters/gameData';
 import {
-	addGold
+	addGold,
+	addEquipment
 } from '../store/ducks/campaign';
 import {
 	getGold
