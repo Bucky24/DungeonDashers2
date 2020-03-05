@@ -9,6 +9,8 @@ For v0.5.0
 
 For v0.6.0
 * Handle conditions that can't repeat
+* Add ability to show message boxes and dialog w/ triggers
+* Add trigger to spawn characters
 * Brainstorm additional conditions that might be useful
 * All original base characters
 * Replicate the first original campaign scenario
@@ -23,3 +25,5 @@ For v0.7.0
 * Editor for custom objects
 * Allow campaigns and single maps to have custom objects
 * Editor for equipment
+* True to original enemy AI
+* Equipment has effects
