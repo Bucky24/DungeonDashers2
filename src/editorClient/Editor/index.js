@@ -28,7 +28,16 @@ const TOOL_LIST = [
 ];
 
 const terrainData = {
-	'ground1': 'Ground 1'
+	'ground1': 'Ground 1',
+	'terrain1': 'Terrain 1',
+	'terrain2': 'Terrain 2',
+	'terrain3': 'Terrain 3',
+	'terrain4': 'Terrain 4',
+	'terrain5': 'Terrain 5',
+	'terrain6': 'Terrain 6',
+	'terrain7': 'Terrain 7',
+	'terrain8': 'Terrain 8',
+	'terrain9': 'Terrain 9',
 };
 
 class Editor extends React.Component {

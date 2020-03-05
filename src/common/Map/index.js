@@ -11,13 +11,23 @@ import Terrain1 from '../assets/terrain1.png';
 import Terrain2 from '../assets/terrain2.png';
 import Terrain3 from '../assets/terrain3.png';
 import Terrain4 from '../assets/terrain4.png';
+import Terrain5 from '../assets/terrain5.png';
+import Terrain6 from '../assets/terrain6.png';
+import Terrain7 from '../assets/terrain7.png';
+import Terrain8 from '../assets/terrain8.png';
+import Terrain9 from '../assets/terrain9.png';
 
 const tileMap = {
 	'ground1': Ground1,
 	'terrain1': Terrain1,
 	'terrain2': Terrain2,
 	'terrain3': Terrain3,
-	'terrain4': Terrain4
+	'terrain4': Terrain4,
+	'terrain5': Terrain5,
+	'terrain6': Terrain6,
+	'terrain7': Terrain7,
+	'terrain8': Terrain8,
+	'terrain9': Terrain9,
 };
 
 const propTypes = {
