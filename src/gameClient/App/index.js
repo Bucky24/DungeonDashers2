@@ -7,6 +7,7 @@ import Loader from '../Loader';
 import SaveLoadSelect from '../SaveLoadSelect';
 import LoadGameSelect from '../LoadGameSelect';
 import WonGame from '../WonGame/wonGame';
+import EquipmentView from '../EquipmentView/equipmentView';
 
 import './style.css';
 
@@ -25,6 +26,7 @@ class App extends Component {
 			{ pane === Panes.SAVE_LOAD && <SaveLoadSelect width={width} height={height} /> }
 			{ pane === Panes.LOAD_GAME_SELECT && <LoadGameSelect width={width} height={height} /> }
 			{ pane === Panes.WON_GAME && <WonGame width={width} height={height} /> }
+			{ pane === Panes.GAME_EQUIPMENT && <EquipmentView width={width} height={height} /> }
 		</div>;
 	}
 }

@@ -10,7 +10,8 @@ module.exports = {
 		CAMPAIGN: 'campaign',
 		SAVED_CAMPAIGN: 'saved_campaign',
 		SAVED_MAP: 'saved_map',
-		CHARACTER: 'character'
+		CHARACTER: 'character',
+		EQUIPMENT: 'equipment',
 	}
 };
 

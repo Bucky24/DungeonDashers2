@@ -12,6 +12,7 @@ class VerticalMenu extends CanvasComponent {
 	}
 
 	onKeyUp({ code }) {
+		let doRerender = true;
 		switch (code) {
 		case 'ArrowUp':
 			this.setState({
@@ -27,9 +28,12 @@ class VerticalMenu extends CanvasComponent {
 			break;
 		case 'Enter':
 			this.props.onSelect(this.props.buttons[this.state.activeMenuItem].id);
+			doRerender = false;
 			break;
 		}
-		this.context.forceRerender();
+		if (doRerender) {
+			this.context.forceRerender();
+		}
 	}
 	
 	render() {

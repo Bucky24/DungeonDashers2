@@ -27,3 +27,5 @@ v0.5.0
 * Ability to put equipment in objects
 * More "true to original" menus
 * More map tiles
+* At least two pieces of equipment in base game
+* Ability to remove and equip equipment to characters

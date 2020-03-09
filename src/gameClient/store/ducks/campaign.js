@@ -3,7 +3,8 @@ export const Constants = {
 	ADD_GOLD: 'CAMP/ADD_GOLD',
 	ADD_CHARACTER: 'CAMP/ADD_CHARACTER',
 	SET_ACTIVE_CAMPAIGN: 'CAMP/SET_ACTIVE_CAMPAIGN',
-	ADD_EQUIPMENT: 'CAMP/ADD_EQUIPMENT'
+	ADD_EQUIPMENT: 'CAMP/ADD_EQUIPMENT',
+	REMOVE_EQUIPMENT: 'CAMP/REMOVE_EQUIPMENT',
 };
 
 const defaultState = {
@@ -52,6 +53,13 @@ export default (state = defaultState, action) => {
 					action.equipment
 				]
 			}
+		case Constants.REMOVE_EQUIPMENT:
+			return {
+				...state,
+				floatingEquipment: state.floatingEquipment.filter((item, index) => {
+					return index !== action.index;
+				}),
+			}
 		default:
 			return state;
 	}
@@ -86,3 +94,10 @@ export const addEquipment = (equipment) => {
 		equipment
 	};
 };
+
+export const removeEquipment = (index) => {
+	return {
+		type: Constants.REMOVE_EQUIPMENT,
+		index,
+	}
+}

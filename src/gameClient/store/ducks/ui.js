@@ -9,7 +9,8 @@ export const Panes = {
 	NEW_MAP_SELECT: 'new_map_select',
 	SAVE_LOAD: 'save_load',
 	LOAD_GAME_SELECT: 'load_game_select',
-	WON_GAME: 'won_game'
+	WON_GAME: 'won_game',
+	GAME_EQUIPMENT: 'game_equipment',
 };
 
 const defaultState = {

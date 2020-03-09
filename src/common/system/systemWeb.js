@@ -25,6 +25,8 @@ import Character1Image from '../../data/characters/character1.png';
 import Character2 from '../../data/characters/character2.char';
 import Character2Image from '../../data/characters/character2.png';
 
+import Sword from '../../data/equipment/sword.equip';
+
 export const saveFile = (type, path, data) => {
 	console.log('stub method saveFile saving', type, path, data);
 	return Promise.resolve('stub');
@@ -148,4 +150,12 @@ export const getBaseCharacterList = () => {
 			}
 		}
 	];
+}
+
+export const getBaseEquipmentList = () => {
+	return [
+		{
+			...Sword,
+		},
+	]
 }

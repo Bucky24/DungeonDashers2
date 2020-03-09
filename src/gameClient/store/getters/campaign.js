@@ -5,3 +5,7 @@ export const getGold = (state) => {
 export const getCharacterData = (state) => {
 	return state.campaign.characterData || {};
 }
+
+export const getUnassignedEquipment = (state) => {
+	return state.campaign.floatingEquipment;
+}

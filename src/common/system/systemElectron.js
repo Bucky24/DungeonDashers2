@@ -80,3 +80,7 @@ export const getBaseObjectList = async () => {
 export const getBaseCharacterList = async () => {
 	return getBaseList(Types.CHARACTER);
 }
+
+export const getBaseEquipmentList = async () => {
+	return getBaseList(Types.EQUIPMENT);
+}

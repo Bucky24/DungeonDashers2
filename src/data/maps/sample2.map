@@ -33,7 +33,21 @@
 	],
 	"objects": [
 		{ "type": "portal", "id": 4, "x": 4, "y": 8 },
-		{ "type": "portal", "id": 5, "x": 5, "y": 8 }
+		{ "type": "portal", "id": 5, "x": 5, "y": 8 },
+		{ "type": "chest", "id": 3, "x": 6, "y": 5, "contains": [
+			{
+				"type": "equipment",
+				"data": {
+					"type": "sword"
+				}
+			},
+			{
+				"type": "equipment",
+				"data": {
+					"type": "shield"
+				}
+			}
+		]}
 	],
 	"enemies": [],
 	"triggers": [

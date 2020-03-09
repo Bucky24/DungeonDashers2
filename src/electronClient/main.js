@@ -60,7 +60,11 @@ const TypeDirMap = {
 	[Types.CHARACTER]: {
 		path: path.join(__dirname, '..', 'data', 'characters'),
 		ext: 'char'
-	}
+	},
+	[Types.EQUIPMENT]: {
+		path: path.join(__dirname, '..', 'data', 'equipment'),
+		ext: 'equip',
+	},
 }
 
 Object.values(TypeDirMap).forEach(({ path, create }) => {

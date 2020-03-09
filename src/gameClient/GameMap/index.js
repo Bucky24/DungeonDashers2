@@ -37,6 +37,7 @@ import {
 import {
 	getGold
 } from '../store/getters/campaign';
+import { Panes, setUIPane } from '../store/ducks/ui';
 
 import BattleHandler from '../EnemyHandler/battle';
 import { handleTriggers } from '../Triggers/triggerHandler';
@@ -172,7 +173,7 @@ class GameMap extends Component {
 				this.props.addGold(item.data.amount);
 				break;
 			case "equipment":
-				this.props.
+				this.props.addEquipment(item.data);
 				break;
 			}
 		})
@@ -241,7 +242,7 @@ class GameMap extends Component {
 	render() {
 		const { activeChar } = this.activeCharacter();
 		const activeCharData = activeChar ? this.props.characterData[activeChar.ident] : {};
-		const { width, height } = this.props;
+		const { width, height, setPane } = this.props;
 		return (<Canvas
 			width={width}
 			height={height}
@@ -304,6 +305,16 @@ class GameMap extends Component {
 					saveMap('saveGame', gameObj);
 				}}
 			/>
+			<Button
+				x={210}
+				y={height-50}
+				width={200}
+				height={50}
+				text="Equipment"
+				onClick={() => {
+					setPane(Panes.GAME_EQUIPMENT);
+				}}
+			/>
 			{ this.props.inBattle && <Container>
 				<Rect
 					x={width/2-100}
@@ -351,6 +362,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
+		setPane: (pane) => {
+			dispatch(setUIPane(pane));
+		},
 		setCharacter: (data, index) => {
 			return dispatch(setCharacter(data, index));
 		},
