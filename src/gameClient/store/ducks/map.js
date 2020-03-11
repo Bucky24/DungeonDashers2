@@ -8,7 +8,8 @@ export const Constants = {
 	HARM_ENEMY: 'MAP/HARM_ENEMY',
 	REMOVE_OBJECT: 'MAP/REMOVE_OBJECT',
 	SET_ACTIVE_CHARACTER: 'MAP/SET_ACTIVE_CHARACTER',
-	SET_MAP_META: 'MAP/SET_MAP_META'
+	SET_MAP_META: 'MAP/SET_MAP_META',
+	HARM_CHARACTER: 'MAP/HARM_CHARACTER',
 };
 
 const defaultState = {
@@ -177,6 +178,29 @@ export default (state = defaultState, action) => {
 			activeMap: action.mapName,
 			customMap: action.customMap
 		}
+	} else if (action.type === Constants.HARM_CHARACTER) {
+		const index = state.characters.findIndex((obj) => {
+			return obj.ident === action.ident;
+		});
+		if (index === -1) {
+			throw new Error(`Unable to find active player for ident ${action.ident}`);
+		}
+		
+		const character = {
+			...state.characters[index]
+		};
+		
+		const newCharacters = [...state.characters];
+		character.hp -= action.amount;
+		if (character.hp <= 0) {
+			character.hp = 0;
+		}
+		newCharacters[index] = character;
+	
+		return {
+			...state,
+			characters: newCharacters,
+		};
 	} else {
 		return state;
 	}
@@ -233,6 +257,14 @@ export const harmEnemy = (id, amount) => {
 	return {
 		type: Constants.HARM_ENEMY,
 		id,
+		amount
+	};
+}
+
+export const harmCharacter = (ident, amount) => {
+	return {
+		type: Constants.HARM_CHARACTER,
+		ident,
 		amount
 	};
 }

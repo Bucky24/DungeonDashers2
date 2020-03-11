@@ -89,7 +89,9 @@ const processMapData = (data, enemyData, characterData, setMap, setActiveCharact
 		return {
 			...character,
 			actionPoints: character.actionPoints || data.actionPoints,
-			equipment: character.equipment || []
+			equipment: character.equipment || [],
+			hp: character.hp || data.maxHP,
+			maxHP: data.maxHP,
 		};
 	});
 

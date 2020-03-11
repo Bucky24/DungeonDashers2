@@ -29,3 +29,4 @@ v0.5.0
 * More map tiles
 * At least two pieces of equipment in base game
 * Ability to remove and equip equipment to characters
+* Minimal enemy AI

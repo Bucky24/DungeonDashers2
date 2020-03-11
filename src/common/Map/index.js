@@ -145,9 +145,9 @@ class Map extends CanvasComponent {
 					width={imageData.width}
 					height={imageData.height}
 					image={imageData.image}
-					hp={1}
+					hp={characterObj.hp || 1}
 					selected={characterObj.selected}
-					maxHP={1}
+					maxHP={characterObj.maxHP || 1}
 				/>;
 			})}
 			{ this.props.enemies.map((enemy, index) => {

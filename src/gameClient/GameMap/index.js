@@ -228,21 +228,27 @@ class GameMap extends Component {
 		let { activeIndex } = this.activeCharacter();
 		this.resetActivePlayersActions();
 		activeIndex ++;
+		let forceUpdate = false;
 		if (activeIndex >= this.props.characters.length) {
 			activeIndex = 0;
 			if (this.props.inBattle) {
 				await BattleHandler();
+				forceUpdate = true;
 			}
 		}
 		this.props.setActiveCharacter(activeIndex);
 		// reset the action points for this new character just in case
 		this.resetActivePlayersActions();
+		if (forceUpdate) {
+			this.forceUpdate();
+		}
 	}
 	
 	render() {
 		const { activeChar } = this.activeCharacter();
 		const activeCharData = activeChar ? this.props.characterData[activeChar.ident] : {};
 		const { width, height, setPane } = this.props;
+		console.log('rendering')
 		return (<Canvas
 			width={width}
 			height={height}
