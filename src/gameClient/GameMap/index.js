@@ -248,7 +248,6 @@ class GameMap extends Component {
 		const { activeChar } = this.activeCharacter();
 		const activeCharData = activeChar ? this.props.characterData[activeChar.ident] : {};
 		const { width, height, setPane } = this.props;
-		console.log('rendering')
 		return (<Canvas
 			width={width}
 			height={height}

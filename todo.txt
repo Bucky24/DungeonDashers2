@@ -15,7 +15,7 @@ For v0.6.0
 * Full dungeon tile set
 * Better asset names in editor
 * Properly handle character death in both maps and scenarios
-* Better enemy AI - pathfinding, real damage, fleeing, action points
+* Better enemy AI - pathfinding, real damage,  action points
 
 For v0.7.0
 * Editor for custom characters
@@ -23,5 +23,5 @@ For v0.7.0
 * Editor for custom objects
 * Allow campaigns and single maps to have custom objects
 * Editor for equipment
-* True to original enemy AI
+* True to original enemy AI (fleeing after attack, summoning)
 * Equipment has effects

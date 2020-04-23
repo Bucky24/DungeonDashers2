@@ -116,14 +116,13 @@ const loadMapBase = (type, mapName) => {
 	return loadFile(type, mapName);
 };
 
-export const loadCampaign = (type, campaignName, newGame, setCampaign) => {
+export const loadCampaign = (type, campaignName, newGame, setCampaign, setCampaignMaps) => {
 	return loadFile(type, campaignName).then(async (data) => {
-		let currentMap = data.maps[0];
-		
 		setCampaign(campaignName);
+		setCampaignMaps(data.maps);
 		
 		if (!newGame) {
-			const campaignData = await(loadFile, Types.SAVED_CAMPAIGN, campaignName)
+			const campaignData = await loadFile(Types.SAVED_CAMPAIGN, campaignName);
 		}
 	});
 };

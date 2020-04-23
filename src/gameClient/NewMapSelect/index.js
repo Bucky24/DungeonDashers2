@@ -8,7 +8,7 @@ import { Panes, setUIPane } from '../store/ducks/ui';
 import { setMap, setActiveCharacter, setMapMeta } from '../store/ducks/map';
 import { getEnemyData, getCharacterData } from '../store/getters/gameData';
 import { loadNewMap, loadCampaign } from '../../common/utils/loader';
-import { setActiveCampaign } from '../store/ducks/campaign';
+import { setActiveCampaign, setMaps } from '../store/ducks/campaign';
 
 class NewMapSelect extends Component {
 	constructor(props) {
@@ -29,7 +29,8 @@ class NewMapSelect extends Component {
 	}
 
 	loadCampaign(type, campaignName) {
-		loadCampaign(type, campaignName, true, this.props.setActiveCampaign);
+		loadCampaign(type, campaignName, true, this.props.setActiveCampaign, this.props.setMaps);
+		this.props.setPane(Panes.CAMPAIGN);
 	}
 
 	componentDidMount() {
@@ -192,7 +193,10 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		setMapMeta: (name, custom) => {
 			dispatch(setMapMeta(name, custom));
-		}
+		},
+		setMaps: (maps) => {
+			dispatch(setMaps(maps));
+		},
 	};
 };
 

@@ -1,5 +1,5 @@
 {
 	"version": 1,
 	"description": "Foo Bar",
-	"maps": ["sample1"]
+	"maps": ["sample1", "sample2"]
 }

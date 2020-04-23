@@ -9,3 +9,11 @@ export const getCharacterData = (state) => {
 export const getUnassignedEquipment = (state) => {
 	return state.campaign.floatingEquipment;
 }
+
+export const getActiveCampaign = (state) => {
+	return state.campaign.campaign;
+}
+
+export const getMaps = (state) => {
+	return state.campaign.campaignMaps;
+}

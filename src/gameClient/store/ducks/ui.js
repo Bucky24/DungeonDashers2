@@ -11,6 +11,7 @@ export const Panes = {
 	LOAD_GAME_SELECT: 'load_game_select',
 	WON_GAME: 'won_game',
 	GAME_EQUIPMENT: 'game_equipment',
+	CAMPAIGN: 'campaign',
 };
 
 const defaultState = {

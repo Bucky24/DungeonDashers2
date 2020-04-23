@@ -62,6 +62,11 @@ export const loadFile = (type, path) => {
 				{ "x": 4, "y": 6, "ident": "character2" }
 			]
 		});
+	} else if (type === Types.SAVED_CAMPAIGN) {
+		return Promise.resolve({
+			...Campaign1,
+			current_map: 'sample2',
+		})
 	}
 	
 	return Promise.reject('unknown type');

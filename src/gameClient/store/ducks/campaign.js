@@ -5,13 +5,15 @@ export const Constants = {
 	SET_ACTIVE_CAMPAIGN: 'CAMP/SET_ACTIVE_CAMPAIGN',
 	ADD_EQUIPMENT: 'CAMP/ADD_EQUIPMENT',
 	REMOVE_EQUIPMENT: 'CAMP/REMOVE_EQUIPMENT',
+	SET_MAPS: 'CAMP/SET_MAPS',
 };
 
 const defaultState = {
 	gold: 0,
 	characterData: {},
 	campaign: null,
-	floatingEquipment: []
+	floatingEquipment: [],
+	campaignMaps: [],
 };
 
 export default (state = defaultState, action) => {
@@ -60,6 +62,11 @@ export default (state = defaultState, action) => {
 					return index !== action.index;
 				}),
 			}
+		case Constants.SET_MAPS:
+			return {
+				...state,
+				campaignMaps: action.maps,
+			};
 		default:
 			return state;
 	}
@@ -99,5 +106,12 @@ export const removeEquipment = (index) => {
 	return {
 		type: Constants.REMOVE_EQUIPMENT,
 		index,
-	}
-}
+	};
+};
+
+export const setMaps = (maps) => {
+	return {
+		type: Constants.SET_MAPS,
+		maps,
+	};
+};
