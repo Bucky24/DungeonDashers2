@@ -5,7 +5,7 @@ import Button from '../../common/Button';
 import { getFileList, loadFile, Types } from 'system';
 
 import { Panes, setUIPane } from '../store/ducks/ui';
-import { getActiveCampaign, getMaps } from '../store/getters/campaign';
+import { getActiveCampaign, getMaps, getCurrentMap } from '../store/getters/campaign';
 import { getMapMeta } from '../store/getters/map';
 import { getEnemyData, getCharacterData } from '../store/getters/gameData';
 import { setMap, setActiveCharacter, setMapMeta } from '../store/ducks/map';
@@ -25,11 +25,9 @@ class Campaign extends Component {
 	}
 
 	render() {
-		const { width, height, setPane, mapMeta, maps } = this.props;
+		const { width, height, setPane, mapMeta, maps, currentMap } = this.props;
 		
-		const metaIndex = (maps || []).findIndex((map) => {
-			return map === mapMeta.active;
-		});
+		const metaIndex = maps.indexOf(currentMap);
 		
 		return (<Canvas
 			width={width}
@@ -99,6 +97,7 @@ const mapStateToProps = (state) => {
 		mapMeta: getMapMeta(state),
 		enemyData: getEnemyData(state),
 		characterData: getCharacterData(state),
+		currentMap: getCurrentMap(state),
 	};
 };
 

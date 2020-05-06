@@ -64,8 +64,11 @@ export const loadFile = (type, path) => {
 		});
 	} else if (type === Types.SAVED_CAMPAIGN) {
 		return Promise.resolve({
-			...Campaign1,
-			current_map: 'sample2',
+			version: 1,
+			type: 'campaign',
+			campaignName: 'campaign1',
+			currentMap: 'sample2',
+			custom: true,
 		})
 	}
 	

@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import { Rect, Canvas, Text, Container } from '@bucky24/react-canvas';
 import { getFileList, loadFile, Types } from 'system';
 
-import { loadExistingMap } from '../../common/utils/loader';
+import { loadExistingMap, loadSavedCampaign } from '../../common/utils/loader';
 import Button from '../../common/Button';
 
 import { Panes, setUIPane } from '../store/ducks/ui';
 import { setMap, setActiveCharacter, setMapMeta } from '../store/ducks/map';
 import { getEnemyData, getCharacterData } from '../store/getters/gameData';
+import { setActiveCampaign, setMaps, setCurrentMap, setIsCustom } from '../store/ducks/campaign';
 
 class LoadGameSelect extends Component {
 	constructor(props) {
@@ -89,8 +90,8 @@ class LoadGameSelect extends Component {
 						width={200}
 						height={50}
 						text={mapName}
-						onClick={() => {
-							loadExistingMap(mapName, this.props.enemyData, this.props.characterData, this.props.setMap, this.props.setActiveCharacter, this.props.setMapMeta);
+						onClick={async () => {
+							await loadExistingMap(mapName, this.props.enemyData, this.props.characterData, this.props.setMap, this.props.setActiveCharacter, this.props.setMapMeta);
 							this.props.setPane(Panes.GAME);
 						}}
 					/>;
@@ -108,8 +109,15 @@ class LoadGameSelect extends Component {
 						width={200}
 						height={50}
 						text={campName}
-						onClick={() => {
-							loadCampaign(Types.SAVED_CAMPAIGN, campName, false);
+						onClick={async () => {
+							await loadSavedCampaign(
+								campName,
+								this.props.setActiveCampaign,
+								this.props.setMaps,
+								this.props.setCurrentMap,
+								this.props.setIsCustom,
+							);
+							this.props.setPane(Panes.CAMPAIGN);
 						}}
 					/>;
 				})}
@@ -138,7 +146,19 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		setMapMeta: (name, custom) => {
 			dispatch(setMapMeta(name, custom));
-		}
+		},
+		setActiveCampaign: (campaign) => {
+			dispatch(setActiveCampaign(campaign));
+		},
+		setMaps: (maps) => {
+			dispatch(setMaps(maps));
+		},
+		setCurrentMap: (map) => {
+			dispatch(setCurrentMap(map));
+		},
+		setIsCustom: (custom) => {
+			dispatch(setIsCustom(custom));
+		},
 	};
 };
 

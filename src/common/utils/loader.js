@@ -116,13 +116,32 @@ const loadMapBase = (type, mapName) => {
 	return loadFile(type, mapName);
 };
 
-export const loadCampaign = (type, campaignName, newGame, setCampaign, setCampaignMaps) => {
-	return loadFile(type, campaignName).then(async (data) => {
+export const loadSavedCampaign = (
+	campaignName, setCampaign, setCampaignMaps, setCurrentMap, setIsCustom,
+) => {
+	return loadFile(Types.SAVED_CAMPAIGN, campaignName).then(async (campaignData) => {
+		const type = campaignData.custom ? Types.CAMPAIGN_CUSTOM : Types.CAMPAIGN;
+
+		setIsCustom(campaignData.custom);
+		
+		const data = await loadFile(type, campaignData.campaignName);
 		setCampaign(campaignName);
 		setCampaignMaps(data.maps);
 		
-		if (!newGame) {
-			const campaignData = await loadFile(Types.SAVED_CAMPAIGN, campaignName);
+		setCurrentMap(campaignData.currentMap);
+	});
+};
+
+export const loadNewCampaign = (
+	type, campaignName, setCampaign, setCampaignMaps, setCurrentMap, setIsCustom,
+) => {
+	return loadFile(type, campaignName).then((data) => {
+		setCampaign(campaignName);
+		setCampaignMaps(data.maps);
+		setIsCustom(type === Types.CAMPAIGN_CUSTOM);
+		
+		if (data.maps.length > 0) {
+			setCurrentMap(data.maps[0]);
 		}
 	});
 };

@@ -6,6 +6,8 @@ export const Constants = {
 	ADD_EQUIPMENT: 'CAMP/ADD_EQUIPMENT',
 	REMOVE_EQUIPMENT: 'CAMP/REMOVE_EQUIPMENT',
 	SET_MAPS: 'CAMP/SET_MAPS',
+	SET_CURRENT_MAP: 'CAMP/SET_CURRENT_MAP',
+	SET_IS_CUSTOM: 'CAMP/SET_IS_CUSTOM',
 };
 
 const defaultState = {
@@ -14,6 +16,8 @@ const defaultState = {
 	campaign: null,
 	floatingEquipment: [],
 	campaignMaps: [],
+	currentMap: null,
+	isCustom: false,
 };
 
 export default (state = defaultState, action) => {
@@ -67,6 +71,16 @@ export default (state = defaultState, action) => {
 				...state,
 				campaignMaps: action.maps,
 			};
+		case Constants.SET_CURRENT_MAP:
+			return {
+				...state,
+				currentMap: action.map,
+			};
+		case Constants.SET_IS_CUSTOM:
+			return {
+				...state,
+				isCustom: action.custom,
+			};
 		default:
 			return state;
 	}
@@ -113,5 +127,19 @@ export const setMaps = (maps) => {
 	return {
 		type: Constants.SET_MAPS,
 		maps,
+	};
+};
+
+export const setCurrentMap = (map) => {
+	return {
+		type: Constants.SET_CURRENT_MAP,
+		map,
+	};
+};
+
+export const setIsCustom = (custom) => {
+	return {
+		type: Constants.SET_IS_CUSTOM,
+		custom,
 	};
 };

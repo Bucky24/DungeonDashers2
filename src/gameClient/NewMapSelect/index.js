@@ -7,8 +7,8 @@ import { getFileList, loadFile, Types } from 'system';
 import { Panes, setUIPane } from '../store/ducks/ui';
 import { setMap, setActiveCharacter, setMapMeta } from '../store/ducks/map';
 import { getEnemyData, getCharacterData } from '../store/getters/gameData';
-import { loadNewMap, loadCampaign } from '../../common/utils/loader';
-import { setActiveCampaign, setMaps } from '../store/ducks/campaign';
+import { loadNewMap, loadNewCampaign } from '../../common/utils/loader';
+import { setActiveCampaign, setMaps, setCurrentMap, setIsCustom } from '../store/ducks/campaign';
 
 class NewMapSelect extends Component {
 	constructor(props) {
@@ -28,8 +28,15 @@ class NewMapSelect extends Component {
 		this.props.setPane(Panes.GAME);
 	}
 
-	loadCampaign(type, campaignName) {
-		loadCampaign(type, campaignName, true, this.props.setActiveCampaign, this.props.setMaps);
+	async loadCampaign(type, campaignName) {
+		await loadNewCampaign(
+			type,
+			campaignName,
+			this.props.setActiveCampaign,
+			this.props.setMaps,
+			this.props.setCurrentMap,
+			this.props.setIsCustom,
+		);
 		this.props.setPane(Panes.CAMPAIGN);
 	}
 
@@ -196,6 +203,12 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		setMaps: (maps) => {
 			dispatch(setMaps(maps));
+		},
+		setCurrentMap: (map) => {
+			dispatch(setCurrentMap(map));
+		},
+		setIsCustom: (custom) => {
+			dispatch(setIsCustom(custom));
 		},
 	};
 };

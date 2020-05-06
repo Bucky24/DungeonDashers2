@@ -17,3 +17,11 @@ export const getActiveCampaign = (state) => {
 export const getMaps = (state) => {
 	return state.campaign.campaignMaps;
 }
+
+export const getCurrentMap = (state) => {
+	return state.campaign.currentMap;
+}
+
+export const getIsCustom = (state) => {
+	return state.campaign.isCustom;
+}

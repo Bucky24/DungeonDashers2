@@ -1,5 +1,4 @@
 For v0.5.0
-* Campaign progression through completing maps
 * More enemies
 * Handle saving and loading character hp
 
