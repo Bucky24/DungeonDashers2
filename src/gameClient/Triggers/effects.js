@@ -21,7 +21,6 @@ export const winGame = () => {
 		
 		const newMap = maps[newIndex];
 		store.dispatch(setCurrentMap(newMap));
-
 		
 		saveCampaign(activeCampaign, newMap, getIsCustom(state));
 	}

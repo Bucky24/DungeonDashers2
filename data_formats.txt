@@ -19,7 +19,7 @@ Character {
 	ident: string,
 	x: number,
 	y: number,
-	equipment: Equipment[]
+	equipment: Equipment[],
 }
 
 Equipment {
@@ -60,12 +60,10 @@ Trigger {
 	<see triggers_documentation>
 }
 
-// campaigns
-
 SavedCampaign {
 	version: 1,
 	custom: false,
 	type: 'campaign',
 	campaignName: string,
-	currentMap: string
+	currentMap: string,
 }
