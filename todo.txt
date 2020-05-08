@@ -12,6 +12,7 @@ For v0.6.0
 * Properly handle character death in both maps and scenarios
 * Better enemy AI - pathfinding, real damage,  action points
 * Basics for data validation
+* Make editors better
 
 For v0.7.0
 * Editor for custom characters

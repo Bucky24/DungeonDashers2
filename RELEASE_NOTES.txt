@@ -32,5 +32,5 @@ v0.5.0
 * Minimal enemy AI
 * Campaign progression through completing maps
 * Get campaigns working
-* Properly exiting the game when win codition met
+* Properly exiting the game when win condition met
 * Slightly better map loading/creation for editor
