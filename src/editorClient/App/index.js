@@ -80,7 +80,7 @@ class App extends Component {
 					{ id: 'map', name: 'Map', elem: mapTab },
 					{ id: 'campaign', name: 'Campaign', elem: campaignTab }
 				]}
-				selectedTab='campaign'
+				selectedTab='main'
 			/>
 		</div>;
 	}

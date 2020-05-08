@@ -9,7 +9,7 @@ export const saveCampaign = (campaignName, activeMap, custom) => {
 	const data = {
 		version: 1,
 		type: 'campaign',
-		activeMap,
+		currentMap: activeMap,
 		campaignName,
 		custom,
 	}

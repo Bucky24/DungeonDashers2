@@ -79,7 +79,7 @@ export const getFileList = (type) => {
 	if (type === Types.MAP) {
 		return Promise.resolve(['sample1', 'sample2']);
 	} else if (type === Types.MAP_CUSTOM) {
-		return Promise.resolve([]);
+		return Promise.resolve(['sample1']);
 	} else if (type === Types.CAMPAIGN_CUSTOM) {
 		return Promise.resolve(['campaign1']);
 	} else if (type === Types.CAMPAIGN) {
