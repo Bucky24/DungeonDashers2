@@ -33,3 +33,4 @@ v0.5.0
 * Campaign progression through completing maps
 * Get campaigns working
 * Properly exiting the game when win codition met
+* Slightly better map loading/creation for editor
