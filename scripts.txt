@@ -1,0 +1,52 @@
+So for right now, anyway, any script text will be wrapped in this:
+
+const <some function name> = async ({ ... all the params that need to be "global"}) => {
+	// script code here
+}
+
+Then executed. Then the function object can be saved somewhere and executed later on.
+
+Available functions (in progress, may not exist in code yet):
+
+userChooseLocation:
+
+This method prompts the user to choose a location given various inputs. It will resolve a promise with the x and y chosen.
+
+Params:
+minDist: number, indicates the closest a square can be to be shown as valid to the user
+maxDist: number, indicates the furthest a square can be to be shown as valid to the user
+directions: array of Direction enum, indicates restrictions on what direction squares can be shown in.
+
+getObjectsAt:
+
+This method takes in an x and y and returns a list of all Objects currently at that position.
+
+Params:
+x: number, x coord
+y: number, y coord
+
+getSelf:
+
+returns the Object that is executing the script.
+
+Direction Enum:
+DIAGONALS
+STRAIGHT_LINES
+VERTICAL_LINES
+HORIZ_LINES
+LEFT_RIGHT_DIAG - top left to bottom right
+RIGHT_LEFT_DIAG - bottom left to top right
+UP
+UP_RIGHT
+RIGHT
+DOWN_RIGHT
+DOWN
+DOWN_LEFT
+LEFT
+UP_LEFT
+
+Object Class:
+
+properties:
+x: number, x position of object
+y: number, y position of object

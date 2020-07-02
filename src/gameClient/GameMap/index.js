@@ -6,6 +6,7 @@ import Map from '../../common/Map';
 import Button from '../../common/Button';
 
 import { saveMap } from '../../common/utils/saver';
+import { executeScriptAsCharacter } from "../scriptHandler/scriptHandler";
 
 import {
 	getTiles,
@@ -37,10 +38,13 @@ import {
 import {
 	getGold
 } from '../store/getters/campaign';
-import { Panes, setUIPane } from '../store/ducks/ui';
+import { Panes, setUIPane, setChooseLoc } from '../store/ducks/ui';
+import { getChooseLoc } from '../store/getters/ui';
 
 import BattleHandler from '../EnemyHandler/battle';
 import { handleTriggers } from '../Triggers/triggerHandler';
+import { STRAIGHT_LINES } from '../scriptHandler/constants';
+import { fireEvent } from "../eventEmitter/emitter";
 
 class GameMap extends Component {
 	constructor(props) {
@@ -247,7 +251,53 @@ class GameMap extends Component {
 	render() {
 		const { activeChar } = this.activeCharacter();
 		const activeCharData = activeChar ? this.props.characterData[activeChar.ident] : {};
-		const { width, height, setPane } = this.props;
+		const { width, height, setPane, chooseLoc } = this.props;
+		
+		const choosing = chooseLoc.choosing;
+		
+		let activeLocations = [];
+		
+		if (choosing) {
+			const locations = [];
+			switch (chooseLoc.type) {
+			case STRAIGHT_LINES:
+				for (let i=chooseLoc.startX + chooseLoc.min;i<=chooseLoc.startX + chooseLoc.max;i++) {
+					const location = {
+						x: i,
+						y: chooseLoc.startY,
+					};
+					locations.push(location);
+				}
+				for (let i=chooseLoc.startX - chooseLoc.min;i>=chooseLoc.startX - chooseLoc.max;i--) {
+					const location = {
+						x: i,
+						y: chooseLoc.startY,
+					};
+					locations.push(location);
+				}
+				for (let i=chooseLoc.startY + chooseLoc.min;i<=chooseLoc.startY + chooseLoc.max;i++) {
+					const location = {
+						x: chooseLoc.startX,
+						y: i,
+					};
+					locations.push(location);
+				}
+				for (let i=chooseLoc.startY - chooseLoc.min;i>=chooseLoc.startY - chooseLoc.max;i--) {
+					const location = {
+						x: chooseLoc.startX,
+						y: i,
+					};
+					locations.push(location);
+				}
+				
+				break;
+			}
+			
+			activeLocations = locations.filter(({ x, y }) => {
+				return true;
+			});
+		}
+		
 		return (<Canvas
 			width={width}
 			height={height}
@@ -261,6 +311,7 @@ class GameMap extends Component {
 				enemies={this.props.activeEnemies}
 				objects={this.props.objects}
 				characters={this.props.characters}
+				activeLocations={activeLocations}
 				onKeyUp={({ code }) => {
 					if (code === 'ArrowLeft') {
 						this.moveActiveChar(-1, 0);
@@ -272,11 +323,25 @@ class GameMap extends Component {
 						this.moveActiveChar(0, -1);
 					} else if (code === 'Enter') {
 						this.nextCharacter();
+					} else if (code === "KeyQ") {
+						if (activeCharData.special) {
+							executeScriptAsCharacter(activeCharData.special, activeChar.ident);
+						}
 					}
 				}}
 				enemyData={this.props.enemyData}
 				objectData={this.props.objectData}
 				characterData={this.props.characterData}
+				onClick={(x, y, button ) => {
+					const location = activeLocations.find((loc) => {
+						return loc.x === x && loc.y === y;
+					});
+					
+					if (location) {
+						fireEvent("locationClicked", location);
+						this.props.setChooseLoc(false);
+					}
+				}}
 			/>
 			<Rect
 				x={0}
@@ -361,7 +426,8 @@ const mapStateToProps = (state) => {
 		objectData: getObjectData(state),
 		mapMeta: getMapMeta(state),
 		characterData: getCharacterData(state),
-		inBattle: inBattle(state)
+		inBattle: inBattle(state),
+		chooseLoc: getChooseLoc(state),
 	};
 };
 
@@ -393,7 +459,10 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		addEquipment: (equipment) => {
 			dispatch(addEquipment(equipment));
-		}
+		},
+		setChooseLoc: (choosing, min, max, type, startX, startY) => {
+			dispatch(setChooseLoc(choosing, min, max, type, startX, startY));
+		},
  	};
 };
 

@@ -1,0 +1,1 @@
+export const STRAIGHT_LINES = "DIR/STRAIGHT_LINES";

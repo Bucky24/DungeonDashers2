@@ -20,6 +20,7 @@ Character {
 	x: number,
 	y: number,
 	equipment: Equipment[],
+	special: string, // this should actually be a script to be run. See scripts document.
 }
 
 Equipment {

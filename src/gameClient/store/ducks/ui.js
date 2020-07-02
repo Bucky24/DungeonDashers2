@@ -1,5 +1,6 @@
 export const Constants = {
-	SET_UI_PANE: 'UI/SET_UI_PANE'
+	SET_UI_PANE: 'UI/SET_UI_PANE',
+	SET_CHOOSE_LOC: 'UI/SET_CHOOSE_LOC',
 };
 
 export const Panes = {
@@ -15,7 +16,13 @@ export const Panes = {
 };
 
 const defaultState = {
-	uiPane: Panes.LOAD
+	uiPane: Panes.LOAD,
+	choosingLocation: false,
+	locMin: null,
+	locMax: null,
+	locType: null,
+	locStartX: null,
+	logStartY: null,
 };
 
 export default (state = defaultState, action) => {
@@ -27,6 +34,16 @@ export default (state = defaultState, action) => {
 			}
 			
 			return newState;
+		case Constants.SET_CHOOSE_LOC:
+			return {
+				...state,
+				choosingLocation: action.choosing,
+				locMin: action.min,
+				locMax: action.max,
+				locType: action.locType,
+				locStartX: action.startX,
+				locStartY: action.startY,
+			};
 		default:
 			return state;
 	}
@@ -38,5 +55,17 @@ export const setUIPane = (pane) => {
 	return {
 		type: Constants.SET_UI_PANE,
 		pane
+	};
+};
+
+export const setChooseLoc = (choosing, min, max, type, startX, startY) => {
+	return {
+		type: Constants.SET_CHOOSE_LOC,
+		choosing,
+		min,
+		max,
+		locType: type,
+		startX,
+		startY,
 	};
 };

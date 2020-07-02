@@ -7,5 +7,6 @@
 		"height": 96
 	},
 	"actionPoints": 30,
-	"maxHP": 30
+	"maxHP": 30,
+	"special": "const { x, y } = await userChooseLocation(2, 2, STRAIGHT_LINES); const obj = getSelf(); obj.moveTo(x, y);"
 }

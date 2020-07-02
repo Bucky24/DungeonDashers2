@@ -14,6 +14,8 @@ import TabBar from '../../common/TabBar';
 import MainTab from '../MainTab';
 import Campaign from '../Campaign';
 
+import MainMenu from '../MainMenu/MainMenu';
+
 import Styles from './style.css';
 
 class App extends Component {
@@ -74,14 +76,15 @@ class App extends Component {
 		const campaignTab = <Campaign />;
 
 		return <div className="App">
-			<TabBar
+			<MainMenu />
+			{ false && <TabBar
 				tabs={[
 					{ id: 'main', name: 'Scenario Main', elem: mainTab },
 					{ id: 'map', name: 'Map', elem: mapTab },
 					{ id: 'campaign', name: 'Campaign', elem: campaignTab }
 				]}
 				selectedTab='main'
-			/>
+			/> }
 		</div>;
 	}
 }

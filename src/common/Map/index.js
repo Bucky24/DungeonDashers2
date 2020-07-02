@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Shape, Image, CanvasComponent, Container, Canvas } from '@bucky24/react-canvas';
+import { Shape, Image, CanvasComponent, Container, Canvas, Rect } from '@bucky24/react-canvas';
 import Door from '../Door';
 import ObjectWithHealth from '../ObjectWithHealth';
 import Object from '../Object';
@@ -42,8 +42,12 @@ const propTypes = {
 	onKeyUp: PropTypes.func,
 	onClick: PropTypes.func,
 	enemyData: PropTypes.object.isRequired,
-	doorData: PropTypes.object.isRequired,
-	characterData: PropTypes.object.isRequired
+	characterData: PropTypes.object.isRequired,
+	activeLocations: PropTypes.array,
+};
+
+const defaultProps = {
+	activeLocations: [],
 };
 
 const SQUARE_SIZE = 32;
@@ -171,8 +175,21 @@ class Map extends CanvasComponent {
 					maxHP={enemyData.maxHP}
 				/>;
 			})}
+			{ this.props.activeLocations.map((location, index) => {
+				return <Rect
+					x={location.x * SQUARE_SIZE}
+					y={location.y * SQUARE_SIZE}
+					x2={(location.x + 1) * SQUARE_SIZE}
+					y2={(location.y + 1) * SQUARE_SIZE}
+					color="#0f0"
+					fill={false}
+				/>
+			})}
 		</Container>);
 	}
 }
+
+Map.propTypes = propTypes;
+Map.defaultProps = defaultProps;
 
 export default Map;

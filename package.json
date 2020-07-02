@@ -1,6 +1,6 @@
 {
   "name": "dungeon-dashers-2",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "dependencies": {
     "@bucky24/react-canvas": "0.7.5",
     "classnames": "2.2.6",

@@ -15,6 +15,7 @@ import {
 	setBaseCharacters,
 	setBaseEquipment,
 } from '../store/ducks/gameData';
+import { processScript } from "../scriptHandler/scriptHandler";
 
 class Loader extends Component {
 	constructor(props) {
@@ -64,7 +65,7 @@ class Loader extends Component {
 			this.props.setBaseEnemies(enemyTypes);
 		});
 	}
-	
+
 	loadBaseObjects() {
 		return Promise.resolve()
 		.then(() => {
@@ -81,7 +82,18 @@ class Loader extends Component {
 			return getBaseCharacterList();
 		})
 		.then((characters) => {
-			this.props.setBaseCharacters(characters);
+			const processedChars = characters.map((character) => {
+				const newCharacter = {...character};
+				
+				if (newCharacter.special) {
+					const name = `${newCharacter.ident}_special`;
+					processScript(newCharacter.special, name);
+					newCharacter.special = name;
+				}
+				
+				return newCharacter;
+			})
+			this.props.setBaseCharacters(processedChars);
 		});
 	}
 	
