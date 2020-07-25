@@ -1,0 +1,5 @@
+{
+	"version": 1,
+	"description": "Follow our heroes as they defeat legendary evil.",
+	"maps": ["sample1", "sample2"]
+}

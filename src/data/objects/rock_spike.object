@@ -1,0 +1,9 @@
+{
+	"version": 1,
+	"imageData": {
+		"image": "./rock_spike.png",
+		"width": 32,
+		"height": 50
+	},
+    "yOff": 18
+}

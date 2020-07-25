@@ -17,12 +17,12 @@
   },
   "main": "./src/electronClient/main.js",
   "scripts": {
-    "start-game": "NODE_ENV=development webpack-dev-server --no-info --content-base build/ --config webpack.config.game.js",
+    "start-game": "cross-env NODE_ENV=development webpack-dev-server --no-info --content-base build/ --config webpack.config.game.js",
     "build-game": "webpack --config webpack.config.game.js",
-    "electron-game": "ELECTRON=true NODE_ENV=development npm run build-game && NODE_ENV=development electron .",
-    "start-editor": "NODE_ENV=development webpack-dev-server --no-info --content-base build/ --config webpack.config.editor.js",
+    "electron-game": "cross-env ELECTRON=true NODE_ENV=development npm run build-game && NODE_ENV=development electron .",
+    "start-editor": "cross-env NODE_ENV=development webpack-dev-server --no-info --content-base build/ --config webpack.config.editor.js",
     "build-editor": "webpack --config webpack.config.editor.js",
-    "electron-editor": "ELECTRON=true NODE_ENV=development npm run build-editor && NODE_ENV=development electron .",
+    "electron-editor": "cross-env ELECTRON=true NODE_ENV=development npm run build-editor && NODE_ENV=development electron .",
     "build": "npm run build-game && npm run build-editor"
   },
   "browserslist": [
@@ -37,6 +37,7 @@
     "@babel/preset-react": "7.0.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-loader": "8.0.5",
+    "cross-env": "^7.0.2",
     "electron": "7.2.4",
     "file-loader": "2.0.0",
     "html-webpack-plugin": "4.0.0-alpha.2",
@@ -46,7 +47,7 @@
     "style-loader": "0.23.1",
     "url-loader": "1.1.2",
     "webpack": "4.33.0",
-    "webpack-cli": "3.3.2",
-    "webpack-dev-server": "3.5.1"
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   }
 }

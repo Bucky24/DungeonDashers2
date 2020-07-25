@@ -16,6 +16,16 @@ import Terrain6 from '../assets/terrain6.png';
 import Terrain7 from '../assets/terrain7.png';
 import Terrain8 from '../assets/terrain8.png';
 import Terrain9 from '../assets/terrain9.png';
+import RightWall from '../assets/right_wall.png';
+import UpperWallMiddle from '../assets/upper_wall_middle.png';
+import UpperWallTop from '../assets/upper_wall_top.png';
+import RightTopCorner from '../assets/right_top_corner.png';
+import BottomWall from '../assets/bottom_wall.png';
+import LeftWall from '../assets/left_wall.png';
+import LeftBotCorner from '../assets/left_bot_corner.png';
+import LeftTopCorner from '../assets/left_top_corner.png';
+import RightBotCorner from '../assets/right_bot_corner.png';
+import Hole from '../assets/hole.png';
 
 const tileMap = {
 	'ground1': Ground1,
@@ -28,6 +38,16 @@ const tileMap = {
 	'terrain7': Terrain7,
 	'terrain8': Terrain8,
 	'terrain9': Terrain9,
+	'right_wall': RightWall,
+	'upper_wall_middle': UpperWallMiddle,
+	'upper_wall_top': UpperWallTop,
+	'right_top_corner': RightTopCorner,
+	'bottom_wall': BottomWall,
+	'left_wall': LeftWall,
+	'left_bot_corner': LeftBotCorner,
+	'left_top_corner': LeftTopCorner,
+	'right_bot_corner': RightBotCorner,
+	'hole': Hole,
 };
 
 const propTypes = {
@@ -101,7 +121,7 @@ class Map extends CanvasComponent {
 					{ x: width, y: height },
 					{ x: 0, y: height }
 				]}
-				color="#000"
+				color="#191919"
 				fill={true}
 			/>
 			{ this.props.tiles.map((tile, index) => {

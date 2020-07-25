@@ -170,6 +170,9 @@ class GameMap extends Component {
 	}
 	
 	handleItemCredit(itemList) {
+		if (!itemList) {
+			return;
+		}
 		itemList.forEach((item) => {
 			switch (item.type) {
 			case "currency":
@@ -206,17 +209,19 @@ class GameMap extends Component {
 					this.resetActivePlayersActions();
 				}
 			}
+
+			return true;
 		} else if (obj1.type === 'player' && obj2.type === 'enemy') {
 			// hurt the enemy!
 			this.props.harmEnemy(obj2.id, 5);
-			
-			return false;
 		} else if (obj1.type === 'player' && obj2.type === 'chest') {
 			this.props.removeObject(obj2.id);
 			this.handleItemCredit(obj2.contains);
+
+			return true;
 		}
 		
-		return true;
+		return false;
 	}
 	
 	resetActivePlayersActions() {
