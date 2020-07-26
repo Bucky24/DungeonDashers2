@@ -34,3 +34,6 @@ v0.5.0
 * Get campaigns working
 * Properly exiting the game when win condition met
 * Slightly better map loading/creation for editor
+
+v0.6.0
+* Map follows active character

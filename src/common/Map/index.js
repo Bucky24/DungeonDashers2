@@ -27,6 +27,7 @@ import LeftTopCorner from '../assets/left_top_corner.png';
 import RightBotCorner from '../assets/right_bot_corner.png';
 import Hole from '../assets/hole.png';
 
+
 const tileMap = {
 	'ground1': Ground1,
 	'terrain1': Terrain1,
@@ -105,10 +106,43 @@ class Map extends CanvasComponent {
 			const squareY = Math.floor((y - this.props.y)/SQUARE_SIZE);
 			this.props.onClick(squareX, squareY, button);
         }
-    }
+	}
+	
+	getOffCoords() {
+		const activeCharacter = this.props.characters.find((char) => {
+			return char.selected;
+		});
+
+		let xOff = 0;
+		let yOff = 0;
+
+		if (activeCharacter) {
+			const centerX = this.props.x + this.props.width/2;
+			const centerY = this.props.y + this.props.height/2;
+
+			const charX = activeCharacter.x*SQUARE_SIZE;
+			const charY = activeCharacter.y*SQUARE_SIZE;
+
+			xOff = centerX - charX;
+			yOff = centerY - charY;
+		}
+
+		const xOffCell = Math.round(xOff/SQUARE_SIZE);
+		const yOffCell = Math.round(yOff/SQUARE_SIZE);
+
+		return {
+			xOff,
+			yOff,
+			xOffCell,
+			yOffCell,
+		};
+	}
 
 	render() {
-		const { x, y, width, height, onKeyUp } = this.props;
+		const { x, y, width, height } = this.props;
+
+		const { xOff, yOff, xOffCell, yOffCell } = this.getOffCoords();
+
 		return (<Container
 		>
 			{ /* draw the background */ }
@@ -127,8 +161,8 @@ class Map extends CanvasComponent {
 			{ this.props.tiles.map((tile, index) => {
 				return <Image
 					key={`tile_${index}`}
-					x={x+ tile.x * 32}
-					y={y+ tile.y * 32}
+					x={x+ tile.x * 32 + xOff}
+					y={y+ tile.y * 32 + yOff}
 					width={32}
 					height={32}
 					src={tileMap[tile.tile]}
@@ -136,19 +170,23 @@ class Map extends CanvasComponent {
 			})}
 			{ this.props.objects.map((object, index) => {
 				const data = this.props.objectData[object.type];
+				const xCoordCell = x/SQUARE_SIZE + object.x + xOffCell;
+				const xCoord = x + object.x * SQUARE_SIZE + xOff;
+				const yCoordCell = y/SQUARE_SIZE + object.y + yOffCell;
+				const yCoord = y + object.y * SQUARE_SIZE + yOff;
 				if (object.type === 'door') {
 					return <Door
 						key={`object_${index}`}
-						x={x/SQUARE_SIZE + object.x}
-						y={y/SQUARE_SIZE + object.y}
+						x={xCoordCell}
+						y={yCoordCell}
 						isOpen={object.isOpen}
 						image={data.imageData.image}
 					/>
 				} else {
 					return <Object
 						key={`object_${index}`}
-						x={x + object.x * SQUARE_SIZE}
-						y={y + object.y * SQUARE_SIZE}
+						x={xCoord}
+						y={yCoord}
 						image={data.imageData.image}
 						yOff={data.yOff}
 						height={data.imageData.height}
@@ -164,8 +202,8 @@ class Map extends CanvasComponent {
 				const drawPosition = characterObj.y-2;
 				return <ObjectWithHealth
 					key={`character_${index}`}
-					x={x + characterObj.x*SQUARE_SIZE}
-					y={y + drawPosition*SQUARE_SIZE}
+					x={x + characterObj.x*SQUARE_SIZE + xOff}
+					y={y + drawPosition*SQUARE_SIZE + yOff}
 					width={imageData.width}
 					height={imageData.height}
 					image={imageData.image}
@@ -180,13 +218,13 @@ class Map extends CanvasComponent {
 					console.error(`Unknown enemy type ${enemy.type}`);
 					return null;
 				}
-				const actualEnemyY = enemy.y * SQUARE_SIZE;
+				const actualEnemyY = enemy.y * SQUARE_SIZE + yOff;
 				// if enemy is over 32 in height, we need to subtract by
 				// that much so it shows up on correct square
 				const actualYPosition = actualEnemyY - (enemyData.imageData.height-32);
 				return <ObjectWithHealth
 					key={`enemy_${index}`}
-					x={x + enemy.x * SQUARE_SIZE}
+					x={x + enemy.x * SQUARE_SIZE + xOff}
 					y={y + actualYPosition}
 					width={enemyData.imageData.width}
 					height={enemyData.imageData.height}
@@ -197,10 +235,10 @@ class Map extends CanvasComponent {
 			})}
 			{ this.props.activeLocations.map((location, index) => {
 				return <Rect
-					x={location.x * SQUARE_SIZE}
-					y={location.y * SQUARE_SIZE}
-					x2={(location.x + 1) * SQUARE_SIZE}
-					y2={(location.y + 1) * SQUARE_SIZE}
+					x={location.x * SQUARE_SIZE + xOff}
+					y={location.y * SQUARE_SIZE + yOff}
+					x2={(location.x + 1) * SQUARE_SIZE + xOff}
+					y2={(location.y + 1) * SQUARE_SIZE + yOff}
 					color="#0f0"
 					fill={false}
 				/>

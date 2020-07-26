@@ -23,6 +23,8 @@ import Portal from '../../data/objects/portal.object';
 import PortalImage from '../../data/objects/portal.png';
 import RockSpike from '../../data/objects/rock_spike.object';
 import RockSpikeImage from '../../data/objects/rock_spike.png';
+import Rock from '../../data/objects/rock.object';
+import RockImage from '../../data/objects/rock.png';
 
 import Character1 from '../../data/characters/character1.char';
 import Character1Image from '../../data/characters/character1.png';
@@ -150,6 +152,14 @@ export const getBaseObjectList = () => {
 			imageData: {
 				...RockSpike.imageData,
 				image: RockSpikeImage,
+			},
+		},
+		{
+			...Rock,
+			type: 'rock',
+			imageData: {
+				...Rock.imageData,
+				image: RockImage,
 			},
 		},
 	];

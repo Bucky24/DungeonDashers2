@@ -119,7 +119,37 @@
 		{ "tile": "ground1", "x": 15, "y": 6 },
 		{ "tile": "ground1", "x": 15, "y": 7 },
 		{ "tile": "ground1", "x": 15, "y": 8 },
-		{ "tile": "bottom_wall", "x": 15, "y": 8 }
+		{ "tile": "bottom_wall", "x": 15, "y": 8 },
+		{ "tile": "upper_wall_top", "x": 16, "y": 0 },
+		{ "tile": "upper_wall_middle", "x": 16, "y": 1 },
+		{ "tile": "ground1", "x": 16, "y": 2 },
+		{ "tile": "ground1", "x": 16, "y": 3 },
+		{ "tile": "ground1", "x": 16, "y": 4 },
+		{ "tile": "ground1", "x": 16, "y": 5 },
+		{ "tile": "ground1", "x": 16, "y": 6 },
+		{ "tile": "ground1", "x": 16, "y": 7 },
+		{ "tile": "ground1", "x": 16, "y": 8 },
+		{ "tile": "bottom_wall", "x": 16, "y": 8 },
+		{ "tile": "upper_wall_top", "x": 17, "y": 0 },
+		{ "tile": "upper_wall_middle", "x": 17, "y": 1 },
+		{ "tile": "ground1", "x": 17, "y": 2 },
+		{ "tile": "ground1", "x": 17, "y": 3 },
+		{ "tile": "ground1", "x": 17, "y": 4 },
+		{ "tile": "ground1", "x": 17, "y": 5 },
+		{ "tile": "ground1", "x": 17, "y": 6 },
+		{ "tile": "ground1", "x": 17, "y": 7 },
+		{ "tile": "ground1", "x": 17, "y": 8 },
+		{ "tile": "bottom_wall", "x": 17, "y": 8 },
+		{ "tile": "left_top_corner", "x": 18, "y": 0 },
+		{ "tile": "left_wall", "x": 18, "y": 1 },
+		{ "tile": "left_wall", "x": 18, "y": 2 },
+		{ "tile": "left_wall", "x": 18, "y": 3 },
+		{ "tile": "left_wall", "x": 18, "y": 4 },
+		{ "tile": "left_bot_corner", "x": 18, "y": 5 },
+		{ "tile": "upper_wall_middle", "x": 18, "y": 6 },
+		{ "tile": "ground1", "x": 18, "y": 7 },
+		{ "tile": "bottom_wall", "x": 18, "y": 7 },
+		{ "tile": "left_wall", "x": 18, "y": 8 }
 	],
 	"characters": [
 		{ "ident": "character1", "x": 5, "y": 5 }
@@ -130,7 +160,11 @@
 		{ "type": "rock_spike", "id": 3, "x": 12, "y": 7 },
 		{ "type": "chest", "id": 4, "x": 12, "y": 3 },
 		{ "type": "chest", "id": 5, "x": 13, "y": 4 },
-		{ "type": "chest", "id": 6, "x": 13, "y": 5 }
+		{ "type": "chest", "id": 6, "x": 13, "y": 5 },
+		{ "type": "rock", "id": 7, "x": 16, "y": 4 },
+		{ "type": "chest", "id": 8, "x": 16, "y": 6 },
+		{ "type": "chest", "id": 9, "x": 16, "y": 7 },
+		{ "type": "chest", "id": 10, "x": 17, "y": 6 }
 	],
 	"enemies": [
 
