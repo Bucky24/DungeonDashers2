@@ -39,6 +39,8 @@ import CliffRight from '../assets/cliff_right.png';
 import CliffLeftRight from '../assets/cliff_left_right.png';
 import CliffRightBotCorner from '../assets/cliff_right_bot_corner.png';
 import CliffLeftRightBotNub from '../assets/cliff_left_right_bot_nub.png';
+import CliffBotOpen from '../assets/cliff_bot_open.png';
+import CliffLeftRightTopNub from '../assets/cliff_left_right_top_nub.png';
 
 const tileMap = {
 	'ground1': Ground1,
@@ -74,6 +76,8 @@ const tileMap = {
 	'cliff_left_right': CliffLeftRight,
 	'cliff_right_bot_corner': CliffRightBotCorner,
 	'cliff_left_right_bot_nub': CliffLeftRightBotNub,
+	'cliff_bot_open': CliffBotOpen,
+	'cliff_left_right_top_nub': CliffLeftRightTopNub,
 };
 
 const propTypes = {
