@@ -26,7 +26,19 @@ import LeftBotCorner from '../assets/left_bot_corner.png';
 import LeftTopCorner from '../assets/left_top_corner.png';
 import RightBotCorner from '../assets/right_bot_corner.png';
 import Hole from '../assets/hole.png';
-
+import CliffLeftTopCorner from '../assets/cliff_left_top_corner.png';
+import CliffLeftBotCorner from '../assets/cliff_left_bot_corner.png';
+import CliffLeftTopNub from '../assets/cliff_left_top_nub.png';
+import CliffLeftBotNub from '../assets/cliff_left_bot_nub.png';
+import CliffTop from '../assets/cliff_top.png';
+import CliffBot from '../assets/cliff_bot.png';
+import CliffRightTopCorner from '../assets/cliff_right_top_corner.png';
+import CliffRightTopNub from '../assets/cliff_right_top_nub.png';
+import CliffLeft from '../assets/cliff_left.png';
+import CliffRight from '../assets/cliff_right.png';
+import CliffLeftRight from '../assets/cliff_left_right.png';
+import CliffRightBotCorner from '../assets/cliff_right_bot_corner.png';
+import CliffLeftRightBotNub from '../assets/cliff_left_right_bot_nub.png';
 
 const tileMap = {
 	'ground1': Ground1,
@@ -49,6 +61,19 @@ const tileMap = {
 	'left_top_corner': LeftTopCorner,
 	'right_bot_corner': RightBotCorner,
 	'hole': Hole,
+	'cliff_left_top_corner': CliffLeftTopCorner,
+	'cliff_left_bot_corner': CliffLeftBotCorner,
+	'cliff_left_top_nub': CliffLeftTopNub,
+	'cliff_left_bot_nub': CliffLeftBotNub,
+	'cliff_top': CliffTop,
+	'cliff_bot': CliffBot,
+	'cliff_right_top_corner': CliffRightTopCorner,
+	'cliff_right_top_nub': CliffRightTopNub,
+	'cliff_left': CliffLeft,
+	'cliff_right': CliffRight,
+	'cliff_left_right': CliffLeftRight,
+	'cliff_right_bot_corner': CliffRightBotCorner,
+	'cliff_left_right_bot_nub': CliffLeftRightBotNub,
 };
 
 const propTypes = {
@@ -102,8 +127,9 @@ class Map extends CanvasComponent {
 	
     onMouseUp({ x, y, button }, overMe) {
         if (overMe && this.props.onClick) {
-        	const squareX = Math.floor((x - this.props.x)/SQUARE_SIZE);
-			const squareY = Math.floor((y - this.props.y)/SQUARE_SIZE);
+			const { xOff, yOff } = this.getOffCoords();
+        	const squareX = Math.floor((x - this.props.x - xOff)/SQUARE_SIZE);
+			const squareY = Math.floor((y - this.props.y - yOff)/SQUARE_SIZE);
 			this.props.onClick(squareX, squareY, button);
         }
 	}

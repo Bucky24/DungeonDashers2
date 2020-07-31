@@ -341,6 +341,8 @@ class GameMap extends Component {
 					const location = activeLocations.find((loc) => {
 						return loc.x === x && loc.y === y;
 					});
+
+					console.log("location is", location, activeLocations, x, y);
 					
 					if (location) {
 						fireEvent("locationClicked", location);

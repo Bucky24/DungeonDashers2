@@ -2,26 +2,27 @@ For v0.6.0
 * Handle conditions that can't repeat
 * Add ability to show message boxes and dialog w/ triggers
 * Add trigger to spawn characters
-* Brainstorm additional conditions that might be useful
-* All original base characters
+* Trigger to move camera
+* Pause trigger
 * Replicate the first original campaign scenario
 * Character special skills
 * Better menus for load and saving
 * Full dungeon tile set
 * Better asset names in editor
 * Properly handle character death in both maps and scenarios
-* Better enemy AI - pathfinding, real damage,  action points
+* Better enemy AI - basic pathfinding, real damage, action points
 * Basics for data validation
-* Make editors better
+* Improve editor usability
 
 For v0.7.0
+* All original base characters
 * Editor for custom characters
 * Allow custom characters in maps and campaigns
 * Editor for custom objects
 * Allow campaigns and single maps to have custom objects
 * Editor for equipment
-* True to original enemy AI (fleeing after attack, summoning)
+* More complex AI - better pathfinding, fleeing after attack, summoning
 * Equipment has effects
-* Three full campaign missions from original game˜
+* Three full campaign missions from original game
 * Custom map borders for campaigns, and selection like original game
 * Full data validation and version control/conversion
