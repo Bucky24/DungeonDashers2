@@ -2,22 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
 	Container,
-	Shape,
 	ButtonTypes,
-	Text,
 	Canvas
 } from '@bucky24/react-canvas';
+import { Map } from '@bucky24/react-canvas-map';
 
 import { setMap } from '../store/ducks/game';
 import { getMap } from '../store/getters/game';
 
 import ToolBar from '../ToolBar';
 import BottomBar from '../BottomBar';
-import Map from '../../common/Map';
-import Button from '../../common/Button';
-import TextField from '../../common/TextField'
+
+import tileMap from '../../common/tileMap';
 
 const ACTIVE_VERSION = 1;
+const START_CELL_SIZE = 32;
 
 const TOOL_LIST = [
 	{ id: 'select', name: 'Select' },
@@ -207,12 +206,73 @@ class Editor extends React.Component {
 	render() {
 		const { width, height, pane } = this.props;
 		
-		const enemiesWithHealth = this.state.enemies.map((enemy) => {
-			const data = this.props.enemyData[enemy.type];
+		const layers = [];
+		const tileImages = this.state.tiles.map((tileObj) => {
+			const { tile, x, y } = tileObj;
+
 			return {
-				...enemy,
-				hp: data.maxHP
+				cellX: x,
+				cellY: y,
+				cellWidth: 1,
+				cellHeight: 1,
+				src: tileMap[tile],
 			};
+		});
+
+		layers.push({
+			images: tileImages,
+		});
+
+		const characterImages = this.state.characters.map((charObj) => {
+			const { ident, x, y } = charObj;
+
+			const image = this.props.characterData[ident].imageData;
+			const heightInCells = image.height/START_CELL_SIZE;
+
+			return {
+				cellX: x,
+				cellY: y,
+				cellWidth: 1,
+				cellHeight: heightInCells,
+				src: image.image,
+				vAlign: "bottom",
+			}
+		});
+
+		const enemyImages = this.state.enemies.map((enemy) => {
+			const data = this.props.enemyData[enemy.type];
+			const image = data.imageData;
+			const heightInCells = image.height/START_CELL_SIZE;
+			return {
+				cellX: enemy.x,
+				cellY: enemy.y,
+				cellWidth: 1,
+				cellHeight: heightInCells,
+				src: image.image,
+				vAlign: "bottom",
+			};
+		});
+
+		const objectImages = this.state.objects.map((obj) => {
+			const data = this.props.objectData[obj.type];
+			const image = data.imageData;
+			const heightInCells = image.height/START_CELL_SIZE;
+			return {
+				cellX: obj.x,
+				cellY: obj.y,
+				cellWidth: 1,
+				cellHeight: heightInCells,
+				src: image.image,
+				vAlign: "bottom",
+			};
+		});
+
+		layers.push({
+			images: [
+				...objectImages,
+				...enemyImages,
+				...characterImages,
+			],
 		});
 
 		return <div>
@@ -246,18 +306,13 @@ class Editor extends React.Component {
 						y={0}
 						width={width-100}
 						height={height-100}
-						tiles={this.state.tiles}
-						enemies={enemiesWithHealth}
-						objects={this.state.objects}
-						characters={this.state.characters}
 						onClick={(x, y, button) => {
 							this.handleClick(x, y, button, () => {
 								this.updateMap();
 							});
 						}}
-						enemyData={this.props.enemyData}
-						objectData={this.props.objectData}
-						characterData={this.props.characterData}
+						layers={layers}
+						cellSize={START_CELL_SIZE}
 					/>
 				</Container>
 			</Canvas>

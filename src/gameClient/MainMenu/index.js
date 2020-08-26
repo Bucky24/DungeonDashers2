@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Text } from '@bucky24/react-canvas';
-import Button from '../../common/Button';
-import { loadFile, Types } from 'system';
-import VerticalMenu from '../../common/Inputs/VerticalMenu'
+import { Container } from '@bucky24/react-canvas';
+import VerticalMenu from '../../common/Inputs/VerticalMenu';
 
 import { Panes, setUIPane } from '../store/ducks/ui';
 

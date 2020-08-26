@@ -89,14 +89,20 @@ class MainTab extends React.Component {
 					}}/>
 				</>}
 				<div>
-					<select onChange={(e) => {
-						this.setState({
-							selectedMap: e.target.value,
-						});
-					}}>
+					<select 
+						onChange={(e) => {
+							this.setState({
+								selectedMap: e.target.value,
+							});
+						}}
+						defaultValue={fileName}
+					>
 						<option value=''>None</option>
 						{ this.state.maps.map((map) => {
-							return <option value={map} selected={map === fileName}>{map}</option>
+							return <option 
+								key={map}
+								value={map}
+							>{map}</option>
 						})}
 					</select>
 					<input

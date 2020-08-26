@@ -31,7 +31,7 @@ class Campaign extends React.Component {
 		return <div>
 			Campaign list:<br/>
 			<select
-				value={this.state.setCampaign}
+				defaultValue={this.state.setCampaign}
 				onChange={(evt) => {
 					let campaignName = evt.target.value;
 					if (campaignName === '') {

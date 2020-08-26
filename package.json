@@ -2,7 +2,8 @@
   "name": "dungeon-dashers-2",
   "version": "0.6.0",
   "dependencies": {
-    "@bucky24/react-canvas": "0.7.5",
+    "@bucky24/react-canvas": "1.6.2",
+    "@bucky24/react-canvas-map": "^0.6.2",
     "classnames": "2.2.6",
     "css-loader": "1.0.0",
     "dotenv": "6.0.0",
