@@ -57,8 +57,6 @@ class ScenarioEditor extends React.Component {
         const { width, height } = this.props;
 
         const mapTab = <Editor
-			width={width}
-			height={height-100}
 			enemyData={this.state.enemyData}
 			objectData={this.state.objectData}
 			characterData={this.state.characterData}
@@ -70,13 +68,13 @@ class ScenarioEditor extends React.Component {
             <a href="#" onClick={() => {
                 this.props.setTool(null);
             }}>Go Back</a>
-            <TabBar
-                tabs={[
-                    { id: 'main', name: 'Scenario Main', elem: mainTab },
-                    { id: 'map', name: 'Map', elem: mapTab },
-                ]}
-                selectedTab='main'
-            />
+				<TabBar
+					tabs={[
+						{ id: 'main', name: 'Scenario Main', elem: mainTab },
+						{ id: 'map', name: 'Map', elem: mapTab },
+					]}
+					selectedTab='main'
+				/>
         </div>;
     }
 }

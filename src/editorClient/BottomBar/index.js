@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import { Container, Text, Shape } from '@bucky24/react-canvas';
-import Button from '../../common/Button';
+import React from 'react';
+import classnames from 'classnames';
 
 import styles from './styles.css';
 
@@ -11,16 +10,14 @@ const BottomBar = ({
 	activeID,
 	setActiveID,
 	objectData,
-	characterData
+	characterData,
+	height,
 }) => {
 	let dataList = {};
-	
-	let needsReduction = true;
 	
 	switch (activeTool) {
 		case 'terrain':
 			dataList = terrainList || {};
-			needsReduction = false;
 			break;
 		case 'enemy':
 			dataList = enemyData || {};
@@ -33,38 +30,36 @@ const BottomBar = ({
 			break;
 	}
 	
-	if (needsReduction) {
-		dataList = Object.keys(dataList).reduce((obj, key) => {
-			return {
-				...obj,
-				[key]: key
-			}
-		}, {});
-	}
-	
-	return <div className={styles.bottomOuter}>
+	return <div
+		className={styles.bottomOuter}
+		style={{
+			height,
+		}}
+	>
 		Active Tool: { activeTool}<br />
-		{ dataList && <div>
-			Placing: <select
-				value={activeID || ''}
-				onChange={(evt) => {
-					let value = evt.target.value;
-					if (value === '') {
-						value = null;
-					}
-					setActiveID(value);
-				}}
-			>
-				<option value=''>None</option>
-				{ Object.keys(dataList).map((key) => {
-					const name = dataList[key];
-			
-					return <option value={key} key={key}>
-						{ name }
-					</option>;
-				}) }
-			</select>
-		</div> }
+		<div className={styles.itemHolderOuter}>
+			<div className={styles.itemHolderInner}>
+				{ dataList && Object.keys(dataList).map((key) => {
+					const data = dataList[key];
+					const { imageData } = data;
+					const { image } = imageData;
+
+					const clsName = classnames({
+						[styles.itemImage]: true,
+						[styles.selected]: activeID === key,
+					});
+
+					return <img
+						key={key}
+						className={clsName}
+						src={image}
+						onClick={() => {
+							setActiveID(key);
+						}}
+					/>;
+				})}
+			</div>
+		</div>
 	</div>;
 };
 

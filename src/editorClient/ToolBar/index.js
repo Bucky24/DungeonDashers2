@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Container, Text, Shape } from '@bucky24/react-canvas';
 import Button from '../../common/Button';
 
@@ -9,34 +9,18 @@ const ToolBar = ({
 	tools,
 	setActiveTool
 }) => {
-	return <Container>
-		<Shape
-			x={0}
-			y={0}
-			points={[
-				{ x: width, y: 0 },
-				{ x: width, y: height },
-				{ x: 0, y: height },
-				{ x: 0, y: 0 }
-			]}
-			color="#fff"
-			fill={true}
-		/>
-		{ tools.map(({ id, name }, index) => {
-			return <Button
+	return <div>
+		{ tools.map(({ id, name }) => {
+			return <input
+				type="button"
 				key={id}
-				x={0}
-				y={50 * index}
-				width={width}
-				height={50}
-				text={name}
+				value={name}
 				onClick={() => {
 					setActiveTool(id);
 				}}
-				toggle={id === activeTool}
 			/>
 		})}
-	</Container>;
+	</div>;
 };
 
 export default ToolBar;

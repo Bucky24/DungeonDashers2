@@ -1,11 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import {
-	Container,
-	ButtonTypes,
-	Canvas
-} from '@bucky24/react-canvas';
-import { Map } from '@bucky24/react-canvas-map';
+import { ButtonTypes } from '@bucky24/react-canvas';
+import MobileDetect from 'mobile-detect';
 
 import { setMap } from '../store/ducks/game';
 import { getMap } from '../store/getters/game';
@@ -14,6 +10,7 @@ import ToolBar from '../ToolBar';
 import BottomBar from '../BottomBar';
 
 import tileMap from '../../common/tileMap';
+import InnerMap from './InnerMap';
 
 const ACTIVE_VERSION = 1;
 const START_CELL_SIZE = 32;
@@ -26,29 +23,13 @@ const TOOL_LIST = [
 	{ id: 'character', name: 'Character' }
 ];
 
-const terrainData = {
-	'ground1': 'Ground 1',
-	'terrain1': 'Terrain 1',
-	'terrain2': 'Terrain 2',
-	'terrain3': 'Terrain 3',
-	'terrain4': 'Terrain 4',
-	'terrain5': 'Terrain 5',
-	'terrain6': 'Terrain 6',
-	'terrain7': 'Terrain 7',
-	'terrain8': 'Terrain 8',
-	'terrain9': 'Terrain 9',
-};
+const terrainData = Object.keys(tileMap);
 
 class Editor extends React.Component {
 	constructor(props) {
 		super(props);
 
 		const data = props.map;
-		
-		const characterData = {
-			"character1": {},
-			"character2": {}
-		};
 		
 		const defaultCharacters = [{ ident: 'character1', x: 0, y: 2 }];
 
@@ -267,6 +248,20 @@ class Editor extends React.Component {
 			};
 		});
 
+		const correctedTerrainData = terrainData.reduce((obj, key) => {
+			const src = tileMap[key];
+
+			return {
+				...obj,
+				[key]: {
+					name: key,
+					imageData: {
+						image: src,
+					},
+				},
+			};
+		}, {});
+
 		layers.push({
 			images: [
 				...objectImages,
@@ -275,37 +270,41 @@ class Editor extends React.Component {
 			],
 		});
 
-		return <div>
-			<Canvas
-				width={width}
-				height={height-100}
-				onClick={this.handleClick}
-			>
-				<Container>
-					<ToolBar
-						width={100}
-						height={height}
+		return <div
+			style={{
+				display: "flex",
+			}}
+		>
+			<div>
+				<MobileDetect>
+					<BottomBar
 						activeTool={this.state.activeTool}
-						tools={TOOL_LIST}
-						setActiveTool={(newTool) => {
+						enemyData={this.props.enemyData}
+						terrainList={correctedTerrainData}
+						setActiveID={(activeID) => {
 							this.setState({
-								activeTool: newTool,
-								activeID: null
+								activeID
 							});
 						}}
+						objectData={this.props.objectData}
+						activeID={this.state.activeID}
+						characterData={this.props.characterData}
 					/>
-					<BottomBar
-						x={100}
-						y={height-100}
-						width={width-100}
-						height={100}
-						activeTool={this.state.activeTool}
-					/>
-					<Map
-						x={100}
-						y={0}
-						width={width-100}
-						height={height-100}
+				</MobileDetect>
+			</div>
+			<div>
+				<ToolBar
+					activeTool={this.state.activeTool}
+					tools={TOOL_LIST}
+					setActiveTool={(newTool) => {
+						this.setState({
+							activeTool: newTool,
+							activeID: null
+						});
+					}}
+				/>
+				<MobileDetect>
+					<InnerMap
 						onClick={(x, y, button) => {
 							this.handleClick(x, y, button, () => {
 								this.updateMap();
@@ -314,21 +313,8 @@ class Editor extends React.Component {
 						layers={layers}
 						cellSize={START_CELL_SIZE}
 					/>
-				</Container>
-			</Canvas>
-			<BottomBar
-				activeTool={this.state.activeTool}
-				enemyData={this.props.enemyData}
-				terrainList={terrainData}
-				setActiveID={(activeID) => {
-					this.setState({
-						activeID
-					});
-				}}
-				objectData={this.props.objectData}
-				activeID={this.state.activeID}
-				characterData={this.props.characterData}
-			/>
+				</MobileDetect>
+			</div>
 		</div>;
 	}
 }
