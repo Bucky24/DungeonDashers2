@@ -31,17 +31,47 @@ Conditions:
 
 variableCheck - compares two game variables
 
-data:
+	data:
 
-variable (see below for variables) - the variable to check
-operator - the operator to use for the check. Support for == right now
-comparisonVariable (see below) - the variable to compare the first one with
+	variable (see below for variables) - the variable to check
+	operator - the operator to use for the check. Support for == right now
+	comparisonVariable (see below) - the variable to compare the first one with
+
+mapTriggerTriggered - has an on-map trigger been triggered?
+
+	data:
+
+	triggerID - the ID of the trigger object
+	character - boolean, if true a character can trigger this trigger
+	enemy - boolean, if true an enemy can trigger this trigger
 
 Effects:
 
 winGame - triggers the game win condition
 
-data: none
+	data: none
+
+gamePause - sets if game is paused or none
+
+	data:
+
+	pause - boolean, indicates if game is paused
+
+centerCamera - centers the camera on a specific point
+
+	data:
+
+	x - the cell x to center on
+	y - the cell y to center on
+
+resetCamera - sets the camera to center on the active character
+
+	data: none
+
+showDialog - shows a dialog with a given portrait
+
+	text - the text to show
+	characterIdent - the character ident to show a picture for
 
 Variables:
 

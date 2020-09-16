@@ -2,7 +2,7 @@ import store from '../store';
 
 import { getTriggers } from '../store/getters/map';
 import * as conditions from './conditions';
-import * as effects from './effects';
+import * as effectData from './effects';
 
 const handleCondition = (condition, state) => {
 	if (!conditions[condition.type]) {
@@ -12,12 +12,23 @@ const handleCondition = (condition, state) => {
 	return conditions[condition.type](condition.data, state);
 }
 
-const handleEffect = async (effect) => {
-	if (!effects[effect.type]) {
-		throw new Error(`Unable to find effect with name ${effect}`);
+const handleEffects = (effects) => {
+	handleEffectHelper(effects, 0);
+}
+
+const handleEffectHelper = async (effects, count) => {
+	if (count >= effects.length) {
+		return;
 	}
-	
-	await effects[effect.type](effect.data);
+
+	const effect = effects[count];
+
+	if (!effectData[effect.type]) {
+		throw new Error(`Unable to find effect with name ${effect.type}`);
+	}
+
+	await effectData[effect.type](effect.data);
+	handleEffectHelper(effects, count+1);
 }
 
 export const handleTriggers = function() {
@@ -39,9 +50,7 @@ export const handleTriggers = function() {
 		
 		if (trueConditions === trigger.conditions.length) {
 			// it's been triggered. Run the effects
-			trigger.effects.forEach((effect) => {
-				handleEffect(effect);
-			});
+			handleEffects(trigger.effects);
 		}
 	});
 }

@@ -1,4 +1,4 @@
-import { getCharacters, getObjects } from "../store/getters/map";
+import { getCharacters, getObjects, getActiveEnemies } from "../store/getters/map";
 
 let variables = {};
 
@@ -52,4 +52,37 @@ export const variableCheck = (data, state) => {
 	default:
 		throw new Error(`Unknown operator ${data.operator}`);
 	}
+}
+
+export const mapTriggerTriggered = (data, state) => {
+	const triggerID = data.triggerID;
+	const characterCanTrigger = data.character || false;
+	const enemyCanTrigger = data.enemy || false;
+
+	const characters = getCharacters(state);
+	const objects = getObjects(state);
+	const enemies = getActiveEnemies(state);
+
+	const triggerObjects = objects.filter((object) => {
+		return object.id === triggerID;
+	});
+
+	if (triggerObjects.length === 0) {
+		// the trigger does not exist. Perhaps it will exist in the future.
+		return false;
+	}
+
+	const triggerObject = triggerObjects[0];
+	const triggerKey = `${triggerObject.x}_${triggerObject.y}`;
+
+	const charactersOnTrigger = characters.filter((char) => {
+		const charKey = `${char.x}_${char.y}`;
+		return triggerKey === charKey;
+	});
+	const enemiesOnTrigger = enemies.filter((char) => {
+		const charKey = `${char.x}_${char.y}`;
+		return triggerKey === charKey;
+	});
+
+	return (characterCanTrigger && charactersOnTrigger.length > 0) || (enemyCanTrigger && enemiesOnTrigger.length > 0);
 }

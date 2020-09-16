@@ -329,7 +329,34 @@
 		{ "tile": "left_wall", "x": 36, "y": 14 },
 		{ "tile": "right_bot_corner", "x": 34, "y": 15 },
 		{ "tile": "ground1", "x": 35, "y": 15 },
-		{ "tile": "left_wall", "x": 36, "y": 15 }
+		{ "tile": "left_wall", "x": 36, "y": 15 },
+		{ "tile": "upper_wall_top", "x": 33, "y": 15 },
+		{ "tile": "upper_wall_top", "x": 32, "y": 15 },
+		{ "tile": "upper_wall_top", "x": 31, "y": 15 },
+		{ "tile": "upper_wall_top", "x": 30, "y": 15 },
+		{ "tile": "upper_wall_top", "x": 29, "y": 15 },
+		{ "tile": "upper_wall_top", "x": 28, "y": 15 },
+		{ "tile": "ground1", "x": 35, "y": 16 },
+		{ "tile": "left_wall", "x": 36, "y": 16 },
+		{ "tile": "upper_wall_middle", "x": 34, "y":16 },
+		{ "tile": "upper_wall_middle", "x": 33, "y":16 },
+		{ "tile": "upper_wall_middle", "x": 32, "y":16 },
+		{ "tile": "upper_wall_middle", "x": 31, "y":16 },
+		{ "tile": "upper_wall_middle", "x": 30, "y":16 },
+		{ "tile": "upper_wall_middle", "x": 29, "y":16 },
+		{ "tile": "upper_wall_middle", "x": 28, "y":16 },
+		{ "tile": "ground1", "x": 35, "y": 17 },
+		{ "tile": "left_wall", "x": 36, "y": 17 },
+		{ "tile": "ground1", "x": 34, "y": 17 },
+		{ "tile": "ground1", "x": 33, "y": 17 },
+		{ "tile": "ground1", "x": 32, "y": 17 },
+		{ "tile": "ground1", "x": 31, "y": 17 },
+		{ "tile": "ground1", "x": 30, "y": 17 },
+		{ "tile": "ground1", "x": 29, "y": 17 },
+		{ "tile": "ground1", "x": 28, "y": 17 },
+		{ "tile": "right_top_corner", "x": 27, "y": 15 },
+		{ "tile": "right_wall", "x": 27, "y": 16 },
+		{ "tile": "right_wall", "x": 27, "y": 17 }
 	],
 	"characters": [
 		{ "ident": "character1", "x": 35, "y": 14 }
@@ -355,7 +382,11 @@
 		{ "type": "chest", "id": 18, "x": 32, "y": 11 },
 		{ "type": "chest", "id": 19, "x": 34, "y": 11 },
 		{ "type": "chest", "id": 20, "x": 35, "y": 4 },
-		{ "type": "rock", "id": 21, "x": 36, "y": 5 }
+		{ "type": "rock", "id": 21, "x": 36, "y": 5 },
+		{ "type": "rock", "id": 22, "x": 35, "y": 17 },
+		{ "type": "rock", "id": 23, "x": 34, "y": 17 },
+		{ "type": "rock", "id": 24, "x": 32, "y": 17 },
+		{ "type": "trigger", "id": 25, "x": 35, "y": 16 }
 	],
 	"enemies": [
 
@@ -376,6 +407,39 @@
 				{
 					"type": "winGame",
 					"data": {}
+				}
+			]
+		},
+		{
+			"conditions": [
+				{
+					"type": "mapTriggerTriggered",
+					"data": {
+						"triggerID": 25,
+						"character": true
+					}
+				}
+			],
+			"effects": [
+				{
+					"type": "gamePause",
+					"data": {
+						"pause": true
+					}
+				},
+				{
+					"type": "showDialog",
+					"data": {
+						"text": "Hmmm... I can't blink through that. There's no telling what's on the other side.",
+						"characterIdent": "character1"
+					}
+				},
+				{
+					"type": "centerCamera",
+					"data": {
+						"x": 15,
+						"y": 16
+					}
 				}
 			]
 		}

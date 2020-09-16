@@ -1,3 +1,5 @@
+import { fireEvent, Events } from '../../eventEmitter/emitter';
+
 export const Constants = {
 	SET_GAME_TILES: 'MAP/SET_GAME_TILES',
 	SET_GAME_CHARACTER: 'MAP/SET_GAME_CHARACTER',
@@ -10,6 +12,10 @@ export const Constants = {
 	SET_ACTIVE_CHARACTER: 'MAP/SET_ACTIVE_CHARACTER',
 	SET_MAP_META: 'MAP/SET_MAP_META',
 	HARM_CHARACTER: 'MAP/HARM_CHARACTER',
+	SET_PAUSE: 'MAP/SET_PAUSE',
+	SET_CAMERA_CENTER: 'MAP/SET_CAMERA_CENTER',
+	SET_DIALOG: 'MAP/SET_DIALOG',
+	DISMISS_DIALOG: 'MAP/DISMISS_DIALOG',
 };
 
 const defaultState = {
@@ -22,7 +28,10 @@ const defaultState = {
 	width: 0,
 	height: 0,
 	activeMap: '',
-	customMap: false
+	customMap: false,
+	paused: false,
+	cameraCenter: null,
+	dialog: null,
 };
 
 export default (state = defaultState, action) => {
@@ -201,6 +210,36 @@ export default (state = defaultState, action) => {
 			...state,
 			characters: newCharacters,
 		};
+	} else if (action.type === Constants.SET_PAUSE) {
+		return {
+			...state,
+			paused: action.pause,
+		};
+	} else if (action.type === Constants.SET_CAMERA_CENTER) {
+		return {
+			...state,
+			cameraCenter: {
+				x: action.x,
+				y: action.y,
+			},
+		};
+	} else if (action.type === Constants.SET_DIALOG) {
+		return {
+			...state,
+			dialog: {
+				text: action.text,
+				characterIdent: action.characterIdent,
+			},
+		};
+	} else if (action.type === Constants.DISMISS_DIALOG) {
+		setTimeout(() => {
+			// trigger it this way because we don't want to prevent the redux action from failing because the event couldn't fire
+			fireEvent(Events.DIALOG_DISMISSED);
+		}, 1);
+		return {
+			...state,
+			dialog: null,
+		};
 	} else {
 		return state;
 	}
@@ -288,5 +327,34 @@ export const setMapMeta = (mapName, customMap) => {
 		type: Constants.SET_MAP_META,
 		mapName,
 		customMap
+	};
+}
+
+export const setPause = (pause) => {
+	return {
+		type: Constants.SET_PAUSE,
+		pause,
+	};
+};
+
+export const setCameraCenter = (x, y) => {
+	return {
+		type: Constants.SET_CAMERA_CENTER,
+		x,
+		y,
+	};
+};
+
+export const setDialog = (text, characterIdent) => {
+	return {
+		type: Constants.SET_DIALOG,
+		text,
+		characterIdent,
+	};
+};
+
+export const dismissDialog = () => {
+	return {
+		type: Constants.DISMISS_DIALOG,
 	};
 }

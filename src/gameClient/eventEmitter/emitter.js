@@ -1,6 +1,10 @@
 const handlers = {};
 const onceHandlers = {};
 
+export const Events = {
+	DIALOG_DISMISSED: 'events/dialog_dismissed',
+};
+
 export const onOnce = (event, fn) => {
 	if (!onceHandlers[event]) {
 		onceHandlers[event] = [];

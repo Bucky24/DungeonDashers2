@@ -1,10 +1,12 @@
 import store from '../store';
+import { onOnce, Events } from '../eventEmitter/emitter';
 
 import { Panes, setUIPane } from '../store/ducks/ui';
 import { getActiveCampaign, getMaps, getIsCustom } from '../store/getters/campaign';
 import { getMapMeta } from '../store/getters/map';
 import { saveCampaign } from '../../common/utils/saver';
 import { setCurrentMap } from '../store/ducks/campaign';
+import { setPause, setCameraCenter, setDialog } from '../store/ducks/map';
 
 export const winGame = () => {
 	const state = store.getState();
@@ -26,4 +28,26 @@ export const winGame = () => {
 	}
 	
 	store.dispatch(setUIPane(Panes.WON_GAME));
+}
+
+export const gamePause = (data) => {
+	const pause = data.pause;
+
+	store.dispatch(setPause(pause));
+}
+
+export const centerCamera = ({ x, y }) => {
+	store.dispatch(setCameraCenter(x, y));
+}
+
+export const showDialog = ({ text, characterIdent }) => {
+	store.dispatch(setDialog(text, characterIdent));
+
+	// don't continue until dialog is dismissed
+	return new Promise((resolve) => {
+		onOnce(Events.DIALOG_DISMISSED, () => {
+			console.log("dialog dismissed?");
+			resolve();
+		});
+	});
 }

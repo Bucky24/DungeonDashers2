@@ -36,3 +36,15 @@ export const inBattle = (state) => {
 export const getTriggers = (state) => {
 	return state.map.triggers;
 }
+
+export const getPause = (state) => {
+	return state.map.paused;
+};
+
+export const getCameraCenter = (state) => {
+	return state.map.cameraCenter;
+};
+
+export const getDialog = (state) => {
+	return state.map.dialog;
+};

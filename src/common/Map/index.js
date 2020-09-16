@@ -21,6 +21,10 @@ const propTypes = {
 	enemyData: PropTypes.object.isRequired,
 	characterData: PropTypes.object.isRequired,
 	activeLocations: PropTypes.array,
+	cameraCenter: PropTypes.shape({
+		x: PropTypes.number.isRequired,
+		y: PropTypes.number.isRequired,
+	}),
 };
 
 const defaultProps = {
@@ -66,19 +70,34 @@ class Map extends CanvasComponent {
 	}
 	
 	getOffCoords() {
-		const activeCharacter = this.props.characters.find((char) => {
-			return char.selected;
-		});
+		const { cameraCenter } = this.props;
+
+		let cellX = null;
+		let cellY = null;
+
+		if (cameraCenter) {
+			cellX = cameraCenter.x;
+			cellY = cameraCenter.y;
+		} else {
+			const activeCharacter = this.props.characters.find((char) => {
+				return char.selected;
+			});
+
+			if (activeCharacter) {
+				cellX = activeCharacter.x;
+				cellY = activeCharacter.y;
+			}
+		}
 
 		let xOff = 0;
 		let yOff = 0;
 
-		if (activeCharacter) {
+		if (cellX !== null) {
 			const centerX = this.props.x + this.props.width/2;
 			const centerY = this.props.y + this.props.height/2;
 
-			const charX = activeCharacter.x*SQUARE_SIZE;
-			const charY = activeCharacter.y*SQUARE_SIZE;
+			const charX = cellX*SQUARE_SIZE;
+			const charY = cellY*SQUARE_SIZE;
 
 			xOff = centerX - charX;
 			yOff = centerY - charY;
@@ -139,6 +158,8 @@ class Map extends CanvasComponent {
 						isOpen={object.isOpen}
 						image={data.imageData.image}
 					/>
+				} else if (object.type === "trigger") {
+					// don't draw triggers
 				} else {
 					return <Object
 						key={`object_${index}`}

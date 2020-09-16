@@ -38,3 +38,7 @@ v0.5.0
 v0.6.0
 * Map follows active character
 * Improve editor usability
+* Added in-game dialogs and trigger
+* Added map object trigger
+* Added pause trigger
+* Added move camera trigger

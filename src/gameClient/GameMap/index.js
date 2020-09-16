@@ -4,6 +4,7 @@ import { Canvas, Text, Rect, Container } from '@bucky24/react-canvas';
 
 import Map from '../../common/Map';
 import Button from '../../common/Button';
+import Dialog from '../Dialog';
 
 import { saveMap } from '../../common/utils/saver';
 import { executeScriptAsCharacter } from "../scriptHandler/scriptHandler";
@@ -16,7 +17,10 @@ import {
 	getInactiveEnemies,
 	getActiveEnemies,
 	getMapMeta,
-	inBattle
+	inBattle,
+	getPause,
+	getCameraCenter,
+	getDialog,
 } from '../store/getters/map';
 import {
 	setCharacter,
@@ -219,6 +223,10 @@ class GameMap extends Component {
 			this.handleItemCredit(obj2.contains);
 
 			return true;
+		} else if (obj1.type === "player" && obj2.type === "trigger") {
+			
+
+			return true;
 		}
 		
 		return false;
@@ -256,7 +264,7 @@ class GameMap extends Component {
 	render() {
 		const { activeChar } = this.activeCharacter();
 		const activeCharData = activeChar ? this.props.characterData[activeChar.ident] : {};
-		const { width, height, setPane, chooseLoc } = this.props;
+		const { width, height, setPane, chooseLoc, pause } = this.props;
 		
 		const choosing = chooseLoc.choosing;
 		
@@ -338,17 +346,19 @@ class GameMap extends Component {
 				objectData={this.props.objectData}
 				characterData={this.props.characterData}
 				onClick={(x, y, button ) => {
+					if (this.props.dialog || pause) {
+						return;
+					}
 					const location = activeLocations.find((loc) => {
 						return loc.x === x && loc.y === y;
 					});
 
-					console.log("location is", location, activeLocations, x, y);
-					
 					if (location) {
 						fireEvent("locationClicked", location);
 						this.props.setChooseLoc(false);
 					}
 				}}
+				cameraCenter={this.props.cameraCenter}
 			/>
 			<Rect
 				x={0}
@@ -392,6 +402,11 @@ class GameMap extends Component {
 					setPane(Panes.GAME_EQUIPMENT);
 				}}
 			/>
+			{ pause && <Text
+				x={100}
+				y={12}
+				color="#f00"
+			>Paused</Text> }
 			{ this.props.inBattle && <Container>
 				<Rect
 					x={width/2-100}
@@ -416,6 +431,15 @@ class GameMap extends Component {
 					</Text>
 				</Container>}
 			</Container>}
+			{ this.props.dialog && <Dialog
+				text={this.props.dialog.text}
+				characterIdent={this.props.dialog.characterIdent}
+				characterData={this.props.characterData}
+				x={width/2-200}
+				y={height-170}
+				width={400}
+				height={100}
+			/>}
 		</Canvas>);
 	}
 }
@@ -435,6 +459,9 @@ const mapStateToProps = (state) => {
 		characterData: getCharacterData(state),
 		inBattle: inBattle(state),
 		chooseLoc: getChooseLoc(state),
+		pause: getPause(state),
+		cameraCenter: getCameraCenter(state),
+		dialog: getDialog(state),
 	};
 };
 
