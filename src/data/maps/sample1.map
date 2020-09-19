@@ -25,7 +25,19 @@
 		{ "tile": "ground1", "x": 4, "y": 5 },
 		{ "tile": "ground1", "x": 4, "y": 6 },
 		{ "tile": "ground1", "x": 4, "y": 7 },
-		{ "tile": "ground1", "x": 4, "y": 8 }
+		{ "tile": "ground1", "x": 4, "y": 8 },
+		{ "tile": "ground1", "x": 3, "y": 5 },
+		{ "tile": "ground1", "x": 3, "y": 6 },
+		{ "tile": "ground1", "x": 3, "y": 7 },
+		{ "tile": "ground1", "x": 3, "y": 8 },
+		{ "tile": "ground1", "x": 2, "y": 5 },
+		{ "tile": "ground1", "x": 2, "y": 6 },
+		{ "tile": "ground1", "x": 2, "y": 7 },
+		{ "tile": "ground1", "x": 2, "y": 8 },
+		{ "tile": "ground1", "x": 1, "y": 5 },
+		{ "tile": "ground1", "x": 1, "y": 6 },
+		{ "tile": "ground1", "x": 1, "y": 7 },
+		{ "tile": "ground1", "x": 1, "y": 8 }
 	],
 	"characters": [
 		{ "ident": "character1", "x": 5, "y": 5, "equipment": [{ "type": "sword" }] },
@@ -54,7 +66,7 @@
 		{ "type": "portal", "id": 5, "x": 8, "y": 11 }
 	],
 	"enemies": [
-		{ "type": "bat", "id": 1, "doorTrigger": 1, "x": 8, "y": 10},
+		{ "type": "bat", "id": 1, "doorTrigger": 1, "x": 1, "y": 8},
 		{ "type": "skeleton", "id": 2, "x": 8, "y": 5}
 	],
 	"triggers": [

@@ -10,43 +10,90 @@ Available functions (in progress, may not exist in code yet):
 
 userChooseLocation:
 
-This method prompts the user to choose a location given various inputs. It will resolve a promise with the x and y chosen.
+	This method prompts the user to choose a location given various inputs. It will resolve a promise with the x and y chosen.
 
-Params:
-minDist: number, indicates the closest a square can be to be shown as valid to the user
-maxDist: number, indicates the furthest a square can be to be shown as valid to the user
-directions: array of Direction enum, indicates restrictions on what direction squares can be shown in.
+	Params:
+		minDist: number, indicates the closest a square can be to be shown as valid to the user
+		maxDist: number, indicates the furthest a square can be to be shown as valid to the user
+		directions: array of Direction enum, indicates restrictions on what direction squares can be shown in.
 
 getObjectsAt:
 
-This method takes in an x and y and returns a list of all Objects currently at that position.
+	This method takes in an x and y and returns a list of all Objects currently at that position.
 
-Params:
-x: number, x coord
-y: number, y coord
+	Params:
+		x: number, x coord
+		y: number, y coord
+
+hasActionPoints:
+
+	This method takes in an action type and returns a boolean indicating if the current context has enough action points to take the action
+
+	Params:
+		action: type of Action
+
+getObjectsWithinRange:
+
+	Returns a list of all objects that match the given type and are within range
+
+	Params:
+		type: type of ObjectType
+		subType: unused
+		distance: objects must be this close to be counted
+
+getClosestObjectsWithinRange:
+
+	Returns the closest object that matchews the given type and is within range
+
+	Params:
+		type: type of ObjectType
+		subType: unused
+		distance: objects must be this close to be counted
+
+attackTarget:
+
+	Damages an object, but only if the current context has enough action points to damage.
+
+	Params:
+		object: object to damage
+
+moveTowards:
+
+	moves towards the given object, but only if the current context has enough action points to move.
+
+	Params:
+		object: object to move towards
 
 getSelf:
 
-returns the Object that is executing the script.
+	returns the Object that is executing the script.
 
 Direction Enum:
-DIAGONALS
-STRAIGHT_LINES
-VERTICAL_LINES
-HORIZ_LINES
-LEFT_RIGHT_DIAG - top left to bottom right
-RIGHT_LEFT_DIAG - bottom left to top right
-UP
-UP_RIGHT
-RIGHT
-DOWN_RIGHT
-DOWN
-DOWN_LEFT
-LEFT
-UP_LEFT
+	DIAGONALS
+	STRAIGHT_LINES
+	VERTICAL_LINES
+	HORIZ_LINES
+	LEFT_RIGHT_DIAG - top left to bottom right
+	RIGHT_LEFT_DIAG - bottom left to top right
+	UP
+	UP_RIGHT
+	RIGHT
+	DOWN_RIGHT
+	DOWN
+	DOWN_LEFT
+	LEFT
+	UP_LEFT
+
+ObjectType Enum:
+	CHARACTERS
+
+Action Enum:
+	ATTACK
+	MOVE
 
 Object Class:
-
-properties:
-x: number, x position of object
-y: number, y position of object
+	properties:
+		x: number, x position of object
+		y: number, y position of object
+		moveTo(x, y): moves the object to a given position
+		damage(amount): damages the object

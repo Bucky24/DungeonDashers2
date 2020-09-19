@@ -29,6 +29,7 @@ import {
 	harmEnemy,
 	removeObject,
 	setActiveCharacter,
+	setEnemyActionPoints,
 } from '../store/ducks/map';
 import {
 	getEnemyData,
@@ -47,7 +48,7 @@ import { getChooseLoc } from '../store/getters/ui';
 
 import BattleHandler from '../EnemyHandler/battle';
 import { handleTriggers } from '../Triggers/triggerHandler';
-import { STRAIGHT_LINES } from '../scriptHandler/constants';
+import { STRAIGHT_LINES, POINTS_FOR_ATTACK, POINTS_FOR_MOVE } from '../scriptHandler/constants';
 import { fireEvent } from "../eventEmitter/emitter";
 
 class GameMap extends Component {
@@ -77,8 +78,7 @@ class GameMap extends Component {
 		
 		let canMove = true;
 		let canAct = true;
-		let totalPoints = 1;
-		const fightPoints = 5;
+		let totalPoints = POINTS_FOR_MOVE;
 		
 		const key = `${newX}_${newY}`;
 		
@@ -126,7 +126,7 @@ class GameMap extends Component {
 		});
 		
 		if (enemiesCollided.length > 0) {
-			totalPoints = fightPoints;
+			totalPoints = POINTS_FOR_ATTACK;
 			if (activeChar.actionPoints < totalPoints) {
 				// no fight for you
 				return;
@@ -240,6 +240,15 @@ class GameMap extends Component {
 			actionPoints: characterData.actionPoints
 		}, activeIndex);
 	}
+
+	resetActiveEnemyActions() {
+		const { activeEnemies } = this.props;
+
+		activeEnemies.forEach((enemy) => {		
+			const enemyData = this.props.enemyData[enemy.type];
+			this.props.setEnemyActionPoints(enemy.id, enemyData.actionPoints);
+		});
+	}
 	
 	async nextCharacter() {
 		let { activeIndex } = this.activeCharacter();
@@ -252,6 +261,7 @@ class GameMap extends Component {
 				await BattleHandler();
 				forceUpdate = true;
 			}
+			this.resetActiveEnemyActions();
 		}
 		this.props.setActiveCharacter(activeIndex);
 		// reset the action points for this new character just in case
@@ -497,6 +507,9 @@ const mapDispatchToProps = (dispatch) => {
 		setChooseLoc: (choosing, min, max, type, startX, startY) => {
 			dispatch(setChooseLoc(choosing, min, max, type, startX, startY));
 		},
+		setEnemyActionPoints: (id, actionPoints) => {
+			return dispatch(setEnemyActionPoints(id, actionPoints));
+		}
  	};
 };
 

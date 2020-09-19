@@ -62,7 +62,21 @@ class Loader extends Component {
 			return getBaseEnemyList();
 		})
 		.then((enemyTypes) => {
-			this.props.setBaseEnemies(enemyTypes);
+			// process the scripts
+			const alteredTypes = [];
+			enemyTypes.forEach((enemyType) => {
+				if (enemyType.script) {
+					const scriptName = `${enemyType.type}_script`;
+					processScript(enemyType.script, scriptName);
+					alteredTypes.push({
+						...enemyType,
+						script: scriptName,
+					});
+				} else {
+					alteredTypes.push(enemyType);
+				}
+			})
+			this.props.setBaseEnemies(alteredTypes);
 		});
 	}
 

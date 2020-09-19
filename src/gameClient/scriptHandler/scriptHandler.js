@@ -1,16 +1,21 @@
 import store from "../store";
+import { sleep } from "../../common/utils/general";
 
-import { STRAIGHT_LINES } from './constants';
+import { STRAIGHT_LINES, Action, POINTS_FOR_MOVE, POINTS_FOR_ATTACK, ObjectType } from './constants';
 import { onOnce } from "../eventEmitter/emitter";
 
 import { setChooseLoc } from '../store/ducks/ui';
 import { getCharacters } from '../store/getters/map';
-import { setCharacter } from "../store/ducks/map";
+import { harmCharacter, setCharacter } from "../store/ducks/map";
 
 const scripts = {};
 
 export const processScript = (code, name) => {
-	const imports = ["userChooseLocation", "STRAIGHT_LINES", "getSelf"];
+	const imports = [
+		"userChooseLocation", "STRAIGHT_LINES", "getSelf", "Action", "hasActionPointsFor",
+		"getObjectsWithinRange", "ObjectType", "getClosestObjectWithinRange", "moveTowards",
+		"attackTarget",
+	];
 	let importString = "";
 	if (imports.length > 0) {
 		importString = `{ ${imports.join(",")} }`;
@@ -35,13 +40,135 @@ const getGlobalContext = (context) => {
 			});
 		},
 		getSelf: () => {
-			return context.object;
+			return context;
+		},
+		hasActionPointsFor: (type) => {
+			if (type === Action.MOVE) {
+				return context.actionPoints >= POINTS_FOR_MOVE;
+			} else if (type === Action.ATTACK) {
+				return context.actionPoints >= POINTS_FOR_ATTACK;
+			}
+
+			return false;
+		},
+		getObjectsWithinRange: (type, subType, distance) => {
+			let dataSet = null;
+			let contextFn = null;
+			if (type === ObjectType.CHARACTERS) {
+				dataSet = getCharacters(store.getState());
+				contextFn = getContextFromCharacter;
+			}
+
+			if (!dataSet) {
+				return [];
+			}
+
+			let results = [];
+
+			for (const data of dataSet) {
+				const dist = Math.round(Math.sqrt(Math.pow(context.x - data.x, 2) + Math.pow(context.y - data.y, 2)));
+				if (dist <= distance) {
+					results.push(contextFn(data));
+				}
+			}
+
+			return results;
+		},
+		getClosestObjectWithinRange: (type, subType, distance) => {
+			let dataSet = null;
+			let contextFn = null;
+			if (type === ObjectType.CHARACTERS) {
+				dataSet = getCharacters(store.getState());
+				contextFn = getContextFromCharacter;
+			}
+
+			if (!dataSet) {
+				return null;
+			}
+
+			let closest = null;
+			let closeDist = null;
+
+			for (const data of dataSet) {
+				const dist = Math.round(Math.sqrt(Math.pow(context.x - data.x, 2) + Math.pow(context.y - data.y, 2)));
+				if ((dist < closeDist || closeDist == null) && dist <= distance) {
+					closest = contextFn(data);
+					closeDist = dist;
+				}
+			}
+
+			return closest;
+		},
+		moveTowards: async (otherContext) => {
+			if (context.actionPoints < POINTS_FOR_MOVE) {
+				return;
+			}
+			context.actionPoints -= POINTS_FOR_MOVE;
+
+			let newX = context.x;
+			let newY = context.y;
+
+			if (otherContext.x > newX) {
+				newX += 1;
+			} else if (otherContext.x < newX) {
+				newX -= 1;
+			}
+
+			if (otherContext.y > newY) {
+				newY += 1;
+			} else if (otherContext.y < newY) {
+				newY -= 1;
+			}
+
+			// don't allow moving on top of the target
+			// we'll need to modify this at some point probably
+			if (otherContext.x == newX && otherContext.y == newY) {
+				return;
+			}
+
+			context.moveTo(newX, newY);
+
+			await sleep(250);
+		},
+		attackTarget: async (otherContext) => {
+			if (context.actionPoints < POINTS_FOR_ATTACK) {
+				return;
+			}
+			context.actionPoints -= POINTS_FOR_ATTACK;
+
+			otherContext.damage(5);
+
+			await sleep(250);
 		},
 		STRAIGHT_LINES,
+		Action,
+		ObjectType,
 	};
 }
 
-export const executeScript = (name, context) => {
+const getContextFromCharacter = (character) => {
+	const characters = getCharacters(store.getState());
+	const findIdent = character.ident;
+	const activeCharIndex = characters.findIndex(({ ident }) => {
+		return ident === findIdent;
+	});
+
+	return {
+		x: character.x,
+		y: character.y,
+		moveTo: (x, y) => {
+			store.dispatch(setCharacter({
+				x,
+				y,
+			}, activeCharIndex));
+		},
+		damage: (amount) => {
+			store.dispatch(harmCharacter(findIdent, amount));
+		},
+	};
+}
+
+export const executeScript = async (name, context) => {
 	if (!scripts[name]) {
 		throw new Error(`Cannot find script with name ${name}`);
 	}
@@ -50,8 +177,9 @@ export const executeScript = (name, context) => {
 	const globalContext = getGlobalContext(context);
 	
 	try {
-		fn(globalContext);
+		await fn(globalContext);
 	} catch (error) {
+		console.error("Script: " + fn);
 		throw new Error(`Error executing script ${name}: ${error.message}`);
 	}
 }
@@ -61,17 +189,7 @@ export const executeScriptAsCharacter = (name, charIdent) => {
 	const activeCharIndex = characters.findIndex(({ ident }) => {
 		return ident === charIdent;
 	});
+	console.log("execute script as character?", charIdent, name);
 	const activeChar = characters[activeCharIndex];
-	return executeScript(name, {
-		x: activeChar.x,
-		y: activeChar.y,
-		object: {
-			moveTo: (x, y) => {
-				store.dispatch(setCharacter({
-					x,
-					y,
-				}, activeCharIndex));
-			},
-		},
-	});
+	return executeScript(name, getContextFromCharacter(activeChar));
 }

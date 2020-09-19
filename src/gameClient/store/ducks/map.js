@@ -16,6 +16,8 @@ export const Constants = {
 	SET_CAMERA_CENTER: 'MAP/SET_CAMERA_CENTER',
 	SET_DIALOG: 'MAP/SET_DIALOG',
 	DISMISS_DIALOG: 'MAP/DISMISS_DIALOG',
+	SET_ENEMY_ACTION_POINTS: 'MAP/SET_ENEMY_ACTION_POINTS',
+	MOVE_ENEMY: 'MAP/MOVE_ENEMY',
 };
 
 const defaultState = {
@@ -240,6 +242,47 @@ export default (state = defaultState, action) => {
 			...state,
 			dialog: null,
 		};
+	} else if (action.type === Constants.SET_ENEMY_ACTION_POINTS) {
+		const index = state.activeEnemies.findIndex((obj) => {
+			return obj.id === action.id;
+		});
+		if (index === -1) {
+			throw new Error(`Unable to find active enemy for id ${action.id}`);
+		}
+		
+		const enemy = {
+			...state.activeEnemies[index]
+		};
+		
+		const newEnemies = [...state.activeEnemies];
+		enemy.actionPoints = action.actionPoints;
+		newEnemies[index] = enemy;
+	
+		return {
+			...state,
+			activeEnemies: newEnemies
+		};
+	} else if (action.type === Constants.MOVE_ENEMY) {
+		const index = state.activeEnemies.findIndex((obj) => {
+			return obj.id === action.id;
+		});
+		if (index === -1) {
+			throw new Error(`Unable to find active enemy for id ${action.id}`);
+		}
+		
+		const enemy = {
+			...state.activeEnemies[index]
+		};
+		
+		const newEnemies = [...state.activeEnemies];
+		enemy.x = action.x;
+		enemy.y = action.y;
+		newEnemies[index] = enemy;
+	
+		return {
+			...state,
+			activeEnemies: newEnemies
+		};
 	} else {
 		return state;
 	}
@@ -358,3 +401,20 @@ export const dismissDialog = () => {
 		type: Constants.DISMISS_DIALOG,
 	};
 }
+
+export const setEnemyActionPoints = (id, actionPoints) => {
+	return {
+		type: Constants.SET_ENEMY_ACTION_POINTS,
+		id,
+		actionPoints,
+	};
+};
+
+export const moveEnemy = (id, x, y) => {
+	return {
+		type: Constants.MOVE_ENEMY,
+		id,
+		x,
+		y,
+	};
+};

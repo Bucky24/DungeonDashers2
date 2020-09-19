@@ -3,7 +3,7 @@ For v0.6.0
 * Replicate the first original campaign scenario
 * Character special skills for first two base characters
 * Better menus for load and saving
-* Full dungeon tile set
+* Additional dungeon tiles
 * Properly handle character death
 * Better enemy AI - basic pathfinding, real damage, action points
 * Basics for data validation
@@ -21,3 +21,4 @@ For v0.7.0
 * Custom map borders for campaigns, and selection like original game
 * Full data validation and version control/conversion
 * Better in-game dialog
+* Begin work on audio system

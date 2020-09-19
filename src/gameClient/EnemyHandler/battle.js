@@ -1,50 +1,52 @@
-import { sleep } from '../../common/utils/general';
 import store from '../store';
 
-import { getActiveEnemies, getCharacters } from '../store/getters/map';
+import { getActiveEnemies } from '../store/getters/map';
+import { getEnemyData } from '../store/getters/gameData';
+import { moveEnemy } from '../store/ducks/map';
 
-import { harmCharacter } from '../store/ducks/map';
+import { executeScript } from '../scriptHandler/scriptHandler';
 
 // this is entry point for enemy battle code
 export default async function() {
 	const state = store.getState();
 	const dispatch = store.dispatch;
 
+	console.log("Running enemy ai");
+
 	const enemies = getActiveEnemies(state);
-	const characters = getCharacters(state);
-	
-	const charactersByKey = characters.reduce((obj, character) => {
-		const key = `${character.x}_${character.y}`;
-		return {
-			...obj,
-			[key]: character
-		};
-	}, {});
+	const allEnemyData = getEnemyData(state);
 	
 	for (const enemy of enemies) {
-		const key = `${enemy.x}_${enemy.y}`;
-		
-		const neighborKeys = [
-			`${enemy.x-1}_${enemy.y-1}`,
-			`${enemy.x}_${enemy.y-1}`,
-			`${enemy.x+1}_${enemy.y-1}`,
-			`${enemy.x+1}_${enemy.y}`,
-			`${enemy.x+1}_${enemy.y+1}`,
-			`${enemy.x}_${enemy.y+1}`,
-			`${enemy.x-1}_${enemy.y+1}`,
-			`${enemy.x-1}_${enemy.y}`,
-		];
-		
-		const neighbors = []
-		neighborKeys.forEach((key) => {
-			if (charactersByKey[key]) {
-				neighbors.push(charactersByKey[key]);
+		if (!enemy) {
+			continue;
+		}
+		const enemyData = allEnemyData[enemy.type];
+
+		if (!enemyData) {
+			console.error("Cannot find data for enemy type " + enemy.type);
+			continue;
+		}
+
+		if (enemyData.script) {
+			const context = {
+				id: enemy.id,
+				actionPoints: enemy.actionPoints,
+				x: enemy.x,
+				y: enemy.y,
+				moveTo(x, y) {
+					dispatch(moveEnemy(enemy.id, x, y));
+					this.x = x;
+					this.y = y;
+				},
+			};
+
+			try {
+				await executeScript(enemyData.script, context);
+			} catch (error) {
+				console.error("Unable to execute AI script for " + enemy.type + ": " + error);
 			}
-		});
-		
-		if (neighbors.length > 0) {
-			const first = neighbors[0];
-			dispatch(harmCharacter(first.ident, 2));
 		}
 	}
+
+	console.log("Done running enemy ai");
 };

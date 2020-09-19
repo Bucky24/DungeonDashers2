@@ -95,6 +95,16 @@ const processMapData = (data, enemyData, characterData, setMap, setActiveCharact
 		};
 	});
 
+	const newActiveEnemies = data.activeEnemies.map((enemy) => {
+		const data = enemyData[enemy.type];
+		return {
+			...enemy,
+			actionPoints: enemy.actionPoints || data.actionPoints,
+			hp: enemy.hp || data.maxHP,
+			maxHP: data.maxHP,
+		};
+	});
+
 	const newMap = {
 		tiles: data.tiles,
 		characters: newCharacters,
@@ -103,7 +113,7 @@ const processMapData = (data, enemyData, characterData, setMap, setActiveCharact
 		height: data.height,
 		walkable: getWalkable(data.tiles, newObjects),
 		inactiveEnemies: data.inactiveEnemies,
-		activeEnemies: data.activeEnemies,
+		activeEnemies: newActiveEnemies,
 		triggers: data.triggers,
 	};
 	
