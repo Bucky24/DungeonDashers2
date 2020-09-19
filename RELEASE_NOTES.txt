@@ -42,3 +42,4 @@ v0.6.0
 * Added map object trigger
 * Added pause trigger
 * Added move camera trigger
+* Better enemy AI - basic pathfinding, real damage, action points

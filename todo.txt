@@ -5,7 +5,6 @@ For v0.6.0
 * Better menus for load and saving
 * Additional dungeon tiles
 * Properly handle character death
-* Better enemy AI - basic pathfinding, real damage, action points
 * Basics for data validation
 
 For v0.7.0

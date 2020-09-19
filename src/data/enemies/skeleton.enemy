@@ -6,5 +6,6 @@
 		"width": 32,
 		"height": 64
 	},
+	"script": "\n\twhile (true) {\n\t\tif (hasActionPointsFor(Action.ATTACK)) {\n\t\t\tconst objectsAround = getObjectsWithinRange(ObjectType.CHARACTERS, null, 1);\n\t\t\tif (objectsAround.length > 0) {\n\t\t\t\tconst target = objectsAround[0];\n\t\t\t\tawait attackTarget(target);\n\t\t\t\tcontinue;\n\t\t\t}\n\t\t}\n\n\t\tif (hasActionPointsFor(Action.MOVE)) {\n\t\t\tconst objectNearby = getClosestObjectWithinRange(ObjectType.CHARACTERS, null, 7);\n\t\t\tif (objectNearby) {\n\t\t\t\tawait moveTowards(objectNearby);\n\t\tcontinue;\n\t\t\t}\n\t\t}\n\n\t\tbreak;\n\t}\n",
 	"actionPoints": 10
 }
