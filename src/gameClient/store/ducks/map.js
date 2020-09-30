@@ -18,6 +18,7 @@ export const Constants = {
 	DISMISS_DIALOG: 'MAP/DISMISS_DIALOG',
 	SET_ENEMY_ACTION_POINTS: 'MAP/SET_ENEMY_ACTION_POINTS',
 	MOVE_ENEMY: 'MAP/MOVE_ENEMY',
+	CREATE_CHARACTER: 'MAP/CREATE_CHARACTER',
 };
 
 const defaultState = {
@@ -283,6 +284,14 @@ export default (state = defaultState, action) => {
 			...state,
 			activeEnemies: newEnemies
 		};
+	} else if (action.type === Constants.CREATE_CHARACTER) {
+		return {
+			...state,
+			characters: [
+				...state.characters || [],
+				action.character,
+			],
+		};
 	} else {
 		return state;
 	}
@@ -416,5 +425,12 @@ export const moveEnemy = (id, x, y) => {
 		id,
 		x,
 		y,
+	};
+};
+
+export const createCharacter = (character) => {
+	return {
+		type: Constants.CREATE_CHARACTER,
+		character,
 	};
 };

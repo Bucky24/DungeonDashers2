@@ -8,6 +8,7 @@
     "css-loader": "1.0.0",
     "dotenv": "6.0.0",
     "dotenv-expand": "4.2.0",
+    "joi": "^17.2.1",
     "mini-css-extract-plugin": "0.5.0",
     "mobile-detect": "git+https://github.com/Bucky24/mobile-detect.git",
     "react": "16.8.3",

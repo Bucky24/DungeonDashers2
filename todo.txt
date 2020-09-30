@@ -1,11 +1,10 @@
 For v0.6.0
-* Add trigger to spawn characters
 * Replicate the first original campaign scenario
 * Character special skills for first two base characters
 * Better menus for load and saving
-* Additional dungeon tiles
 * Properly handle character death
 * Basics for data validation
+* Fix AI - not triggering for more than 1 unit
 
 For v0.7.0
 * All original base characters, including special abilities
@@ -17,7 +16,8 @@ For v0.7.0
 * More complex AI - better pathfinding, fleeing after attack, summoning
 * Equipment has effects
 * Three full campaign missions from original game
-* Custom map borders for campaigns, and selection like original game
+* Custom map background for campaigns, and selection like original game
 * Full data validation and version control/conversion
 * Better in-game dialog
 * Begin work on audio system
+* Script editor

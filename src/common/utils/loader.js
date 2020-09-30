@@ -61,7 +61,7 @@ export const loadNewMap = async (type, mapName, enemyData, characterData, setMap
 		const newEnemy = Object.assign({}, enemy);
 
 		newEnemy.hp = enemyData[enemy.type].maxHP;
-		if (enemy.trigger) {
+		if (enemy.doorTrigger) {
 			inactiveEnemies.push(newEnemy);
 		} else {
 			activeEnemies.push(newEnemy);

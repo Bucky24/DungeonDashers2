@@ -27,7 +27,8 @@ const handleEffectHelper = async (effects, count) => {
 		throw new Error(`Unable to find effect with name ${effect.type}`);
 	}
 
-	await effectData[effect.type](effect.data);
+	const state = store.getState()
+	await effectData[effect.type](effect.data, state);
 	handleEffectHelper(effects, count+1);
 }
 

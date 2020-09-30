@@ -43,3 +43,5 @@ v0.6.0
 * Added pause trigger
 * Added move camera trigger
 * Better enemy AI - basic pathfinding, real damage, action points
+* Additional dungeon tiles
+* Add trigger to spawn characters

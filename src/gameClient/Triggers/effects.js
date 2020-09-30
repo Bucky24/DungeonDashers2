@@ -6,7 +6,9 @@ import { getActiveCampaign, getMaps, getIsCustom } from '../store/getters/campai
 import { getMapMeta } from '../store/getters/map';
 import { saveCampaign } from '../../common/utils/saver';
 import { setCurrentMap } from '../store/ducks/campaign';
-import { setPause, setCameraCenter, setDialog } from '../store/ducks/map';
+import { setPause, setCameraCenter, setDialog, createCharacter } from '../store/ducks/map';
+import { getCharacters } from "../store/getters/map";
+import { getCharacterData } from '../store/getters/gameData';
 
 export const winGame = () => {
 	const state = store.getState();
@@ -46,8 +48,40 @@ export const showDialog = ({ text, characterIdent }) => {
 	// don't continue until dialog is dismissed
 	return new Promise((resolve) => {
 		onOnce(Events.DIALOG_DISMISSED, () => {
-			console.log("dialog dismissed?");
 			resolve();
 		});
 	});
+}
+
+export const spawnCharacter = ({ ident, x, y }, state) => {
+	const characters = getCharacters(state);
+	const baseCharacterData = getCharacterData(state);
+
+	let characterExists = false;
+	for (const char of characters) {
+		if (char.ident === ident) {
+			characterExists = true;
+			break;
+		}
+	}
+
+	if (characterExists) {
+		return;
+	}
+
+	const data = baseCharacterData[ident];
+
+	if (!data) {
+		console.error("Cannot find character data for ident" + ident);
+		return;
+	}
+
+	const charData = {
+		...data,
+		x,
+		y,
+		hp: data.maxHP,
+	};
+
+	store.dispatch(createCharacter(charData));
 }
