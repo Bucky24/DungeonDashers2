@@ -4,6 +4,9 @@ import { Container, Text, Canvas, Rect } from '@bucky24/react-canvas';
 import Button from '../../common/Button';
 import { getFileList, loadFile, Types } from 'system';
 
+import TitleImage from '../Menus/TitleImage';
+import VerticalMenu from '../../common/Inputs/VerticalMenu'
+
 import { Panes, setUIPane } from '../store/ducks/ui';
 import { setMap, setActiveCharacter, setMapMeta } from '../store/ducks/map';
 import { getEnemyData, getCharacterData } from '../store/getters/gameData';
@@ -19,7 +22,7 @@ class NewMapSelect extends Component {
 			customMaps: [],
 			campaigns: [],
 			customCampaigns: [],
-			tab: 'campaigns'
+			tab: null,
 		};
 	}
 	
@@ -65,114 +68,95 @@ class NewMapSelect extends Component {
 
 	render() {
 		const { width, height, setPane } = this.props;
+
+		let buttons = [
+			{ text: "Single Maps", id: "maps" },
+			{ text: "Campaigns", id: "campaigns" },
+			{ text: "Back", id: "back" },
+		];
+
+		if (this.state.tab === "maps") {
+			buttons = [];
+			buttons.push({ text: "Base Maps", type: "header" });
+			this.state.maps.forEach((mapName) => {
+				buttons.push({ text: mapName, id: `map_${mapName}` });
+			})
+			buttons.push({ text: "Custom Maps", type: "header" });
+			this.state.customMaps.forEach((mapName) => {
+				buttons.push({ text: mapName, id: `custom_${mapName}` });
+			})
+			buttons.push({ text: "Back", id: "back" });
+		} else if (this.state.tab === "campaigns") {
+			buttons = [];
+			buttons.push({ text: "Base Campaigns", type: "header" });
+			this.state.campaigns.forEach((mapName) => {
+				buttons.push({ text: mapName, id: `camp_${mapName}` });
+			})
+			buttons.push({ text: "Custom Campaigns", type: "header" });
+			this.state.customCampaigns.forEach((mapName) => {
+				buttons.push({ text: mapName, id: `custom_${mapName}` });
+			})
+			buttons.push({ text: "Back", id: "back" });
+		}
+
+		const midX = width/2 - 50;
+		const bottomBuffer = 60;
+		const buttonHeight = 30;
+		const padding = 10;
+		const startY = height - bottomBuffer - (buttonHeight+padding) * buttons.length;
+
 		return (<Canvas
 			width={width}
 			height={height}
 		>
-			<Button
-				x={0}
-				y={height-50}
-				width={200}
-				height={50}
-				text="Back"
-				onClick={() => {
-					setPane(Panes.SAVE_LOAD);
+			<TitleImage width={width} height={height} />
+			<VerticalMenu
+				buttons={buttons}
+				midX={midX}
+				startY={startY}
+				padding={padding}
+				height={buttonHeight}
+				width={100}
+				onSelect={(id) => {
+					if (this.state.tab === null) {
+						switch(id) {
+						case "maps":
+						case "campaigns":
+							this.setState({ tab: id });
+							break;
+						case "back":
+							setPane(Panes.SAVE_LOAD);
+							break;
+						}
+					} else if (this.state.tab === "maps") {
+						if (!id) {
+							return;
+						}
+						if (id === "back") {
+							this.setState({ tab: null });
+						} else if (id.includes("map_")) {
+							const name = id.replace("map_", "");
+							this.loadMap(Types.MAP, name);
+						} else if (id.includes("custom_")) {
+							const name = id.replace("custom_", "");
+							this.loadMap(Types.MAP_CUSTOM, name);
+						}
+					} else if (this.state.tab === "campaigns") {
+						if (!id) {
+							return;
+						}
+						if (id === "back") {
+							this.setState({ tab: null });
+						} else if (id.includes("camp_")) {
+							const name = id.replace("camp_", "");
+							this.loadCampaign(Types.CAMPAIGN, name);
+						} else if (id.includes("custom_")) {
+							const name = id.replace("custom_", "");
+							this.loadCampaign(Types.CAMPAIGN_CUSTOM, name);
+						}
+					}
 				}}
 			/>
-			<Button
-				x={0}
-				y={0}
-				width={200}
-				height={50}
-				text="Campaigns"
-				toggle={this.state.tab === 'campaigns'}
-				onClick={() => {
-					this.setState({
-						tab: 'campaigns'
-					});
-				}}
-			/>
-			<Button
-				x={210}
-				y={0}
-				width={200}
-				height={50}
-				text="Maps"
-				toggle={this.state.tab === 'maps'}
-				onClick={() => {
-					this.setState({
-						tab: 'maps'
-					});
-				}}
-			/>
-			{ this.state.tab === 'maps' && <Container>
-				<Text x={0} y={62}>
-					Base Maps
-				</Text>
-				{ this.state.maps.map((mapName, index) => {
-					return <Button
-						key={`base_${index}`}
-						x={0}
-						y={50*index + 65}
-						width={200}
-						height={50}
-						text={mapName}
-						onClick={() => {
-							this.loadMap(Types.MAP, mapName);
-						}}
-					/>;
-				})}
-				<Text x={210} y={62}>
-					Custom Maps
-				</Text>
-				{ this.state.customMaps.map((mapName, index) => {
-					return <Button
-						key={`custom_${index}`}
-						x={210}
-						y={50*index + 65}
-						width={200}
-						height={50}
-						text={mapName}
-						onClick={() => {
-							this.loadMap(Types.MAP_CUSTOM, mapName);
-						}}
-					/>;
-				})}
-			</Container> }
-			{ this.state.tab === 'campaigns' && <Container>
-				<Text x={0} y={62}>
-					Base Campaigns
-				</Text>
-				{ this.state.campaigns.map((mapName, index) => {
-					return <Button
-						key={`base_camp_${index}`}
-						x={0}
-						y={50*index + 65}
-						width={200}
-						height={50}
-						text={mapName}
-						onClick={() => {
-							this.loadCampaign(Types.CAMPAIGN, mapName);
-						}}
-					/>;
-				})}
-				<Text x={210} y={62}>
-					Custom Campaigns
-				</Text>
-				{ this.state.customCampaigns.map((mapName, index) => {
-					return <Button
-						key={`custom_camp_${index}`}
-						x={210}
-						y={50*index + 65}
-						width={200}
-						height={50}
-						text={mapName}
-						onClick={() => {
-							this.loadCampaign(Types.CAMPAIGN_CUSTOM, mapName);
-						}}
-					/>;
-				})}
-			</Container> }
 		</Canvas>);
 	}
 }

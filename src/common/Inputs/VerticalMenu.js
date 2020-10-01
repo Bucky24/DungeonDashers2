@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import Button from '../Button';
-import { Container, Shape, Text, CanvasComponent } from '@bucky24/react-canvas';
+import React from 'react';
+import { Container, Shape, Text, CanvasComponent, Rect } from '@bucky24/react-canvas';
 
 class VerticalMenu extends CanvasComponent {
 	constructor(props) {
@@ -13,22 +12,38 @@ class VerticalMenu extends CanvasComponent {
 
 	onKeyUp({ code }) {
 		let doRerender = true;
+		let nextItem;
+		let item;
 		switch (code) {
 		case 'ArrowUp':
+			nextItem = this.state.activeMenuItem - 1;
+			if (nextItem < 0) {
+				nextItem = this.props.buttons.length-1;
+			}
 			this.setState({
-				activeMenuItem: Math.max(this.state.activeMenuItem-1, 0)
+				activeMenuItem: nextItem,
 			});
 			break;
 		case 'ArrowDown':
+			nextItem = this.state.activeMenuItem + 1;
+			if (nextItem > this.props.buttons.length-1) {
+				nextItem = 0;
+			}
 			this.setState({
-				activeMenuItem: Math.min(
-					this.state.activeMenuItem+1, this.props.buttons.length-1
-				)
+				activeMenuItem: nextItem,
 			});
 			break;
 		case 'Enter':
-			this.props.onSelect(this.props.buttons[this.state.activeMenuItem].id);
+			item = this.props.buttons[this.state.activeMenuItem];
+			if (item.type === "header") {
+				return;
+			}
 			doRerender = false;
+			this.setState({
+				activeMenuItem: 0,
+			}, () => {
+				this.props.onSelect(item.id);
+			});
 			break;
 		}
 		if (doRerender) {
@@ -44,17 +59,26 @@ class VerticalMenu extends CanvasComponent {
 			padding,
 			height,
 			width,
-			onSelect
 		} = this.props;
 
 		let y = startY
+		const fullHeight = buttons.length * height + buttons.length * padding
 		return <Container>
-			{ buttons.map(({ text, id }, index) => {
+			<Rect
+				x={midX-width/2}
+				y={startY-padding}
+				x2={midX+width*1.5}
+				y2={startY+fullHeight}
+				color="rgba(0,0,255,0.3)"
+				fill={true}
+			/>
+			{ buttons.map(({ text, id, type }, index) => {
 				const myY = y;
 				y += height + padding;
 				const active = index === this.state.activeMenuItem;
 				const textColor = active ? '#000' : '#fff';
-				return <Container key={id}>
+				const fontSize = type === "header" ? "14px" : "12px";
+				return <Container key={id || text}>
 					{ active && <Shape
 						x={midX}
 						y={myY}
@@ -67,7 +91,7 @@ class VerticalMenu extends CanvasComponent {
 						color={"#f00"}
 						fill={true}
 					/> }
-					<Text color={textColor} x={midX + 10} y={myY + 20}>
+					<Text color={textColor} x={midX + 10} y={myY + 20} font={`${fontSize} Arial`}>
 						{ text }
 					</Text>
 				</Container>;

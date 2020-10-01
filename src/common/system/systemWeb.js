@@ -56,7 +56,7 @@ export const loadFile = (type, path) => {
 		return Promise.resolve(Campaign1);
 	} else if (type === Types.SAVED_MAP) {
 		return Promise.resolve({
-			map: 'map1',
+			map: 'sample1',
 			custom: false,
 			inactiveEnemies: [],
 			activeEnemies: [

@@ -1,7 +1,6 @@
 For v0.6.0
 * Replicate the first original campaign scenario
 * Character special skills for first two base characters
-* Better menus for load and saving
 * Properly handle character death
 * Basics for data validation
 * Fix AI - not triggering for more than 1 unit
@@ -21,3 +20,4 @@ For v0.7.0
 * Better in-game dialog
 * Begin work on audio system
 * Script editor
+* Update campaign menus to better system

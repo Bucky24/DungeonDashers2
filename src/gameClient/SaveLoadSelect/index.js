@@ -26,7 +26,7 @@ class SaveLoadSelect extends Component {
 		const bottomBuffer = 60;
 		const buttonHeight = 30;
 		const padding = 10;
-		const startY = height - bottomBuffer - (buttonHeight+padding) * 5
+		const startY = height - bottomBuffer - (buttonHeight+padding) * 3
 		
 		const buttons = [
 			{
