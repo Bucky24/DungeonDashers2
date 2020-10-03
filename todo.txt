@@ -2,22 +2,27 @@ For v0.6.0
 * Replicate the first original campaign scenario
 * Character special skills for first two base characters
 * Properly handle character death
-* Basics for data validation
 * Fix AI - not triggering for more than 1 unit
 
 For v0.7.0
 * All original base characters, including special abilities
 * Editor for custom characters
 * Allow custom characters in maps and campaigns
-* Editor for custom objects
 * Allow campaigns and single maps to have custom objects
-* Editor for equipment
 * More complex AI - better pathfinding, fleeing after attack, summoning
 * Equipment has effects
-* Three full campaign missions from original game
+* Two full campaign missions from original game
 * Custom map background for campaigns, and selection like original game
 * Full data validation and version control/conversion
 * Better in-game dialog
 * Begin work on audio system
-* Script editor
-* Update campaign menus to better system
+* Beginning of script editor
+* Update campaign menus to new system
+* Better menus for in game overlays (equipment, etc)
+* Character directions
+
+For v0.8.0
+* Basic animation system, movement and attack
+* Editor for custom objects
+* Editor for equipment
+* Three full campaign missions from original game

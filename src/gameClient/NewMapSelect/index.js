@@ -23,12 +23,17 @@ class NewMapSelect extends Component {
 			campaigns: [],
 			customCampaigns: [],
 			tab: null,
+			error: null,
 		};
 	}
 	
 	loadMap(type, mapName) {
-		loadNewMap(type, mapName, this.props.enemyData, this.props.characterData, this.props.setMap, this.props.setActiveCharacter, this.props.setMapMeta);
-		this.props.setPane(Panes.GAME);
+		this.setState({ error: null });
+		loadNewMap(type, mapName, this.props.enemyData, this.props.characterData, this.props.setMap, this.props.setActiveCharacter, this.props.setMapMeta).then(() => {
+			this.props.setPane(Panes.GAME);
+		}).catch((error) => {
+			this.setState({ error: `Cannot load map: ${error}` });
+		})
 	}
 
 	async loadCampaign(type, campaignName) {
@@ -157,6 +162,13 @@ class NewMapSelect extends Component {
 					}
 				}}
 			/>
+			{this.state.error && <Text
+				x={10}
+				y={100}
+				color="#f00"
+			>
+				{this.state.error}	
+			</Text>}
 		</Canvas>);
 	}
 }

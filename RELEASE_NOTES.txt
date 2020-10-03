@@ -45,4 +45,5 @@ v0.6.0
 * Better enemy AI - basic pathfinding, real damage, action points
 * Additional dungeon tiles
 * Add trigger to spawn characters
-* Better menus for load and saving
+* Better menus for load and new game
+* Basics for data validation

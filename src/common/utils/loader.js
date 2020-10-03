@@ -1,6 +1,8 @@
 import { loadFile } from 'system';
 import { Types } from '../system/systemCommon';
 
+import mapValidator from '../validation/map';
+
 const WalkableTiles = [
 	'ground1'
 ];
@@ -54,6 +56,7 @@ export const loadExistingMap = async (saveFileName, enemyData, characterData, se
 
 export const loadNewMap = async (type, mapName, enemyData, characterData, setMap, setActiveCharacter, setMapMeta) => {
 	const data = await loadMapBase(type, mapName);
+
 
 	const inactiveEnemies = [];
 	const activeEnemies = [];
@@ -122,8 +125,10 @@ const processMapData = (data, enemyData, characterData, setMap, setActiveCharact
 	
 };
 
-const loadMapBase = (type, mapName) => {
-	return loadFile(type, mapName);
+const loadMapBase = async (type, mapName) => {
+	const mapData = await loadFile(type, mapName);
+
+	return mapValidator(mapData);
 };
 
 export const loadSavedCampaign = (

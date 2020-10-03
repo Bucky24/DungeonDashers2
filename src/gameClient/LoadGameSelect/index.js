@@ -20,6 +20,7 @@ class LoadGameSelect extends Component {
 			mapGames: [],
 			campaignGames: [],
 			tab: null,
+			error: null,
 		};
 	}
 	
@@ -97,10 +98,12 @@ class LoadGameSelect extends Component {
 							this.setState({ tab: null });
 						} else {
 							try {
+								this.setState({ error: null });
 								await loadExistingMap(id, this.props.enemyData, this.props.characterData, this.props.setMap, this.props.setActiveCharacter, this.props.setMapMeta);
 								this.props.setPane(Panes.GAME);
 							} catch (e) {
 								console.error(e);
+								this.setState({ error: e });
 							}
 						}
 					} else if (this.state.tab === "campaigns") {
@@ -122,6 +125,13 @@ class LoadGameSelect extends Component {
 					}
 				}}
 			/>
+			{this.state.error && <Text
+				x={10}
+				y={100}
+				color="#f00"
+			>
+				{this.state.error}	
+			</Text>}
 		</Canvas>);
 	}
 };
