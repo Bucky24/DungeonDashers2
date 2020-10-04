@@ -5,7 +5,7 @@ import { STRAIGHT_LINES, Action, POINTS_FOR_MOVE, POINTS_FOR_ATTACK, ObjectType 
 import { onOnce } from "../eventEmitter/emitter";
 
 import { setChooseLoc } from '../store/ducks/ui';
-import { getCharacters } from '../store/getters/map';
+import { getCharacters, getActiveEnemies } from '../store/getters/map';
 import { harmCharacter, setCharacter } from "../store/ducks/map";
 
 const scripts = {};
@@ -29,6 +29,25 @@ export const processScript = (code, name) => {
 	}
 }
 
+const isSpaceEmpty = (x, y) => {
+	const characters =  getCharacters(store.getState());
+	const enemies = getActiveEnemies(store.getState());
+
+	for (const char of characters) {
+		if (char.x === x && char.y === y) {
+			return false;
+		}
+	}
+
+	for (const en of enemies) {
+		if (en.x === x && en.y === y) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
 const getGlobalContext = (context) => {
 	return {
 		userChooseLocation: (min, max, dir) => {
@@ -43,6 +62,7 @@ const getGlobalContext = (context) => {
 			return context;
 		},
 		hasActionPointsFor: (type) => {
+			console.log("points", context.actionPoints);
 			if (type === Action.MOVE) {
 				return context.actionPoints >= POINTS_FOR_MOVE;
 			} else if (type === Action.ATTACK) {
@@ -103,6 +123,8 @@ const getGlobalContext = (context) => {
 			if (context.actionPoints < POINTS_FOR_MOVE) {
 				return;
 			}
+
+			// has to be here right now otherwise scripts might infinite loop
 			context.actionPoints -= POINTS_FOR_MOVE;
 
 			let newX = context.x;
@@ -123,6 +145,11 @@ const getGlobalContext = (context) => {
 			// don't allow moving on top of the target
 			// we'll need to modify this at some point probably
 			if (otherContext.x == newX && otherContext.y == newY) {
+				return;
+			}
+
+			// don't allow moving on top of anything
+			if (!isSpaceEmpty(newX, newY)) {
 				return;
 			}
 

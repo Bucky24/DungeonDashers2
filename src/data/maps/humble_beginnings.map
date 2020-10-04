@@ -641,8 +641,8 @@
 	],
 	"enemies": [
 		{ "type": "bat", "id": 1, "doorTrigger": 37, "x": 10, "y": 31},
-		{ "type": "bat", "id": 1, "doorTrigger": 37, "x": 12, "y": 29},
-		{ "type": "bat", "id": 1, "doorTrigger": 37, "x": 14, "y": 30}
+		{ "type": "bat", "id": 2, "doorTrigger": 37, "x": 12, "y": 29},
+		{ "type": "bat", "id": 3, "doorTrigger": 37, "x": 14, "y": 30}
 	],
 	"triggers": [
 		{

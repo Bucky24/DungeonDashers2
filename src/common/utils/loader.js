@@ -108,6 +108,18 @@ const processMapData = (data, enemyData, characterData, setMap, setActiveCharact
 		};
 	});
 
+	// when we activate, we don't have access to the enemy data, because
+	// I put it in the duck for some reason. So just do it here.
+	const newInactiveEnemies = data.inactiveEnemies.map((enemy) => {
+		const data = enemyData[enemy.type];
+		return {
+			...enemy,
+			actionPoints: enemy.actionPoints || data.actionPoints,
+			hp: enemy.hp || data.maxHP,
+			maxHP: data.maxHP,
+		};
+	});
+
 	const newMap = {
 		tiles: data.tiles,
 		characters: newCharacters,
@@ -115,7 +127,7 @@ const processMapData = (data, enemyData, characterData, setMap, setActiveCharact
 		width: data.width,
 		height: data.height,
 		walkable: getWalkable(data.tiles, newObjects),
-		inactiveEnemies: data.inactiveEnemies,
+		inactiveEnemies: newInactiveEnemies,
 		activeEnemies: newActiveEnemies,
 		triggers: data.triggers,
 	};
