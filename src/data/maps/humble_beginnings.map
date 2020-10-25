@@ -638,7 +638,10 @@
 		{ "type": "chest", "id": 34, "x": 17, "y": 21 },
 		{ "type": "chest", "id": 35, "x": 18, "y": 21 },
 		{ "type": "rock_spike", "id": 36, "x": 15, "y": 21 },
-		{ "type": "door", "id": 37, "x": 8, "y": 31 }
+		{ "type": "door", "id": 37, "x": 8, "y": 31 },
+		{ "type": "rock", "id": 38, "x": 5, "y": 30 },
+		{ "type": "rock", "id": 39, "x": 5, "y": 31 },
+		{ "type": "rock", "id": 40, "x": 5, "y": 32 }
 	],
 	"enemies": [
 		{ "type": "bat", "id": 1, "doorTrigger": 37, "x": 10, "y": 31},

@@ -5,8 +5,9 @@ import { STRAIGHT_LINES, Action, POINTS_FOR_MOVE, POINTS_FOR_ATTACK, ObjectType 
 import { onOnce } from "../eventEmitter/emitter";
 
 import { setChooseLoc } from '../store/ducks/ui';
-import { getLivingCharacters, getCharacters, getActiveEnemies } from '../store/getters/map';
-import { harmCharacter, setCharacter } from "../store/ducks/map";
+import { getLivingCharacters, getCharacters, getActiveEnemies, getObjects, getWalkable } from '../store/getters/map';
+import { harmCharacter, setCharacter, removeObject } from "../store/ducks/map";
+import { getObjectData } from '../store/getters/gameData';
 
 const scripts = {};
 
@@ -14,7 +15,7 @@ export const processScript = (code, name) => {
 	const imports = [
 		"userChooseLocation", "STRAIGHT_LINES", "getSelf", "Action", "hasActionPointsFor",
 		"getObjectsWithinRange", "ObjectType", "getClosestObjectWithinRange", "moveTowards",
-		"attackTarget",
+		"attackTarget", "isSpaceWalkable", "getObjectAtCoords", "sleep",
 	];
 	let importString = "";
 	if (imports.length > 0) {
@@ -48,6 +49,34 @@ const isSpaceEmpty = (x, y) => {
 	return true;
 }
 
+const getDataSetWithType = (type) => {
+	let dataSet = [];
+	let contextFn = null;
+
+	if (type === ObjectType.CHARACTERS) {
+		dataSet = getLivingCharacters(store.getState());
+		contextFn = getContextFromCharacter;
+	} else if (type === ObjectType.DESTROYABLE_OBJECTS) {
+		const objects = getObjects(store.getState());
+		const objectData = getObjectData(store.getState());
+
+		dataSet = objects.filter(({ type }) => {
+			const data = objectData[type] || {};
+
+			return !!data.destroyable;
+		});
+		contextFn = getContextFromObject;
+	} else if (type === ObjectType.OBJECTS) {
+		dataSet = getObjects(store.getState());
+		contextFn = getContextFromObject;
+	} else if (type === ObjectType.ENEMIES) {
+		dataSet = getActiveEnemies(store.getState());
+		contextFn = getContextFromEnemy;
+	}
+
+	return { dataSet, contextFn };
+}
+
 const getGlobalContext = (context) => {
 	return {
 		userChooseLocation: (min, max, dir) => {
@@ -71,12 +100,7 @@ const getGlobalContext = (context) => {
 			return false;
 		},
 		getObjectsWithinRange: (type, subType, distance) => {
-			let dataSet = null;
-			let contextFn = null;
-			if (type === ObjectType.CHARACTERS) {
-				dataSet = getLivingCharacters(store.getState());
-				contextFn = getContextFromCharacter;
-			}
+			const { dataSet, contextFn } = getDataSetWithType(type); 
 
 			if (!dataSet) {
 				return [];
@@ -94,12 +118,7 @@ const getGlobalContext = (context) => {
 			return results;
 		},
 		getClosestObjectWithinRange: (type, subType, distance) => {
-			let dataSet = null;
-			let contextFn = null;
-			if (type === ObjectType.CHARACTERS) {
-				dataSet = getLivingCharacters(store.getState());
-				contextFn = getContextFromCharacter;
-			}
+			const { dataSet, contextFn } = getDataSetWithType(type);
 
 			if (!dataSet) {
 				return null;
@@ -166,6 +185,32 @@ const getGlobalContext = (context) => {
 
 			await sleep(250);
 		},
+		isSpaceWalkable: (x, y) => {
+			const walkable = getWalkable(store.getState());
+			const key = `${x}_${y}`;
+			return walkable.includes(key);
+		},
+		getObjectAtCoords: (x, y, type, subType) => {
+			const { dataSet, contextFn } = getDataSetWithType(type);
+
+			const key = `${x}_${y}`;
+
+			for (const obj of dataSet) {
+				const otherContext = contextFn(obj);
+				const otherKey = `${obj.x}_${obj.y}`;
+
+				if (key === otherKey) {
+					return otherContext;
+				}
+			}
+
+			return null;
+		},
+		sleep: (ms) => {
+			return new Promise((resolve) => {
+				setTimeout(resolve, ms);
+			});
+		},
 		STRAIGHT_LINES,
 		Action,
 		ObjectType,
@@ -194,6 +239,28 @@ const getContextFromCharacter = (character) => {
 	};
 }
 
+const getContextFromObject = (object) => {
+	const objectData = getObjectData(store.getState());
+	const data = objectData[object.type] || {};
+
+	return {
+		x: object.x,
+		y: object.y,
+		damage: () => {
+			if (data.destroyable) {
+				store.dispatch(removeObject(object.id));
+			}
+		}
+	}
+}
+
+const getContextFromEnemy = (object) => {
+	return {
+		x: object.x,
+		y: object.y,
+	}
+}
+
 export const executeScript = async (name, context) => {
 	if (!scripts[name]) {
 		throw new Error(`Cannot find script with name ${name}`);
@@ -215,7 +282,7 @@ export const executeScriptAsCharacter = (name, charIdent) => {
 	const activeCharIndex = characters.findIndex(({ ident }) => {
 		return ident === charIdent;
 	});
-	console.log("execute script as character?", charIdent, name);
+	console.log("executing script as character", charIdent, name);
 	const activeChar = characters[activeCharIndex];
 	return executeScript(name, getContextFromCharacter(activeChar));
 }

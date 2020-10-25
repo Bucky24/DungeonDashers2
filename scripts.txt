@@ -68,6 +68,31 @@ getSelf:
 
 	returns the Object that is executing the script.
 
+isSpaceWalkable:
+
+	returns a boolean indicating if a given x and y space is walkable terrain
+
+	Params:
+		x: x of space
+		y: y of space
+
+getObjectAtCoords:
+
+	Returns an object that matchews the given type at the given coords if one exists
+
+	Params:
+		type: type of ObjectType
+		subType: unused
+		x: x coord to use
+		y: y coord to use
+
+sleep:
+
+	Returns a promise that is resolved after the elapsed time has passed
+
+	Params:
+		duration: duration of sleep in ms
+
 Direction Enum:
 	DIAGONALS
 	STRAIGHT_LINES
@@ -86,6 +111,9 @@ Direction Enum:
 
 ObjectType Enum:
 	CHARACTERS
+	DESTRUCTABLE_OBJECTS
+	OBJECTS
+	ENEMIES
 
 Action Enum:
 	ATTACK

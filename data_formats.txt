@@ -33,6 +33,7 @@ Object {
 	y: number,
 	id: number,
 	contains?: Treasure[]
+	destroyable: boolean,
 }
 
 Treasure {

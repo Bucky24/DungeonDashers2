@@ -11,7 +11,7 @@ For v0.7.0
 * Two full campaign missions from original game
 * Custom map background for campaigns, and selection like original game
 * Full data validation and version control/conversion
-* Better in-game dialog
+* Better in-game dialog system
 * Begin work on audio system
 * Beginning of script editor
 * Update campaign menus to new system
@@ -25,3 +25,6 @@ For v0.8.0
 * Editor for equipment
 * Three full campaign missions from original game
 * More complex AI - better pathfinding, fleeing after attack, summoning
+* Improve script editor
+* Ability to write AI scripts for enemies and special actions for characters
+* Start work on basic mod system

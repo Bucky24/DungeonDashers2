@@ -4,5 +4,6 @@
 		"image": "./rock.png",
 		"width": 32,
 		"height": 32
-	}
+	},
+	"destroyable": true
 }
