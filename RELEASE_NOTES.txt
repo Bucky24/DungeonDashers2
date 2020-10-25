@@ -48,3 +48,4 @@ v0.6.0
 * Better menus for load and new game
 * Basics for data validation
 * Properly handle character death and game loss
+* Special abilities for characters
