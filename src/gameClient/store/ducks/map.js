@@ -207,6 +207,10 @@ export default (state = defaultState, action) => {
 		if (character.hp <= 0) {
 			character.hp = 0;
 		}
+		if (character.hp === 0) {
+			character.dead = true;
+		}
+
 		newCharacters[index] = character;
 	
 		return {

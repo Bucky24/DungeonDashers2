@@ -48,3 +48,13 @@ export const getCameraCenter = (state) => {
 export const getDialog = (state) => {
 	return state.map.dialog;
 };
+
+export const getLivingCharacters = (state) => {
+	return getCharacters(state).filter((character) => {
+		return !character.dead;
+	});
+}
+
+export const getLivingCharacterCount = (state) => {
+	return getLivingCharacters(state).length;
+}

@@ -5,7 +5,7 @@ import { STRAIGHT_LINES, Action, POINTS_FOR_MOVE, POINTS_FOR_ATTACK, ObjectType 
 import { onOnce } from "../eventEmitter/emitter";
 
 import { setChooseLoc } from '../store/ducks/ui';
-import { getCharacters, getActiveEnemies } from '../store/getters/map';
+import { getLivingCharacters, getCharacters, getActiveEnemies } from '../store/getters/map';
 import { harmCharacter, setCharacter } from "../store/ducks/map";
 
 const scripts = {};
@@ -30,7 +30,7 @@ export const processScript = (code, name) => {
 }
 
 const isSpaceEmpty = (x, y) => {
-	const characters =  getCharacters(store.getState());
+	const characters =  getLivingCharacters(store.getState());
 	const enemies = getActiveEnemies(store.getState());
 
 	for (const char of characters) {
@@ -62,7 +62,6 @@ const getGlobalContext = (context) => {
 			return context;
 		},
 		hasActionPointsFor: (type) => {
-			console.log("points", context.actionPoints);
 			if (type === Action.MOVE) {
 				return context.actionPoints >= POINTS_FOR_MOVE;
 			} else if (type === Action.ATTACK) {
@@ -75,7 +74,7 @@ const getGlobalContext = (context) => {
 			let dataSet = null;
 			let contextFn = null;
 			if (type === ObjectType.CHARACTERS) {
-				dataSet = getCharacters(store.getState());
+				dataSet = getLivingCharacters(store.getState());
 				contextFn = getContextFromCharacter;
 			}
 
@@ -98,7 +97,7 @@ const getGlobalContext = (context) => {
 			let dataSet = null;
 			let contextFn = null;
 			if (type === ObjectType.CHARACTERS) {
-				dataSet = getCharacters(store.getState());
+				dataSet = getLivingCharacters(store.getState());
 				contextFn = getContextFromCharacter;
 			}
 

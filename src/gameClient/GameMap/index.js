@@ -5,6 +5,7 @@ import { Canvas, Text, Rect, Container } from '@bucky24/react-canvas';
 import Map from '../../common/Map';
 import Button from '../../common/Button';
 import Dialog from '../Dialog';
+import LostGame from '../LostGame';
 
 import { saveMap } from '../../common/utils/saver';
 import { executeScriptAsCharacter } from "../scriptHandler/scriptHandler";
@@ -21,6 +22,8 @@ import {
 	getPause,
 	getCameraCenter,
 	getDialog,
+	getLivingCharacterCount,
+	getLivingCharacters,
 } from '../store/getters/map';
 import {
 	setCharacter,
@@ -58,11 +61,21 @@ class GameMap extends Component {
 		this.moveActiveChar = this.moveActiveChar.bind(this);
 		this.handleCollision = this.handleCollision.bind(this);
 		this.nextCharacter = this.nextCharacter.bind(this);
+		this.updating = false;
+
+		this.state = {
+			updating: false,
+		};
 	}
 	activeCharacter() {
 		const activeIndex = this.props.characters.findIndex((char) => {
 			return char.selected;
 		});
+
+		if (activeIndex === -1) {
+			return {};
+		}
+
 		const activeChar = this.props.characters[activeIndex];
 		
 		return {
@@ -110,7 +123,7 @@ class GameMap extends Component {
 			}
 		}
 		
-		const charactersCollided = this.props.characters.filter((object) => {
+		const charactersCollided = this.props.livingCharacters.filter((object) => {
 			const objKey = `${object.x}_${object.y}`;
 			return objKey === key;
 		});
@@ -251,24 +264,55 @@ class GameMap extends Component {
 	}
 	
 	async nextCharacter() {
-		let { activeIndex } = this.activeCharacter();
-		this.resetActivePlayersActions();
-		activeIndex ++;
-		let forceUpdate = false;
-		if (activeIndex >= this.props.characters.length) {
-			activeIndex = 0;
-			if (this.props.inBattle) {
-				await BattleHandler();
-				forceUpdate = true;
+		if (this.state.updating) {
+			return false;
+		}
+		this.setState({
+			updating: true,
+		});
+		try {
+			let { activeIndex } = this.activeCharacter();
+			this.resetActivePlayersActions();
+
+			const getNextActiveIndex = (currentIndex) => {
+				for (let i=currentIndex+1;i<this.props.characters.length;i++) {
+					const character = this.props.characters[i];
+					if (!character.dead) {
+						return i;
+					}
+				}
+
+				return -1;
 			}
-			this.resetActiveEnemyActions();
+
+			let newIndex = getNextActiveIndex(activeIndex);
+			let forceUpdate = false;
+			if (newIndex < 0) {
+				if (this.props.inBattle) {
+					await BattleHandler();
+					forceUpdate = true;
+				}
+				this.resetActiveEnemyActions();
+				// -1 because then the loop will start at 0
+				newIndex = getNextActiveIndex(-1);
+			}
+			// if this is -1 still there are no characters left alive, and the game should
+			// go to the close screen. In fact the state probably has already updated but...
+			if (newIndex >= 0) {
+				this.props.setActiveCharacter(newIndex);
+				// reset the action points for this new character just in case
+				this.resetActivePlayersActions();
+				if (forceUpdate) {
+					this.forceUpdate();
+				}
+			}
+		} catch (e) {
+			console.error(e);
 		}
-		this.props.setActiveCharacter(activeIndex);
-		// reset the action points for this new character just in case
-		this.resetActivePlayersActions();
-		if (forceUpdate) {
-			this.forceUpdate();
-		}
+
+		this.setState({
+			updating: false,
+		});
 	}
 	
 	render() {
@@ -320,6 +364,10 @@ class GameMap extends Component {
 				return true;
 			});
 		}
+
+		if (this.props.livingCharacterCount === 0) {
+			return <LostGame width={this.props.width} height={this.props.height} />;
+		}
 		
 		return (<Canvas
 			width={width}
@@ -333,7 +381,7 @@ class GameMap extends Component {
 				tiles={this.props.tiles}
 				enemies={this.props.activeEnemies}
 				objects={this.props.objects}
-				characters={this.props.characters}
+				characters={this.props.livingCharacters}
 				activeLocations={activeLocations}
 				onKeyUp={({ code }) => {
 					if (code === 'ArrowLeft') {
@@ -472,6 +520,8 @@ const mapStateToProps = (state) => {
 		pause: getPause(state),
 		cameraCenter: getCameraCenter(state),
 		dialog: getDialog(state),
+		livingCharacters: getLivingCharacters(state),
+		livingCharacterCount: getLivingCharacterCount(state),
 	};
 };
 

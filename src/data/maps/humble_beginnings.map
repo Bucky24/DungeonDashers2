@@ -598,7 +598,8 @@
 		{ "tile": "bottom_wall", "x": 6, "y": 33 }
 	],
 	"characters": [
-		{ "ident": "character1", "x": 6, "y": 29 }
+		{ "ident": "character1", "x": 6, "y": 29 },
+		{ "ident": "character2", "x": 5, "y": 29 }
 	],
 	"objects": [
 		{ "type": "door", "id": 1, "x": 8, "y": 5 },

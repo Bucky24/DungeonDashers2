@@ -47,3 +47,4 @@ v0.6.0
 * Add trigger to spawn characters
 * Better menus for load and new game
 * Basics for data validation
+* Properly handle character death and game loss
