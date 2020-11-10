@@ -25,6 +25,8 @@ import RockSpike from '../../data/objects/rock_spike.object';
 import RockSpikeImage from '../../data/objects/rock_spike.png';
 import Rock from '../../data/objects/rock.object';
 import RockImage from '../../data/objects/rock.png';
+import Switch from '../../data/objects/switch.object';
+import SwitchImage from '../../data/objects/switch_off.png';
 
 import Character1 from '../../data/characters/character1.char';
 import Character1Image from '../../data/characters/character1.png';
@@ -160,6 +162,14 @@ export const getBaseObjectList = () => {
 			imageData: {
 				...Rock.imageData,
 				image: RockImage,
+			},
+		},
+		{
+			...Switch,
+			type: "switch",
+			imageData: {
+				...Switch.imageData,
+				image: SwitchImage,
 			},
 		},
 	];

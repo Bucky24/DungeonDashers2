@@ -83,6 +83,10 @@ setActiveCharacter - sets the given character as active
 
 	ident - the ident of the character to switch to
 
+disableTrigger - prevents the given trigger from firing again
+
+	triggerID - the id of the trigger to disable
+
 Variables:
 
 totalCharacters - the total characters the player started with

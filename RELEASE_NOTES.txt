@@ -49,3 +49,5 @@ v0.6.0
 * Basics for data validation
 * Properly handle character death and game loss
 * Special abilities for characters
+* Improved scripting
+* Destructable objects

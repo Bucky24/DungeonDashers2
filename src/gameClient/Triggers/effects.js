@@ -6,7 +6,15 @@ import { getActiveCampaign, getMaps, getIsCustom } from '../store/getters/campai
 import { getMapMeta } from '../store/getters/map';
 import { saveCampaign } from '../../common/utils/saver';
 import { setCurrentMap } from '../store/ducks/campaign';
-import { setPause, setCameraCenter, setDialog, createCharacter } from '../store/ducks/map';
+import {
+	setPause,
+	setCameraCenter,
+	setDialog,
+	createCharacter,
+	disableTrigger as setDisableTrigger,
+	resetCameraCenter,
+	setActiveCharacter as doSetActiveCharacter,
+} from '../store/ducks/map';
 import { getCharacters } from "../store/getters/map";
 import { getCharacterData } from '../store/getters/gameData';
 
@@ -84,4 +92,24 @@ export const spawnCharacter = ({ ident, x, y }, state) => {
 	};
 
 	store.dispatch(createCharacter(charData));
+}
+
+export const disableTrigger = ({ triggerID }, state) => {
+	store.dispatch(setDisableTrigger(triggerID));
+}
+
+export const resetCamera = () => {
+	store.dispatch(resetCameraCenter());
+}
+
+export const setActiveCharacter = ({ ident }, state) => {
+	const characters = getCharacters(state);
+
+	const index = characters.findIndex((char) => {
+		return char.ident === ident;
+	});
+
+	if (index >= 0) {
+		store.dispatch(doSetActiveCharacter(index));
+	}
 }

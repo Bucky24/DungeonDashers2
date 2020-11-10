@@ -29,6 +29,7 @@ const mapV1 = Joi.object({
                 amount: Joi.number(),
             }),
         })),
+        switchTrigger: Joi.number().integer(),
     })).required(),
     enemies: Joi.array().items(Joi.object({
         type: Joi.string().required(),

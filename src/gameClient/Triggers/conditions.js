@@ -1,4 +1,4 @@
-import { getCharacters, getObjects, getActiveEnemies } from "../store/getters/map";
+import { getCharacters, getObjects, getActiveEnemies, getDisabledTriggers } from "../store/getters/map";
 
 let variables = {};
 
@@ -58,6 +58,12 @@ export const mapTriggerTriggered = (data, state) => {
 	const triggerID = data.triggerID;
 	const characterCanTrigger = data.character || false;
 	const enemyCanTrigger = data.enemy || false;
+
+	const disabledTriggers = getDisabledTriggers(state);
+
+	if (disabledTriggers.includes(triggerID)) {
+		return false;
+	}
 
 	const characters = getCharacters(state);
 	const objects = getObjects(state);

@@ -58,3 +58,7 @@ export const getLivingCharacters = (state) => {
 export const getLivingCharacterCount = (state) => {
 	return getLivingCharacters(state).length;
 }
+
+export const getDisabledTriggers = (state) => {
+	return state.map.disabledTriggers || [];
+}

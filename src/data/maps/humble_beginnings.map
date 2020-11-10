@@ -595,11 +595,70 @@
 		{ "tile": "bottom_wall", "x": 3, "y": 33 },
 		{ "tile": "bottom_wall", "x": 4, "y": 33 },
 		{ "tile": "bottom_wall", "x": 5, "y": 33 },
-		{ "tile": "bottom_wall", "x": 6, "y": 33 }
+		{ "tile": "bottom_wall", "x": 6, "y": 33 },
+		{ "tile": "ground1", "x": 35, "y": 18 },
+		{ "tile": "ground1", "x": 35, "y": 19 },
+		{ "tile": "ground1", "x": 35, "y": 20 },
+		{ "tile": "right_wall", "x": 34, "y": 18 },
+		{ "tile": "right_wall", "x": 34, "y": 19 },
+		{ "tile": "right_bot_corner", "x": 34, "y": 20 },
+		{ "tile": "left_wall", "x": 36, "y": 18 },
+		{ "tile": "left_wall", "x": 36, "y": 19 },
+		{ "tile": "left_bot_corner", "x": 36, "y": 20 },
+		{ "tile": "ground1", "x": 35, "y": 21 },
+		{ "tile": "ground1", "x": 35, "y": 22 },
+		{ "tile": "ground1", "x": 34, "y": 22 },
+		{ "tile": "ground1", "x": 33, "y": 22 },
+		{ "tile": "ground1", "x": 32, "y": 22 },
+		{ "tile": "ground1", "x": 35, "y": 23 },
+		{ "tile": "ground1", "x": 34, "y": 23 },
+		{ "tile": "ground1", "x": 33, "y": 23 },
+		{ "tile": "ground1", "x": 32, "y": 23 },
+		{ "tile": "ground1", "x": 35, "y": 24 },
+		{ "tile": "ground1", "x": 34, "y": 24 },
+		{ "tile": "ground1", "x": 33, "y": 24 },
+		{ "tile": "ground1", "x": 32, "y": 24 },
+		{ "tile": "ground1", "x": 35, "y": 25 },
+		{ "tile": "ground1", "x": 34, "y": 25 },
+		{ "tile": "ground1", "x": 33, "y": 25 },
+		{ "tile": "ground1", "x": 32, "y": 25 },
+		{ "tile": "cliff_left_right", "x": 36, "y": 22 },
+		{ "tile": "cliff_left_right", "x": 36, "y": 23 },
+		{ "tile": "cliff_left_right", "x": 36, "y": 24 },
+		{ "tile": "cliff_left_right", "x": 36, "y": 25 },
+		{ "tile": "ground1", "x": 37, "y": 22 },
+		{ "tile": "ground1", "x": 37, "y": 23 },
+		{ "tile": "ground1", "x": 37, "y": 24 },
+		{ "tile": "ground1", "x": 37, "y": 25 },
+		{ "tile": "bottom_wall", "x": 34, "y": 25 },
+		{ "tile": "bottom_wall", "x": 35, "y": 25 },
+		{ "tile": "bottom_wall", "x": 36, "y": 25 },
+		{ "tile": "bottom_wall", "x": 37, "y": 25 },
+		{ "tile": "bottom_wall", "x": 33, "y": 25 },
+		{ "tile": "left_wall", "x" : 38, "y": 25 },
+		{ "tile": "left_wall", "x" : 38, "y": 24 },
+		{ "tile": "left_wall", "x" : 38, "y": 23 },
+		{ "tile": "left_wall", "x" : 38, "y": 22 },
+		{ "tile": "left_wall", "x" : 38, "y": 21 },
+		{ "tile": "upper_wall_middle", "x": 37, "y": 21 },
+		{ "tile": "upper_wall_middle", "x": 36, "y": 21 },
+		{ "tile": "left_bot_corner", "x": 36, "y": 20 },
+		{ "tile": "upper_wall_top", "x": 37, "y": 20 },
+		{ "tile": "left_top_corner", "x": 38, "y": 20 },
+		{ "tile": "upper_wall_middle", "x": 34, "y": 21 },
+		{ "tile": "upper_wall_middle", "x": 33, "y": 21 },
+		{ "tile": "upper_wall_middle", "x": 32, "y": 21 },
+		{ "tile": "upper_wall_top", "x": 33, "y": 20 },
+		{ "tile": "upper_wall_top", "x": 32, "y": 20 },
+		{ "tile": "right_wall", "x" : 31, "y": 21 },
+		{ "tile": "right_wall", "x" : 31, "y": 22 },
+		{ "tile": "right_wall", "x" : 31, "y": 23 },
+		{ "tile": "right_wall", "x" : 31, "y": 24 },
+		{ "tile": "right_wall", "x" : 31, "y": 25 },
+		{ "tile": "right_top_corner", "x": 31, "y": 20 }
 	],
 	"characters": [
-		{ "ident": "character1", "x": 6, "y": 29 },
-		{ "ident": "character2", "x": 5, "y": 29 }
+		{ "ident": "character1", "x": 35, "y": 15 }
 	],
 	"objects": [
 		{ "type": "door", "id": 1, "x": 8, "y": 5 },
@@ -627,11 +686,11 @@
 		{ "type": "rock", "id": 23, "x": 34, "y": 17 },
 		{ "type": "rock", "id": 24, "x": 32, "y": 17 },
 		{ "type": "trigger", "id": 25, "x": 35, "y": 16 },
-		{ "type": "chest", "id": 26, "x": 28, "y": 19 },
-		{ "type": "chest", "id": 27, "x": 27, "y": 19 },
-		{ "type": "chest", "id": 28, "x": 26, "y": 19 },
-		{ "type": "chest", "id": 29, "x": 25, "y": 19 },
-		{ "type": "chest", "id": 30, "x": 24, "y": 19 },
+		{ "type": "chest", "id": 26, "x": 28, "y": 20 },
+		{ "type": "chest", "id": 27, "x": 27, "y": 20 },
+		{ "type": "chest", "id": 28, "x": 26, "y": 20 },
+		{ "type": "chest", "id": 29, "x": 25, "y": 20 },
+		{ "type": "chest", "id": 30, "x": 24, "y": 20 },
 		{ "type": "rock", "id": 31, "x": 24, "y": 22 },
 		{ "type": "door", "id": 32, "x": 22, "y": 23 },
 		{ "type": "rock", "id": 33, "x": 21, "y": 23 },
@@ -639,9 +698,11 @@
 		{ "type": "chest", "id": 35, "x": 18, "y": 21 },
 		{ "type": "rock_spike", "id": 36, "x": 15, "y": 21 },
 		{ "type": "door", "id": 37, "x": 8, "y": 31 },
-		{ "type": "rock", "id": 38, "x": 5, "y": 30 },
-		{ "type": "rock", "id": 39, "x": 5, "y": 31 },
-		{ "type": "rock", "id": 40, "x": 5, "y": 32 }
+		{ "type": "door", "id": 38, "x": 35, "y": 18 },
+		{ "type": "rock", "id": 39, "x": 35, "y": 22 },
+		{ "type": "rock", "id": 40, "x": 35, "y": 23 },
+		{ "type": "switch", "id": 41, "x": 37, "y": 22 },
+		{ "type": "door", "id": 42, "x": 32, "y": 25, "switchTrigger": 41 }
 	],
 	"enemies": [
 		{ "type": "bat", "id": 1, "doorTrigger": 37, "x": 10, "y": 31},
@@ -694,16 +755,59 @@
 				{
 					"type": "centerCamera",
 					"data": {
-						"x": 15,
-						"y": 16
+						"x": 0,
+						"y": 30
 					}
 				},
 				{
 					"type": "spawnCharacter",
 					"data": {
 						"ident": "character2",
-						"x": 15,
-						"y": 16
+						"x": 4,
+						"y": 31
+					}
+				},
+				{
+					"type": "showDialog",
+					"data": {
+						"text": "WHERE ARE YOU, WIZARD SCUM?",
+						"characterIdent": "character2"
+					}
+				},
+				{
+					"type": "showDialog",
+					"data": {
+						"text": "SHOW YOURSELF!",
+						"characterIdent": "character2"
+					}
+				},
+				{
+					"type": "showDialog",
+					"data": {
+						"text": "Or are you too cowardly to face my cold steel?",
+						"characterIdent": "character2"
+					}
+				},
+				{
+					"type": "disableTrigger",
+					"data": {
+						"triggerID": 25
+					}
+				},
+				{
+					"type": "setActiveCharacter",
+					"data": {
+						"ident": "character2"
+					}
+				},
+				{
+					"type": "resetCamera",
+					"data": {}
+				},
+				{
+					"type": "gamePause",
+					"data": {
+						"pause": false
 					}
 				}
 			]

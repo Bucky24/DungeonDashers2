@@ -19,6 +19,8 @@ export const Constants = {
 	SET_ENEMY_ACTION_POINTS: 'MAP/SET_ENEMY_ACTION_POINTS',
 	MOVE_ENEMY: 'MAP/MOVE_ENEMY',
 	CREATE_CHARACTER: 'MAP/CREATE_CHARACTER',
+	DISABLE_TRIGGER: 'MAP/DISABLE_TRIGGER',
+	RESET_CAMERA_CENTER: 'MAP/RESET_CAMERA_CENTER',
 };
 
 const defaultState = {
@@ -35,6 +37,7 @@ const defaultState = {
 	paused: false,
 	cameraCenter: null,
 	dialog: null,
+	disabledTriggers: [],
 };
 
 export default (state = defaultState, action) => {
@@ -296,6 +299,19 @@ export default (state = defaultState, action) => {
 				action.character,
 			],
 		};
+	} else if (action.type === Constants.DISABLE_TRIGGER) {
+		return {
+			...state,
+			disabledTriggers: [
+				...state.disabledTriggers || [],
+				action.triggerID,
+			],
+		};
+	} else if (action.type === Constants.RESET_CAMERA_CENTER) {
+		return {
+			...state,
+			cameraCenter: null,
+		};
 	} else {
 		return state;
 	}
@@ -436,5 +452,18 @@ export const createCharacter = (character) => {
 	return {
 		type: Constants.CREATE_CHARACTER,
 		character,
+	};
+};
+
+export const disableTrigger = (triggerID) => {
+	return {
+		type: Constants.DISABLE_TRIGGER,
+		triggerID,
+	};
+};
+
+export const resetCameraCenter = () => {
+	return {
+		type: Constants.RESET_CAMERA_CENTER,
 	};
 };

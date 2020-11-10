@@ -209,6 +209,10 @@ class GameMap extends Component {
 		if (obj1.type === 'player' && obj2.type === 'door') {
 			// open the door
 			if (!obj2.isOpen) {
+				if (obj2.switchTrigger) {
+					// can't open this door
+					return false;
+				}
 				this.props.setObject(obj2.id, {
 					isOpen: true
 				});
@@ -237,9 +241,27 @@ class GameMap extends Component {
 
 			return true;
 		} else if (obj1.type === "player" && obj2.type === "trigger") {
-			
-
 			return true;
+		} else if (obj1.type === "player" && obj2.type === "switch") {
+			if (!obj2.isActive) {
+				this.props.setObject(obj2.id, {
+					isActive: true
+				});
+				// find all enemies that should be activated by this door
+				const objectsToActivate = this.props.objects.filter((obj) => {
+					return obj.switchTrigger === obj2.id;
+				});
+				
+				if (objectsToActivate.length > 0) {
+					for (const obj of objectsToActivate) {
+						if (obj.type === "door") {
+							this.props.setObject(obj.id, {
+								isOpen: true,
+							});
+						}
+					}
+				}
+			}
 		}
 		
 		return false;
