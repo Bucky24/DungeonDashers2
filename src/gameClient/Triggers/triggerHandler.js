@@ -48,8 +48,15 @@ export const handleTriggers = function() {
 				trueConditions ++;
 			}
 		});
-		
+
+		let triggered = false;
+		if (trueConditions > 0 && trigger.conditionMode === "any") {
+			triggered = true;
+		}
 		if (trueConditions === trigger.conditions.length) {
+			triggered = true;
+		}
+		if (triggered) {
 			// it's been triggered. Run the effects
 			handleEffects(trigger.effects);
 		}

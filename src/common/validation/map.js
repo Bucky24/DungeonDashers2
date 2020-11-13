@@ -47,6 +47,7 @@ const mapV1 = Joi.object({
             type: Joi.string().required(),
             data: Joi.object().required()
         })),
+        conditionMode: Joi.string().valid("all", "any").default("all"),
     })),
 })
 

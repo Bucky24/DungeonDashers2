@@ -60,6 +60,7 @@ attackTarget:
 moveTowards:
 
 	moves towards the given object, but only if the current context has enough action points to move.
+	Returns a promise that resolves when the move is complete.
 
 	Params:
 		object: object to move towards
@@ -123,5 +124,5 @@ Object Class:
 	properties:
 		x: number, x position of object
 		y: number, y position of object
-		moveTo(x, y): moves the object to a given position
+		moveTo(x, y): moves the object to a given position. Returns a promise that resolves when the move is complete.
 		damage(amount): damages the object

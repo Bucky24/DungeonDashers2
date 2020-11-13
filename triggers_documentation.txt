@@ -20,12 +20,10 @@ General structure:
 			}
 		}
 	],
-	"repeats": <false|true>,
+	"conditionMode": "any|all",
 }
 
-Repeats:
-
-Determines if the trigger repeats or not. If it does not repeat, it will fire once then never again.
+conditionMode: if any, any condition triggering will fire the effects. If all, all conditions must be met. Defaults all.
 
 Conditions:
 

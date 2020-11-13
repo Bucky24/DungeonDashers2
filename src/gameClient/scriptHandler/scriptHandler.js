@@ -8,6 +8,7 @@ import { setChooseLoc } from '../store/ducks/ui';
 import { getLivingCharacters, getCharacters, getActiveEnemies, getObjects, getWalkable } from '../store/getters/map';
 import { harmCharacter, setCharacter, removeObject } from "../store/ducks/map";
 import { getObjectData } from '../store/getters/gameData';
+import { handleTriggers } from '../Triggers/triggerHandler';
 
 const scripts = {};
 
@@ -174,6 +175,9 @@ const getGlobalContext = (context) => {
 			context.moveTo(newX, newY);
 
 			await sleep(250);
+			
+			// handle any triggers
+			await handleTriggers();
 		},
 		attackTarget: async (otherContext) => {
 			if (context.actionPoints < POINTS_FOR_ATTACK) {
@@ -227,11 +231,14 @@ const getContextFromCharacter = (character) => {
 	return {
 		x: character.x,
 		y: character.y,
-		moveTo: (x, y) => {
+		moveTo: async (x, y) => {
 			store.dispatch(setCharacter({
 				x,
 				y,
 			}, activeCharIndex));
+			
+			// handle any triggers
+			await handleTriggers();
 		},
 		damage: (amount) => {
 			store.dispatch(harmCharacter(findIdent, amount));
