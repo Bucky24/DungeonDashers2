@@ -185,7 +185,7 @@ const getGlobalContext = (context) => {
 			}
 			context.actionPoints -= POINTS_FOR_ATTACK;
 
-			otherContext.damage(5);
+			otherContext.damage(1);
 
 			await sleep(250);
 		},

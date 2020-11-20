@@ -83,7 +83,6 @@ export const mapTriggerTriggered = (data, state) => {
 
 	const charactersOnTrigger = characters.filter((char) => {
 		const charKey = `${char.x}_${char.y}`;
-		console.log(charKey, triggerKey);
 		return triggerKey === charKey;
 	});
 	const enemiesOnTrigger = enemies.filter((char) => {

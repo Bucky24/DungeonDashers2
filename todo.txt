@@ -1,6 +1,3 @@
-For v0.6.0
-* Replicate the first original campaign scenario
-
 For v0.7.0
 * All original base characters, including special abilities
 * Editor for custom characters

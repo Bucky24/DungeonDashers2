@@ -262,6 +262,8 @@ class GameMap extends Component {
 					}
 				}
 			}
+		} else if (obj1.type === 'player' && obj2.type === 'portal') {
+			return true;
 		}
 		
 		return false;
