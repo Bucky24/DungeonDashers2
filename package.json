@@ -21,7 +21,7 @@
   "scripts": {
     "start-game": "cross-env NODE_ENV=development webpack-dev-server --no-info --content-base build/ --config webpack.config.game.js",
     "build-game": "webpack --config webpack.config.game.js",
-    "electron-game": "cross-env ELECTRON=true NODE_ENV=development npm run build-game && NODE_ENV=development electron .",
+    "electron-game": "cross-env-shell ELECTRON=true NODE_ENV=development npm run build-game && cross-env NODE_ENV=development electron .\"",
     "start-editor": "cross-env NODE_ENV=development webpack-dev-server --no-info --content-base build/ --config webpack.config.editor.js",
     "build-editor": "webpack --config webpack.config.editor.js",
     "electron-editor": "cross-env ELECTRON=true NODE_ENV=development npm run build-editor && NODE_ENV=development electron .",
