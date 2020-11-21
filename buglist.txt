@@ -7,3 +7,4 @@
 * Combat pane is obscured by buttons
 * Dialogs cut off words
 * Quit button doesn't do anything
+* Doors are centered wrong in their square

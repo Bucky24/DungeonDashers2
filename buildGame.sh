@@ -8,6 +8,7 @@ unzip electron-v6.1.11-win32-ia32.zip -d electron_game 1>/dev/null
 mv electron_game/electron.exe electron_game/dd2.exe
 mkdir electron_game/resources/app
 echo Building new game
+# not working on windows even through subsystem
 ELECTRON=true npm run build-game
 echo Copying app
 cp -rp build electron_game/resources/app

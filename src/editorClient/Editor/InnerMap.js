@@ -15,7 +15,7 @@ const InnerMap = ({ width, height, onClick, layers, cellSize }) => {
             onClick={onClick}
             layers={layers}
             cellSize={cellSize}
-            renderLayersToImage={true}
+            renderLayersToImage={false}
         />
     </Canvas>;
 }

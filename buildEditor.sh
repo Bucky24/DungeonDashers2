@@ -8,6 +8,7 @@ unzip electron-v6.1.11-win32-ia32.zip -d electron_editor 1>/dev/null
 mv electron_editor/electron.exe electron_editor/dd2_editor.exe
 mkdir electron_editor/resources/app
 echo Building new editor
+# not working on windows even through subsystem
 ELECTRON=true npm run build-editor
 echo Copying app
 cp -rp build electron_editor/resources/app
