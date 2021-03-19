@@ -7,13 +7,14 @@ For v0.7.0
 * Two full campaign missions from original game
 * Custom map background for campaigns, and selection like original game
 * Full data validation and version control/conversion
-* Better in-game dialog system
+* Improve in-game dialog system
 * Begin work on audio system
 * Beginning of script editor
 * Update campaign menus to new system
 * Better menus for in game overlays (equipment, etc)
 * Character directions
 * More nuanced stats for characters and enemies
+* Trigger editing in editor
 
 For v0.8.0
 * Basic animation system, movement and attack
