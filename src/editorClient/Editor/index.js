@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { ButtonTypes } from '@bucky24/react-canvas';
-import MobileDetect from 'mobile-detect';
 
 import { setMap } from '../store/ducks/game';
 import { getMap } from '../store/getters/game';
@@ -276,21 +275,19 @@ class Editor extends React.Component {
 			}}
 		>
 			<div>
-				<MobileDetect>
-					<BottomBar
-						activeTool={this.state.activeTool}
-						enemyData={this.props.enemyData}
-						terrainList={correctedTerrainData}
-						setActiveID={(activeID) => {
-							this.setState({
-								activeID
-							});
-						}}
-						objectData={this.props.objectData}
-						activeID={this.state.activeID}
-						characterData={this.props.characterData}
-					/>
-				</MobileDetect>
+				<BottomBar
+					activeTool={this.state.activeTool}
+					enemyData={this.props.enemyData}
+					terrainList={correctedTerrainData}
+					setActiveID={(activeID) => {
+						this.setState({
+							activeID
+						});
+					}}
+					objectData={this.props.objectData}
+					activeID={this.state.activeID}
+					characterData={this.props.characterData}
+				/>
 			</div>
 			<div>
 				<ToolBar
@@ -303,17 +300,15 @@ class Editor extends React.Component {
 						});
 					}}
 				/>
-				<MobileDetect>
-					<InnerMap
-						onClick={(x, y, button) => {
-							this.handleClick(x, y, button, () => {
-								this.updateMap();
-							});
-						}}
-						layers={layers}
-						cellSize={START_CELL_SIZE}
-					/>
-				</MobileDetect>
+				<InnerMap
+					onClick={(x, y, button) => {
+						this.handleClick(x, y, button, () => {
+							this.updateMap();
+						});
+					}}
+					layers={layers}
+					cellSize={START_CELL_SIZE}
+				/>
 			</div>
 		</div>;
 	}

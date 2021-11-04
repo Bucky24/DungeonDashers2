@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { SizeContext } from '@bucky24/mobile-detect';
+
 import MenuHandler from '../MenuHandler';
 import GameMap from '../GameMap';
 import NewMapSelect from '../NewMapSelect';
@@ -17,7 +19,8 @@ import { Panes } from '../store/ducks/ui';
 
 class App extends Component {
 	render() {
-		const { width, height, pane } = this.props;
+        const { width, height } = this.context;
+		const { pane } = this.props;
 
 		return <div className="App">
 			{ pane === Panes.LOAD && <Loader width={width} height={height} /> }
@@ -32,6 +35,8 @@ class App extends Component {
 		</div>;
 	}
 }
+
+App.contextType = SizeContext;
 
 const mapStateToProps = (state) => {
 	return {

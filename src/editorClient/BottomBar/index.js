@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import classnames from 'classnames';
+import { SizeContext } from '@bucky24/mobile-detect';
 
 import styles from './styles.css';
 
@@ -11,9 +12,10 @@ const BottomBar = ({
 	setActiveID,
 	objectData,
 	characterData,
-	height,
 }) => {
 	let dataList = {};
+    
+    const { height } = useContext(SizeContext);
 	
 	switch (activeTool) {
 		case 'terrain':

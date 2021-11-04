@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import MobileDetect from 'mobile-detect';
 
 import ScenarioEditor from '../ScenarioEditor';
 import CampaignEditor from '../CampaignEditor';
@@ -20,7 +19,7 @@ class App extends Component {
 		const { width, height } = this.props;
 
 		return <div className="App">
-			{ !this.state.tool && <MobileDetect>
+			{ !this.state.tool &&
 				<MainMenu
 					width={width}
 					height={height}
@@ -30,7 +29,7 @@ class App extends Component {
 						});
 					}}
 				/>
-			</MobileDetect> }
+			}
 			{ this.state.tool === "scenario" && <ScenarioEditor 
 				width={width}
 				height={height}

@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Image, Canvas } from '@bucky24/react-canvas';
+import { SizeContext } from '@bucky24/mobile-detect';
 
 import VerticalMenu from '../../common/Inputs/VerticalMenu';
 
 import TitleBackground from '../../common/assets/title_screen.png';
 
-const MainMenu = ({ width, height, setTool }) => {
+const MainMenu = ({ setTool }) => {
 	const buttons = [
 		{text: "Scenario Editor", id: "scenario"},
 		{text: "Campaign Editor", id: "campaign"}
 	];
+    const { width, height } = useContext(SizeContext);
 
 	return <Canvas
 		width={width}

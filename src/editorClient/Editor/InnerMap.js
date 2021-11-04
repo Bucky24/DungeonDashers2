@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Canvas } from '@bucky24/react-canvas';
 import { Map } from '@bucky24/react-canvas-map';
+import { SizeContext } from '@bucky24/mobile-detect';
 
-const InnerMap = ({ width, height, onClick, layers, cellSize }) => {
+const InnerMap = ({ onClick, layers, cellSize }) => {
+    const { width, height } = useContext(SizeContext);
+
     return <Canvas
         width={width}
         height={height}

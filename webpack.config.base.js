@@ -24,7 +24,7 @@ module.exports = {
 				test: /\.js$/,
 				loader: 'babel-loader',
 				exclude: /node_modules/,
-				query: {
+				options: {
 					presets: [
 						[
 							'@babel/env',
@@ -45,16 +45,19 @@ module.exports = {
 			{
 				test: /\.css$/,
 				loader: 'css-loader',
-				query: {
+				options: {
 					modules: true,
 					localIdentName: '[name]__[local]___[hash:base64:5]'
 				}
 			},
 			{
 				test: /\.(jpe?g|png|gif|svg)$/i,
-				loaders: [
-					'file-loader?hash=sha512&digest=hex&name=[hash].[ext]'
-				]
+                loader: 'file-loader',
+                options: {
+                    hash: 'sha512',
+                    digest: 'hex',
+                    name:'[hash].[ext]',
+				},
 			},
 			{
 				test: /\.(map|enemy|object|camp|char|equip)$/,
@@ -73,6 +76,6 @@ module.exports = {
 		new ProgressBarPlugin()
 	],
 	devServer: {
-		port: 3001
+		port: 3001,
 	}
 };
