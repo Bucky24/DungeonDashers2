@@ -4,6 +4,7 @@ import { Canvas, Text } from '@bucky24/react-canvas';
 import styles from './styles.css';
 
 import Coms from './utils/coms';
+import GameMap from './components/GameMap';
 
 export default function App() {
     const [size, setSize] = useState({ width: 0, height: 0 });
@@ -32,9 +33,7 @@ export default function App() {
 
 	return (<div className={styles.appRoot}>
 		<Canvas width={size.width} height={size.height}>
-            <Text x={size.width/2} y={size.height/2}>
-                Welcome to Dungeon Dashers 2
-            </Text>
+            <GameMap width={size.width} height={size.height} />
         </Canvas>
 	</div>);
 }
