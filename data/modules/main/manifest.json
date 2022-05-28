@@ -1,0 +1,8 @@
+{
+    "tiles": {
+        "ground1": {
+            "type": "ground",
+            "image": "assets/ground1.png"
+        }
+    }
+}
