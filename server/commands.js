@@ -1,8 +1,7 @@
 module.exports = {
-	ping: (data) => {
+    getSavedGames: () => {
         return {
-            message: 'pong',
-            data,
+            games: ['savedGame'],
         };
-	},
+    },
 }
