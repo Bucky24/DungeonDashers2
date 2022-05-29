@@ -29,4 +29,13 @@ module.exports = {
         const contents = fs.readFileSync(file, 'utf8');
         return JSON.parse(contents);
     },
+    getImageSlug: (type, filePath, data) => {
+        const resultObj = {
+            type,
+            filePath,
+            data,
+        };
+
+        return btoa(JSON.stringify(resultObj));
+    },
 };
