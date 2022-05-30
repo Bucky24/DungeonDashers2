@@ -1,3 +1,10 @@
 {
-    "modules": ["main"]
+    "modules": ["main"],
+    "map": [
+        {
+            "x": 5,
+            "y": 5,
+            "tile": "main_ground1"
+        }
+    ]
 }

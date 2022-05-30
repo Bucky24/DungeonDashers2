@@ -1,15 +1,16 @@
 const fs = require('fs');
 const path = require('path');
 
-const { locateInDirectories, getJsonFile, getImageSlug } = require('./utils');
+const { locateInDirectories, getJsonFile, getImageSlug, decodeImageSlug } = require('./utils');
 
-const saveDirectories = [
-    path.resolve(__dirname, "..", "data", "saves"),
-];
-
-const moduleDirectories = [
-    path.resolve(__dirname, "..", "data", "modules"),
-];
+const directories = {
+    save: [
+        path.resolve(__dirname, "..", "data", "saves"),
+    ],
+    modules: [
+        path.resolve(__dirname, "..", "data", "modules"),
+    ],
+};
 
 module.exports = {
     getSavedGames: () => {
@@ -19,7 +20,7 @@ module.exports = {
         };
     },
     getSavedGame: ({ name }) => {
-        const file = locateInDirectories(`${name}.json`, saveDirectories);
+        const file = locateInDirectories(`${name}.json`, directories.save);
 
         if (!file) {
             return {
@@ -36,7 +37,7 @@ module.exports = {
         };
     },
     getModule: ({ name }) => {
-        const moduleDir = locateInDirectories(name, moduleDirectories);
+        const moduleDir = locateInDirectories(name, directories.modules);
 
         if (!moduleDir) {
             return {
@@ -65,7 +66,7 @@ module.exports = {
                     ...obj,
                     [key]: {
                         ...tile,
-                        image: getImageSlug('tile', tile.image, { module: name }),
+                        image: getImageSlug('modules', tile.image, { extra: name }),
                     },
                 };
             }, {}),
@@ -75,5 +76,29 @@ module.exports = {
             success: true,
             module: newManifest,
         };
-    }
+    },
+    getImage: ({ slug }) => {
+        const decoded = decodeImageSlug(slug);
+
+        const validDirectories = directories[decoded.type] || [];
+        const extra = decoded.data?.extra ?? '';
+
+        const imageFile = locateInDirectories(decoded.filePath, validDirectories, extra);
+
+        if (!imageFile) {
+            return {
+                success: false,
+                message: "Couldn't find image in any directories",
+            };
+        }
+
+        const fullImage = fs.readFileSync(imageFile).toString('base64');
+        // assuming PNG here, we may need to fix this at some point
+        const imageData = "data:image/png;base64," + fullImage;
+
+        return {
+            success: true,
+            image: imageData,
+        };
+    },
 }

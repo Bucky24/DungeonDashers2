@@ -9,6 +9,7 @@ export default GameContext;
 export function GameProvider({ children }) {
     const [loaded, setLoaded] = useState(false);
     const { loadModules } = useContext(ModuleContext);
+    const [map, setMap] = useState([]);
 
     const value = {
         loadGame: (name) => {
@@ -21,11 +22,13 @@ export function GameProvider({ children }) {
 
                 const modules = result.game.modules;
                 loadModules(modules);
+                setMap(result.game.map || []);
 
                 setLoaded(true);
             });
         },
         loaded,
+        map,
     };
 
     return (
