@@ -20,11 +20,20 @@ export function GameProvider({ children }) {
                     return;
                 }
 
-                const modules = result.game.modules;
-                loadModules(modules);
-                setMap(result.game.map || []);
+                const map = result.game.map;
 
-                setLoaded(true);
+                Coms.send("getMap", { name: map }).then((result) => {
+                    if (!result.success) {
+                        console.error(result.message);
+                        return;
+                    }
+
+                    const modules = result.map.modules;
+                    loadModules(modules);
+                    setMap(result.map.map || []);
+
+                    setLoaded(true);
+                });
             });
         },
         loaded,

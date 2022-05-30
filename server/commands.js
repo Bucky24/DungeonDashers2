@@ -10,6 +10,9 @@ const directories = {
     modules: [
         path.resolve(__dirname, "..", "data", "modules"),
     ],
+    map: [
+        path.resolve(__dirname, "..", "data", "maps"),
+    ],
 };
 
 module.exports = {
@@ -34,6 +37,23 @@ module.exports = {
         return {
             success: true,
             game: content,
+        };
+    },
+    getMap: ({ name }) => {
+        const file = locateInDirectories(`${name}.json`, directories.map);
+
+        if (!file) {
+            return {
+                success: false,
+                message: "Can't locate map in any directory",
+            };
+        }
+
+        const map = getJsonFile(file);
+
+        return {
+            success: true,
+            map,
         };
     },
     getModule: ({ name }) => {
