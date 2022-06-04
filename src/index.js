@@ -5,13 +5,16 @@ import App from './App';
 import { GameProvider } from './contexts/GameContext';
 import { ImageProvider } from './contexts/ImageContext';
 import { ModuleProvider } from './contexts/ModuleContext';
+import { UIProvider } from './contexts/UIContext';
 
 ReactDOM.render(
-    <ImageProvider>
-        <ModuleProvider>
-            <GameProvider>
-                <App />    
-            </GameProvider>
-        </ModuleProvider>
-    </ImageProvider>
+    <UIProvider>
+        <ImageProvider>
+            <ModuleProvider>
+                <GameProvider>
+                    <App />
+                </GameProvider>
+            </ModuleProvider>
+        </ImageProvider>    
+    </UIProvider>
 ,document.getElementById('root'));

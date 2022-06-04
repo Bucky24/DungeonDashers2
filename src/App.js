@@ -1,31 +1,14 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 
 import styles from './styles.css';
 
-import GameMap from './components/GameMap';
-import GameContext from './contexts/GameContext';
-import ModuleContext from './contexts/ModuleContext';
-import ImageContext from './contexts/ImageContext';
+import UIContext, { PANES } from './contexts/UIContext';
+import Game from './components/Game';
 
 export default function App() {
-	const { loadGame, loaded: gameLoaded } = useContext(GameContext);
-	const { loaded: moduleLoaded } = useContext(ModuleContext);
-	const { loaded: imagesLoaded } = useContext(ImageContext);
-
-	useEffect(() => {
-		loadGame('main');
-	}, []);
-
-	const loaded = gameLoaded && moduleLoaded && imagesLoaded;
+	const { pane } = useContext(UIContext);
 
 	return (<div className={styles.appRoot}>
-		{!loaded && (
-			<div>
-				Loading
-			</div>
-		)}
-		{loaded && (
-			<GameMap />
-		)}
+		{pane === PANES.APP && <Game />}
 	</div>);
 }
