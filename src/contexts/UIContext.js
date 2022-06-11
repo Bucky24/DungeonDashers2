@@ -5,10 +5,11 @@ export default UIContext;
 
 export const PANES = {
     APP: 'app',
+    EDITOR_MAP: 'editor/map',
 };
 
 export function UIProvider({ children }) {
-    const [pane, setPane] = useState(PANES.APP);
+    const [pane, setPane] = useState(PANES.EDITOR_MAP);
 
     const value = {
         pane,

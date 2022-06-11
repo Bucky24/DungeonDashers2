@@ -43,7 +43,7 @@ export function ModuleProvider({ children }) {
 
                 const module = result.module;
 
-                console.log(module);
+                //console.log(module);
                 for (const tile in module.tiles) {
                     const tileData = module.tiles[tile];
                     const imageId = loadImage(tileData.image);

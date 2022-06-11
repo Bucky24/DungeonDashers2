@@ -1,15 +1,14 @@
 import React, { useContext, useState } from 'react';
 
 import Coms from '../utils/coms';
-import ModuleContext from './ModuleContext';
+import MapContext from './MapContext';
 
 const GameContext = React.createContext({});
 export default GameContext;
 
 export function GameProvider({ children }) {
     const [loaded, setLoaded] = useState(false);
-    const { loadModules } = useContext(ModuleContext);
-    const [map, setMap] = useState([]);
+    const { loadMap } = useContext(MapContext);
 
     const value = {
         loadGame: (name) => {
@@ -22,22 +21,11 @@ export function GameProvider({ children }) {
 
                 const map = result.game.map;
 
-                Coms.send("getMap", { name: map }).then((result) => {
-                    if (!result.success) {
-                        console.error(result.message);
-                        return;
-                    }
-
-                    const modules = result.map.modules;
-                    loadModules(modules);
-                    setMap(result.map.map || []);
-
-                    setLoaded(true);
-                });
+                loadMap(map);
+                setLoaded(true);
             });
         },
         loaded,
-        map,
     };
 
     return (
