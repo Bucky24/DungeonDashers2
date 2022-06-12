@@ -13,7 +13,7 @@ export default function Editor() {
     const { loadMap, loaded: mapLoaded } = useContext(MapContext);
 
     useEffect(() => {
-		loadMap('map1');
+		loadMap('map1', true);
 	}, []);
 
 	const loaded = editorLoaded && moduleLoaded && imagesLoaded && mapLoaded;

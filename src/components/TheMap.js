@@ -5,7 +5,7 @@ import { Canvas } from '@bucky24/react-canvas';
 import ModuleContext from '../contexts/ModuleContext';
 import ImageContext from '../contexts/ImageContext';
 
-export default function TheMap({ map }) {
+export default function TheMap({ map, onClick }) {
     const [size, setSize] = useState({ width: 0, height: 0 });
     const { tiles } = useContext(ModuleContext);
     const { images } = useContext(ImageContext);
@@ -38,6 +38,11 @@ export default function TheMap({ map }) {
                 }}
                 offMapBackground={{
                     color: "#000",
+                }}
+                onClick={(cellX, cellY, button) => {
+                    if (onClick) {
+                        onClick(cellX, cellY, button);
+                    }
                 }}
             >
                 <Layer>
