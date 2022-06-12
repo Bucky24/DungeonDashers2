@@ -9,7 +9,7 @@ export default MapContext;
 export function MapProvider({ children }) {
     const [map, setMap] = useState([]);
     const [loaded, setLoaded] = useState(false);
-    const { loadModules } = useContext(ModuleContext);
+    const { loadModules, getSaveData: getModuleSaveData } = useContext(ModuleContext);
     const [editable, setEditable] = useState(false);
 
     const value = {
@@ -61,6 +61,17 @@ export function MapProvider({ children }) {
             setMap([
                 ...map,
             ]);
+        },
+        getSaveData: () => {
+            const modules = getModuleSaveData();
+
+            const mapData = {
+                version: 2,
+                modules,
+                map,
+            };
+
+            return mapData;
         }
     };
 

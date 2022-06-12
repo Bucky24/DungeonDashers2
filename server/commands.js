@@ -1,7 +1,13 @@
 const fs = require('fs');
 const path = require('path');
 
-const { locateInDirectories, getJsonFile, getImageSlug, decodeImageSlug } = require('./utils');
+const {
+    locateInDirectories,
+    getJsonFile,
+    getImageSlug,
+    decodeImageSlug,
+    locateInDirectoriesForSave,
+} = require('./utils');
 
 const directories = {
     save: [
@@ -119,6 +125,24 @@ module.exports = {
         return {
             success: true,
             image: imageData,
+        };
+    },
+    saveMap: ({ name, data }) => {
+        const file = locateInDirectoriesForSave(`${name}.json`, directories.map);
+        
+        if (!file) {
+            return {
+                success: false,
+                message: "Unable to find appropriate save location",
+            };
+        }
+
+        const dataString = JSON.stringify(data, null, 4);
+
+        fs.writeFileSync(file, dataString);
+
+        return {
+            success: true,
         };
     },
 }

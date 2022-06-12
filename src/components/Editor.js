@@ -5,12 +5,13 @@ import ModuleContext from '../contexts/ModuleContext';
 import ImageContext from '../contexts/ImageContext';
 import MapContext from '../contexts/MapContext';
 import EditorMap from './EditorMap';
+import EditorControls from './EditorControls';
 
 export default function Editor() {
-    const { loaded: editorLoaded } = useContext(EditorContext);
+    const { loaded: editorLoaded, loadMap } = useContext(EditorContext);
 	const { loaded: moduleLoaded } = useContext(ModuleContext);
 	const { loaded: imagesLoaded } = useContext(ImageContext);
-    const { loadMap, loaded: mapLoaded } = useContext(MapContext);
+    const { loaded: mapLoaded } = useContext(MapContext);
 
     useEffect(() => {
 		loadMap('map1', true);
@@ -26,7 +27,10 @@ export default function Editor() {
                 </div>
             )}
             {loaded && (
-                <EditorMap />
+                <>
+                    <EditorMap />
+                    <EditorControls />
+                </>
             )}
         </>
     );
