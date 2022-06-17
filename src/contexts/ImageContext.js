@@ -10,6 +10,7 @@ export function ImageProvider({ children }) {
     const imageIdRef = useRef(0);
     const loadingImagesRef = useRef(0);
     const [loaded, setLoaded] = useState(false);
+    const [fullImages, setFullImages] = useState({});
 
     const value = {
         loadImage: (data) => {
@@ -37,12 +38,22 @@ export function ImageProvider({ children }) {
                         [fullId]: result.image,
                     };
                 });
+
+                setFullImages((images) => {
+                    return {
+                        ...images,
+                        [fullId]: {
+                            url: result.url,
+                        },
+                    };
+                });
             });
 
             return fullId;
         },
         loaded,
         images,
+        fullImages,
     };
 
     return (

@@ -125,6 +125,7 @@ module.exports = {
         return {
             success: true,
             image: imageData,
+            url: decoded.filePath,
         };
     },
     saveMap: ({ name, data }) => {

@@ -1,22 +1,23 @@
 import React, { useContext, useEffect } from 'react';
 
-import GameContext from '../contexts/GameContext';
+import EditorContext from '../contexts/EditorContext';
 import ModuleContext from '../contexts/ModuleContext';
 import ImageContext from '../contexts/ImageContext';
-import GameMap from './GameMap';
 import MapContext from '../contexts/MapContext';
+import EditorMap from '../components/EditorMap';
+import EditorControls from '../components/EditorControls';
 
-export default function Game() {
-	const { loadGame, loaded: gameLoaded } = useContext(GameContext);
+export default function MapEditor() {
+    const { loaded: editorLoaded, loadMap } = useContext(EditorContext);
 	const { loaded: moduleLoaded } = useContext(ModuleContext);
 	const { loaded: imagesLoaded } = useContext(ImageContext);
     const { loaded: mapLoaded } = useContext(MapContext);
 
     useEffect(() => {
-		loadGame('main');
+		loadMap('map1', true);
 	}, []);
 
-	const loaded = gameLoaded && moduleLoaded && imagesLoaded && mapLoaded;
+	const loaded = editorLoaded && moduleLoaded && imagesLoaded && mapLoaded;
 
     return (
         <>
@@ -26,8 +27,11 @@ export default function Game() {
                 </div>
             )}
             {loaded && (
-                <GameMap />
+                <>
+                    <EditorMap />
+                    <EditorControls />
+                </>
             )}
         </>
-    )
+    );
 }
