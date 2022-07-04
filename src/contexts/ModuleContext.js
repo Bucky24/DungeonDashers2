@@ -64,6 +64,7 @@ export function ModuleProvider({ children }) {
         },
         loaded,
         tiles,
+        modulesList: Object.keys(modules),
         getSaveData: () => {
             return Object.keys(modules);
         },
