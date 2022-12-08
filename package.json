@@ -6,7 +6,7 @@
     "@bucky24/react-canvas": "1.6.4",
     "@bucky24/react-canvas-map": "^0.6.2",
     "classnames": "2.2.6",
-    "css-loader": "1.0.0",
+    "css-loader": "6.7.2",
     "dotenv": "6.0.0",
     "dotenv-expand": "4.2.0",
     "joi": "^17.2.1",
