@@ -41,7 +41,7 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-loader": "8.3.0",
     "cross-env": "^7.0.2",
-    "electron": "15.5.5",
+    "electron": "18.3.7",
     "file-loader": "6.2.0",
     "html-webpack-plugin": "5.5.0",
     "image-webpack-loader": "8.0.1",
