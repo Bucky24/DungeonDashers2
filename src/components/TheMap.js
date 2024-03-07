@@ -35,8 +35,6 @@ export default function TheMap({ map, onClick, onHover, showInvalidTiles }) {
             clearTimeout(hoverRef.current);
 
             hoverRef.current = setTimeout(() => {
-                onHover(mouseX, mouseY);
-
                 // need a more efficient way
                 const tiles = [];
                 for (const tile of map) {

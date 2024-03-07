@@ -9,7 +9,7 @@ import TextField from '../components/TextField';
 
 export default function ModuleEditor() {
     const { loaded: editorLoaded, loadModule, module, saveModules } = useContext(EditorContext);
-	const { loaded: moduleLoaded, tiles, changeTile, getSaveData } = useContext(ModuleContext);
+	const { loaded: moduleLoaded, tiles, changeTile, addTile } = useContext(ModuleContext);
     const { fullImages } = useContext(ImageContext);
     const { module: moduleId } = useParams();
 
@@ -70,7 +70,11 @@ export default function ModuleEditor() {
                                 })}
                             </tbody>
                         </table>
-                    
+                        <div>
+                            <button onClick={() => {
+                                addTile(module);
+                            }}>New Tile</button>
+                        </div>
                     </div>
                 </div>
             )}

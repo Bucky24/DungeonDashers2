@@ -3,6 +3,14 @@
         "ground1": {
             "type": "ground",
             "image": "assets/ground1.png"
+        },
+        "bottom_wall": {
+            "type": "wall",
+            "image": "assets/bottom_wall.png"
+        },
+        "upper_wall_middle": {
+            "type": "wall",
+            "image": "assets/upper_wall_middle.png"
         }
     }
 }

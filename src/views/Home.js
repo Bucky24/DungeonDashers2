@@ -9,7 +9,7 @@ export default function Home() {
             navigate("/game/new/map1");
         }}>Game (map1)</button>
         <button onClick={() => {
-            navigate("/game/new/humbe_beginnings");
+            navigate("/game/new/humble_beginnings");
         }}>Game (humble beginnings)</button>
         <button onClick={() => {
             navigate("/editor/module/main");

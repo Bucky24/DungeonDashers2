@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import Coms from '../utils/coms';
 import ImageContext from './ImageContext';
+import { TILE_TYPE } from './MapContext';
 
 const ModuleContext = React.createContext({});
 export default ModuleContext;
@@ -120,7 +121,23 @@ export function ModuleProvider({ children }) {
                     };
                 });
             }
-        }
+        },
+        addTile: (module) => {
+            setModules((modules) => {
+                const tiles = {...modules[module].tiles};
+                tiles[''] = {
+                    rawImage: '',
+                    type: TILE_TYPE.GROUND,
+                };
+                return {
+                    ...modules,
+                    [module]: {
+                        ...modules[module],
+                        tiles,
+                    },
+                };
+            });
+        },
     };
 
     return (

@@ -8,6 +8,7 @@ import Game from './views/Game';
 import MapEditor from './views/MapEditor';
 import ModuleEditor from './views/ModuleEditor';
 import Home from './views/Home';
+import NewGame from './views/NewGame';
 
 export default function App() {
 	const { pane } = useContext(UIContext);
@@ -15,7 +16,8 @@ export default function App() {
 	return (<BrowserRouter>
 		<div className={styles.appRoot}>
 			<Routes>
-				<Route path="/game/:game" element={<Game />} />
+				<Route path="/game" element={<Game />} />
+				<Route path="/game/new/:map" element={<NewGame />} />
 				<Route path="/editor/map/:map" element={<MapEditor />} />
 				<Route path="/editor/module/:module" element={<ModuleEditor />} />
 				<Route path="/" element={<Home />} />
