@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 import EditorContext from '../contexts/EditorContext';
 import ModuleContext from '../contexts/ModuleContext';
@@ -12,8 +13,13 @@ export default function MapEditor() {
 	const { loaded: moduleLoaded } = useContext(ModuleContext);
 	const { loaded: imagesLoaded } = useContext(ImageContext);
     const { loaded: mapLoaded } = useContext(MapContext);
+    const { map } = useParams();
 
 	const loaded = editorLoaded && moduleLoaded && imagesLoaded && mapLoaded;
+
+    useEffect(() => {
+        loadMap(map);
+    }, [map]);
 
     return (
         <>

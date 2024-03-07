@@ -30,15 +30,12 @@ const port = 8080;
 const app = express();
 
 app.use(express.json());
+app.use(express.static(path.resolve(__dirname, "build")));
 
 function sendFile(res, file) {
     res.contentType(path.basename(file));
     fs.createReadStream(file).pipe(res);
 }
-
-app.get('/', (req, res) => {
-    sendFile(res, path.join(__dirname, "build", "index.html"));
-});
 
 app.post('/api', async (req, res) => {
     const { command, data } = req.body;
@@ -59,13 +56,7 @@ app.post('/api', async (req, res) => {
 });
 
 app.get("*", (req, res) => {
-    const buildPath = path.resolve(__dirname, "build", req.url.substr(1));
-    if (fs.existsSync(buildPath)) {
-        sendFile(res, buildPath);
-    } else {
-        res.status(404);
-        res.end();
-    }
+    sendFile(res, path.join(__dirname, "build", "index.html"));
 });
 
 const server = app.listen(port, () => {

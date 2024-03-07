@@ -1,5 +1,5 @@
 {
-	"version": 2,
+	"version": 1,
 	"map": [
 		{ "tile": "ground1", "x": 5, "y": 3 },
 		{ "tile": "ground1", "x": 5, "y": 4 },

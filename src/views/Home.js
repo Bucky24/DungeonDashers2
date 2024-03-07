@@ -1,30 +1,22 @@
 import React, { useContext } from 'react';
-import UIContext, { PANES } from '../contexts/UIContext';
-import EditorContext from '../contexts/EditorContext';
-import GameContext from '../contexts/GameContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
-    const { setPane } = useContext(UIContext);
-    const { loadMap } = useContext(EditorContext);
-    const { newGame } = useContext(GameContext);
+    const navigate = useNavigate();
 
     return <div style={{ display: 'flex', flexDirection: 'column' }}>
         <button onClick={() => {
-            newGame("map1");
-            setPane(PANES.APP);
+            navigate("/game/new/map1");
         }}>Game (map1)</button>
         <button onClick={() => {
-            newGame("humble_beginnings");
-            setPane(PANES.APP);
+            navigate("/game/new/humbe_beginnings");
         }}>Game (humble beginnings)</button>
         <button>Module editor (main)</button>
         <button onClick={() => {
-            loadMap("map1");
-            setPane(PANES.EDITOR_MAP);
+            navigate("/editor/map/map1");
         }}>Map Editor (map1)</button>
         <button onClick={() => {
-            loadMap("humble_beginnings");
-            setPane(PANES.EDITOR_MAP);
+            navigate("/editor/map/humble_beginnings");
         }}>Map Editor (humble beginnings)</button>
     </div>
 }

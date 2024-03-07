@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import styles from './styles.css';
 
@@ -11,10 +12,14 @@ import Home from './views/Home';
 export default function App() {
 	const { pane } = useContext(UIContext);
 
-	return (<div className={styles.appRoot}>
-		{pane === PANES.APP && <Game />}
-		{pane === PANES.EDITOR_MAP && <MapEditor />}
-		{pane === PANES.EDITOR_MODULE && <ModuleEditor />}
-		{pane === PANES.HOME && <Home />}
-	</div>);
+	return (<BrowserRouter>
+		<div className={styles.appRoot}>
+			<Routes>
+				<Route path="/game/:game" element={<Game />} />
+				<Route path="/editor/map/:map" element={<MapEditor />} />
+				<Route path="/editor/module/:module" element={<ModuleEditor />} />
+				<Route path="/" element={<Home />} />
+			</Routes>
+		</div>
+	</BrowserRouter>);
 }
