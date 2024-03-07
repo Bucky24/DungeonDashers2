@@ -147,4 +147,24 @@ module.exports = {
             success: true,
         };
     },
+    saveModule: ({ name, data }) => {
+        const dir = locateInDirectoriesForSave(`${name}`, directories.modules);
+
+        if (!dir) {
+            return {
+                success: false,
+                message: "Unable to find appropriate save location",
+            };
+        }
+
+        const manifestFile = path.join(dir, "manifest.json");
+
+        const dataString = JSON.stringify(data, null, 4);
+
+        fs.writeFileSync(manifestFile, dataString);
+
+        return {
+            success: true,
+        };
+    }
 }

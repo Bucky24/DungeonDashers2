@@ -8,7 +8,7 @@ import { TILE_TYPE } from '../contexts/MapContext';
 import TextField from '../components/TextField';
 
 export default function ModuleEditor() {
-    const { loaded: editorLoaded, loadModule, module } = useContext(EditorContext);
+    const { loaded: editorLoaded, loadModule, module, saveModules } = useContext(EditorContext);
 	const { loaded: moduleLoaded, tiles, changeTile, getSaveData } = useContext(ModuleContext);
     const { fullImages } = useContext(ImageContext);
     const { module: moduleId } = useParams();
@@ -31,8 +31,7 @@ export default function ModuleEditor() {
                     <div>Module: {module}</div>
                     <div>
                         <button onClick={() => {
-                            const saveData = getSaveData();
-                            console.log(saveData);
+                            saveModules();
                         }}>Save</button>
                     </div>
                     <div>Tiles:</div>
@@ -60,7 +59,7 @@ export default function ModuleEditor() {
                                                 changeTile(module, idWithoutModule, "type", e.target.value);
                                             }}>
                                                 {Object.keys(TILE_TYPE).map((key) => {
-                                                    return <option key={`option_${id}_type_${key}`} value={key}>{TILE_TYPE[key]}</option>
+                                                    return <option key={`option_${id}_type_${key}`} value={TILE_TYPE[key]}>{key}</option>
                                                 })}
                                             </select>
                                         </td>

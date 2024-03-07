@@ -9,7 +9,7 @@ export default EditorContext;
 
 export function EditorProvider({ children}) {
     const { loadMap, getSaveData: getMapSaveData } = useContext(MapContext);
-    const { loadModules } = useContext(ModuleContext);
+    const { loadModules, getSaveData: getModuleSaveData } = useContext(ModuleContext);
 
     const [loaded, setLoaded] = useState(true);
     const [map, setMap] = useState(null);
@@ -35,6 +35,27 @@ export function EditorProvider({ children}) {
                     console.error(result.message);
                     return;
                 }
+            });
+        },
+        saveModules: () => {
+            setSaving(true);
+            const moduleData = getModuleSaveData();
+
+            const promises = Object.keys(moduleData).map((key) => {
+                return new Promise((resolve) => {
+                    Coms.send("saveModule", { name: key, data: moduleData[key] }).then((result) => {
+                        if (!result.success) {
+                            console.error(result.message);
+                            return;
+                        }
+
+                        resolve();
+                    });
+                });
+            });
+
+            Promise.all(promises).then(() => {
+                setSaving(false);
             });
         },
         loadModule: async (module) => {
