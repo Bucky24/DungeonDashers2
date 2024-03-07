@@ -11,6 +11,10 @@
         "upper_wall_middle": {
             "type": "wall",
             "image": "assets/upper_wall_middle.png"
+        },
+        "left_wall": {
+            "type": "wall",
+            "image": "assets/left_wall.png"
         }
     }
 }
