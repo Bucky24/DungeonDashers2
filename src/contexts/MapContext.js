@@ -6,10 +6,15 @@ import ModuleContext from './ModuleContext';
 const MapContext = React.createContext({});
 export default MapContext;
 
+export const TILE_TYPE = {
+    GROUND: 'ground',
+    WALL: 'wall',
+};
+
 export function MapProvider({ children }) {
     const [map, setMap] = useState([]);
     const [loaded, setLoaded] = useState(false);
-    const { loadModules, getSaveData: modulesList } = useContext(ModuleContext);
+    const { loadModules, getSaveData: getLoadedModules } = useContext(ModuleContext);
     const [editable, setEditable] = useState(false);
 
     const value = {
@@ -63,7 +68,7 @@ export function MapProvider({ children }) {
             ]);
         },
         getSaveData: () => {
-            const modules = modulesList();
+            const modules = getLoadedModules();
 
             const mapData = {
                 version: 2,

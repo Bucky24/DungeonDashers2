@@ -1,16 +1,11 @@
 import React, { useState } from 'react';
 
-function TextField({ value, setValue }) {
+export default function TextField({ value: initialValue, onBlur }) {
+    const [value, setValue] = useState(initialValue);
+
     return (
-        <input type="text" value={value} onChange={(e) => setValue(e.target.value)} />
+        <input type="text" value={value} onChange={(e) => setValue(e.target.value)} onBlur={() => {
+            onBlur(value);
+        }} />
     );
-}
-
-export default function() {
-    const [value, setValue] = useState('');
-
-    return {
-        value,
-        element: (<TextField value={value} setValue={setValue} />)
-    };
 }

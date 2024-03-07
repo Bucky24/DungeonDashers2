@@ -4,10 +4,12 @@ import { useParams } from 'react-router-dom';
 import EditorContext from '../contexts/EditorContext';
 import ImageContext from '../contexts/ImageContext';
 import ModuleContext from '../contexts/ModuleContext';
+import { TILE_TYPE } from '../contexts/MapContext';
+import TextField from '../components/TextField';
 
 export default function ModuleEditor() {
     const { loaded: editorLoaded, loadModule, module } = useContext(EditorContext);
-	const { loaded: moduleLoaded, tiles } = useContext(ModuleContext);
+	const { loaded: moduleLoaded, tiles, changeTile, getSaveData } = useContext(ModuleContext);
     const { fullImages } = useContext(ImageContext);
     const { module: moduleId } = useParams();
 
@@ -27,6 +29,12 @@ export default function ModuleEditor() {
             {loaded && (
                 <div>
                     <div>Module: {module}</div>
+                    <div>
+                        <button onClick={() => {
+                            const saveData = getSaveData();
+                            console.log(saveData);
+                        }}>Save</button>
+                    </div>
                     <div>Tiles:</div>
                     <div>
                         <table border={1}>
@@ -43,10 +51,22 @@ export default function ModuleEditor() {
 
                                     const idWithoutModule = id.replace(module + "_", "");
 
-                                    return (<tr>
-                                        <td>{idWithoutModule}</td>
-                                        <td>{tile.type}</td>
-                                        <td>{tile.rawImage}</td>
+                                    return (<tr key={`editor_tile_${id}`}>
+                                        <td><TextField value={idWithoutModule} onBlur={(id) => {
+                                            changeTile(module, idWithoutModule, "id", id);
+                                        }} /></td>
+                                        <td>
+                                            <select defaultValue={tile.type} onChange={(e) => {
+                                                changeTile(module, idWithoutModule, "type", e.target.value);
+                                            }}>
+                                                {Object.keys(TILE_TYPE).map((key) => {
+                                                    return <option key={`option_${id}_type_${key}`} value={key}>{TILE_TYPE[key]}</option>
+                                                })}
+                                            </select>
+                                        </td>
+                                        <td><TextField value={tile.rawImage} onBlur={(value) => {
+                                            changeTile(module, idWithoutModule, "rawImage", value);
+                                        }} /></td>
                                     </tr>);
                                 })}
                             </tbody>

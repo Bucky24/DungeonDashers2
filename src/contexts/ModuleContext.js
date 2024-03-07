@@ -65,9 +65,62 @@ export function ModuleProvider({ children }) {
         loaded,
         tiles,
         modulesList: Object.keys(modules),
-        getSaveData: () => {
+        getLoadedModules: () => {
             return Object.keys(modules);
         },
+        getSaveData: () => {
+            return Object.keys(modules).reduce((obj, key) => {
+                const module = modules[key];
+                return {
+                    ...obj,
+                    [key]: {
+                        ...module,
+                        tiles: Object.keys(module.tiles).reduce((obj, key) => {
+                            const tile = {...module.tiles[key]};
+                            delete tile.image;
+                            tile.image = tile.rawImage;
+                            delete tile.rawImage;
+                            return {
+                                ...obj,
+                                [key]: tile,
+                            };
+                        }, {}),
+                    }
+                }
+            }, {});
+        },
+        changeTile: (module, id, key, value) => {
+            if (key === "id") {
+                setModules((modules) => {
+                    const tiles = {...modules[module].tiles};
+                    tiles[value] = tiles[id];
+                    delete tiles[id];
+                    return {
+                        ...modules,
+                        [module]: {
+                            ...modules[module],
+                            tiles,
+                        },
+                    };
+                });
+            } else {
+                setModules((modules) => {
+                    return {
+                        ...modules,
+                        [module]: {
+                            ...modules[module],
+                            tiles: {
+                                ...modules[module].tiles,
+                                [id]: {
+                                    ...modules[module].tiles[id],
+                                    [key]: value,
+                                },
+                            },
+                        },
+                    };
+                });
+            }
+        }
     };
 
     return (
