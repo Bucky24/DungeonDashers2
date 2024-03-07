@@ -93,6 +93,7 @@ module.exports = {
                     [key]: {
                         ...tile,
                         image: getImageSlug('modules', tile.image, { extra: name }),
+                        rawImage: tile.image,
                     },
                 };
             }, {}),

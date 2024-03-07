@@ -11,7 +11,9 @@ export default function Home() {
         <button onClick={() => {
             navigate("/game/new/humbe_beginnings");
         }}>Game (humble beginnings)</button>
-        <button>Module editor (main)</button>
+        <button onClick={() => {
+            navigate("/editor/module/main");
+        }}>Module editor (main)</button>
         <button onClick={() => {
             navigate("/editor/map/map1");
         }}>Map Editor (map1)</button>

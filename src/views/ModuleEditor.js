@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 import EditorContext from '../contexts/EditorContext';
 import ImageContext from '../contexts/ImageContext';
@@ -8,10 +9,11 @@ export default function ModuleEditor() {
     const { loaded: editorLoaded, loadModule, module } = useContext(EditorContext);
 	const { loaded: moduleLoaded, tiles } = useContext(ModuleContext);
     const { fullImages } = useContext(ImageContext);
+    const { module: moduleId } = useParams();
 
     useEffect(() => {
-        loadModule('main');
-    }, []);
+        loadModule(moduleId);
+    }, [moduleId]);
 
     const loaded = editorLoaded && moduleLoaded;
 
@@ -27,22 +29,29 @@ export default function ModuleEditor() {
                     <div>Module: {module}</div>
                     <div>Tiles:</div>
                     <div>
-                    {Object.keys(tiles).map((id) => {
-                        const tile = tiles[id];
-                        const imageData = fullImages[tile.image];
+                        <table border={1}>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Type</th>
+                                    <th>Image</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {Object.keys(tiles).map((id) => {
+                                    const tile = tiles[id];
 
-                        const idWithoutModule = id.replace(module + "_", "");
+                                    const idWithoutModule = id.replace(module + "_", "");
 
-                        return (<div>
-                            id: {idWithoutModule}
-                            Type: {tile.type}
-                            {imageData && (
-                                <>
-                                    url: {imageData.url}
-                                </>
-                            )}
-                        </div>);
-                    })}
+                                    return (<tr>
+                                        <td>{idWithoutModule}</td>
+                                        <td>{tile.type}</td>
+                                        <td>{tile.rawImage}</td>
+                                    </tr>);
+                                })}
+                            </tbody>
+                        </table>
+                    
                     </div>
                 </div>
             )}
