@@ -7,14 +7,10 @@ import GameMap from '../components/GameMap';
 import MapContext from '../contexts/MapContext';
 
 export default function Game() {
-	const { loadGame, loaded: gameLoaded } = useContext(GameContext);
+	const { loaded: gameLoaded } = useContext(GameContext);
 	const { loaded: moduleLoaded } = useContext(ModuleContext);
 	const { loaded: imagesLoaded } = useContext(ImageContext);
     const { loaded: mapLoaded } = useContext(MapContext);
-
-    useEffect(() => {
-		loadGame('main');
-	}, []);
 
 	const loaded = gameLoaded && moduleLoaded && imagesLoaded && mapLoaded;
 

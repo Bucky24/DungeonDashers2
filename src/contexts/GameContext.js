@@ -25,6 +25,10 @@ export function GameProvider({ children }) {
                 setLoaded(true);
             });
         },
+        newGame: (map) => {
+            loadMap(map);
+            setLoaded(true);
+        },
         loaded,
     };
 

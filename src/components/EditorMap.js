@@ -3,9 +3,11 @@ import { ButtonTypes } from '@bucky24/react-canvas';
 
 import TheMap from './TheMap';
 import MapContext from '../contexts/MapContext';
+import EditorContext from '../contexts/EditorContext';
 
 export default function EditorMap() {
     const { map, setTile } = useContext(MapContext);
+    const { setHoveredTiles } = useContext(EditorContext);
 
     return (
         <TheMap
@@ -18,6 +20,10 @@ export default function EditorMap() {
                     setTile(cellX, cellY, null);
                 }
             }}
+            onHover={(tiles) => {
+                setHoveredTiles(tiles);
+            }}
+            showInvalidTiles={true}
         />
     );
 }

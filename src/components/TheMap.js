@@ -1,14 +1,18 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { Map, Layer, LayerImage } from '@bucky24/react-canvas-map';
 import { Canvas } from '@bucky24/react-canvas';
 
 import ModuleContext from '../contexts/ModuleContext';
 import ImageContext from '../contexts/ImageContext';
+import NotFoundImage from '../../assets/not_found.png';
 
-export default function TheMap({ map, onClick }) {
+export default function TheMap({ map, onClick, onHover, showInvalidTiles }) {
     const [size, setSize] = useState({ width: 0, height: 0 });
     const { tiles } = useContext(ModuleContext);
     const { images } = useContext(ImageContext);
+    const [mouseX, setMouseX] = useState(-1);
+    const [mouseY, setMouseY] = useState(-1);
+    const hoverRef = useRef(null);
 
     const resize = () => {
         setSize({
@@ -26,8 +30,37 @@ export default function TheMap({ map, onClick }) {
         }
     }, []);
 
+    useEffect(() => {
+        if (onHover) {
+            clearTimeout(hoverRef.current);
+
+            hoverRef.current = setTimeout(() => {
+                onHover(mouseX, mouseY);
+
+                // need a more efficient way
+                const tiles = [];
+                for (const tile of map) {
+                    if (tile.x === mouseX && tile.y === mouseY) {
+                        tiles.push(tile);
+                    }
+                }
+
+                if (tiles.length > 0) {
+                    onHover(tiles);
+                }
+            }, 500);
+        }
+
+        return () => {
+            clearTimeout(hoverRef.current);
+        }
+    }, [mouseX, mouseY, onHover]);
+
     return (
-		<Canvas width={size.width} height={size.height}>
+		<Canvas
+            width={size.width}
+            height={size.height}
+        >
             <Map
                 width={size.width}
                 height={size.height}
@@ -44,22 +77,26 @@ export default function TheMap({ map, onClick }) {
                         onClick(cellX, cellY, button);
                     }
                 }}
+                onMove={(cellX, cellY) => {
+                    setMouseX(cellX);
+                    setMouseY(cellY);
+                }}
             >
                 <Layer>
-                    {map.map(({ x, y, tile }) => {
+                    {map.map(({ x, y, tile }, index) => {
                         const tileData = tiles[tile];
-                        if (!tileData) {
-                            return null;
-                        }
+                        let image = images[tileData?.image];
 
-                        const image = images[tileData.image];
                         if (!image) {
-                            return null;
+                            if (!showInvalidTiles) {
+                                return;
+                            }
+                            image = NotFoundImage;
                         }
 
                         return (
                             <LayerImage
-                                key={`tile_${x}_${y}`}
+                                key={`tile_${x}_${y}_${index}`}
                                 x={x}
                                 y={y}
                                 src={image}

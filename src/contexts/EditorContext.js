@@ -15,6 +15,7 @@ export function EditorProvider({ children}) {
     const [map, setMap] = useState(null);
     const [saving, setSaving] = useState(false);
     const [module, setModule] = useState(null);
+    const [hoveredTiles, setHoveredTiles] = useState([]);
 
     const value = {
         loaded,
@@ -43,6 +44,8 @@ export function EditorProvider({ children}) {
             loadModules([module]);
         },
         module,
+        hoveredTiles,
+        setHoveredTiles,
     };
 
     return (

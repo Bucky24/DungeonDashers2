@@ -3,7 +3,8 @@ import React, { useContext } from 'react';
 import EditorContext from '../contexts/EditorContext';
 
 export default function EditorControls() {
-    const { saveMap } = useContext(EditorContext);
+    const { saveMap, hoveredTiles } = useContext(EditorContext);
+
     return (
         <div
             style={{
@@ -20,6 +21,12 @@ export default function EditorControls() {
             >
                 Save
             </button>
+            <div>
+                <div>Hovered:</div>
+                {hoveredTiles?.map((tile) => {
+                    return <div>{tile.tile} at (${tile.x},${tile.y})</div>;
+                })}
+            </div>
         </div>
     );
 }
