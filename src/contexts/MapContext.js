@@ -63,7 +63,7 @@ export function MapProvider({ children }) {
             ]);
         },
         getSaveData: () => {
-            const modules = modulesList;
+            const modules = modulesList();
 
             const mapData = {
                 version: 2,

@@ -9,7 +9,7 @@
         "dev_web": "node server.js"
     },
     "devDependencies": {
-        "@babel/core": "7.12.10",
+        "@babel/core": "7.24.0",
         "@babel/plugin-proposal-class-properties": "7.12.1",
         "@babel/preset-env": "7.12.11",
         "@babel/preset-react": "7.12.10",
@@ -18,18 +18,18 @@
         "file-loader": "6.2.0",
         "html-webpack-plugin": "5.2.0",
         "style-loader": "2.0.0",
-        "webpack": "5.24.2",
-        "webpack-cli": "4.9.2",
-        "webpack-dev-server": "4.7.4",
+        "webpack": "5.90.3",
+        "webpack-cli": "5.1.4",
+        "webpack-dev-server": "5.0.2",
         "ws": "8.5.0"
     },
     "dependencies": {
-        "@bucky24/react-canvas": "1.7.3",
-        "@bucky24/react-canvas-map": "^0.8.1",
-        "electron": "15.0.0",
+        "@bucky24/react-canvas": "3.0.2",
+        "@bucky24/react-canvas-map": "2.0.0",
+        "electron": "29.1.0",
         "express": "4.17.1",
-        "prop-types": "15.7.2",
-        "react": "17.0.1",
-        "react-dom": "17.0.1"
+        "prop-types": "15.8.1",
+        "react": "18.2.0",
+        "react-dom": "18.2.0"
     }
 }

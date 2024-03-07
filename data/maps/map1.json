@@ -28,6 +28,46 @@
             "x": 15,
             "y": 7,
             "tile": "main_ground1"
+        },
+        {
+            "x": 10,
+            "y": 6,
+            "tile": "main_ground1"
+        },
+        {
+            "x": 10,
+            "y": 7,
+            "tile": "main_ground1"
+        },
+        {
+            "x": 10,
+            "y": 8,
+            "tile": "main_ground1"
+        },
+        {
+            "x": 9,
+            "y": 7,
+            "tile": "main_ground1"
+        },
+        {
+            "x": 8,
+            "y": 7,
+            "tile": "main_ground1"
+        },
+        {
+            "x": 8,
+            "y": 6,
+            "tile": "main_ground1"
+        },
+        {
+            "x": 9,
+            "y": 8,
+            "tile": "main_ground1"
+        },
+        {
+            "x": 8,
+            "y": 8,
+            "tile": "main_ground1"
         }
     ]
 }

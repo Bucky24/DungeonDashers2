@@ -13,10 +13,6 @@ export default function MapEditor() {
 	const { loaded: imagesLoaded } = useContext(ImageContext);
     const { loaded: mapLoaded } = useContext(MapContext);
 
-    useEffect(() => {
-		loadMap('map1', true);
-	}, []);
-
 	const loaded = editorLoaded && moduleLoaded && imagesLoaded && mapLoaded;
 
     return (
