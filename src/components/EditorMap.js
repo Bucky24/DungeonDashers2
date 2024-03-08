@@ -15,7 +15,7 @@ export default function EditorMap() {
             onClick={(cellX, cellY, button) => {
                 //console.log(cellX, cellY, button);
                 if (button === ButtonTypes.LEFT) {
-                    if (activeTile) {
+                    if (activeTile && activeTile !== "") {
                         setTile(cellX, cellY, activeTile);
                     }
                 } else if (button === ButtonTypes.RIGHT) {

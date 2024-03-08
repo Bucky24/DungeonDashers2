@@ -35,7 +35,7 @@ export default function EditorControls() {
             <div>
                 <div>Selected Tile:</div>
                 <select value={activeTile} onChange={(e) => setActiveTile(e.target.value)}>
-                    <option value={null}>Select a tile</option>
+                    <option value=''>Select a tile</option>
                     {Object.keys(tiles).map((tile) => {
                         const data = tiles[tile];
 
