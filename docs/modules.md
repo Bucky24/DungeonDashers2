@@ -29,7 +29,9 @@ One of:
 
 | Key | Description |
 | -- | -- |
-| ground | A ground tile. Can be traversed by creatures that move on foot |
+| ground | A ground tile. Can be traversed by all creatures |
+| wall | A wall tile. Cannot be traversed |
+| hole | A hole tile. Can be traversed by flying creatures |
 
 ## ManifestContainer
 
