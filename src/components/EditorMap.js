@@ -7,7 +7,7 @@ import EditorContext from '../contexts/EditorContext';
 
 export default function EditorMap() {
     const { map, setTile } = useContext(MapContext);
-    const { setHoveredTiles } = useContext(EditorContext);
+    const { setHoveredTiles, activeTile } = useContext(EditorContext);
 
     return (
         <TheMap
@@ -15,7 +15,9 @@ export default function EditorMap() {
             onClick={(cellX, cellY, button) => {
                 //console.log(cellX, cellY, button);
                 if (button === ButtonTypes.LEFT) {
-                    setTile(cellX, cellY, "main_ground1");
+                    if (activeTile) {
+                        setTile(cellX, cellY, activeTile);
+                    }
                 } else if (button === ButtonTypes.RIGHT) {
                     setTile(cellX, cellY, null);
                 }

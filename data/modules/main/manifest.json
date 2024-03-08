@@ -15,6 +15,14 @@
         "left_wall": {
             "type": "wall",
             "image": "assets/left_wall.png"
+        },
+        "hole": {
+            "type": "hole",
+            "image": "assets/hole.png"
+        },
+        "upper_wall_top": {
+            "type": "wall",
+            "image": "assets/upper_wall_top.png"
         }
     }
 }

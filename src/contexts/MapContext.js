@@ -9,6 +9,7 @@ export default MapContext;
 export const TILE_TYPE = {
     GROUND: 'ground',
     WALL: 'wall',
+    HOLE: 'hole',
 };
 
 export function MapProvider({ children }) {
