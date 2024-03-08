@@ -92,6 +92,10 @@ export function ModuleProvider({ children }) {
         },
         changeTile: (module, id, key, value) => {
             if (key === "id") {
+                // prevent actually deleting the tile if it's the same
+                if (value === id) {
+                    return;
+                }
                 setModules((modules) => {
                     const tiles = {...modules[module].tiles};
                     tiles[value] = tiles[id];
