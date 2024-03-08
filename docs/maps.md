@@ -12,6 +12,7 @@ The file structure is as follows:
 
 | Key | Description |
 | -- | -- |
+| verison | The version of the map. The current version is 2 |
 | modules | A list of modules that the save relies on to provide content |
 | map | A list of Tile objects that make up the main map |
 

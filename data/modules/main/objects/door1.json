@@ -1,0 +1,13 @@
+{
+    "id": "door1",
+    "states": ["open", "closed"],
+    "defaultState": "closed",
+    "events": [
+        {
+            "on": "collide",
+            "filters": ["character", "enemy"],
+            "action": "script",
+            "file": "scripts/door_collide.js"
+        }
+    ]
+}

@@ -39,7 +39,7 @@ export default function EditorControls() {
                     {Object.keys(tiles).map((tile) => {
                         const data = tiles[tile];
 
-                        return <option value={tile}>{tile} ({data.type})</option>
+                        return <option key={`select_tile_${tile}`} value={tile}>{tile} ({data.type})</option>
                     })}
                 </select>
             </div>

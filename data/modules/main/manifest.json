@@ -24,5 +24,10 @@
             "type": "wall",
             "image": "assets/upper_wall_top.png"
         }
+    },
+    "objects": {
+        "door1": {
+            "manifest": "objects/door1.json"
+        }
     }
 }

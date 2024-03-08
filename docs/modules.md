@@ -13,6 +13,7 @@ The Manifest is a JSON file with the following format:
 | Key | Description |
 | -- | -- |
 | tiles | A list of tile ids mapped to a Tile |
+| objects | A list of object ids mapped to a ManifestContainer |
 
 ## Tile
 
@@ -29,3 +30,10 @@ One of:
 | Key | Description |
 | -- | -- |
 | ground | A ground tile. Can be traversed by creatures that move on foot |
+
+## ManifestContainer
+
+The MainfestContainer is an object that contains data on where to find info for a specific type of data
+| Key | Description |
+| -- | -- |
+| manifest | The path to where the manifest JSON file can be found |
