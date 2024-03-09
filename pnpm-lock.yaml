@@ -6,11 +6,11 @@ settings:
 
 dependencies:
   '@bucky24/react-canvas':
-    specifier: 3.0.2
-    version: 3.0.2(react@18.2.0)
+    specifier: 3.1.4
+    version: 3.1.4(react@18.2.0)
   '@bucky24/react-canvas-map':
-    specifier: 2.0.0
-    version: 2.0.0(@bucky24/react-canvas@3.0.2)
+    specifier: 2.0.1
+    version: 2.0.1(@bucky24/react-canvas@3.1.4)
   electron:
     specifier: 29.1.0
     version: 29.1.0
@@ -1326,19 +1326,19 @@ packages:
       to-fast-properties: 2.0.0
     dev: true
 
-  /@bucky24/react-canvas-map@2.0.0(@bucky24/react-canvas@3.0.2):
-    resolution: {integrity: sha512-MhPR2LzgR4su+RLkwHa3HOysYxUWggtumq5RbJ+isqrWg0dmARkcS+rMi1AiWR1sK00T57RNhrBFeRkzzwiU8A==}
+  /@bucky24/react-canvas-map@2.0.1(@bucky24/react-canvas@3.1.4):
+    resolution: {integrity: sha512-AMzHjgGCHTlrnYSeyh/smpToAoqdeDL/CQN8zCHuFTqj0YENpKPr/5Ts/uYSUWqZgjfEheng3GUmyyV1MMEySg==}
     peerDependencies:
-      '@bucky24/react-canvas': ^3.0.2
+      '@bucky24/react-canvas': ^3.1.4
     dependencies:
-      '@bucky24/react-canvas': 3.0.2(react@18.2.0)
+      '@bucky24/react-canvas': 3.1.4(react@18.2.0)
       '@bucky24/toolbox': 0.1.0
       prop-types: 15.8.1
       react-fast-compare: 3.2.0
     dev: false
 
-  /@bucky24/react-canvas@3.0.2(react@18.2.0):
-    resolution: {integrity: sha512-Vk6SJ6a2JKO6+n5+oZZaTiOyAAI7nHob2w/2gJZg1dNHGROozsNUWIF+f/K68ITyrnU87ZBT6SjLJh9c+0iJrA==}
+  /@bucky24/react-canvas@3.1.4(react@18.2.0):
+    resolution: {integrity: sha512-t9n6rUoWRHJUe3yRy3LS4RZQJtW+QHA+K+hqBUtr2i8QyySGQfVZjCfcUFKMoEExpHoJqhJHMm3c6vWKNVE2Iw==}
     peerDependencies:
       react: 18.x.x
     dependencies:
