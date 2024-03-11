@@ -10,7 +10,6 @@ import TextField from '../components/TextField';
 export default function ModuleEditor() {
     const { loaded: editorLoaded, loadModule, module, saveModules } = useContext(EditorContext);
 	const { loaded: moduleLoaded, tiles, changeTile, addTile } = useContext(ModuleContext);
-    const { fullImages } = useContext(ImageContext);
     const { module: moduleId } = useParams();
 
     useEffect(() => {

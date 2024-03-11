@@ -7,7 +7,9 @@ const {
     getImageSlug,
     decodeImageSlug,
     locateInDirectoriesForSave,
+    getCodeFile,
 } = require('./utils');
+const Logger = require("./logger");
 
 const directories = {
     save: [
@@ -65,6 +67,8 @@ module.exports = {
     getModule: ({ name }) => {
         const moduleDir = locateInDirectories(name, directories.modules);
 
+        const modulePrefix = `${name}_`;
+
         if (!moduleDir) {
             return {
                 success: false,
@@ -82,30 +86,91 @@ module.exports = {
         }
 
         const manifest = getJsonFile(manifestFile);
+        const moduleData = {};
+        const allImages = {};
+        const allScripts = {};
 
-        const newManifest = {
-            ...manifest,
-            tiles: Object.keys(manifest.tiles).reduce((obj, key) => {
-                const tile = manifest.tiles[key];
+        const tileData = Object.keys(manifest.tiles).reduce((obj, key) => {
+            const tile = manifest.tiles[key];
 
-                return {
-                    ...obj,
-                    [key]: {
-                        ...tile,
-                        image: getImageSlug('modules', tile.image, { extra: name }),
-                        rawImage: tile.image,
-                    },
-                };
-            }, {}),
-        };
+            allImages[modulePrefix + tile.image] = getImageSlug('modules', tile.image, { extra: name });
+
+            tile.rawImage = tile.image;
+            tile.image = modulePrefix + tile.image;
+
+            return {
+                ...obj,
+                [key]: tile,
+            };
+        }, {});
+        moduleData.tiles = tileData;
+
+        // grab all the object files
+        const objects = Object.keys(manifest.objects || {});
+        const allManifestObjects = {};
+
+        for (const object of objects) {
+            const manifestObjectData = manifest.objects[object];
+            const manifestObjectPath = manifestObjectData.manifest;
+            const fullManifestObjectPath = path.join(moduleDir, manifestObjectPath);
+
+            if (!fs.existsSync(fullManifestObjectPath)) {
+                Logger.error(`Cannot find manifest for ${object}: ${fullManifestObjectPath} not found`);
+                continue;
+            }
+
+            const objectManifestData = getJsonFile(fullManifestObjectPath);
+
+            // process images
+            if (objectManifestData.images) {
+                for (const state in objectManifestData.images) {
+                    const objectImagePath = objectManifestData.images[state];
+
+                    allImages[modulePrefix + objectImagePath] = getImageSlug('modules', objectImagePath, { extra: name });
+
+                    objectManifestData.images[state] = {
+                        image: modulePrefix + objectImagePath,
+                    };
+                }
+            }
+
+            // process scripts
+            if (objectManifestData.scripts) {
+                const objectScripts = {};
+                for (const script of objectManifestData.scripts) {
+                    const scriptPath = path.join(moduleDir, script);
+                    const contents = getCodeFile(scriptPath);
+
+                    allScripts[modulePrefix + script] = contents;
+                    objectScripts[script] = {
+                        script: modulePrefix + script,
+                    };
+                }
+                objectManifestData.scripts = objectScripts;
+            }
+
+            allManifestObjects[object] = objectManifestData;
+        }
+
+        manifest.objects = allManifestObjects;
+
+        manifest.images = allImages;
+        manifest.scripts = allScripts;
 
         return {
             success: true,
-            module: newManifest,
+            module: manifest,
         };
     },
     getImage: ({ slug }) => {
         const decoded = decodeImageSlug(slug);
+
+        if (!decoded) {
+            return {
+                success: false,
+                message: 'Malformed slug',
+            };
+        }
 
         const validDirectories = directories[decoded.type] || [];
         const extra = decoded.data?.extra ?? '';

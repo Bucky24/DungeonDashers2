@@ -9,25 +9,29 @@ export default ModuleContext;
 
 export function ModuleProvider({ children }) {
     const [loaded, setLoaded] = useState(false);
-    const { loadImage } = useContext(ImageContext);
+    const { loadImage, images: loadedImages } = useContext(ImageContext);
     const [modules, setModules] = useState({});
     const [tiles, setTiles] = useState({});
+    const [images, setImages] = useState({});
 
     useEffect(() => {
         const allTiles = {};
+        const allImages = {};
         for (const module in modules) {
             const moduleData = modules[module];
 
             for (const tileId in moduleData.tiles) {
-                const tile = moduleData.tiles[tileId];
-
                 const fullId = `${module}_${tileId}`;
+                allTiles[fullId] = moduleData.tiles[tileId];
+            }
 
-                allTiles[fullId] = tile;
+            for (const imageId in moduleData.images) {
+                allImages[imageId] = moduleData.images[imageId];
             }
         }
 
         setTiles(allTiles);
+        setImages(allImages);
     }, [modules]);
 
     const value = {
@@ -45,10 +49,13 @@ export function ModuleProvider({ children }) {
                 const module = result.module;
 
                 //console.log(module);
-                for (const tile in module.tiles) {
-                    const tileData = module.tiles[tile];
-                    const imageId = loadImage(tileData.image);
-                    tileData.image = imageId;
+                for (const image in module.images) {
+                    const tileData = module.images[image];
+                    const imageId = loadImage(tileData);
+
+                    module.images[image] = {
+                        id: imageId,
+                    };
                 }
 
                 setModules((modules) => {
@@ -62,6 +69,15 @@ export function ModuleProvider({ children }) {
             Promise.all(promises).then(() => {
                 setLoaded(true);
             });
+        },
+        getImage: (image) => {
+            if (!images[image]) {
+                return null;
+            }
+
+            const imageId = images[image].id;
+
+            return loadedImages[imageId];
         },
         loaded,
         tiles,

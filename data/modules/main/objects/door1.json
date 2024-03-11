@@ -1,7 +1,7 @@
 {
     "id": "door1",
-    "states": ["open", "closed"],
-    "defaultState": "closed",
+    "states": ["open_horiz", "open_vert", "closed_horiz", "closed_vert"],
+    "defaultState": "closed_horiz",
     "events": [
         {
             "on": "collide",
@@ -9,5 +9,11 @@
             "action": "script",
             "file": "scripts/door_collide.js"
         }
-    ]
+    ],
+    "scripts": [
+        "scripts/door_collide.js"
+    ],
+    "images": {
+        "closed_horiz": "assets/objects/door1_horiz_closed.png"
+    }
 }

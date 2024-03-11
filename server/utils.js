@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
+const Logger = require("./logger");
+
 function locateInDirectories(name, dirs, extra = '') {
     let foundFile = null;
 
@@ -54,6 +56,14 @@ module.exports = {
         const contents = fs.readFileSync(file, 'utf8');
         return JSON.parse(contents);
     },
+    getCodeFile: (file) => {
+        if (!fs.existsSync(file)) {
+            return "";
+        }
+
+        const contents = fs.readFileSync(file, 'utf8');
+        return contents;
+    },
     getImageSlug: (type, filePath, data) => {
         const resultObj = {
             type,
@@ -64,8 +74,14 @@ module.exports = {
         return btoa(JSON.stringify(resultObj));
     },
     decodeImageSlug: (slug) => {
+        try {
         const json = JSON.parse(atob(slug));
 
         return json;
+        } catch (e) {
+            Logger.error(`Error decoding image slug ${slug}: ${e.error}`);
+
+            return null;
+        }
     }
 };

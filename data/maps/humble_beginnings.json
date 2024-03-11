@@ -3956,7 +3956,7 @@
     ],
     "objects": [
         {
-            "type": "door",
+            "type": "main_door1",
             "id": 1,
             "x": 8,
             "y": 5
@@ -4016,7 +4016,7 @@
             "y": 6
         },
         {
-            "type": "door",
+            "type": "main_door1",
             "id": 11,
             "x": 20,
             "y": 7
@@ -4046,7 +4046,7 @@
             "y": 6
         },
         {
-            "type": "door",
+            "type": "main_door1",
             "id": 16,
             "x": 29,
             "y": 7
@@ -4142,7 +4142,7 @@
             "y": 22
         },
         {
-            "type": "door",
+            "type": "main_door1",
             "id": 32,
             "x": 22,
             "y": 23
@@ -4172,13 +4172,13 @@
             "y": 21
         },
         {
-            "type": "door",
+            "type": "main_door1",
             "id": 37,
             "x": 8,
             "y": 31
         },
         {
-            "type": "door",
+            "type": "main_door1",
             "id": 38,
             "x": 35,
             "y": 18
@@ -4202,7 +4202,7 @@
             "y": 22
         },
         {
-            "type": "door",
+            "type": "main_door1",
             "id": 42,
             "x": 32,
             "y": 25,
@@ -4245,7 +4245,7 @@
             "y": 29
         },
         {
-            "type": "door",
+            "type": "main_door1",
             "id": 49,
             "x": 32,
             "y": 30
@@ -4293,7 +4293,7 @@
             "y": 34
         },
         {
-            "type": "door",
+            "type": "main_door1",
             "id": 57,
             "x": 42,
             "y": 33
@@ -4303,49 +4303,49 @@
         {
             "type": "bat",
             "id": 1,
-            "doorTrigger": 37,
+            "main_door1Trigger": 37,
             "x": 10,
             "y": 31
         },
         {
             "type": "bat",
             "id": 2,
-            "doorTrigger": 37,
+            "main_door1Trigger": 37,
             "x": 12,
             "y": 29
         },
         {
             "type": "bat",
             "id": 3,
-            "doorTrigger": 37,
+            "main_door1Trigger": 37,
             "x": 14,
             "y": 30
         },
         {
             "type": "skeleton",
             "id": 4,
-            "doorTrigger": 49,
+            "main_door1Trigger": 49,
             "x": 34,
             "y": 32
         },
         {
             "type": "skeleton",
             "id": 5,
-            "doorTrigger": 49,
+            "main_door1Trigger": 49,
             "x": 36,
             "y": 33
         },
         {
             "type": "bat",
             "id": 6,
-            "doorTrigger": 49,
+            "main_door1Trigger": 49,
             "x": 40,
             "y": 35
         },
         {
             "type": "bat",
             "id": 7,
-            "doorTrigger": 49,
+            "main_door1Trigger": 49,
             "x": 41,
             "y": 31
         }

@@ -3,13 +3,11 @@ import { Map, Layer, LayerImage } from '@bucky24/react-canvas-map';
 import { Canvas } from '@bucky24/react-canvas';
 
 import ModuleContext from '../contexts/ModuleContext';
-import ImageContext from '../contexts/ImageContext';
 import NotFoundImage from '../../assets/not_found.png';
 
-export default function TheMap({ map, onClick, onHover, showInvalidTiles }) {
+export default function TheMap({ map, onClick, onHover, showInvalidTiles, hideObjects }) {
     const [size, setSize] = useState({ width: 0, height: 0 });
-    const { tiles } = useContext(ModuleContext);
-    const { images } = useContext(ImageContext);
+    const { tiles, getImage } = useContext(ModuleContext);
     const [mouseX, setMouseX] = useState(-1);
     const [mouseY, setMouseY] = useState(-1);
     const hoverRef = useRef(null);
@@ -83,7 +81,7 @@ export default function TheMap({ map, onClick, onHover, showInvalidTiles }) {
                 <Layer>
                     {map.map(({ x, y, tile }, index) => {
                         const tileData = tiles[tile];
-                        let image = images[tileData?.image];
+                        let image = getImage(tileData?.image);
 
                         if (!image) {
                             if (!showInvalidTiles) {
