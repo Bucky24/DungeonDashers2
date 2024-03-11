@@ -1,10 +1,17 @@
 import React, { useContext } from 'react';
 
-import EditorContext from '../contexts/EditorContext';
+import EditorContext, { EDITOR_MAP_TOOLS} from '../contexts/EditorContext';
 import ModuleContext from '../contexts/ModuleContext';
 
 export default function EditorControls() {
-    const { saveMap, hoveredTiles, activeTile, setActiveTile } = useContext(EditorContext);
+    const {
+        saveMap,
+        hoveredTiles,
+        activeTile,
+        setActiveTile,
+        tool,
+        setTool,
+    } = useContext(EditorContext);
     const { tiles } = useContext(ModuleContext);
 
     return (
@@ -31,6 +38,15 @@ export default function EditorControls() {
                         return <div>{tile.tile} at ({tile.x},{tile.y})</div>;
                     })}
                 </div>
+            </div>
+            <div>
+                <div>Current Tool:</div>
+                <select value={tool} onChange={(e) => setTool(e.target.value)}>
+                    <option value="">Select a tool</option>
+                    {Object.keys(EDITOR_MAP_TOOLS).map((key) => {
+                        return <option value={EDITOR_MAP_TOOLS[key]}>{key}</option>
+                    })}
+                </select>
             </div>
             <div>
                 <div>Selected Tile:</div>

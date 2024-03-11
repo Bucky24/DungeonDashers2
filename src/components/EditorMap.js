@@ -3,11 +3,11 @@ import { ButtonTypes } from '@bucky24/react-canvas';
 
 import TheMap from './TheMap';
 import MapContext from '../contexts/MapContext';
-import EditorContext from '../contexts/EditorContext';
+import EditorContext, { EDITOR_MAP_TOOLS} from '../contexts/EditorContext';
 
 export default function EditorMap() {
     const { map, setTile } = useContext(MapContext);
-    const { setHoveredTiles, activeTile } = useContext(EditorContext);
+    const { setHoveredTiles, activeTile, tool } = useContext(EditorContext);
 
     return (
         <TheMap
@@ -15,8 +15,12 @@ export default function EditorMap() {
             onClick={(cellX, cellY, button) => {
                 //console.log(cellX, cellY, button);
                 if (button === ButtonTypes.LEFT) {
-                    if (activeTile && activeTile !== "") {
-                        setTile(cellX, cellY, activeTile);
+                    if (tool === EDITOR_MAP_TOOLS.PLACE_TILE) {
+                        if (activeTile && activeTile !== "") {
+                            setTile(cellX, cellY, activeTile);
+                        }
+                    } else if (tool === EDITOR_MAP_TOOLS.REMOVE_TIILE || tool === EDITOR_MAP_TOOLS.REMOVE_ALL) {
+                        setTile(cellX, cellY, null);
                     }
                 } else if (button === ButtonTypes.RIGHT) {
                     setTile(cellX, cellY, null);

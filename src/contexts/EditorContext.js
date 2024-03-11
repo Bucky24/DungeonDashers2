@@ -7,6 +7,14 @@ import ModuleContext from './ModuleContext';
 const EditorContext = React.createContext({});
 export default EditorContext;
 
+export const EDITOR_MAP_TOOLS = {
+    PLACE_TILE: 'map_tools/place_tile',
+    PLACE_OBJECT: 'map_tools/place_object',
+    REMOVE_TIILE: 'map_tools/remove_tile',
+    REMOVE_OBJECT: 'map_tools/remove_object',
+    REMOVE_ALL: 'map_tools/remove_all',
+};
+
 export function EditorProvider({ children}) {
     const { loadMap, getSaveData: getMapSaveData } = useContext(MapContext);
     const { loadModules, getSaveData: getModuleSaveData } = useContext(ModuleContext);
@@ -17,6 +25,7 @@ export function EditorProvider({ children}) {
     const [module, setModule] = useState(null);
     const [hoveredTiles, setHoveredTiles] = useState([]);
     const [activeTile, setActiveTile] = useState('');
+    const [tool, setTool] = useState('');
 
     const value = {
         loaded,
@@ -70,6 +79,9 @@ export function EditorProvider({ children}) {
         setHoveredTiles,
         activeTile,
         setActiveTile,
+        saving,
+        setTool,
+        tool,
     };
 
     return (
