@@ -36,6 +36,9 @@ export function ModuleProvider({ children }) {
 
     const value = {
         loadModules: (names) => {
+            if (!names) {
+                return;
+            }
             setLoaded(false);
 
             const promises = names.map(async (name) => {

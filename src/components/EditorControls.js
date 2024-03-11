@@ -35,7 +35,7 @@ export default function EditorControls() {
                 <div>
                     <div>Hovered:</div>
                     {hoveredTiles?.map((tile) => {
-                        return <div>{tile.tile} at ({tile.x},{tile.y})</div>;
+                        return <div key={`hovered_${x}_${y}_${tile}`}>{tile.tile} at ({tile.x},{tile.y})</div>;
                     })}
                 </div>
             </div>
@@ -44,7 +44,7 @@ export default function EditorControls() {
                 <select value={tool} onChange={(e) => setTool(e.target.value)}>
                     <option value="">Select a tool</option>
                     {Object.keys(EDITOR_MAP_TOOLS).map((key) => {
-                        return <option value={EDITOR_MAP_TOOLS[key]}>{key}</option>
+                        return <option key={`tool_${key}`} value={EDITOR_MAP_TOOLS[key]}>{key}</option>
                     })}
                 </select>
             </div>
