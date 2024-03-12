@@ -56,17 +56,34 @@ export default function ModuleObjectEditor({ module }) {
                 <thead>
                     <tr>
                         <th>State</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {objects[activeObject].states.map((state) => {
+                    {objects[activeObject].states.map((state, index) => {
                         
                         return <tr key={`object_state_${state}`}>
-                            <td><TextField value={state} /></td>
+                            <td><TextField value={state} onBlur={(newValue) => {
+                                changeObject(module, activeWithoutPrefix, `states.${index}`, newValue);
+                            }}/></td>
+                            <td>
+                                <button onClick={() => {
+                                    changeObject(module, activeWithoutPrefix, `states.${index}`, null);
+                                }}>
+                                    Delete
+                                </button>
+                            </td>
                         </tr>
                     })}
                 </tbody>
             </table>
+            <button onClick={() => {
+                if (objects[activeObject].states.length === 0) {
+                    changeObject(module, activeWithoutPrefix, `states`, []);
+                } else {
+                    changeObject(module, activeWithoutPrefix, `states.${objects[activeObject].states.length}`, '');
+                }
+            }}>Add State</button>
             <h3>Images</h3>
             <table border={1}>
                 <thead>

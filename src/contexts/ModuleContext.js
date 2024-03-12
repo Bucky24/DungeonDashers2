@@ -200,7 +200,16 @@ export function ModuleProvider({ children }) {
                         return modules;
                     }
 
-                    current[path[0]] = value;
+                    console.log(value);
+                    if (value === null) {
+                        if (Array.isArray(current)) {
+                            current.splice(path[0], 1);
+                        } else {
+                            delete current[path[0]];
+                        }
+                    } else {
+                        current[path[0]] = value;
+                    }
 
                     return {
                         ...modules,
