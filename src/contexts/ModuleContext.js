@@ -178,6 +178,38 @@ export function ModuleProvider({ children }) {
                         },
                     };
                 });
+            } else {
+                setModules((modules) => {
+                    const items = {...modules[module].objects};
+
+                    const path = key.split(".");
+
+                    let current = items[id];
+                    while (path.length > 1) {
+                        const segment = path.shift();
+                        if (!current[segment]) {
+                            console.error(`Cannot find ${key}`, path, current);
+                            break;
+                        } else {
+                            current = current[segment];
+                        }
+                    }
+
+                    if (path.length > 1) {
+                        // didn't find it. No change
+                        return modules;
+                    }
+
+                    current[path[0]] = value;
+
+                    return {
+                        ...modules,
+                        [module]: {
+                            ...modules[module],
+                            objects: items,
+                        },
+                    };
+                });
             }
         },
         addTile: (module) => {

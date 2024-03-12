@@ -27,7 +27,8 @@
     },
     "objects": {
         "door1": {
-            "manifest": "objects/door1.json"
+            "manifest": "objects/door1.json",
+            "original": "objects/door1.json"
         }
     }
 }

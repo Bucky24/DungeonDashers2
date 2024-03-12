@@ -121,6 +121,7 @@ module.exports = {
 
             const objectManifestData = getJsonFile(fullManifestObjectPath);
             objectManifestData.manifest = manifestObjectData;
+            objectManifestData.manifest.original = manifestObjectData.manifest;
 
             // process images
             if (objectManifestData.images) {
@@ -262,6 +263,12 @@ module.exports = {
             const saveDataString = JSON.stringify(saveData, null, 4);
 
             fs.writeFileSync(fullManifestObjectPath, saveDataString);
+
+            if (object.manifest.manifest !== object.manifest.original) {
+                // clean up the old file   
+                const oldManifestObjectPath = path.join(dir, object.manifest.original);
+                fs.rmSync(oldManifestObjectPath);
+            }
         }
 
         return {

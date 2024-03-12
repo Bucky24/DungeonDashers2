@@ -17,6 +17,7 @@ export default function ModuleObjectEditor({ module }) {
     }, [activeObject, objects]);
 
     const modulePrefix = `${module}_`;
+    const activeWithoutPrefix = activeObject.replace(modulePrefix, "");
 
     return <section style={{ display: 'flex' }}>
         <aside style={{ flexShrink: 0, flexBasis: 200, marginRight: 20 }}>
@@ -31,15 +32,21 @@ export default function ModuleObjectEditor({ module }) {
             })}
         </aside>
         {activeObject && objects[activeObject] && <div>
-            <h2>Object {activeObject.replace(modulePrefix, "")}</h2>
+            <h2>Object {activeWithoutPrefix}</h2>
             <h3>General Properties</h3>
             <table border={1}>
                 <tbody>
                     <tr>
                         <td>ID</td>
-                        <td><TextField value={activeObject.replace(modulePrefix, "")} onBlur={(newId) => {
-                            changeObject(module, activeObject.replace(modulePrefix, ""), "id", newId);
+                        <td><TextField value={activeWithoutPrefix} onBlur={(newId) => {
+                            changeObject(module, activeWithoutPrefix, "id", newId);
                             setActiveObject(modulePrefix + newId);
+                        }} /></td>
+                    </tr>
+                    <tr>
+                        <td>Manifest File</td>
+                        <td><TextField value={objects[activeObject].manifest.manifest} onBlur={(newValue) => {
+                            changeObject(module, activeWithoutPrefix, "manifest.manifest", newValue);
                         }} /></td>
                     </tr>
                 </tbody>
