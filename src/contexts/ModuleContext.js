@@ -200,7 +200,6 @@ export function ModuleProvider({ children }) {
                         return modules;
                     }
 
-                    console.log(value);
                     if (value === null) {
                         if (Array.isArray(current)) {
                             current.splice(path[0], 1);
