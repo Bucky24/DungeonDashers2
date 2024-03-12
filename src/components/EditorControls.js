@@ -6,7 +6,7 @@ import ModuleContext from '../contexts/ModuleContext';
 export default function EditorControls() {
     const {
         saveMap,
-        hoveredTiles,
+        hoveredEntities,
         activeTile,
         setActiveTile,
         tool,
@@ -34,8 +34,8 @@ export default function EditorControls() {
                 </button>
                 <div>
                     <div>Hovered:</div>
-                    {hoveredTiles?.map((tile) => {
-                        return <div key={`hovered_${x}_${y}_${tile}`}>{tile.tile} at ({tile.x},{tile.y})</div>;
+                    {hoveredEntities?.map((entity) => {
+                        return <div key={`hovered_${entity.data.x}_${entity.data.y}_${entity.data.id}`}>{entity.type} {entity.data.id} at ({entity.data.x},{entity.data.y})</div>;
                     })}
                 </div>
             </div>

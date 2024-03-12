@@ -4,11 +4,12 @@ import TheMap from './TheMap';
 import MapContext from '../contexts/MapContext';
 
 export default function GameMap() {
-    const { map } = useContext(MapContext);
+    const { map, objects } = useContext(MapContext);
 
     return (
         <TheMap
             map={map}
+            objects={objects}
         />
     );
 }

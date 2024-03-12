@@ -5,9 +5,16 @@ import { Canvas } from '@bucky24/react-canvas';
 import ModuleContext from '../contexts/ModuleContext';
 import NotFoundImage from '../../assets/not_found.png';
 
-export default function TheMap({ map, onClick, onHover, showInvalidTiles, hideObjects }) {
+export default function TheMap({
+    map,
+    objects,
+    onClick,
+    onHover,
+    showInvalidEntities,
+    hideObjects,
+}) {
     const [size, setSize] = useState({ width: 0, height: 0 });
-    const { tiles, getImage } = useContext(ModuleContext);
+    const { tiles, getImage, objects: objectsData } = useContext(ModuleContext);
     const [mouseX, setMouseX] = useState(-1);
     const [mouseY, setMouseY] = useState(-1);
     const hoverRef = useRef(null);
@@ -34,16 +41,34 @@ export default function TheMap({ map, onClick, onHover, showInvalidTiles, hideOb
 
             hoverRef.current = setTimeout(() => {
                 // need a more efficient way
-                const tiles = [];
+                const items = [];
                 for (const tile of map) {
                     if (tile.x === mouseX && tile.y === mouseY) {
-                        tiles.push(tile);
+                        items.push({
+                            type: 'tile',
+                            data: {
+                                id: tile.tile,
+                                x: tile.x,
+                                y: tile.y,
+                            },
+                        });
                     }
                 }
 
-                if (tiles.length > 0) {
-                    onHover(tiles);
+                for (const object of objects) {
+                    if (object.x === mouseX && object.y === mouseY) {
+                        items.push({
+                            type: 'object',
+                            data: {
+                                id: object.type,
+                                x: object.x,
+                                y: object.y,
+                            },
+                        });
+                    }
                 }
+
+                onHover(items);
             }, 500);
         }
 
@@ -79,12 +104,12 @@ export default function TheMap({ map, onClick, onHover, showInvalidTiles, hideOb
                 }}
             >
                 <Layer>
-                    {map.map(({ x, y, tile }, index) => {
+                    {map?.map(({ x, y, tile }, index) => {
                         const tileData = tiles[tile];
                         let image = getImage(tileData?.image);
 
                         if (!image) {
-                            if (!showInvalidTiles) {
+                            if (!showInvalidEntities) {
                                 return;
                             }
                             image = NotFoundImage;
@@ -95,6 +120,44 @@ export default function TheMap({ map, onClick, onHover, showInvalidTiles, hideOb
                                 key={`tile_${x}_${y}_${index}`}
                                 x={x}
                                 y={y}
+                                src={image}
+                                width={1}
+                                height={1}
+                            />
+                        );
+                    })}
+                </Layer>
+                <Layer>
+                    {objects?.map((obj, index) => {
+                        const objectData = objectsData[obj.type];
+                        let image = null;
+                        let width = 1;
+                        let height = 1;
+
+                        if (objectData) {
+                            const state = obj.state || objectData.defaultState;
+
+                            const imageForState = objectData.images[state];
+
+                            if (imageForState) {
+                                const imageName = imageForState.image;
+                                image = getImage(imageName);
+                            }
+                        }
+
+                        if (!image) {
+                            if (showInvalidEntities) {
+                                image = NotFoundImage;
+                            } else {
+                                return;
+                            }
+                        }
+
+                        return (
+                            <LayerImage
+                                key={`object_${obj.x}_${obj.y}_${index}`}
+                                x={obj.x}
+                                y={obj.y}
                                 src={image}
                                 width={1}
                                 height={1}

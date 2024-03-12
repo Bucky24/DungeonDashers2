@@ -14,6 +14,7 @@ export const TILE_TYPE = {
 
 export function MapProvider({ children }) {
     const [map, setMap] = useState([]);
+    const [objects, setObjects] = useState([]);
     const [loaded, setLoaded] = useState(false);
     const { loadModules, getSaveData: getLoadedModules } = useContext(ModuleContext);
     const [editable, setEditable] = useState(false);
@@ -21,6 +22,7 @@ export function MapProvider({ children }) {
     const value = {
         loaded,
         map,
+        objects,
         loadMap: async (map, editable) => {
             setEditable(editable);
             Coms.send("getMap", { name: map }).then((result) => {
@@ -32,6 +34,7 @@ export function MapProvider({ children }) {
                 const modules = result.map.modules;
                 loadModules(modules);
                 setMap(result.map.map || []);
+                setObjects(result.map.objects || []);
 
                 setLoaded(true);
             });

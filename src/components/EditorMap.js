@@ -6,12 +6,13 @@ import MapContext from '../contexts/MapContext';
 import EditorContext, { EDITOR_MAP_TOOLS} from '../contexts/EditorContext';
 
 export default function EditorMap() {
-    const { map, setTile } = useContext(MapContext);
-    const { setHoveredTiles, activeTile, tool } = useContext(EditorContext);
+    const { map, setTile, objects } = useContext(MapContext);
+    const { setHoveredEntities, activeTile, tool } = useContext(EditorContext);
 
     return (
         <TheMap
             map={map}
+            objects={objects}
             onClick={(cellX, cellY, button) => {
                 //console.log(cellX, cellY, button);
                 if (button === ButtonTypes.LEFT) {
@@ -26,10 +27,10 @@ export default function EditorMap() {
                     setTile(cellX, cellY, null);
                 }
             }}
-            onHover={(tiles) => {
-                setHoveredTiles(tiles);
+            onHover={(entities) => {
+                setHoveredEntities(entities);
             }}
-            showInvalidTiles={true}
+            showInvalidEntities={true}
         />
     );
 }

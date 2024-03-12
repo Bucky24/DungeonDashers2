@@ -23,7 +23,7 @@ export function EditorProvider({ children}) {
     const [map, setMap] = useState(null);
     const [saving, setSaving] = useState(false);
     const [module, setModule] = useState(null);
-    const [hoveredTiles, setHoveredTiles] = useState([]);
+    const [hoveredEntities, setHoveredEntities] = useState([]);
     const [activeTile, setActiveTile] = useState('');
     const [tool, setTool] = useState('');
 
@@ -75,8 +75,8 @@ export function EditorProvider({ children}) {
             loadModules([module]);
         },
         module,
-        hoveredTiles,
-        setHoveredTiles,
+        hoveredEntities,
+        setHoveredEntities,
         activeTile,
         setActiveTile,
         saving,
