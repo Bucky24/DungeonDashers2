@@ -1,19 +1,31 @@
 {
     "id": "door1",
-    "states": ["open_horiz", "open_vert", "closed_horiz", "closed_vert"],
+    "states": [
+        "open_horiz",
+        "open_vert",
+        "closed_horiz",
+        "closed_vert"
+    ],
     "defaultState": "closed_horiz",
     "events": [
         {
             "on": "collide",
-            "filters": ["character", "enemy"],
+            "filters": [
+                "character",
+                "enemy"
+            ],
             "action": "script",
             "file": "scripts/door_collide.js"
         }
     ],
-    "scripts": [
-        "scripts/door_collide.js"
-    ],
+    "scripts": {
+        "scripts/door_collide.js": {
+            "script": "main_scripts/door_collide.js"
+        }
+    },
     "images": {
-        "closed_horiz": "assets/objects/door1_horiz_closed.png"
+        "closed_horiz": {
+            "image": "main_assets/objects/door1_horiz_closed.png"
+        }
     }
 }

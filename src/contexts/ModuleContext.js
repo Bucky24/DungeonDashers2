@@ -100,22 +100,27 @@ export function ModuleProvider({ children }) {
         getSaveData: () => {
             return Object.keys(modules).reduce((obj, key) => {
                 const module = modules[key];
+                const newModule = {
+                    ...module,
+                    tiles: Object.keys(module.tiles).reduce((obj, key) => {
+                        const tile = {...module.tiles[key]};
+                        delete tile.image;
+                        tile.image = tile.rawImage;
+                        delete tile.rawImage;
+                        return {
+                            ...obj,
+                            [key]: tile,
+                        };
+                    }, {}),
+                };
+
+                delete newModule.images;
+                delete newModule.scripts;
+                
                 return {
                     ...obj,
-                    [key]: {
-                        ...module,
-                        tiles: Object.keys(module.tiles).reduce((obj, key) => {
-                            const tile = {...module.tiles[key]};
-                            delete tile.image;
-                            tile.image = tile.rawImage;
-                            delete tile.rawImage;
-                            return {
-                                ...obj,
-                                [key]: tile,
-                            };
-                        }, {}),
-                    }
-                }
+                    [key]: newModule,
+                };
             }, {});
         },
         changeTile: (module, id, key, value) => {

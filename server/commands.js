@@ -120,6 +120,7 @@ module.exports = {
             }
 
             const objectManifestData = getJsonFile(fullManifestObjectPath);
+            objectManifestData.manifest = manifestObjectData;
 
             // process images
             if (objectManifestData.images) {
@@ -222,11 +223,34 @@ module.exports = {
             };
         }
 
+        // process all our objects for writing
+        const allObjects = [];
+        for (const id in data.objects) {
+            const object = data.objects[id];
+
+            data.objects[id] = object.manifest;
+
+            allObjects.push(object);
+        }
+
         const manifestFile = path.join(dir, "manifest.json");
 
         const dataString = JSON.stringify(data, null, 4);
 
         fs.writeFileSync(manifestFile, dataString);
+
+        // write objects
+        for (const object of allObjects) {
+            const manifestObjectPath = object.manifest.manifest;
+            const fullManifestObjectPath = path.join(dir, manifestObjectPath);
+
+            const saveData = {...object};
+            delete saveData.manifest;
+
+            const saveDataString = JSON.stringify(saveData, null, 4);
+
+            fs.writeFileSync(fullManifestObjectPath, saveDataString);
+        }
 
         return {
             success: true,
