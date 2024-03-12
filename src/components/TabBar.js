@@ -10,8 +10,6 @@ export default function TabBar({ tabs, children, defaultTab }) {
     const activeIndex = tabs.indexOf(tab);
     const activeChild = children[activeIndex];
 
-    console.log(tab, activeIndex, activeChild, children);
-
     return <>
         <nav>
             {tabs.map((tab) => {

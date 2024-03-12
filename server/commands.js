@@ -131,6 +131,7 @@ module.exports = {
 
                     objectManifestData.images[state] = {
                         image: modulePrefix + objectImagePath,
+                        rawPath: objectImagePath,
                     };
                 }
             }
@@ -145,6 +146,7 @@ module.exports = {
                     allScripts[modulePrefix + script] = contents;
                     objectScripts[script] = {
                         script: modulePrefix + script,
+                        rawPath: script,
                     };
                 }
                 objectManifestData.scripts = objectScripts;

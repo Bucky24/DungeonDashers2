@@ -5,6 +5,7 @@ import EditorContext from '../contexts/EditorContext';
 import ModuleContext from '../contexts/ModuleContext';
 import ModuleTileEditor from '../components/ModuleTileEditor';
 import TabBar from '../components/TabBar';
+import ModuleObjectEditor from '../components/ModuleObjectEditor';
 
 export default function ModuleEditor() {
     const { loaded: editorLoaded, loadModule, module, saveModules } = useContext(EditorContext);
@@ -33,8 +34,9 @@ export default function ModuleEditor() {
                         }}>Save</button>
                     </div>
                 </div>
-                <TabBar tabs={['Tiles', 'Objects']} defaultTab='Tiles'>
+                <TabBar tabs={['Tiles', 'Objects']} defaultTab='Objects'>
                     <ModuleTileEditor module={module} />
+                    <ModuleObjectEditor module={module} />
                 </TabBar>
             </>)}
         </>
