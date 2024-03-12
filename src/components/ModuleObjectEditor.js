@@ -7,7 +7,7 @@ import ModuleContext from '../contexts/ModuleContext';
 import TextField from './TextField';
 
 export default function ModuleObjectEditor({ module }) {
-    const { objects } = useContext(ModuleContext);
+    const { objects, changeObject } = useContext(ModuleContext);
     const [activeObject, setActiveObject] = useState('');
 
     useEffect(() => {
@@ -16,28 +16,31 @@ export default function ModuleObjectEditor({ module }) {
         }
     }, [activeObject, objects]);
 
+    const modulePrefix = `${module}_`;
+
     return <section style={{ display: 'flex' }}>
         <aside style={{ flexShrink: 0, flexBasis: 200, marginRight: 20 }}>
             {Object.keys(objects).map((key) => {
-                const object = objects[key];
-
                 return <div
                     key={`object_${key}`}
                     className={classNames(
                         activeObject === key && styles.active,
                     )}
                     onClick={() => setActiveObject(key)}
-                >{key}</div>
+                >{key.replace(modulePrefix, "")}</div>
             })}
         </aside>
         {activeObject && objects[activeObject] && <div>
-            <h2>Object {activeObject}</h2>
+            <h2>Object {activeObject.replace(modulePrefix, "")}</h2>
             <h3>General Properties</h3>
             <table border={1}>
                 <tbody>
                     <tr>
                         <td>ID</td>
-                        <td><TextField value={activeObject} /></td>
+                        <td><TextField value={activeObject.replace(modulePrefix, "")} onBlur={(newId) => {
+                            changeObject(module, activeObject.replace(modulePrefix, ""), "id", newId);
+                            setActiveObject(modulePrefix + newId);
+                        }} /></td>
                     </tr>
                 </tbody>
             </table>

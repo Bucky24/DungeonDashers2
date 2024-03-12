@@ -159,6 +159,27 @@ export function ModuleProvider({ children }) {
                 });
             }
         },
+        changeObject: (module, id, key, value) => {
+            if (key === "id") {
+                // prevent actually deleting the tile if it's the same
+                if (value === id) {
+                    return;
+                }
+                setModules((modules) => {
+                    const items = {...modules[module].objects};
+                    items[value] = items[id];
+                    items[value].id = value;
+                    delete items[id];
+                    return {
+                        ...modules,
+                        [module]: {
+                            ...modules[module],
+                            objects: items,
+                        },
+                    };
+                });
+            }
+        },
         addTile: (module) => {
             setModules((modules) => {
                 const tiles = {...modules[module].tiles};
