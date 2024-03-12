@@ -18,14 +18,10 @@
             "file": "scripts/door_collide.js"
         }
     ],
-    "scripts": {
-        "scripts/door_collide.js": {
-            "script": "main_scripts/door_collide.js"
-        }
-    },
+    "scripts": [
+        "scripts/door_collide.js"
+    ],
     "images": {
-        "closed_horiz": {
-            "image": "main_assets/objects/door1_horiz_closed.png"
-        }
+        "closed_horiz": "assets/objects/door1_horiz_closed.png"
     }
 }

@@ -215,6 +215,7 @@ module.exports = {
     },
     saveModule: ({ name, data }) => {
         const dir = locateInDirectoriesForSave(`${name}`, directories.modules);
+        const modulePrefix = `${name}_`;
 
         if (!dir) {
             return {
@@ -229,6 +230,15 @@ module.exports = {
             const object = data.objects[id];
 
             data.objects[id] = object.manifest;
+
+            object.scripts = Object.keys(object.scripts);
+
+            object.images = Object.keys(object.images).reduce((obj, key) => {
+                return {
+                    ...obj,
+                    [key]: object.images[key].image.replace(modulePrefix, ""),
+                };
+            }, {});
 
             allObjects.push(object);
         }

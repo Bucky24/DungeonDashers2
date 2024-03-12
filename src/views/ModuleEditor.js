@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import EditorContext from '../contexts/EditorContext';
 import ModuleContext from '../contexts/ModuleContext';
 import ModuleTileEditor from '../components/ModuleTileEditor';
+import TabBar from '../components/TabBar';
 
 export default function ModuleEditor() {
     const { loaded: editorLoaded, loadModule, module, saveModules } = useContext(EditorContext);
@@ -32,7 +33,9 @@ export default function ModuleEditor() {
                         }}>Save</button>
                     </div>
                 </div>
-                <ModuleTileEditor module={module} />
+                <TabBar tabs={['Tiles', 'Objects']} defaultTab='Tiles'>
+                    <ModuleTileEditor module={module} />
+                </TabBar>
             </>)}
         </>
     );
