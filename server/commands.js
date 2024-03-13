@@ -228,12 +228,21 @@ module.exports = {
             };
         }
 
+        // process tiles
+        for (const id in data.tiles) {
+            const realId = id.replace(modulePrefix, "");
+            data.tiles[realId] = data.tiles[id];
+            delete data.tiles[id];
+        }
+
         // process all our objects for writing
         const allObjects = [];
         for (const id in data.objects) {
-            const object = data.objects[id];
+            const realId = id.replace(modulePrefix, "");
+            const object = data.objects[realId];
 
-            data.objects[id] = object.manifest;
+            data.objects[realId] = object.manifest;
+            delete data.objects[realId].original;
 
             object.scripts = Object.keys(object.scripts);
 
@@ -260,6 +269,7 @@ module.exports = {
 
             const saveData = {...object};
             delete saveData.manifest;
+            saveData.id = saveData.id.replace(modulePrefix, "");
 
             const saveDataString = JSON.stringify(saveData, null, 4);
 
