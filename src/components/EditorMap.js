@@ -6,13 +6,14 @@ import MapContext from '../contexts/MapContext';
 import EditorContext, { EDITOR_MAP_TOOLS} from '../contexts/EditorContext';
 
 export default function EditorMap() {
-    const { map, setTile, objects } = useContext(MapContext);
+    const { map, setTile, objects, characters } = useContext(MapContext);
     const { setHoveredEntities, activeTile, tool } = useContext(EditorContext);
 
     return (
         <TheMap
             map={map}
             objects={objects}
+            characters={characters}
             onClick={(cellX, cellY, button) => {
                 //console.log(cellX, cellY, button);
                 if (button === ButtonTypes.LEFT) {

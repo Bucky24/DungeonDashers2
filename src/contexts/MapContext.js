@@ -12,9 +12,19 @@ export const TILE_TYPE = {
     HOLE: 'hole',
 };
 
+export const BASE_STATES = {
+    RIGHT: 'base_right',
+    LEFT: 'base_left',
+    UP: 'base_up',
+    DOWN: 'base_down',
+    DEAD: 'base_dead',
+};
+
 export function MapProvider({ children }) {
     const [map, setMap] = useState([]);
+    // this should move to game context eventually
     const [objects, setObjects] = useState([]);
+    const [characters, setCharacters] = useState([]);
     const [loaded, setLoaded] = useState(false);
     const { loadModules, getLoadedModules } = useContext(ModuleContext);
     const [editable, setEditable] = useState(false);
@@ -23,6 +33,7 @@ export function MapProvider({ children }) {
         loaded,
         map,
         objects,
+        characters,
         loadMap: async (map, editable) => {
             setEditable(editable);
             Coms.send("getMap", { name: map }).then((result) => {
@@ -35,6 +46,7 @@ export function MapProvider({ children }) {
                 loadModules(modules);
                 setMap(result.map.map || []);
                 setObjects(result.map.objects || []);
+                setCharacters(result.map.characters || []);
 
                 setLoaded(true);
             });
@@ -79,6 +91,7 @@ export function MapProvider({ children }) {
                 modules,
                 map,
                 objects,
+                characters,
             };
 
             return mapData;

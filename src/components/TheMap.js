@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { Map, Layer, LayerImage } from '@bucky24/react-canvas-map';
+import { Map, Layer, LayerImage, ZoomType} from '@bucky24/react-canvas-map';
 import { Canvas } from '@bucky24/react-canvas';
 
 import ModuleContext from '../contexts/ModuleContext';
 import NotFoundImage from '../../assets/not_found.png';
-import { ZoomType } from '@bucky24/react-canvas-map/build/enums';
+import { BASE_STATES } from '../contexts/MapContext';
 
 export default function TheMap({
     map,
     objects,
+    characters,
     onClick,
     onHover,
     showInvalidEntities,
@@ -17,7 +18,7 @@ export default function TheMap({
     zoomLocked,
 }) {
     const [size, setSize] = useState({ width: 0, height: 0 });
-    const { tiles, getImage, objects: objectsData } = useContext(ModuleContext);
+    const { tiles, getImage, objects: objectsData, characters: charactersData } = useContext(ModuleContext);
     const [mouseX, setMouseX] = useState(-1);
     const [mouseY, setMouseY] = useState(-1);
     const hoverRef = useRef(null);
@@ -62,6 +63,19 @@ export default function TheMap({
                     if (object.x === mouseX && object.y === mouseY) {
                         items.push({
                             type: 'object',
+                            data: {
+                                id: object.type,
+                                x: object.x,
+                                y: object.y,
+                            },
+                        });
+                    }
+                }
+
+                for (const object of characters) {
+                    if (object.x === mouseX && object.y === mouseY) {
+                        items.push({
+                            type: 'character',
                             data: {
                                 id: object.type,
                                 x: object.x,
@@ -166,6 +180,44 @@ export default function TheMap({
                                 src={image}
                                 width={1}
                                 height={1}
+                            />
+                        );
+                    })}
+                </Layer>
+                <Layer>
+                    {characters?.map((character, index) => {
+                        const data = charactersData[character.type];
+                        let image = null;
+                        let width = data.width;
+                        let height = data.height;
+
+                        if (data) {
+                            const state = character.state || BASE_STATES.RIGHT;
+
+                            const imageForState = data.images[state];
+
+                            if (imageForState) {
+                                const imageName = imageForState.image;
+                                image = getImage(imageName);
+                            }
+                        }
+
+                        if (!image) {
+                            if (showInvalidEntities) {
+                                image = NotFoundImage;
+                            } else {
+                                return;
+                            }
+                        }
+
+                        return (
+                            <LayerImage
+                                key={`character_${character.x}_${character.y}_${index}`}
+                                x={character.x}
+                                y={character.y-height+1}
+                                src={image}
+                                width={width}
+                                height={height}
                             />
                         );
                     })}

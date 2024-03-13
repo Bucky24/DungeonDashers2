@@ -49,3 +49,15 @@ A function that moves the character to the specific point
 | -- | -- |
 | x | X coord to move to |
 | y | Y coord to move to |
+
+## Base States
+
+These are states that are built into the game that any character may have at any moment
+
+| Name | Description |
+| -- | -- |
+| base_right | Character is facing right |
+| base_left | Character is facing left |
+| base_up | Character is facing up |
+| base_down | Character is facing down |
+| base_dead | Character is dead |

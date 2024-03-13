@@ -4,7 +4,7 @@ import TheMap from './TheMap';
 import MapContext from '../contexts/MapContext';
 
 export default function GameMap() {
-    const { map, objects } = useContext(MapContext);
+    const { map, objects, characters } = useContext(MapContext);
 
     return (
         <TheMap
@@ -12,6 +12,7 @@ export default function GameMap() {
             objects={objects}
             zoomLocked={true}
             zoom={200}
+            characters={characters}
         />
     );
 }
