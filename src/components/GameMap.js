@@ -10,6 +10,8 @@ export default function GameMap() {
         <TheMap
             map={map}
             objects={objects}
+            zoomLocked={true}
+            zoom={200}
         />
     );
 }

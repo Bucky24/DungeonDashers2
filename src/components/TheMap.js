@@ -4,6 +4,7 @@ import { Canvas } from '@bucky24/react-canvas';
 
 import ModuleContext from '../contexts/ModuleContext';
 import NotFoundImage from '../../assets/not_found.png';
+import { ZoomType } from '@bucky24/react-canvas-map/build/enums';
 
 export default function TheMap({
     map,
@@ -12,6 +13,8 @@ export default function TheMap({
     onHover,
     showInvalidEntities,
     hideObjects,
+    zoom,
+    zoomLocked,
 }) {
     const [size, setSize] = useState({ width: 0, height: 0 });
     const { tiles, getImage, objects: objectsData } = useContext(ModuleContext);
@@ -102,6 +105,8 @@ export default function TheMap({
                     setMouseX(cellX);
                     setMouseY(cellY);
                 }}
+                zoom={zoom}
+                zoomType={zoomLocked ? ZoomType.FIXED : ZoomType.MOUSE}
             >
                 <Layer>
                     {map?.map(({ x, y, tile }, index) => {

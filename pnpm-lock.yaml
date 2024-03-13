@@ -9,8 +9,8 @@ dependencies:
     specifier: 3.1.4
     version: 3.1.4(react@18.2.0)
   '@bucky24/react-canvas-map':
-    specifier: 2.0.1
-    version: 2.0.1(@bucky24/react-canvas@3.1.4)
+    specifier: 2.0.2
+    version: 2.0.2(@bucky24/react-canvas@3.1.4)
   classnames:
     specifier: ^2.5.1
     version: 2.5.1
@@ -1329,8 +1329,8 @@ packages:
       to-fast-properties: 2.0.0
     dev: true
 
-  /@bucky24/react-canvas-map@2.0.1(@bucky24/react-canvas@3.1.4):
-    resolution: {integrity: sha512-AMzHjgGCHTlrnYSeyh/smpToAoqdeDL/CQN8zCHuFTqj0YENpKPr/5Ts/uYSUWqZgjfEheng3GUmyyV1MMEySg==}
+  /@bucky24/react-canvas-map@2.0.2(@bucky24/react-canvas@3.1.4):
+    resolution: {integrity: sha512-hNn7sbqdfm+Qb+Zg/byqETUTO3EXCecz57JVSa9HxPBGvsW6cYTY+jUb80jeTiSzBr3S6jB6H2K5bG3oUqO5fg==}
     peerDependencies:
       '@bucky24/react-canvas': ^3.1.4
     dependencies:
