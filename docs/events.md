@@ -10,7 +10,7 @@ Events are objects with the following structure:
 | -- | -- |
 | on | The actual event that can trigger this action
 | filters | An array of filters for the event |
-| action | An action to take |
+| type | The type of action to take. Must be one of EventAction |
 
 The event may also contain additional fields based on the filters or actions.
 
@@ -33,7 +33,7 @@ The collide event has the following filters:
 
 Note that this refers to the _other_ entity in the collision, not the entity handling the event.
 
-## Actions
+## EventAction
 
 ### script
 

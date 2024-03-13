@@ -37,5 +37,10 @@
         "door1": {
             "manifest": "objects/door1.json"
         }
+    },
+    "characters": {
+        "ryder": {
+            "manifest": "characters/ryder.json"
+        }
     }
 }

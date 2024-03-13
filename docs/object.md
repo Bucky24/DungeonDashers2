@@ -27,7 +27,9 @@ See the events.md file for a full description of events. The main events support
 | -- |
 | collide |
 
-When an Event is triggered, the context will have the following properties:
+When an Event is triggered, the context will be an ObjectContext
+
+## ObjectContext
 
 ### getState
 
