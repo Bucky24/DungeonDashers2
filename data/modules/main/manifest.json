@@ -23,6 +23,10 @@
         "upper_wall_top": {
             "type": "wall",
             "image": "assets/upper_wall_top.png"
+        },
+        "cliff_bot": {
+            "type": "wall",
+            "image": "assets/cliff_bot.png"
         }
     },
     "objects": {
