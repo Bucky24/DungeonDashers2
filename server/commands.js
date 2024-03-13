@@ -7,21 +7,10 @@ const {
     getImageSlug,
     decodeImageSlug,
     locateInDirectoriesForSave,
-    getCodeFile,
+    getModuleComponent,
+    directories,
 } = require('./utils');
 const Logger = require("./logger");
-
-const directories = {
-    save: [
-        path.resolve(__dirname, "..", "data", "saves"),
-    ],
-    modules: [
-        path.resolve(__dirname, "..", "data", "modules"),
-    ],
-    map: [
-        path.resolve(__dirname, "..", "data", "maps"),
-    ],
-};
 
 module.exports = {
     getSavedGames: () => {
@@ -109,55 +98,24 @@ module.exports = {
         const allManifestObjects = {};
 
         for (const object of objects) {
-            const manifestObjectData = manifest.objects[object];
-            const manifestObjectPath = manifestObjectData.manifest;
-            const fullManifestObjectPath = path.join(moduleDir, manifestObjectPath);
-
-            if (!fs.existsSync(fullManifestObjectPath)) {
-                Logger.error(`Cannot find manifest for ${object}: ${fullManifestObjectPath} not found`);
-                continue;
-            }
-
-            const objectManifestData = getJsonFile(fullManifestObjectPath);
-            objectManifestData.manifest = manifestObjectData;
-            objectManifestData.manifest.original = manifestObjectData.manifest;
-
-            objectManifestData.id = modulePrefix + objectManifestData.id;
-
-            // process images
-            if (objectManifestData.images) {
-                for (const state in objectManifestData.images) {
-                    const objectImagePath = objectManifestData.images[state];
-
-                    allImages[modulePrefix + objectImagePath] = getImageSlug('modules', objectImagePath, { extra: name });
-
-                    objectManifestData.images[state] = {
-                        image: modulePrefix + objectImagePath,
-                        rawPath: objectImagePath,
-                    };
-                }
-            }
-
-            // process scripts
-            if (objectManifestData.scripts) {
-                const objectScripts = {};
-                for (const script of objectManifestData.scripts) {
-                    const scriptPath = path.join(moduleDir, script);
-                    const contents = getCodeFile(scriptPath);
-
-                    allScripts[modulePrefix + script] = contents;
-                    objectScripts[script] = {
-                        script: modulePrefix + script,
-                        rawPath: script,
-                    };
-                }
-                objectManifestData.scripts = objectScripts;
-            }
+            objectManifestData = getModuleComponent(name, moduleDir, manifest.objects[object], allScripts, allImages);
 
             allManifestObjects[modulePrefix + object] = objectManifestData;
         }
 
         manifest.objects = allManifestObjects;
+
+        // grab all the character files
+        const characters = Object.keys(manifest.characters || {});
+        const allManifestCharacters = {};
+
+        for (const character of characters) {
+            characterManifestData = getModuleComponent(name, moduleDir, manifest.characters[character], allScripts, allImages);
+
+            allManifestCharacters[modulePrefix + character] = characterManifestData;
+        }
+
+        manifest.characters = allManifestCharacters;
 
         manifest.images = allImages;
         manifest.scripts = allScripts;
