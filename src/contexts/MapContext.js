@@ -16,7 +16,7 @@ export function MapProvider({ children }) {
     const [map, setMap] = useState([]);
     const [objects, setObjects] = useState([]);
     const [loaded, setLoaded] = useState(false);
-    const { loadModules, getSaveData: getLoadedModules } = useContext(ModuleContext);
+    const { loadModules, getLoadedModules } = useContext(ModuleContext);
     const [editable, setEditable] = useState(false);
 
     const value = {
@@ -78,6 +78,7 @@ export function MapProvider({ children }) {
                 version: 2,
                 modules,
                 map,
+                objects,
             };
 
             return mapData;
