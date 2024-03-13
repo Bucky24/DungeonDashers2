@@ -86,7 +86,6 @@ module.exports = {
         }
 
         const manifest = getJsonFile(manifestFile);
-        const moduleData = {};
         const allImages = {};
         const allScripts = {};
 
@@ -100,10 +99,10 @@ module.exports = {
 
             return {
                 ...obj,
-                [key]: tile,
+                [modulePrefix + key]: tile,
             };
         }, {});
-        moduleData.tiles = tileData;
+        manifest.tiles = tileData;
 
         // grab all the object files
         const objects = Object.keys(manifest.objects || {});
@@ -122,6 +121,8 @@ module.exports = {
             const objectManifestData = getJsonFile(fullManifestObjectPath);
             objectManifestData.manifest = manifestObjectData;
             objectManifestData.manifest.original = manifestObjectData.manifest;
+
+            objectManifestData.id = modulePrefix + objectManifestData.id;
 
             // process images
             if (objectManifestData.images) {
@@ -153,7 +154,7 @@ module.exports = {
                 objectManifestData.scripts = objectScripts;
             }
 
-            allManifestObjects[object] = objectManifestData;
+            allManifestObjects[modulePrefix + object] = objectManifestData;
         }
 
         manifest.objects = allManifestObjects;

@@ -23,8 +23,7 @@ export function ModuleProvider({ children }) {
             const moduleData = modules[module];
 
             for (const tileId in moduleData.tiles) {
-                const fullId = `${module}_${tileId}`;
-                allTiles[fullId] = moduleData.tiles[tileId];
+                allTiles[tileId] = moduleData.tiles[tileId];
             }
 
             for (const imageId in moduleData.images) {
@@ -32,8 +31,7 @@ export function ModuleProvider({ children }) {
             }
 
             for (const objectId in moduleData.objects) {
-                const fullId = `${module}_${objectId}`;
-                allObjects[fullId] = moduleData.objects[objectId];
+                allObjects[objectId] = moduleData.objects[objectId];
             }
         }
 
