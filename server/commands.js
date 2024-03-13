@@ -239,9 +239,10 @@ module.exports = {
         const allObjects = [];
         for (const id in data.objects) {
             const realId = id.replace(modulePrefix, "");
-            const object = data.objects[realId];
+            const object = data.objects[id];
 
-            data.objects[realId] = object.manifest;
+            data.objects[realId] = {...object.manifest};
+            delete data.objects[id];
             delete data.objects[realId].original;
 
             object.scripts = Object.keys(object.scripts);

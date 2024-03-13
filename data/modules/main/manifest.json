@@ -27,12 +27,15 @@
         "cliff_bot": {
             "type": "wall",
             "image": "assets/cliff_bot.png"
+        },
+        "left_top_corner": {
+            "type": "wall",
+            "image": "assets/left_top_corner.png"
         }
     },
     "objects": {
         "door1": {
-            "manifest": "objects/door1.json",
-            "original": "objects/door1.json"
+            "manifest": "objects/door1.json"
         }
     }
 }

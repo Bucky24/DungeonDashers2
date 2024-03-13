@@ -25,12 +25,12 @@ export default function ModuleTileEditor({ module }) {
                         const idWithoutModule = id.replace(module + "_", "");
 
                         return (<tr key={`editor_tile_${id}`}>
-                            <td><TextField value={idWithoutModule} onBlur={(id) => {
-                                changeTile(module, idWithoutModule, "id", id);
+                            <td><TextField value={idWithoutModule} onBlur={(newId) => {
+                                changeTile(module, id, "id", module + "_" + newId);
                             }} /></td>
                             <td>
                                 <select defaultValue={tile.type} onChange={(e) => {
-                                    changeTile(module, idWithoutModule, "type", e.target.value);
+                                    changeTile(module, id, "type", e.target.value);
                                 }}>
                                     {Object.keys(TILE_TYPE).map((key) => {
                                         return <option key={`option_${id}_type_${key}`} value={TILE_TYPE[key]}>{key}</option>
@@ -38,7 +38,7 @@ export default function ModuleTileEditor({ module }) {
                                 </select>
                             </td>
                             <td><TextField value={tile.rawImage} onBlur={(value) => {
-                                changeTile(module, idWithoutModule, "rawImage", value);
+                                changeTile(module, id, "rawImage", value);
                             }} /></td>
                         </tr>);
                     })}
