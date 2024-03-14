@@ -1,12 +1,14 @@
 import { useContext } from "react";
-import GameContext from "../../contexts/GameContext";
+import GameContext, { EVENTS } from "../../contexts/GameContext";
 import MapContext, { TILE_TYPE } from "../../contexts/MapContext";
 import ModuleContext from "../../contexts/ModuleContext";
+import useTriggerEvent from "../events/useTriggerEvent";
 
 export default function useMoveActiveCharacter() {
     const { activeCharacterIndex, moveCharacter, characters, getEntitiesAtPosition } = useContext(GameContext);
     const { getTile } = useContext(MapContext);
     const { tiles } = useContext(ModuleContext);
+    const triggerEvent = useTriggerEvent();
 
     return (xOff, yOff) => {
         if (xOff === 0 && yOff === 0) {
@@ -31,6 +33,13 @@ export default function useMoveActiveCharacter() {
 
         const entities = getEntitiesAtPosition(newX, newY);
         if (entities.length > 0) {
+            for (const entity of entities) {
+                triggerEvent(EVENTS.COLLIDE, {
+                    collider: { type: 'character', entity: character },
+                    collidee: entity,
+                });
+            }
+
             return;
         }
 

@@ -6,6 +6,10 @@ import MapContext from './MapContext';
 const GameContext = React.createContext({});
 export default GameContext;
 
+export const EVENTS = {
+    COLLIDE: 'collide', 
+};
+
 export function GameProvider({ children }) {
     const [loaded, setLoaded] = useState(false);
     const { loadMap } = useContext(MapContext);
