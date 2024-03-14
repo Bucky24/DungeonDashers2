@@ -6,6 +6,9 @@ export default SettingsContext;
 
 const ACTIONS = [
     'MOVE_LEFT',
+    'MOVE_RIGHT',
+    'MOVE_DOWN',
+    'MOVE_UP',
 ];
 
 export const ACTION_MAP = ACTIONS.reduce((obj, action) => {
@@ -17,6 +20,9 @@ export const ACTION_MAP = ACTIONS.reduce((obj, action) => {
 
 const DEFAULT_CONTROLS = {
     [ACTION_MAP.MOVE_LEFT]: 'KEY_ArrowLeft',
+    [ACTION_MAP.MOVE_RIGHT]: 'KEY_ArrowRight',
+    [ACTION_MAP.MOVE_DOWN]: 'KEY_ArrowDown',
+    [ACTION_MAP.MOVE_UP]: 'KEY_ArrowUp',
 };
 
 export function SettingsProvider({ children }) {

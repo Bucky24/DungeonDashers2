@@ -23,7 +23,7 @@ export default function useMoveActiveCharacter() {
         const newY = character.y + yOff;
 
         const tile = getTile(newX, newY);
-        const tileData = tiles[tile.tile];
+        const tileData = tiles[tile?.tile];
 
         if (tileData?.type !== TILE_TYPE.GROUND) {
             return;
