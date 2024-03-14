@@ -16,12 +16,14 @@ export default function TheMap({
     hideObjects,
     zoom,
     zoomLocked,
+    onKey,
 }) {
     const [size, setSize] = useState({ width: 0, height: 0 });
     const { tiles, getImage, objects: objectsData, characters: charactersData } = useContext(ModuleContext);
     const [mouseX, setMouseX] = useState(-1);
     const [mouseY, setMouseY] = useState(-1);
     const hoverRef = useRef(null);
+    const [keys, setKeys] = useState([]);
 
     const resize = () => {
         setSize({
@@ -98,6 +100,21 @@ export default function TheMap({
 		<Canvas
             width={size.width}
             height={size.height}
+            onKeyDown={({ code }) => {
+                if (keys.includes(code)) {
+                    return;
+                }
+                if (onKey) {
+                    keys.push(code);
+                    onKey(code);
+                }
+            }}
+            onKeyUp={({ code }) => {
+                const index = keys.indexOf(code);
+                if (index > -1) {
+                    keys.splice(index, 1);
+                }
+            }}
         >
             <Map
                 width={size.width}

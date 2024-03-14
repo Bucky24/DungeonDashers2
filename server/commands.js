@@ -10,9 +10,10 @@ const {
     getModuleComponent,
     directories,
 } = require('./utils');
-const Logger = require("./logger");
+const getSettings = require("./commands/getSettings");
 
 module.exports = {
+    getSettings,
     getSavedGames: () => {
         return {
             success: true,
