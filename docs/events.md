@@ -26,10 +26,10 @@ The collide event has the following filters:
 
 | Name | Description |
 | -- | -- |
-| character | Collisions with a character |
-| enemy | Collisions with an enemy |
-| object | Collisions with an object |
-| tile | Collisions with a tile |
+| entity_character | Collisions with a character |
+| entity_enemy | Collisions with an enemy |
+| entity_object | Collisions with an object |
+| entity_tile | Collisions with a wall tile |
 
 Note that this refers to the _other_ entity in the collision, not the entity handling the event.
 
@@ -37,7 +37,12 @@ Note that this refers to the _other_ entity in the collision, not the entity han
 
 ### script
 
-This action will run code from a script. The `this` property of the script will be the entity that is processing the event. See specific entity files for info on what data and methods are available.
+This action will run code from a script. The `this` property of the script will be an object containing the following:
+
+| Key | Description |
+| -- | -- |
+| entity | The entity that is processing the event. See specific entity files for info on what data and methods are available.
+| other | A list of the other entity involved in the event (if any). See specific entity files for info on what data and methods are available. |
 
 #### Additional Keys
 

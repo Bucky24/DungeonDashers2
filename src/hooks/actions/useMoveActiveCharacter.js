@@ -34,10 +34,10 @@ export default function useMoveActiveCharacter() {
         const entities = getEntitiesAtPosition(newX, newY);
         if (entities.length > 0) {
             for (const entity of entities) {
-                triggerEvent(EVENTS.COLLIDE, {
-                    collider: { type: 'character', entity: character },
-                    collidee: entity,
-                });
+                triggerEvent(EVENTS.COLLIDE, [
+                    { type: 'character', entity: character },
+                    entity,
+                ]);
             }
 
             return;

@@ -1,7 +1,7 @@
-if (this.getState() === "open_horiz" || this.getState() == "open_vert") {
+if (this.entity.getState() === "open_horiz" || this.entity.getState() == "open_vert") {
     return;
-} else if (this.getState() === "closed_horiz") {
-    this.setState('open_horiz');
-} else if (this.getState() === "closed_vert") {
-    this.setState("open_vert");
+} else if (this.entity.getState() === "closed_horiz") {
+    this.entity.setState('open_horiz');
+} else if (this.entity.getState() === "closed_vert") {
+    this.entity.setState("open_vert");
 }

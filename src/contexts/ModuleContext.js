@@ -15,12 +15,14 @@ export function ModuleProvider({ children }) {
     const [images, setImages] = useState({});
     const [objects, setObjects] = useState({});
     const [characters, setCharacters] = useState({});
+    const [scripts, setScripts] = useState({});
 
     useEffect(() => {
         const allTiles = {};
         const allImages = {};
         const allObjects = {};
         const allCharacters = {};
+        const allScripts = {};
         for (const module in modules) {
             const moduleData = modules[module];
 
@@ -39,12 +41,17 @@ export function ModuleProvider({ children }) {
             for (const id in moduleData.characters) {
                 allCharacters[id] = moduleData.characters[id];
             }
+
+            for (const id in moduleData.scripts) {
+                allScripts[id] = moduleData.scripts[id];
+            }
         }
 
         setTiles(allTiles);
         setImages(allImages);
         setObjects(allObjects);
         setCharacters(allCharacters);
+        setScripts(allScripts);
     }, [modules]);
 
     const value = {
@@ -99,6 +106,7 @@ export function ModuleProvider({ children }) {
         tiles,
         objects,
         characters,
+        scripts,
         modulesList: Object.keys(modules),
         getLoadedModules: () => {
             return Object.keys(modules);

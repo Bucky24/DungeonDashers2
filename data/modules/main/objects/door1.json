@@ -12,8 +12,8 @@
         {
             "on": "collide",
             "filters": [
-                "character",
-                "enemy"
+                "entity_character",
+                "entity_enemy"
             ],
             "type": "script",
             "file": "scripts/door_collide.js"
