@@ -87,6 +87,13 @@ export function MapProvider({ children }) {
                 ...map,
             ]);
         },
+        getTile: (x, y) => {
+            const existing = map.find((tile) => {
+                return tile.x === x && tile.y === y;
+            });
+
+            return existing;
+        },
         getSaveData: () => {
             const modules = getLoadedModules();
 

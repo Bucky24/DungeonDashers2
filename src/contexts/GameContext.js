@@ -48,6 +48,28 @@ export function GameProvider({ children }) {
 
             setCharacters(newChars);
         },
+        getEntitiesAtPosition: (x, y) => {
+            const result = [];
+            for (const entity of objects) {
+                if (entity.x ===x && entity.y === y) {
+                    result.push({
+                        type: 'object',
+                        entity,
+                    });
+                }
+            }
+
+            for (const entity of characters) {
+                if (entity.x === x && entity.y === y) {
+                    result.push({
+                        type: 'character',
+                        entity,
+                    });
+                }
+            }
+
+            return result;
+        },
         loaded,
         objects,
         characters,
