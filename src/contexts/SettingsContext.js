@@ -8,7 +8,7 @@ const ACTIONS = [
     'MOVE_LEFT',
 ];
 
-const ACTION_MAP = ACTIONS.reduce((obj, action) => {
+export const ACTION_MAP = ACTIONS.reduce((obj, action) => {
     return {
         ...obj,
         [action]: action,

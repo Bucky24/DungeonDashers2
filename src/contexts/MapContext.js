@@ -36,20 +36,24 @@ export function MapProvider({ children }) {
         characters,
         loadMap: async (map, editable) => {
             setEditable(editable);
-            Coms.send("getMap", { name: map }).then((result) => {
-                if (!result.success) {
-                    console.error(result.message);
-                    return;
-                }
+            const result = await Coms.send("getMap", { name: map });
+            if (!result.success) {
+                console.error(result.message);
+                return;
+            }
 
-                const modules = result.map.modules;
-                loadModules(modules);
-                setMap(result.map.map || []);
-                setObjects(result.map.objects || []);
-                setCharacters(result.map.characters || []);
+            const modules = result.map.modules;
+            loadModules(modules);
+            setMap(result.map.map || []);
+            setObjects(result.map.objects || []);
+            setCharacters(result.map.characters || []);
 
-                setLoaded(true);
-            });
+            setLoaded(true);
+            
+            return {
+                objects: result.map.objects || [],
+                characters: result.map.characters || [],
+            };
         },
         editable,
         // change the tile at x, y. Pass null as tile to remove

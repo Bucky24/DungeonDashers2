@@ -1,9 +1,11 @@
 import { useContext } from "react";
 
 import SettingsContext from "../contexts/SettingsContext";
+import useTakeAction from '../hooks/actions/useTakeAction';
 
 function useHandleInput() {
     const { getActionForControl } = useContext(SettingsContext);
+    const takeAction = useTakeAction();
 
     return (input) => {
         const action = getActionForControl(input);
@@ -11,7 +13,7 @@ function useHandleInput() {
             return;
         }
 
-        console.log(action);
+        takeAction(action);
     }
 }
 
