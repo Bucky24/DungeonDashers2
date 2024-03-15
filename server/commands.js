@@ -204,7 +204,7 @@ module.exports = {
             delete data.objects[id];
             delete data.objects[realId].original;
 
-            object.scripts = Object.keys(object.scripts);
+            object.scripts = object.scripts ? Object.keys(object.scripts) : [];
 
             object.images = Object.keys(object.images).reduce((obj, key) => {
                 return {
@@ -214,6 +214,28 @@ module.exports = {
             }, {});
 
             allObjects.push(object);
+        }
+
+        // process all our objects for writing
+        const allCharacters = [];
+        for (const id in data.characters) {
+            const realId = id.replace(modulePrefix, "");
+            const entity = data.characters[id];
+
+            data.characters[realId] = {...entity.manifest};
+            delete data.characters[id];
+            delete data.characters[realId].original;
+
+            entity.scripts = entity.scripts ? Object.keys(entity.scripts) : [];
+
+            entity.images = Object.keys(entity.images).reduce((obj, key) => {
+                return {
+                    ...obj,
+                    [key]: entity.images[key].image.replace(modulePrefix, ""),
+                };
+            }, {});
+
+            allCharacters.push(entity);
         }
 
         const manifestFile = path.join(dir, "manifest.json");
@@ -239,6 +261,26 @@ module.exports = {
                 // clean up the old file   
                 const oldManifestObjectPath = path.join(dir, object.manifest.original);
                 fs.rmSync(oldManifestObjectPath);
+            }
+        }
+
+        // write characters
+        for (const entity of allCharacters) {
+            const manifestPath = entity.manifest.manifest;
+            const fullManifestPath = path.join(dir, manifestPath);
+
+            const saveData = {...entity};
+            delete saveData.manifest;
+            saveData.id = saveData.id.replace(modulePrefix, "");
+
+            const saveDataString = JSON.stringify(saveData, null, 4);
+
+            fs.writeFileSync(fullManifestPath, saveDataString);
+
+            if (entity.manifest.manifest !== entity.manifest.original) {
+                // clean up the old file   
+                const oldManifestPath = path.join(dir, entity.manifest.original);
+                fs.rmSync(oldManifestPath);
             }
         }
 

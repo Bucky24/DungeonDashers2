@@ -7,5 +7,6 @@
     "defaultState": "exists",
     "images": {
         "exists": "assets/objects/rock_spike1.png"
-    }
+    },
+    "scripts": []
 }

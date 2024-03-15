@@ -7,7 +7,7 @@
         "base_right": "assets/characters/ryder_right.png"
     },
     "actionPoints": 30,
-	"maxHP": 30,
+    "maxHP": 30,
     "actions": {
         "special": {
             "type": "script",
