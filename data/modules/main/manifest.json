@@ -31,6 +31,26 @@
         "left_top_corner": {
             "type": "wall",
             "image": "assets/left_top_corner.png"
+        },
+        "left_bot_corner": {
+            "type": "wall",
+            "image": "assets/left_bot_corner.png"
+        },
+        "right_wall": {
+            "type": "wall",
+            "image": "assets/right_wall.png"
+        },
+        "right_top_corner": {
+            "type": "wall",
+            "image": "assets/right_top_corner.png"
+        },
+        "cliff_left_right": {
+            "type": "hole",
+            "image": "assets/cliff_left_right.png"
+        },
+        "cliff_top": {
+            "type": "hole",
+            "image": "assets/cliff_top.png"
         }
     },
     "objects": {
