@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { Map, Layer, LayerImage, ZoomType} from '@bucky24/react-canvas-map';
+import { Map, Layer, LayerImage, ZoomType, MoveType} from '@bucky24/react-canvas-map';
 import { Canvas } from '@bucky24/react-canvas';
 
 import ModuleContext from '../contexts/ModuleContext';
@@ -17,6 +17,9 @@ export default function TheMap({
     zoom,
     zoomLocked,
     onKey,
+    moveLocked,
+    centerX,
+    centerY,
 }) {
     const [size, setSize] = useState({ width: 0, height: 0 });
     const { tiles, getImage, objects: objectsData, characters: charactersData } = useContext(ModuleContext);
@@ -28,7 +31,7 @@ export default function TheMap({
     const resize = () => {
         setSize({
             width: window.innerWidth,
-            height: innerHeight,
+            height: window.innerHeight,
         });
     }
 
@@ -138,6 +141,9 @@ export default function TheMap({
                 }}
                 zoom={zoom}
                 zoomType={zoomLocked ? ZoomType.FIXED : ZoomType.MOUSE}
+                moveType={moveLocked ? MoveType.NONE : MoveType.MOUSE}
+                centerX={centerX}
+                centerY={centerY}
             >
                 <Layer>
                     {map?.map(({ x, y, tile }, index) => {

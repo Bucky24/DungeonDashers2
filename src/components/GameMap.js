@@ -7,7 +7,7 @@ import GameContext from '../contexts/GameContext';
 
 export default function GameMap() {
     const { map } = useContext(MapContext);
-    const { objects, characters } = useContext(GameContext);
+    const { objects, characters, activeCharacterIndex } = useContext(GameContext);
     const handleKeyboard = useHandleKeyboard();
 
     return (
@@ -20,6 +20,11 @@ export default function GameMap() {
             onKey={(code) => {
                 handleKeyboard(code);
             }}
+            moveLocked={true}
+            xOff={100}
+            yOff={100}
+            centerX={characters[activeCharacterIndex].x}
+            centerY={characters[activeCharacterIndex].y}
         />
     );
 }
