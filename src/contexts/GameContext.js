@@ -14,6 +14,10 @@ export const FLAGS = {
     NONBLOCKING: 'nonblocking',
 };
 
+export const TREASURE = {
+    GOLD: 'gold',
+};
+
 export function GameProvider({ children }) {
     const [loaded, setLoaded] = useState(false);
     const { loadMap } = useContext(MapContext);
@@ -21,8 +25,14 @@ export function GameProvider({ children }) {
     const [objects, setObjects] = useState([]);
     const [characters, setCharacters] = useState([]);
     const [objectId, setObjectId] = useState(0);
+    const [gold, setGold] = useState(0);
 
     const value = {
+        loaded,
+        objects,
+        characters,
+        activeCharacterIndex,
+        gold,
         loadGame: (name) => {
             setLoaded(false);
             Coms.send('getSavedGame', { name }).then(async (result) => {
@@ -58,6 +68,7 @@ export function GameProvider({ children }) {
             setActiveCharacterIndex(0);
             setLoaded(true);
             setObjectId(objectId);
+            setGold(0);
         },
         moveCharacter: (index, x, y) => {
             const newChars = [...characters];
@@ -107,10 +118,9 @@ export function GameProvider({ children }) {
                 return newObjects;
             });
         },
-        loaded,
-        objects,
-        characters,
-        activeCharacterIndex,
+        addGold: (amount) => {
+            setGold(Math.max(0, gold + amount));
+        },
     };
 
     return (

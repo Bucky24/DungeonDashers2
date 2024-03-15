@@ -9,3 +9,15 @@ Entities can have a number of flags applied to them. These can be custom, and ca
 | Flag | Description |
 | -- | -- |
 | nonblocking | This Entity will not block the passage of other entities. Defaults to off |
+
+## Data
+
+Data is a field that can exist on the Entity in the Map file. It contains pass-through data that can be accessed by scripts. Data can be any valid object, it is not read by the main game code.
+
+## EntityContext
+
+The following data and methods are available on every Entity's script context
+
+### getData
+
+This method returns the `data` parameter present for this Entity, or null if one does not exist.

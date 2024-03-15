@@ -39,6 +39,9 @@
         },
         "rock_spike1": {
             "manifest": "objects/rock_spike1.json"
+        },
+        "chest1": {
+            "manifest": "objects/chest1.json"
         }
     },
     "characters": {

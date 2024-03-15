@@ -1,8 +1,10 @@
 import { useContext } from "react";
 import ModuleContext from "../contexts/ModuleContext";
+import useGameScriptContext from "./useGameScriptContext";
 
 export default function useRunScript() {
     const { scripts } = useContext(ModuleContext);
+    const gameScriptContext = useGameScriptContext();
 
     return async (scriptId, data) => {
         const code = scripts[scriptId];
@@ -11,8 +13,13 @@ export default function useRunScript() {
             return;
         }
 
+        const finalData = {
+            ...data,
+            game: gameScriptContext,
+        };
+
         let myFunc = new Function(code);
-        myFunc = myFunc.bind(data);
+        myFunc = myFunc.bind(finalData);
 
         await myFunc();
     }

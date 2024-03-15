@@ -13,6 +13,7 @@ function useGetObjectContext() {
         return {
             state: objectData.state || moduleData.defaultState,
             flags: objectData.flags || [],
+            data: objectData.data,
             getState: function() {
                 return this.state;
             },
@@ -28,7 +29,10 @@ function useGetObjectContext() {
                 this.flags.push(flag);
 
                 setObjectProperty(objectData.id, "flags", [...this.flags]);
-            }
+            },
+            getData: function() {
+                return this.data || null;
+            },
         };
     }
 }
@@ -37,7 +41,10 @@ function useGetCharacterContext() {
     // this should be the object from GameContext
     return (characterData) => {
         return {
-
+            data: characterData.data,
+            getData: function() {
+                return this.data || null;
+            },
         };
     }
 }
