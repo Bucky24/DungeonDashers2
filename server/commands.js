@@ -144,7 +144,7 @@ module.exports = {
         if (!imageFile) {
             return {
                 success: false,
-                message: "Couldn't find image in any directories",
+                message: `Couldn't find image ${decoded.filePath} in any directories`,
             };
         }
 

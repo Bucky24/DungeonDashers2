@@ -36,6 +36,9 @@
     "objects": {
         "door1": {
             "manifest": "objects/door1.json"
+        },
+        "rock_spike1": {
+            "manifest": "objects/rock_spike1.json"
         }
     },
     "characters": {

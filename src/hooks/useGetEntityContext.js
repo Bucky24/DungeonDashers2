@@ -10,7 +10,6 @@ function useGetObjectContext() {
     // this should be the object from GameContext
     return (objectData) => {
         const moduleData = objects[objectData.type] || {};
-        console.log(objectData);
         return {
             state: objectData.state || moduleData.defaultState,
             flags: objectData.flags || [],
