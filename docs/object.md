@@ -2,6 +2,8 @@
 
 Objects are part of modules and are contained within the module folder. An Object is something on the map that is not an active participant, IE not a character or enemy. But it can be interacted with, unlike a tile.
 
+Objects are Entities. See the Entity documentation for common data.
+
 ## Structure
 
 The Object consists primarily of a manifest file, images, and scripts. Because all these files are defined explicitly in either the primary module manifest, or the object manifest, they can be any name you want.
@@ -38,3 +40,7 @@ A function that returns the current state of the object
 ### setState
 
 A function that takes in a string and updates the state of the object
+
+### setFlag
+
+A function that takes in a flag as a string and sets it to `on`

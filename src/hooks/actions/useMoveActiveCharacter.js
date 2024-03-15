@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import GameContext, { EVENTS } from "../../contexts/GameContext";
+import GameContext, { EVENTS, FLAGS } from "../../contexts/GameContext";
 import MapContext, { TILE_TYPE } from "../../contexts/MapContext";
 import ModuleContext from "../../contexts/ModuleContext";
 import useTriggerEvent from "../events/useTriggerEvent";
@@ -32,8 +32,11 @@ export default function useMoveActiveCharacter() {
         }
 
         const entities = getEntitiesAtPosition(newX, newY);
-        if (entities.length > 0) {
-            for (const entity of entities) {
+        const collidableEntities = entities.filter((entity) => {
+            return !entity.entity.flags?.includes(FLAGS.NONBLOCKING);
+        });
+        if (collidableEntities.length > 0) {
+            for (const entity of collidableEntities) {
                 triggerEvent(EVENTS.COLLIDE, [
                     { type: 'character', entity: character },
                     entity,

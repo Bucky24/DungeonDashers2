@@ -2,6 +2,8 @@
 
 Characters are part of modules and are contained within the module folder. A Cahracter is something on the map that the player can control. It can be interacted with.
 
+Characters are Entities. See the Entity documentation for common data.
+
 ## Structure
 
 The Character consists primarily of a manifest file, images, and scripts. Because all these files are defined explicitly in either the primary module manifest, or the character manifest, they can be any name you want.

@@ -10,12 +10,17 @@ export const EVENTS = {
     COLLIDE: 'collide', 
 };
 
+export const FLAGS = {
+    NONBLOCKING: 'nonblocking',
+};
+
 export function GameProvider({ children }) {
     const [loaded, setLoaded] = useState(false);
     const { loadMap } = useContext(MapContext);
     const [activeCharacterIndex, setActiveCharacterIndex] = useState(-1);
     const [objects, setObjects] = useState([]);
     const [characters, setCharacters] = useState([]);
+    const [objectId, setObjectId] = useState(0);
 
     const value = {
         loadGame: (name) => {
@@ -40,10 +45,19 @@ export function GameProvider({ children }) {
             loadMap(map);
             const mapData = await loadMap(map);
 
+            let objectId = 1;
+            const objects = mapData.objects.map((object) => {
+                return {
+                    ...object,
+                    id: objectId++,
+                };
+            });
+
             setObjects(mapData.objects);
             setCharacters(mapData.characters);
             setActiveCharacterIndex(0);
             setLoaded(true);
+            setObjectId(objectId);
         },
         moveCharacter: (index, x, y) => {
             const newChars = [...characters];
@@ -73,6 +87,25 @@ export function GameProvider({ children }) {
             }
 
             return result;
+        },
+        setObjectProperty: (id, key, value) => {
+            setObjects((objects) => {
+                const objectIndex = objects.findIndex((object) => object.id === id);
+                const object = objects[objectIndex];
+
+                if (!object) {
+                    console.error(`Can't find object with id ${id}`);
+                    return;
+                }
+
+                const newObjects = [...objects];
+                newObjects[objectIndex] = {
+                    ...object,
+                    [key]: value,
+                };
+
+                return newObjects;
+            });
         },
         loaded,
         objects,
