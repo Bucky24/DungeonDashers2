@@ -2,55 +2,55 @@
     "tiles": {
         "ground1": {
             "type": "ground",
-            "image": "assets/ground1.png"
+            "image": "assets/tiles/ground1.png"
         },
         "bottom_wall": {
             "type": "wall",
-            "image": "assets/bottom_wall.png"
+            "image": "assets/tiles/bottom_wall.png"
         },
         "upper_wall_middle": {
             "type": "wall",
-            "image": "assets/upper_wall_middle.png"
+            "image": "assets/tiles/upper_wall_middle.png"
         },
         "left_wall": {
             "type": "wall",
-            "image": "assets/left_wall.png"
+            "image": "assets/tiles/left_wall.png"
         },
         "hole": {
             "type": "hole",
-            "image": "assets/hole.png"
+            "image": "assets/tiles/hole.png"
         },
         "upper_wall_top": {
             "type": "wall",
-            "image": "assets/upper_wall_top.png"
+            "image": "assets/tiles/upper_wall_top.png"
         },
         "cliff_bot": {
             "type": "wall",
-            "image": "assets/cliff_bot.png"
+            "image": "assets/tiles/cliff_bot.png"
         },
         "left_top_corner": {
             "type": "wall",
-            "image": "assets/left_top_corner.png"
+            "image": "assets/tiles/left_top_corner.png"
         },
         "left_bot_corner": {
             "type": "wall",
-            "image": "assets/left_bot_corner.png"
+            "image": "assets/tiles/left_bot_corner.png"
         },
         "right_wall": {
             "type": "wall",
-            "image": "assets/right_wall.png"
+            "image": "assets/tiles/right_wall.png"
         },
         "right_top_corner": {
             "type": "wall",
-            "image": "assets/right_top_corner.png"
+            "image": "assets/tiles/right_top_corner.png"
         },
         "cliff_left_right": {
             "type": "hole",
-            "image": "assets/cliff_left_right.png"
+            "image": "assets/tiles/cliff_left_right.png"
         },
         "cliff_top": {
             "type": "hole",
-            "image": "assets/cliff_top.png"
+            "image": "assets/tiles/cliff_top.png"
         }
     },
     "objects": {
@@ -62,6 +62,9 @@
         },
         "chest1": {
             "manifest": "objects/chest1.json"
+        },
+        "rock1": {
+            "manifest": "objects/rock1.json"
         }
     },
     "characters": {

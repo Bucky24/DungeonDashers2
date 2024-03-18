@@ -1,0 +1,12 @@
+{
+    "version": 2,
+    "id": "rock1",
+    "states": [
+        "exists"
+    ],
+    "defaultState": "exists",
+    "images": {
+        "exists": "assets/objects/rock1.png"
+    },
+    "scripts": []
+}
