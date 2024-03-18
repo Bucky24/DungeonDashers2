@@ -18,7 +18,9 @@ export default function useRunScript() {
             game: gameScriptContext,
         };
 
-        let myFunc = new Function(code);
+        const wrappedCode = `return (async () => {\n${code}\n})()`;
+
+        let myFunc = new Function(wrappedCode);
         myFunc = myFunc.bind(finalData);
 
         await myFunc();

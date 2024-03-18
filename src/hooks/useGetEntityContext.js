@@ -14,6 +14,8 @@ function useGetObjectContext() {
             state: objectData.state || moduleData.defaultState,
             flags: objectData.flags || [],
             data: objectData.data,
+            x: objectData.x,
+            y: objectData.y,
             getState: function() {
                 return this.state;
             },
@@ -33,17 +35,42 @@ function useGetObjectContext() {
             getData: function() {
                 return this.data || null;
             },
+            getFlags: function() {
+                return this.flags || [];
+            },
+            moveTo: function(x, y) {
+                this.x = x;
+                this.y = y;
+                setObjectProperty(objectData.id, "x", x);
+                setObjectProperty(objectData.id, "y", y);
+            },
         };
     }
 }
 
 function useGetCharacterContext() {
+    const { setCharacterProperty } = useContext(GameContext);
+
     // this should be the object from GameContext
     return (characterData) => {
         return {
             data: characterData.data,
+            x: characterData.x,
+            y: characterData.y,
             getData: function() {
                 return this.data || null;
+            },
+            getPos: function() {
+                return {
+                    x: this.x,
+                    y: this.y,
+                };
+            },
+            moveTo: function(x, y) {
+                this.x = x;
+                this.y = y;
+                setCharacterProperty(characterData.id, "x", x);
+                setCharacterProperty(characterData.id, "y", y);
             },
         };
     }

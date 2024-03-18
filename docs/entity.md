@@ -21,3 +21,20 @@ The following data and methods are available on every Entity's script context
 ### getData
 
 This method returns the `data` parameter present for this Entity, or null if one does not exist.
+
+### getFlags
+
+This method returns the flags for the Entity as an array.
+
+### getPos
+
+This method returns the x and y coordinates as a Coord object
+
+### moveTo
+
+This method moves the Entity to a specific x and y. The Entity will teleport there, bypassing any obstacles.
+
+| Param | Description |
+| -- | -- |
+| x | The x coord to move to |
+| y | The y coord to move to |

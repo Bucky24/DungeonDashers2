@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { Map, Layer, LayerImage, ZoomType, MoveType} from '@bucky24/react-canvas-map';
-import { Canvas } from '@bucky24/react-canvas';
+import { Map, Layer, LayerImage, ZoomType, MoveType, Cell } from '@bucky24/react-canvas-map';
+import { Canvas, Rect } from '@bucky24/react-canvas';
 
 import ModuleContext from '../contexts/ModuleContext';
 import NotFoundImage from '../../assets/not_found.png';
@@ -20,6 +20,8 @@ export default function TheMap({
     moveLocked,
     centerX,
     centerY,
+    selectionRectangles,
+    selectedRectangle,
 }) {
     const [size, setSize] = useState({ width: 0, height: 0 });
     const { tiles, getImage, objects: objectsData, characters: charactersData } = useContext(ModuleContext);
@@ -245,6 +247,24 @@ export default function TheMap({
                         );
                     })}
                 </Layer>
+                {selectionRectangles && <Layer>
+                    {selectionRectangles.map(({ x, y }) => {
+                        return <Cell
+                            key={`selection_${x}_${y}`}
+                            x={x}
+                            y={y}
+                            width={1}
+                            height={1}
+                            cb={(dims) => {
+                                return <Rect
+                                    {...dims}
+                                    color="#0f0"
+                                    fill={selectedRectangle?.x === x && selectedRectangle?.y === y}
+                                />
+                            }}
+                        />
+                    })}
+                </Layer>}
             </Map>
         </Canvas>
     );

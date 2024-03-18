@@ -8,7 +8,7 @@
     },
     "actionPoints": 30,
     "maxHP": 30,
-    "actions": {
+    "skills": {
         "special": {
             "type": "script",
             "file": "scripts/ryder_special.js"

@@ -55,15 +55,20 @@ export function GameProvider({ children }) {
             loadMap(map);
             const mapData = await loadMap(map);
 
-            let objectId = 1;
+            // make this smarter to avoid id collision
+            let objectId = 10000;
             const objects = mapData.objects.map((object) => {
-                return {
-                    ...object,
-                    id: objectId++,
-                };
+                if (!object.id) {
+                    return {
+                        ...object,
+                        id: objectId++,
+                    };
+                }
+
+                return object;
             });
 
-            setObjects(mapData.objects);
+            setObjects(objects);
             setCharacters(mapData.characters);
             setActiveCharacterIndex(0);
             setLoaded(true);
@@ -116,6 +121,25 @@ export function GameProvider({ children }) {
                 };
 
                 return newObjects;
+            });
+        },
+        setCharacterProperty: (id, key, value) => {
+            setCharacters((entities) => {
+                const entityIndex = entities.findIndex((entity) => entity.id === id);
+                const entity = entities[entityIndex];
+
+                if (!entity) {
+                    console.error(`Can't find character with id ${id}`);
+                    return;
+                }
+
+                const newEntities = [...entities];
+                newEntities[entityIndex] = {
+                    ...entity,
+                    [key]: value,
+                };
+
+                return newEntities;
             });
         },
         addGold: (amount) => {

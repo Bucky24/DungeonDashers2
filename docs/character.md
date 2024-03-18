@@ -16,12 +16,12 @@ The Manifest is a JSON file with the following format:
 | -- | -- |
 | id | the ID of the character (must match the ID in the module manifest.json) |
 | images | A map of state to image path, see Base States for details |
-| actions | A map of action name to Action |
+| skills | A map of skill name to Skill |
 | scripts | An array of file paths to scripts used for the Object. If you have a script as part of an Event and it is not listed here, it will not be loaded |
 
-## Action
+## Skill
 
-An Action is block of data that describes something the Character can do other than movement and basic attack. It has the following data:
+An Skill is block of data that describes something the Character can do other than movement and basic attack. It has the following data:
 
 | Key | Description |
 | -- | -- |

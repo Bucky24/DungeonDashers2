@@ -1,3 +1,7 @@
+if (this.entity.getFlags().includes("locked")) {
+    return;
+}
+
 if (this.entity.getState() === "closed_horiz") {
     this.entity.setState('open_horiz');
     this.entity.setFlag('nonblocking');
