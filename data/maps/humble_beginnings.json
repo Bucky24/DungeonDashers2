@@ -3978,7 +3978,7 @@
 		{ "type": "main_rock1", "id": 22, "x": 35, "y": 17 },
 		{ "type": "main_rock1", "id": 23, "x": 34, "y": 17 },
 		{ "type": "main_rock1", "id": 24, "x": 32, "y": 17 },
-		{ "type": "main_trigger", "id": 25, "x": 35, "y": 16 },
+		{ "type": "main_trigger1", "id": 25, "x": 35, "y": 16, "data":[{"type": "map_trigger", "name": "spawn_sir_jacob", "disable": true }] },
 		{ "type": "main_chest1", "id": 26, "x": 28, "y": 20 },
 		{ "type": "main_chest1", "id": 27, "x": 27, "y": 20 },
 		{ "type": "main_chest1", "id": 28, "x": 26, "y": 20 },
@@ -4021,8 +4021,8 @@
 		{ "type": "main_bat", "id": 6, "doorTrigger": 49, "x": 40, "y": 35 },
 		{ "type": "main_bat", "id": 7, "doorTrigger": 49, "x": 41, "y": 31 }
 	],
-	"triggers": [
-		{
+	"triggers": {
+		"remove_this_soon": {
 			"conditions": [
 				{
 					"type": "variableCheck",
@@ -4040,87 +4040,11 @@
 				}
 			]
 		},
-		{
-			"conditions": [
-				{
-					"type": "mapTriggerTriggered",
-					"data": {
-						"triggerID": 25,
-						"character": true
-					}
-				}
-			],
+		"spawn_sir_jacob": {
 			"effects": [
 				{
-					"type": "gamePause",
-					"data": {
-						"pause": true
-					}
-				},
-				{
-					"type": "showDialog",
-					"data": {
-						"text": "Hmmm... I can't blink through that. There's no telling what's on the other side.",
-						"characterIdent": "character1"
-					}
-				},
-				{
-					"type": "centerCamera",
-					"data": {
-						"x": 4,
-						"y": 31
-					}
-				},
-				{
-					"type": "spawnCharacter",
-					"data": {
-						"ident": "character2",
-						"x": 4,
-						"y": 31
-					}
-				},
-				{
-					"type": "showDialog",
-					"data": {
-						"text": "WHERE ARE YOU, WIZARD SCUM?",
-						"characterIdent": "character2"
-					}
-				},
-				{
-					"type": "showDialog",
-					"data": {
-						"text": "SHOW YOURSELF!",
-						"characterIdent": "character2"
-					}
-				},
-				{
-					"type": "showDialog",
-					"data": {
-						"text": "Or are you too cowardly to face my cold steel?",
-						"characterIdent": "character2"
-					}
-				},
-				{
-					"type": "disableTrigger",
-					"data": {
-						"triggerID": 25
-					}
-				},
-				{
-					"type": "setActiveCharacter",
-					"data": {
-						"ident": "character2"
-					}
-				},
-				{
-					"type": "resetCamera",
-					"data": {}
-				},
-				{
-					"type": "gamePause",
-					"data": {
-						"pause": false
-					}
+					"type": "script",
+					"code": "this.game.setPause(true);await this.game.showDialog(\"Hmmm... I can't blink through that. There's no telling what's on the other side.\", \"ryder\");this.game.centerCamera(4, 31);const characterIndex = await this.game.createCharacter(\"sir_jacob\",4, 31);await this.game.showDialog(\"WHERE ARE YOU, WIZARD SCUM?\", 'sir_jacob');await this.game.showDialog('SHOW YOURSELF!', 'sir_jacob');await this.game.showDialog('Or are you too cowardly to face my cold steel?', 'sir_jacob');this.game.setActiveCharacter(characterIndex);this.game.resetCamera();this.game.setPause(false);"
 				}
 			]
 		},
