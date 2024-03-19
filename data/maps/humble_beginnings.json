@@ -3978,7 +3978,7 @@
 		{ "type": "main_rock1", "id": 22, "x": 35, "y": 17 },
 		{ "type": "main_rock1", "id": 23, "x": 34, "y": 17 },
 		{ "type": "main_rock1", "id": 24, "x": 32, "y": 17 },
-		{ "type": "main_trigger1", "id": 25, "x": 35, "y": 16, "data":[{"type": "map_trigger", "name": "spawn_sir_jacob", "disable": true }] },
+		{ "type": "main_trigger1", "id": 25, "x": 35, "y": 16, "data":[{"type": "map_trigger", "name": "spawn_main_sir_jacob", "disable": true }] },
 		{ "type": "main_chest1", "id": 26, "x": 28, "y": 20 },
 		{ "type": "main_chest1", "id": 27, "x": 27, "y": 20 },
 		{ "type": "main_chest1", "id": 28, "x": 26, "y": 20 },
@@ -4040,11 +4040,11 @@
 				}
 			]
 		},
-		"spawn_sir_jacob": {
+		"spawn_main_sir_jacob": {
 			"effects": [
 				{
 					"type": "script",
-					"code": "this.game.setPause(true);await this.game.showDialog(\"Hmmm... I can't blink through that. There's no telling what's on the other side.\", \"ryder\");this.game.centerCamera(4, 31);const characterIndex = await this.game.createCharacter(\"sir_jacob\",4, 31);await this.game.showDialog(\"WHERE ARE YOU, WIZARD SCUM?\", 'sir_jacob');await this.game.showDialog('SHOW YOURSELF!', 'sir_jacob');await this.game.showDialog('Or are you too cowardly to face my cold steel?', 'sir_jacob');this.game.setActiveCharacter(characterIndex);this.game.resetCamera();this.game.setPause(false);"
+					"code": "this.game.setPause(true);await this.game.showDialog(\"Hmmm... I can't blink through that. There's no telling what's on the other side.\", \"main_ryder\");this.game.centerCamera(4, 31);const characterIndex = await this.game.createCharacter(\"main_sir_jacob\",4, 31);await this.game.showDialog(\"WHERE ARE YOU, WIZARD SCUM?\", 'main_sir_jacob');await this.game.showDialog('SHOW YOURSELF!', 'main_sir_jacob');await this.game.showDialog('Or are you too cowardly to face my cold steel?', 'main_sir_jacob');this.game.setActiveCharacter(characterIndex);this.game.resetCamera();this.game.setPause(false);"
 				}
 			]
 		},
@@ -4052,7 +4052,7 @@
 			"effects": [
 				{
 					"type": "script",
-					"code": "this.game.setPause(true);await this.game.showMultipleDialog([{dialog:\"Oh... err... hello.\", character:\"ryder\"},{dialog: \"YOU THERE! Who are you? Tell me now.\", character:'sir_jacob'},{dialog:'I'm... err... Ryder... Who are you?',character:'ryder'},{dialog:'I am Sir Jacob, a trusted member of the King's Royal Guard, and I am on a mission.', character:'sir_jacob'},{dialog:'Say... young traveller, have you seen a wizard among these parts?',character:'sir_jacob'},{dialog: 'I chased him to the opening of the cave. He seems to have brought us here by some dark magic.', character: 'sir_jacob'},{dialog: 'Yeah! I think I saw him too, just outside.', character: 'ryder'}, {dialog: 'It is my duty to find him. I will knock him to the ground. Are you experienced with that dagger?', character: 'sir_jacob'},{dialog:'...That depends on how you define \"experienced\".',character:'ryder'},{dialog: 'I'll be watching you... fellow wanderer.', character:'sir_jacob'},{dialog: 'Let us journey forth.', character: 'sir_jacob'}]);this.game.setPause(false);"
+					"code": "this.game.setPause(true);await this.game.showMultipleDialog([{dialog:\"Oh... err... hello.\", character:\"main_ryder\"},{dialog: \"YOU THERE! Who are you? Tell me now.\", character:'main_sir_jacob'},{dialog:'I'm... err... Ryder... Who are you?',character:'main_ryder'},{dialog:'I am Sir Jacob, a trusted member of the King's Royal Guard, and I am on a mission.', character:'main_sir_jacob'},{dialog:'Say... young traveller, have you seen a wizard among these parts?',character:'main_sir_jacob'},{dialog: 'I chased him to the opening of the cave. He seems to have brought us here by some dark magic.', character: 'main_sir_jacob'},{dialog: 'Yeah! I think I saw him too, just outside.', character: 'main_ryder'}, {dialog: 'It is my duty to find him. I will knock him to the ground. Are you experienced with that dagger?', character: 'main_sir_jacob'},{dialog:'...That depends on how you define \"experienced\".',character:'main_ryder'},{dialog: 'I'll be watching you... fellow wanderer.', character:'main_sir_jacob'},{dialog: 'Let us journey forth.', character: 'main_sir_jacob'}]);this.game.setPause(false);"
 				}
 			]
 		},
