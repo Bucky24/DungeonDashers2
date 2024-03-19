@@ -3996,7 +3996,7 @@
 		{ "type": "main_rock1", "id": 40, "x": 35, "y": 23 },
 		{ "type": "main_switch", "id": 41, "x": 37, "y": 22, "data": [{"type": "unlock_door" ,"id": 42}] },
 		{ "type": "main_door1", "id": 42, "x": 32, "y": 25, "flags": ["locked"] },
-		{ "type": "main_trigger", "id": 43, "x": 35, "y": 17 },
+		{ "type": "main_trigger", "id": 43, "x": 35, "y": 17, "data":[{"type": "map_trigger", "name": "meeting_of_characters", "disable": true }] },
 		{ "type": "main_trigger", "id": 44, "x": 37, "y": 23 },
 		{ "type": "main_trigger", "id": 45, "x": 37, "y": 24 },
 		{ "type": "main_trigger", "id": 46, "x": 37, "y": 25 },
@@ -4048,145 +4048,19 @@
 				}
 			]
 		},
-		{
-			"conditions": [
-				{
-					"type": "mapTriggerTriggered",
-					"data": {
-						"triggerID": 43,
-						"character": true
-					}
-				}
-			],
+		"meeting_of_characters": {
 			"effects": [
 				{
-					"type": "gamePause",
-					"data": {
-						"pause": true
-					}
-				},
-				{
-					"type": "showDialog",
-					"data": {
-						"text": "Oh... err... hello.",
-						"characterIdent": "character1"
-					}
-				},
-				{
-					"type": "showDialog",
-					"data": {
-						"text": "YOU THERE! Who are you? Tell me now.",
-						"characterIdent": "character2"
-					}
-				},
-				{
-					"type": "showDialog",
-					"data": {
-						"text": "I'm... err... Ryder... Who are you?",
-						"characterIdent": "character1"
-					}
-				},
-				{
-					"type": "showDialog",
-					"data": {
-						"text": "I am Sir Jacob, a trusted member of the King's Royal Guard, and I am on a mission.",
-						"characterIdent": "character2"
-					}
-				},
-				{
-					"type": "showDialog",
-					"data": {
-						"text": "Say... young traveller, have you seen a wizard among these parts?",
-						"characterIdent": "character2"
-					}
-				},
-				{
-					"type": "showDialog",
-					"data": {
-						"text": "I chased him to the opening of the cave. He seems to have brought us here by some dark magic.",
-						"characterIdent": "character2"
-					}
-				},
-				{
-					"type": "showDialog",
-					"data": {
-						"text": "Yeah! I think I saw him too, just outside.",
-						"characterIdent": "character1"
-					}
-				},
-				{
-					"type": "showDialog",
-					"data": {
-						"text": "It is my duty to find him. I will knock him to the ground. Are you experienced with that dagger?",
-						"characterIdent": "character2"
-					}
-				},
-				{
-					"type": "showDialog",
-					"data": {
-						"text": "...That depends on how you define \"experienced\".",
-						"characterIdent": "character1"
-					}
-				},
-				{
-					"type": "showDialog",
-					"data": {
-						"text": "I'll be watching you... fellow wanderer.",
-						"characterIdent": "character2"
-					}
-				},
-				{
-					"type": "showDialog",
-					"data": {
-						"text": "Let us journey forth.",
-						"characterIdent": "character2"
-					}
-				},
-				{
-					"type": "gamePause",
-					"data": {
-						"pause": false
-					}
-				},
-				{
-					"type": "disableTrigger",
-					"data": {
-						"triggerID": 43
-					}
+					"type": "script",
+					"code": "this.game.setPause(true);await this.game.showMultipleDialog([{dialog:\"Oh... err... hello.\", character:\"ryder\"},{dialog: \"YOU THERE! Who are you? Tell me now.\", character:'sir_jacob'},{dialog:'I'm... err... Ryder... Who are you?',character:'ryder'},{dialog:'I am Sir Jacob, a trusted member of the King's Royal Guard, and I am on a mission.', character:'sir_jacob'},{dialog:'Say... young traveller, have you seen a wizard among these parts?',character:'sir_jacob'},{dialog: 'I chased him to the opening of the cave. He seems to have brought us here by some dark magic.', character: 'sir_jacob'},{dialog: 'Yeah! I think I saw him too, just outside.', character: 'ryder'}, {dialog: 'It is my duty to find him. I will knock him to the ground. Are you experienced with that dagger?', character: 'sir_jacob'},{dialog:'...That depends on how you define \"experienced\".',character:'ryder'},{dialog: 'I'll be watching you... fellow wanderer.', character:'sir_jacob'},{dialog: 'Let us journey forth.', character: 'sir_jacob'}]);this.game.setPause(false);"
 				}
 			]
 		},
-		{
-			"conditions": [
-				{
-					"type": "mapTriggerTriggered",
-					"data": {
-						"triggerID": 44,
-						"character": true
-					}
-				},
-				{
-					"type": "mapTriggerTriggered",
-					"data": {
-						"triggerID": 45,
-						"character": true
-					}
-				},
-				{
-					"type": "mapTriggerTriggered",
-					"data": {
-						"triggerID": 46,
-						"character": true
-					}
-				}
-			],
-			"conditionMode": "any",
+		"ryder_blinks": {
 			"effects": [
 				{
-					"type": "gamePause",
-					"data": {
-						"pause": true
-					}
+					"type": "script",
+					"code": "this.game.setPause(true);"
 				},
 				{
 					"type": "showDialog",
@@ -4234,24 +4108,6 @@
 					}
 				}
 			]
-		},
-		{
-			"conditions": [
-				{
-					"type": "variableCheck",
-					"data": {
-						"variable": "totalCharactersAlive",
-						"operator": "==",
-						"comparisonVariable": "charactersOnPortal"
-					}
-				}
-			],
-			"effects": [
-				{
-					"type": "winGame",
-					"data": {}
-				}
-			]
 		}
-	]
+    }
 }

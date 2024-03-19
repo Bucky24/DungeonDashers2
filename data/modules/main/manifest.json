@@ -65,6 +65,9 @@
         },
         "rock1": {
             "manifest": "objects/rock1.json"
+        },
+        "trigger1": {
+            "manifest": "objects/trigger1.json"
         }
     },
     "characters": {
