@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import ModuleContext from "../contexts/ModuleContext";
 import useGameScriptContext from "./useGameScriptContext";
+import runCode from "../utils/runCode";
 
 export default function useRunScript() {
     const { scripts } = useContext(ModuleContext);
@@ -18,11 +19,6 @@ export default function useRunScript() {
             game: gameScriptContext,
         };
 
-        const wrappedCode = `return (async () => {\n${code}\n})()`;
-
-        let myFunc = new Function(wrappedCode);
-        myFunc = myFunc.bind(finalData);
-
-        return await myFunc();
+        return runCode(code, finalData);
     }
 }

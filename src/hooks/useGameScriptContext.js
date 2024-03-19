@@ -22,8 +22,8 @@ export default function useGameScriptContext() {
                 enterCellSelect(x, y, min, max, direction, resolve);
             });
         },
-        runTrigger: (name) => {
-            return runMapTrigger(name); 
+        runTrigger: function(name) {
+            return runMapTrigger(name, { game: this }); 
         },
     };
 }
