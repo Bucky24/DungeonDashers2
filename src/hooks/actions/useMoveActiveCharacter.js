@@ -3,14 +3,17 @@ import GameContext, { EVENTS, FLAGS } from "../../contexts/GameContext";
 import MapContext, { TILE_TYPE } from "../../contexts/MapContext";
 import ModuleContext from "../../contexts/ModuleContext";
 import useTriggerEvent from "../events/useTriggerEvent";
+import getEntityFlags from "../../utils/getEntityFlags";
+import useGetEntityData from "../useGetEntityData";
 
 export default function useMoveActiveCharacter() {
     const { activeCharacterIndex, moveCharacter, characters, getEntitiesAtPosition } = useContext(GameContext);
     const { getTile } = useContext(MapContext);
     const { tiles } = useContext(ModuleContext);
     const triggerEvent = useTriggerEvent();
+    const getEntityData = useGetEntityData();
 
-    return (xOff, yOff) => {
+    return async (xOff, yOff) => {
         if (xOff === 0 && yOff === 0) {
             return;
         }
@@ -33,17 +36,34 @@ export default function useMoveActiveCharacter() {
 
         const entities = getEntitiesAtPosition(newX, newY);
         const collidableEntities = entities.filter((entity) => {
-            return !entity.entity.flags?.includes(FLAGS.NONBLOCKING);
+            const data = getEntityData(entity);
+            const flags = getEntityFlags(entity, data);
+            const isNonBlocking = flags.includes(FLAGS.NONBLOCKING);
+            // if it's non blocking we can't collide with it
+            return !isNonBlocking;
         });
         if (collidableEntities.length > 0) {
             for (const entity of collidableEntities) {
-                triggerEvent(EVENTS.COLLIDE, [
+                await triggerEvent(EVENTS.COLLIDE, [
                     { type: 'character', entity: character },
                     entity,
                 ]);
             }
 
             return;
+        }
+
+        // intersect is when the character steps on top of the item
+        // we can assume by getting here that we actually moved because
+        // if we were stopped by a collision then we would have returned
+        // above
+        if (entities.length > 0) {
+            for (const entity of entities) {
+                await triggerEvent(EVENTS.INTERSECT, [
+                    { type: 'character', entity: character },
+                    entity,
+                ]);
+            }
         }
 
         moveCharacter(activeCharacterIndex, character.x + xOff, character.y + yOff);

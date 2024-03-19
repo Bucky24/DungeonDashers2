@@ -16,7 +16,7 @@ function useGetObjectEventHandlers() {
         if (!objectData.events) return result;
 
         return objectData.events.filter((eventData) => {
-            return eventData.on = event;
+            return eventData.on === event;
         })
     }
 }

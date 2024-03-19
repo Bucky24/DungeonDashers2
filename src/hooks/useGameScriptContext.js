@@ -1,10 +1,12 @@
 import { useContext } from "react";
 import GameContext, { TREASURE } from "../contexts/GameContext";
 import UIContext, { LOCATION } from "../contexts/UIContext";
+import useRunMapTrigger from "./useRunMapTrigger";
 
 export default function useGameScriptContext() {
     const { addGold } = useContext(GameContext);
     const { enterCellSelect } = useContext(UIContext);
+    const runMapTrigger = useRunMapTrigger();
     
     return {
         LOCATION,
@@ -19,6 +21,9 @@ export default function useGameScriptContext() {
             return new Promise((resolve) => {
                 enterCellSelect(x, y, min, max, direction, resolve);
             });
+        },
+        runTrigger: (name) => {
+            return runMapTrigger(name); 
         },
     };
 }

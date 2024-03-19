@@ -2,6 +2,7 @@ import { useContext } from 'react';
 
 import ModuleContext from '../contexts/ModuleContext';
 import GameContext from '../contexts/GameContext';
+import getEntityFlags from '../utils/getEntityFlags';
 
 function useGetObjectContext() {
     const { objects } = useContext(ModuleContext);
@@ -10,9 +11,11 @@ function useGetObjectContext() {
     // this should be the object from GameContext
     return (objectData) => {
         const moduleData = objects[objectData.type] || {};
+        const myFlags = getEntityFlags({ type: 'object', entity: objectData }, moduleData);
+
         return {
             state: objectData.state || moduleData.defaultState,
-            flags: objectData.flags || [],
+            flags: myFlags,
             data: objectData.data,
             x: objectData.x,
             y: objectData.y,

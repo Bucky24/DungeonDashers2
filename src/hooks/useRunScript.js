@@ -23,6 +23,6 @@ export default function useRunScript() {
         let myFunc = new Function(wrappedCode);
         myFunc = myFunc.bind(finalData);
 
-        await myFunc();
+        return await myFunc();
     }
 }

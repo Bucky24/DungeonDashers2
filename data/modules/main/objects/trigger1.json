@@ -9,7 +9,7 @@
     "flags": ["nonblocking"],
     "events": [
         {
-            "on": "collide",
+            "on": "intersect",
             "filters": [
                 "entity_character"
             ],

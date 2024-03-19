@@ -7,7 +7,8 @@ const GameContext = React.createContext({});
 export default GameContext;
 
 export const EVENTS = {
-    COLLIDE: 'collide', 
+    COLLIDE: 'collide',
+    INTERSECT: 'intersect',
 };
 
 export const FLAGS = {

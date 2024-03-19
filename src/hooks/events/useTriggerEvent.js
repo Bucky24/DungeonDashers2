@@ -11,6 +11,7 @@ export default function useTriggerEvent() {
     const getEntityData = useGetEntityData();
 
     return async (event, entities = []) => {
+        const results = [];
         for (const entity of entities) {
             if (entity.type === 'object') {
                 const handlerData = getEventHandlers(entity, event);
@@ -30,14 +31,16 @@ export default function useTriggerEvent() {
                                 console.error(`Cannot find script matching ${handler.file}`);
                                 break;
                             }
-                            await runScript(entityData.scripts[handler.file].script, {
+                            const result = await runScript(entityData.scripts[handler.file].script, {
                                 entity: getEntityContext(entity),
                                 other: getEntityContext(entity2),
                             });
+                            results.push(result);
                         }
                     }
                 }   
             }
         }
+        return results;
     }
 }

@@ -28,12 +28,14 @@ export function MapProvider({ children }) {
     const [loaded, setLoaded] = useState(false);
     const { loadModules, getLoadedModules } = useContext(ModuleContext);
     const [editable, setEditable] = useState(false);
+    const [triggers, setTriggers] = useState({});
 
     const value = {
         loaded,
         map,
         objects,
         characters,
+        triggers,
         loadMap: async (map, editable) => {
             setEditable(editable);
             const result = await Coms.send("getMap", { name: map });
@@ -47,6 +49,7 @@ export function MapProvider({ children }) {
             setMap(result.map.map || []);
             setObjects(result.map.objects || []);
             setCharacters(result.map.characters || []);
+            setTriggers(result.map.triggers);
 
             setLoaded(true);
             
