@@ -8,6 +8,13 @@
     },
     "actionPoints": 20,
     "maxHP": 30,
-    "skills": {},
-    "scripts": []
+    "skills": {
+        "special": {
+            "type": "script",
+            "file": "scripts/sir_jacob_special.js"
+        }
+    },
+    "scripts": [
+        "scripts/sir_jacob_special.js"
+    ]
 }
