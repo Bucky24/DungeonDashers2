@@ -27,6 +27,7 @@ export function GameProvider({ children }) {
     const [characters, setCharacters] = useState([]);
     const [objectId, setObjectId] = useState(0);
     const [gold, setGold] = useState(0);
+    const [paused, setPaused] = useState(false);
 
     const value = {
         loaded,
@@ -34,6 +35,7 @@ export function GameProvider({ children }) {
         characters,
         activeCharacterIndex,
         gold,
+        paused,
         loadGame: (name) => {
             setLoaded(false);
             Coms.send('getSavedGame', { name }).then(async (result) => {
@@ -146,6 +148,7 @@ export function GameProvider({ children }) {
         addGold: (amount) => {
             setGold(Math.max(0, gold + amount));
         },
+        setPaused,
     };
 
     return (

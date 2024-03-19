@@ -1,0 +1,16 @@
+.dialog_outer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.dialog_inner {
+    width: 90%;
+    max-width: 400px;
+    height: 100px;
+    background-color: white;
+    padding: 30px;
+}

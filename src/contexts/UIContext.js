@@ -15,10 +15,12 @@ export const LOCATION = {
 export function UIProvider({ children }) {
     const [mode, setMode] = useState(UI_MODE.GAME);
     const [cellSelectData, setCellSelectData] = useState();
+    const [dialog, setDialog] = useState();
 
     const value = {
         mode,
         cellSelectData,
+        dialog,
         enterCellSelect: (startX, startY, min, max, type, callback) => {
             const data = {
                 startX,
@@ -69,6 +71,20 @@ export function UIProvider({ children }) {
             data.cells = cells;
             setCellSelectData(data);
             setMode(UI_MODE.CELL_SELECT);
+        },
+        startDialog: (dialog, character, callback) => {
+            setDialog({dialog, character, callback});
+        },
+        clearDialog: () => {
+            if (!dialog) {
+                return;
+            }
+
+            setDialog(null);
+
+            if (dialog.callback) {
+                dialog.callback();
+            }
         },
         markCellSelected: (cell) => {
             setCellSelectData({

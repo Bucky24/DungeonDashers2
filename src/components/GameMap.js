@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 
+import styles from './GameMap.css';
+
 import TheMap from './TheMap';
 import MapContext from '../contexts/MapContext';
 import { useHandleKeyboard } from '../utils/handleInput';
@@ -8,11 +10,18 @@ import UIContext, { UI_MODE } from '../contexts/UIContext';
 
 export default function GameMap() {
     const { map } = useContext(MapContext);
-    const { objects, characters, activeCharacterIndex } = useContext(GameContext);
-    const { mode, cellSelectData, markCellSelected, acceptSelectedCell } = useContext(UIContext);
+    const { objects, characters, activeCharacterIndex, paused } = useContext(GameContext);
+    const {
+        mode,
+        cellSelectData,
+        markCellSelected,
+        acceptSelectedCell,
+        dialog,
+        clearDialog,
+    } = useContext(UIContext);
     const handleKeyboard = useHandleKeyboard();
 
-    return (
+    return (<>
         <TheMap
             map={map}
             objects={objects}
@@ -20,6 +29,9 @@ export default function GameMap() {
             zoom={200}
             characters={characters}
             onKey={(code) => {
+                if (paused) {
+                    return;
+                }
                 if (mode === UI_MODE.GAME) {
                     handleKeyboard(code);
                 } else if (mode === UI_MODE.CELL_SELECT) {
@@ -76,5 +88,11 @@ export default function GameMap() {
             selectionRectangles={mode === UI_MODE.CELL_SELECT ? cellSelectData.cells : null}
             selectedRectangle={mode === UI_MODE.CELL_SELECT ? cellSelectData.selected : null}
         />
-    );
+        {dialog && <div className={styles.dialog_outer}>
+            <div className={styles.dialog_inner}>
+                <div>{dialog.dialog}</div>
+                <button onClick={clearDialog}>Close</button>
+            </div>
+        </div>}
+    </>);
 }

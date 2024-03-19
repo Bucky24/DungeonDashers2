@@ -4,8 +4,8 @@ import UIContext, { LOCATION } from "../contexts/UIContext";
 import useRunMapTrigger from "./useRunMapTrigger";
 
 export default function useGameScriptContext() {
-    const { addGold } = useContext(GameContext);
-    const { enterCellSelect } = useContext(UIContext);
+    const { addGold, setPaused } = useContext(GameContext);
+    const { enterCellSelect, startDialog } = useContext(UIContext);
     const runMapTrigger = useRunMapTrigger();
     
     return {
@@ -25,5 +25,13 @@ export default function useGameScriptContext() {
         runTrigger: function(name) {
             return runMapTrigger(name, { game: this }); 
         },
+        setPause: (pause) => {
+            setPaused(pause);
+        },
+        showDialog: (dialog, character) => {
+            return new Promise((resolve) => {
+                startDialog(dialog, character, resolve);
+            });
+        }
     };
 }
