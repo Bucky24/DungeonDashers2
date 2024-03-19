@@ -167,18 +167,17 @@ export function GameProvider({ children }) {
                 x,
                 y,
             };
-            let index = undefined;
 
             setCharacters((entities) => {
                 const newEntities = [...entities];
                 newEntities.push(newEntity);
 
-                index = newEntities.length + 1;
-
                 return newEntities;
             });
-
-            return index;
+        },
+        setActiveCharacterIndex,
+        resetCamera: () => {
+            setCameraCenterPos(null);
         },
     };
 

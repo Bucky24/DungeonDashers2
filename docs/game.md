@@ -60,6 +60,14 @@ The createCharacter method creates a character of the given type at the give pos
 | x | The x coord to center on |
 | y | The y coord to center on |
 
+### setActiveCharacter
+
+The setActiveCharacter method changes the active (movable) character to that of the character at the index provided.
+
+| Param | Description |
+| -- | -- |
+| index | The character index to make active |
+
 ### TreasureType
 
 | Name | Description |

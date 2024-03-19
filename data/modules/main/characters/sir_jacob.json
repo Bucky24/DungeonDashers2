@@ -4,9 +4,9 @@
     "width": 1,
     "height": 3,
     "images": {
-        "base_right": "assets/characters/ryder_right.png"
+        "base_right": "assets/characters/sir_jacob_front.png"
     },
-    "actionPoints": 30,
+    "actionPoints": 20,
     "maxHP": 30,
     "skills": {},
     "scripts": []

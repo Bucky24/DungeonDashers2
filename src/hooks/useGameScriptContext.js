@@ -4,12 +4,21 @@ import UIContext, { LOCATION } from "../contexts/UIContext";
 import useRunMapTrigger from "./useRunMapTrigger";
 
 export default function useGameScriptContext() {
-    const { addGold, setPaused, centerCamera, addCharacter } = useContext(GameContext);
+    const {
+        addGold,
+        setPaused,
+        centerCamera,
+        addCharacter,
+        setActiveCharacterIndex,
+        resetCamera,
+        characters,
+    } = useContext(GameContext);
     const { enterCellSelect, startDialog } = useContext(UIContext);
     const runMapTrigger = useRunMapTrigger();
     
     return {
         LOCATION,
+        characterCount: characters.length,
         giveTreasure: (type, amount, data) => {
             if (type === TREASURE.GOLD) {
                 addGold(amount);
@@ -34,8 +43,16 @@ export default function useGameScriptContext() {
             });
         },
         centerCamera,
-        createCharacter: (type, x, y) => {
-            return addCharacter(type, x, y);
+        createCharacter: function(type, x, y) {
+            // we can't rely on addCharacter to give us a new index
+            // because setState is equivalent to async
+            const newIndex = this.characterCount++;
+            addCharacter(type, x, y);
+            return newIndex;
         },
+        setActiveCharacter: (index) => {
+            setActiveCharacterIndex(index);
+        },
+        resetCamera,
     };
 }
