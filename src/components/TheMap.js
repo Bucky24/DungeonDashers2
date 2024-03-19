@@ -213,8 +213,8 @@ export default function TheMap({
                     {characters?.map((character, index) => {
                         const data = charactersData[character.type];
                         let image = null;
-                        let width = data.width;
-                        let height = data.height;
+                        let width = data?.width || 1;
+                        let height = data?.height || 1;
 
                         if (data) {
                             const state = character.state || BASE_STATES.RIGHT;

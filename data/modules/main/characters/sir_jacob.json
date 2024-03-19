@@ -1,0 +1,13 @@
+{
+    "version": 2,
+    "id": "sir_jacob",
+    "width": 1,
+    "height": 3,
+    "images": {
+        "base_right": "assets/characters/ryder_right.png"
+    },
+    "actionPoints": 30,
+    "maxHP": 30,
+    "skills": {},
+    "scripts": []
+}

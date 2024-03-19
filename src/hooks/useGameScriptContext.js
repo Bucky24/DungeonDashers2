@@ -4,7 +4,7 @@ import UIContext, { LOCATION } from "../contexts/UIContext";
 import useRunMapTrigger from "./useRunMapTrigger";
 
 export default function useGameScriptContext() {
-    const { addGold, setPaused } = useContext(GameContext);
+    const { addGold, setPaused, centerCamera, addCharacter } = useContext(GameContext);
     const { enterCellSelect, startDialog } = useContext(UIContext);
     const runMapTrigger = useRunMapTrigger();
     
@@ -32,6 +32,10 @@ export default function useGameScriptContext() {
             return new Promise((resolve) => {
                 startDialog(dialog, character, resolve);
             });
-        }
+        },
+        centerCamera,
+        createCharacter: (type, x, y) => {
+            return addCharacter(type, x, y);
+        },
     };
 }

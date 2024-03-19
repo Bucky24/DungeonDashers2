@@ -10,7 +10,7 @@ import UIContext, { UI_MODE } from '../contexts/UIContext';
 
 export default function GameMap() {
     const { map } = useContext(MapContext);
-    const { objects, characters, activeCharacterIndex, paused } = useContext(GameContext);
+    const { objects, characters, activeCharacterIndex, paused, cameraCenterPos } = useContext(GameContext);
     const {
         mode,
         cellSelectData,
@@ -83,8 +83,8 @@ export default function GameMap() {
             moveLocked={true}
             xOff={100}
             yOff={100}
-            centerX={characters[activeCharacterIndex].x}
-            centerY={characters[activeCharacterIndex].y}
+            centerX={cameraCenterPos?.x || characters[activeCharacterIndex].x}
+            centerY={cameraCenterPos?.y || characters[activeCharacterIndex].y}
             selectionRectangles={mode === UI_MODE.CELL_SELECT ? cellSelectData.cells : null}
             selectedRectangle={mode === UI_MODE.CELL_SELECT ? cellSelectData.selected : null}
         />

@@ -3978,7 +3978,7 @@
 		{ "type": "main_rock1", "id": 22, "x": 35, "y": 17 },
 		{ "type": "main_rock1", "id": 23, "x": 34, "y": 17 },
 		{ "type": "main_rock1", "id": 24, "x": 32, "y": 17 },
-		{ "type": "main_trigger1", "id": 25, "x": 35, "y": 16, "data":[{"type": "map_trigger", "name": "spawn_main_sir_jacob", "disable": true }] },
+		{ "type": "main_trigger1", "id": 25, "x": 35, "y": 16, "data":[{"type": "map_trigger", "name": "spawn_sir_jacob", "disable": true }] },
 		{ "type": "main_chest1", "id": 26, "x": 28, "y": 20 },
 		{ "type": "main_chest1", "id": 27, "x": 27, "y": 20 },
 		{ "type": "main_chest1", "id": 28, "x": 26, "y": 20 },
@@ -4040,7 +4040,7 @@
 				}
 			]
 		},
-		"spawn_main_sir_jacob": {
+		"spawn_sir_jacob": {
 			"effects": [
 				{
 					"type": "script",

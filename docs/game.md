@@ -41,6 +41,25 @@ The showDialog method shows a dialog of text to the player. It returns a Promise
 | dialog | The text to show to the player |
 | character | The character who's portrait shows up on the side of the dialog |
 
+### centerCamera
+
+The centerCamera method moves the map to be cetered on the given coords
+
+| Param | Description |
+| -- | -- |
+| x | The x coord to center on |
+| y | The y coord to center on |
+
+### createCharacter
+
+The createCharacter method creates a character of the given type at the give position. It returns the new character's index.
+
+| Param | Description |
+| -- | -- |
+| type | The character type ID to create |
+| x | The x coord to center on |
+| y | The y coord to center on |
+
 ### TreasureType
 
 | Name | Description |

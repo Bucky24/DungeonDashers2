@@ -1,7 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 
 import Coms from '../utils/coms';
 import MapContext from './MapContext';
+import ModuleContext from './ModuleContext';
 
 const GameContext = React.createContext({});
 export default GameContext;
@@ -25,9 +26,11 @@ export function GameProvider({ children }) {
     const [activeCharacterIndex, setActiveCharacterIndex] = useState(-1);
     const [objects, setObjects] = useState([]);
     const [characters, setCharacters] = useState([]);
-    const [objectId, setObjectId] = useState(0);
+    const objectIdRef = useRef(0);
     const [gold, setGold] = useState(0);
     const [paused, setPaused] = useState(false);
+    const [cameraCenterPos, setCameraCenterPos] = useState(null);
+    const { characters: characterData } = useContext(ModuleContext);
 
     const value = {
         loaded,
@@ -36,6 +39,7 @@ export function GameProvider({ children }) {
         activeCharacterIndex,
         gold,
         paused,
+        cameraCenterPos,
         loadGame: (name) => {
             setLoaded(false);
             Coms.send('getSavedGame', { name }).then(async (result) => {
@@ -75,7 +79,7 @@ export function GameProvider({ children }) {
             setCharacters(mapData.characters);
             setActiveCharacterIndex(0);
             setLoaded(true);
-            setObjectId(objectId);
+            objectIdRef.current = objectId;
             setGold(0);
         },
         moveCharacter: (index, x, y) => {
@@ -149,6 +153,33 @@ export function GameProvider({ children }) {
             setGold(Math.max(0, gold + amount));
         },
         setPaused,
+        centerCamera: (x, y) => {
+            setCameraCenterPos({ x, y });
+        },
+        addCharacter: (type, x, y) => {
+            if (!characterData[type]) {
+                console.error(`Unknown character type ${type}`);
+            }
+            const newId = objectIdRef.current ++;
+            const newEntity = {
+                id: newId,
+                type,
+                x,
+                y,
+            };
+            let index = undefined;
+
+            setCharacters((entities) => {
+                const newEntities = [...entities];
+                newEntities.push(newEntity);
+
+                index = newEntities.length + 1;
+
+                return newEntities;
+            });
+
+            return index;
+        },
     };
 
     return (

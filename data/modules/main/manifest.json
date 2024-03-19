@@ -73,6 +73,9 @@
     "characters": {
         "ryder": {
             "manifest": "characters/ryder.json"
+        },
+        "sir_jacob": {
+            "manifest": "characters/sir_jacob.json"
         }
     }
 }
