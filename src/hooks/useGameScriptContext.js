@@ -1,9 +1,13 @@
 import { useContext } from "react";
-import GameContext, { TREASURE } from "../contexts/GameContext";
+import GameContext, { TREASURE, MOVEMENT } from "../contexts/GameContext";
 import UIContext, { LOCATION } from "../contexts/UIContext";
 import useRunMapTrigger from "./useRunMapTrigger";
+import useGetEntityContext from "./useGetEntityContext";
+import useTriggerEvent from "./events/useTriggerEvent";
+import MapContext, { TILE_TYPE } from "../contexts/MapContext";
+import ModuleContext from "../contexts/ModuleContext";
 
-export default function useGameScriptContext() {
+export default function useGameScriptContext(triggerEvent) {
     const {
         addGold,
         setPaused,
@@ -12,12 +16,18 @@ export default function useGameScriptContext() {
         setActiveCharacterIndex,
         resetCamera,
         characters,
+        getEntitiesAtPosition,
     } = useContext(GameContext);
+    const { getTile } = useContext(MapContext);
+    const { tiles } = useContext(ModuleContext);
     const { enterCellSelect, startDialog } = useContext(UIContext);
     const runMapTrigger = useRunMapTrigger();
+    const getEntityContext = useGetEntityContext();
+    const finalTriggerEvent = triggerEvent || useTriggerEvent();
     
     return {
         LOCATION,
+        MOVEMENT,
         characterCount: characters.length,
         giveTreasure: (type, amount, data) => {
             if (type === TREASURE.GOLD) {
@@ -54,5 +64,28 @@ export default function useGameScriptContext() {
             setActiveCharacterIndex(index);
         },
         resetCamera,
+        getEntitiesAt: (x, y) => {
+            const entities = getEntitiesAtPosition(x, y);
+            const contexts = entities.map((entity) => {
+                return getEntityContext(entity, finalTriggerEvent);
+            });
+
+            return contexts;
+        },
+        sleep: (time) => {
+            return new Promise((resolve) => {
+                setTimeout(resolve, time);
+            });
+        },
+        isAccessible: (movement, x, y) => {
+            const tile = getTile(x, y);
+            const tileData = tiles[tile?.tile];
+    
+            if (tileData?.type !== TILE_TYPE.GROUND) {
+                return false;
+            }
+
+            return true;
+        }
     };
 }

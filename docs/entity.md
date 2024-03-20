@@ -38,3 +38,11 @@ This method moves the Entity to a specific x and y. The Entity will teleport the
 | -- | -- |
 | x | The x coord to move to |
 | y | The y coord to move to |
+
+### damage
+
+This method does the specified amount of damage to the Entity's health
+
+| Param | Description |
+| -- | -- |
+| amount | The amount of damage to do |

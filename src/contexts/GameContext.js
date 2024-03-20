@@ -20,6 +20,10 @@ export const TREASURE = {
     GOLD: 'gold',
 };
 
+export const MOVEMENT = {
+    WALKING: 'movement/walking',
+};
+
 export function GameProvider({ children }) {
     const [loaded, setLoaded] = useState(false);
     const { loadMap } = useContext(MapContext);
@@ -179,6 +183,21 @@ export function GameProvider({ children }) {
         resetCamera: () => {
             setCameraCenterPos(null);
         },
+        destroyObject: (id) => {
+            setObjects((objects) => {
+                const objectIndex = objects.findIndex((object) => object.id === id);
+
+                if (objectIndex < 0) {
+                    console.error(`Can't find object with id ${id}`);
+                    return;
+                }
+                
+                const newObjects = [...objects];
+                newObjects.splice(objectIndex, 1);
+
+                return newObjects;
+            });
+        }
     };
 
     return (

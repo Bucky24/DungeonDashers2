@@ -6,11 +6,11 @@ import useGetEntityData from "../useGetEntityData";
 
 export default function useTriggerEvent() {
     const getEventHandlers = useGetEventHandlers();
-    const runScript = useRunScript();
+    let runScript;
     const getEntityContext = useGetEntityContext();
     const getEntityData = useGetEntityData();
 
-    return async (event, entities = []) => {
+    const triggerEvent = async (event, entities = []) => {
         const results = [];
         for (const entity of entities) {
             if (entity.type === 'object') {
@@ -32,8 +32,8 @@ export default function useTriggerEvent() {
                                 break;
                             }
                             const result = await runScript(entityData.scripts[handler.file].script, {
-                                entity: getEntityContext(entity),
-                                other: getEntityContext(entity2),
+                                entity: getEntityContext(entity, triggerEvent),
+                                other: getEntityContext(entity2, triggerEvent),
                             });
                             results.push(result);
                         }
@@ -43,4 +43,8 @@ export default function useTriggerEvent() {
         }
         return results;
     }
+
+    runScript = useRunScript(triggerEvent)
+
+    return triggerEvent;
 }

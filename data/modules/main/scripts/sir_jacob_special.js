@@ -17,24 +17,34 @@ let curY = pos.y;
 while (true) {
     curX += xOff;
     curY += yOff;
-    let obj = getObjectAtCoords(curX, curY, ObjectType.DESTROYABLE_OBJECTS);
-    if (obj) {
-        obj.damage(100);
-        self.moveTo(curX, curY);
-        await sleep(100);
-        continue;
-    }
-    if (!isSpaceWalkable(curX, curY) ||getObjectAtCoords(curX, curY, ObjectType.CHARACTERS)) {
+
+    // can the character even get there
+    if (!this.game.isAccessible(this.game.MOVEMENT.WALKING, curX, curY)) {
         break;
     }
-    obj = getObjectAtCoords(curX, curY, ObjectType.ENEMIES);
-    if (obj) {
+
+    // can they destroy everything or at least pass over it
+    const entities = this.game.getEntitiesAt(curX, curY);
+    const collidableEntities = entities.filter((entity) => {
+        return !entity.getFlags().includes("nonblocking");
+    })
+    let canDestroyAll = true;
+    for (const entity of collidableEntities) {
+        if (!entity.getFlags().includes("destructable")) {
+            canDestroyAll = false;
+            break;
+        }
+    }
+    if (!canDestroyAll) {
         break;
     }
-    obj = getObjectAtCoords(curX, curY, ObjectType.OBJECTS);
-    if (obj) {
-        break;
+
+    // do destruction
+    for (const entity of collidableEntities) {
+        entity.damage(100);
     }
-    await self.moveTo(curX, curY);
-    await sleep(100);
+
+    // move
+    await this.game.sleep(100);
+    await this.entity.moveTo(curX, curY);
 }

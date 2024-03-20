@@ -5,6 +5,7 @@
         "exists"
     ],
     "defaultState": "exists",
+    "flags": ["destructable"],
     "images": {
         "exists": "assets/objects/rock1.png"
     },

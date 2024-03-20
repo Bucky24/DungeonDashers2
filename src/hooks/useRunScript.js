@@ -3,9 +3,9 @@ import ModuleContext from "../contexts/ModuleContext";
 import useGameScriptContext from "./useGameScriptContext";
 import runCode from "../utils/runCode";
 
-export default function useRunScript() {
+export default function useRunScript(triggerEvent) {
     const { scripts } = useContext(ModuleContext);
-    const gameScriptContext = useGameScriptContext();
+    const gameScriptContext = useGameScriptContext(triggerEvent);
 
     return async (scriptId, data) => {
         const code = scripts[scriptId];

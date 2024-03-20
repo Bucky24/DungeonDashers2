@@ -1,12 +1,12 @@
 import { useContext } from 'react';
 
 import ModuleContext from '../contexts/ModuleContext';
-import GameContext from '../contexts/GameContext';
+import GameContext, { EVENTS } from '../contexts/GameContext';
 import getEntityFlags from '../utils/getEntityFlags';
 
 function useGetObjectContext() {
     const { objects } = useContext(ModuleContext);
-    const { setObjectProperty } = useContext(GameContext);
+    const { setObjectProperty, destroyObject } = useContext(GameContext);
 
     // this should be the object from GameContext
     return (objectData) => {
@@ -17,6 +17,7 @@ function useGetObjectContext() {
             state: objectData.state || moduleData.defaultState,
             flags: myFlags,
             data: objectData.data,
+            type: objectData.type,
             x: objectData.x,
             y: objectData.y,
             getState: function() {
@@ -47,15 +48,19 @@ function useGetObjectContext() {
                 setObjectProperty(objectData.id, "x", x);
                 setObjectProperty(objectData.id, "y", y);
             },
+            damage: (amount) => {
+                // right now any amount of damage will destroy the object
+                destroyObject(objectData.id);
+            },
         };
     }
 }
 
 function useGetCharacterContext() {
-    const { setCharacterProperty } = useContext(GameContext);
+    const { setCharacterProperty, getEntitiesAtPosition } = useContext(GameContext);
 
     // this should be the object from GameContext
-    return (characterData) => {
+    return (characterData, triggerEvent) => {
         return {
             data: characterData.data,
             x: characterData.x,
@@ -69,7 +74,18 @@ function useGetCharacterContext() {
                     y: this.y,
                 };
             },
-            moveTo: function(x, y) {
+            moveTo: async function(x, y) {
+                // run intersection code
+                const entities = getEntitiesAtPosition(x, y);
+                if (entities.length > 0) {
+                    for (const entity of entities) {
+                        await triggerEvent(EVENTS.INTERSECT, [
+                            { type: 'character', entity: this },
+                            entity,
+                        ]);
+                    }
+                }
+
                 this.x = x;
                 this.y = y;
                 setCharacterProperty(characterData.id, "x", x);
@@ -83,11 +99,11 @@ export default function useGetEntityContext() {
     const getObjectContext = useGetObjectContext();
     const getCharacterContext = useGetCharacterContext();
 
-    return (entity) => {
+    return (entity, triggerEvent) => {
         if (entity.type === "object") {
-            return getObjectContext(entity.entity);
+            return getObjectContext(entity.entity, triggerEvent);
         } else if (entity.type === "character") {
-            return getCharacterContext(entity.entity);
+            return getCharacterContext(entity.entity, triggerEvent);
         }
     }
 }

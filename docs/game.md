@@ -68,6 +68,34 @@ The setActiveCharacter method changes the active (movable) character to that of 
 | -- | -- |
 | index | The character index to make active |
 
+### getEntitiesAt
+
+The getEntitiesAt method returns a list of all Entities at the given coords
+
+| Param | Description |
+| -- | -- |
+| x | The x coord to check |
+| y | The y coord to check |
+
+### sleep
+
+The sleep method waits for a specified amount of milliseconds before continuing
+
+| Param | Description |
+| -- | -- |
+| milliseconds | The amount of time to wait |
+
+### isAccessible
+
+The isAccessible method returns if the given coordinates are accessible to the given movement type. Note this does not take into account if any Entities are at the given position.
+
+| Param | Description |
+| -- | -- |
+| movement | One of MOVEMENT |
+| x | The x coord to check |
+| y | The y coord to check |
+
+
 ### TreasureType
 
 | Name | Description |
@@ -78,3 +106,9 @@ The setActiveCharacter method changes the active (movable) character to that of 
 | Value | Description |
 | -- | -- |
 | STRAIGHT_LINES | Horizontal and Vertical lines only |
+
+### MOVEMENT
+
+| Value | Description |
+| -- | -- |
+| WALKING | Walking along the ground |
