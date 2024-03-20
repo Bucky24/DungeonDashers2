@@ -104,11 +104,26 @@ export function MapProvider({ children }) {
                 version: 2,
                 modules,
                 map,
-                objects,
                 characters,
+                objects,
+                triggers,
             };
 
             return mapData;
+        },
+        updateTriggerEffect: (id, index, obj) => {
+            setTriggers((triggers) => {
+                if (!triggers[id]) {
+                    console.error(`No map trigger found with id ${id}`);
+                    return triggers;
+                }
+                const thisTrigger = {...triggers[id]};
+                thisTrigger.effects[index] = obj;
+                return {
+                    ...triggers,
+                    [id]: thisTrigger,
+                };
+            })
         }
     };
 

@@ -7,6 +7,8 @@ import ImageContext from '../contexts/ImageContext';
 import MapContext from '../contexts/MapContext';
 import EditorMap from '../components/EditorMap';
 import EditorControls from '../components/EditorControls';
+import TabBar from '../components/TabBar';
+import MapTriggerEditor from '../components/MapTriggerEditor';
 
 export default function MapEditor() {
     const { loaded: editorLoaded, loadMap } = useContext(EditorContext);
@@ -29,10 +31,13 @@ export default function MapEditor() {
                 </div>
             )}
             {loaded && (
-                <>
-                    <EditorMap />
-                    <EditorControls />
-                </>
+                <TabBar tabs={["Map", "Triggers"]} defaultTab="Triggers">
+                    <div style={{ position: 'relative' }}>
+                        <EditorMap />
+                        <EditorControls />
+                    </div>
+                    <MapTriggerEditor />
+                </TabBar>
             )}
         </>
     );

@@ -17,7 +17,7 @@ export default function EditorControls() {
     return (
         <div
             style={{
-                position: 'fixed',
+                position: 'absolute',
                 top: 0,
                 left: 0,
                 backgroundColor: "#fff",
