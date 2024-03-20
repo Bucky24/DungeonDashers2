@@ -4060,52 +4060,7 @@
 			"effects": [
 				{
 					"type": "script",
-					"code": "this.game.setPause(true);"
-				},
-				{
-					"type": "showDialog",
-					"data": {
-						"text": "WHAT! You blinked! You're a wizard?",
-						"characterIdent": "character2"
-					}
-				},
-				{
-					"type": "showDialog",
-					"data": {
-						"text": "Sort of...",
-						"characterIdent": "character1"
-					}
-				},
-				{
-					"type": "showDialog",
-					"data": {
-						"text": "Well as long as you're on the side of good deeds then we shall have no quarrel.",
-						"characterIdent": "character2"
-					}
-				},
-				{
-					"type": "gamePause",
-					"data": {
-						"pause": false
-					}
-				},
-				{
-					"type": "disableTrigger",
-					"data": {
-						"triggerID": 44
-					}
-				},
-				{
-					"type": "disableTrigger",
-					"data": {
-						"triggerID": 45
-					}
-				},
-				{
-					"type": "disableTrigger",
-					"data": {
-						"triggerID": 46
-					}
+					"code": "this.game.setPause(true);await this.game.showMultipleDialog([{dialog:'WHAT! You blinked! You're a wizard?', character:'main_sir_jacob'},{dialog:'Sort of...',character:'main_ryder'},{dialog: 'Well as long as you're on the side of good deeds then we shall have no quarrel.', character: 'sir_jacob'}]);this.game.setPause(false);this.game.getEntityById(44).setState('disabled');this.game.getEntityById(45).setState('disabled');this.game.getEntityById(46).setState('disabled');"
 				}
 			]
 		}
