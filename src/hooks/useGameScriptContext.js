@@ -86,6 +86,13 @@ export default function useGameScriptContext(triggerEvent) {
             }
 
             return true;
-        }
+        },
+        showMultipleDialog: async (dialogs) => {
+            for (const dialogData of dialogs) {
+                await new Promise((resolve) => {
+                    startDialog(dialogData.dialog, dialogData.character, resolve);
+                });
+            }
+        },
     };
 }

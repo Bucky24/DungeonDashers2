@@ -41,6 +41,22 @@ The showDialog method shows a dialog of text to the player. It returns a Promise
 | dialog | The text to show to the player |
 | character | The character who's portrait shows up on the side of the dialog |
 
+### showMultipleDialog
+
+The showMutipleDialog method performs a similar action to showDialog, but takes in an array of Dialog objects. Each one is shown to the player in sequence before continuing.
+
+| Param | Description |
+| -- | -- |
+| dialogs | list of Dialog |
+| character | The character who's portrait shows up on the side of the dialog |
+
+#### Dialog
+
+| key | Description |
+| -- | -- |
+| dialog | The text to show to the player |
+| character | The character who's portrait shows up on the side of the dialog |
+
 ### centerCamera
 
 The centerCamera method moves the map to be cetered on the given coords
