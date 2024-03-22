@@ -9,6 +9,7 @@ Entities can have a number of flags applied to them. These can be custom, and ca
 | Flag | Description |
 | -- | -- |
 | nonblocking | This Entity will not block the passage of other entities. Defaults to off |
+| inactive | This Entity will not be visible, cannot be collided with, and will not take a turn during combat |
 
 ## Data
 
@@ -46,3 +47,15 @@ This method does the specified amount of damage to the Entity's health
 | Param | Description |
 | -- | -- |
 | amount | The amount of damage to do |
+
+### getId
+
+This method returns the ID of the Entity.
+
+### removeFlag
+
+This method unsets the specified flag from the Entity
+
+| Param | Description |
+| -- | -- |
+| flag | The flag to remove |

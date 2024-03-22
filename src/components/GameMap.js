@@ -10,7 +10,14 @@ import UIContext, { UI_MODE } from '../contexts/UIContext';
 
 export default function GameMap() {
     const { map } = useContext(MapContext);
-    const { objects, characters, activeCharacterIndex, paused, cameraCenterPos } = useContext(GameContext);
+    const {
+        objects,
+        characters,
+        enemies,
+        activeCharacterIndex,
+        paused,
+        cameraCenterPos,
+    } = useContext(GameContext);
     const {
         mode,
         cellSelectData,
@@ -28,6 +35,7 @@ export default function GameMap() {
             zoomLocked={true}
             zoom={200}
             characters={characters}
+            enemies={enemies}
             onKey={(code) => {
                 if (paused) {
                     return;

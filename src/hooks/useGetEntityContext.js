@@ -20,6 +20,7 @@ function useGetObjectContext() {
             type: objectData.type,
             x: objectData.x,
             y: objectData.y,
+            id: objectData.id,
             getState: function() {
                 return this.state;
             },
@@ -63,9 +64,13 @@ function useGetObjectContext() {
                         type: this.type,
                         x: this.x,
                         y: this.y,
+                        id: this.id,
                     },
                 };
-            }
+            },
+            getId: function() {
+                return this.id;
+            },
         };
     }
 }
@@ -109,15 +114,50 @@ function useGetCharacterContext() {
     }
 }
 
+function useGetEnemyContext() {
+    const { enemies } = useContext(ModuleContext);
+    const { setEnemyProperty } = useContext(GameContext);
+
+    return (enemyData, triggerEvent) => {
+        const moduleData = enemies[enemyData.type] || {};
+        const myFlags = getEntityFlags({ type: 'enemy', entity: enemyData }, moduleData);
+
+        return {
+            data: enemyData.data,
+            flags: myFlags,
+            id: enemyData.id,
+            getData: function() {
+                return this.data;
+            },
+            removeFlag: function(flag) {
+                if (!this.flags.includes(flag)) {
+                    return;
+                }
+
+                const index = this.flags.indexOf(flag);
+
+                this.flags.splice(index, 1);
+
+                setEnemyProperty(this.id, "flags", [...this.flags]);
+            },
+        };
+    }
+}
+
 export default function useGetEntityContext() {
     const getObjectContext = useGetObjectContext();
     const getCharacterContext = useGetCharacterContext();
+    const getEnemyContext = useGetEnemyContext();
 
     return (entity, triggerEvent) => {
         if (entity.type === "object") {
             return getObjectContext(entity.entity, triggerEvent);
         } else if (entity.type === "character") {
             return getCharacterContext(entity.entity, triggerEvent);
+        } else if (entity.type === "enemy") {
+            return getEnemyContext(entity.entity, triggerEvent);
+        } else {
+            console.error(`getEntityContext doesn't recognize type ${entity.type}`);
         }
     }
 }

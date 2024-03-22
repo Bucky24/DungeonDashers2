@@ -14,6 +14,7 @@ export const EVENTS = {
 
 export const FLAGS = {
     NONBLOCKING: 'nonblocking',
+    INACTIVE: 'inactive',
 };
 
 export const TREASURE = {
@@ -154,6 +155,26 @@ export function GameProvider({ children }) {
 
                 if (!entity) {
                     console.error(`Can't find character with id ${id}`);
+                    return;
+                }
+
+                const newEntities = [...entities];
+                newEntities[entityIndex] = {
+                    ...entity,
+                    [key]: value,
+                };
+
+                return newEntities;
+            });
+        },
+
+        setEnemyProperty: (id, key, value) => {
+            setEnemies((entities) => {
+                const entityIndex = entities.findIndex((entity) => entity.id === id);
+                const entity = entities[entityIndex];
+
+                if (!entity) {
+                    console.error(`Can't find enemy with id ${id}`);
                     return;
                 }
 

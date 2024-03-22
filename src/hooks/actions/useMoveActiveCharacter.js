@@ -38,7 +38,7 @@ export default function useMoveActiveCharacter() {
         const collidableEntities = entities.filter((entity) => {
             const data = getEntityData(entity);
             const flags = getEntityFlags(entity, data);
-            const isNonBlocking = flags.includes(FLAGS.NONBLOCKING);
+            const isNonBlocking = flags.includes(FLAGS.NONBLOCKING) || flags.includes(FLAGS.INACTIVE);
             // if it's non blocking we can't collide with it
             return !isNonBlocking;
         });

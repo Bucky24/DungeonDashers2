@@ -5,11 +5,13 @@ import { Canvas, Rect } from '@bucky24/react-canvas';
 import ModuleContext from '../contexts/ModuleContext';
 import NotFoundImage from '../../assets/not_found.png';
 import { BASE_STATES } from '../contexts/MapContext';
+import { FLAGS } from '../contexts/GameContext';
 
 export default function TheMap({
     map,
     objects,
     characters,
+    enemies,
     onClick,
     onHover,
     showInvalidEntities,
@@ -24,7 +26,13 @@ export default function TheMap({
     selectedRectangle,
 }) {
     const [size, setSize] = useState({ width: 0, height: 0 });
-    const { tiles, getImage, objects: objectsData, characters: charactersData } = useContext(ModuleContext);
+    const {
+        tiles,
+        getImage,
+        objects: objectsData,
+        characters: charactersData,
+        enemies: enemiesData,
+    } = useContext(ModuleContext);
     const [mouseX, setMouseX] = useState(-1);
     const [mouseY, setMouseY] = useState(-1);
     const hoverRef = useRef(null);
@@ -240,6 +248,45 @@ export default function TheMap({
                                 key={`character_${character.x}_${character.y}_${index}`}
                                 x={character.x}
                                 y={character.y-height+1}
+                                src={image}
+                                width={width}
+                                height={height}
+                            />
+                        );
+                    })}
+                    {enemies?.map((enemy, index) => {
+                        if (enemy.flags.includes(FLAGS.INACTIVE)) {
+                            return;
+                        }
+                        const data = enemiesData[enemy.type];
+                        let image = null;
+                        let width = data?.width || 1;
+                        let height = data?.height || 1;
+
+                        if (data) {
+                            const state = enemy.state || BASE_STATES.RIGHT;
+
+                            const imageForState = data.images[state];
+
+                            if (imageForState) {
+                                const imageName = imageForState.image;
+                                image = getImage(imageName);
+                            }
+                        }
+
+                        if (!image) {
+                            if (showInvalidEntities) {
+                                image = NotFoundImage;
+                            } else {
+                                return;
+                            }
+                        }
+
+                        return (
+                            <LayerImage
+                                key={`enemy_${enemy.x}_${enemy.y}_${index}`}
+                                x={enemy.x}
+                                y={enemy.y-height+1}
                                 src={image}
                                 width={width}
                                 height={height}
