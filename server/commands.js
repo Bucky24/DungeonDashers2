@@ -11,6 +11,8 @@ const {
     directories,
 } = require('./utils');
 const getSettings = require("./commands/getSettings");
+const extractModuleComponent = require("./utils/extractModuleComponent");
+const writeModuleComponents = require('./utils/writeModuleComponents');
 
 module.exports = {
     getSettings,
@@ -201,48 +203,19 @@ module.exports = {
         }
 
         // process all our objects for writing
-        const allObjects = [];
-        for (const id in data.objects) {
-            const realId = id.replace(modulePrefix, "");
-            const object = data.objects[id];
+        let component = extractModuleComponent(modulePrefix, data.objects);
+        const allObjects = component.allEntities;
+        data.objects = component.manifestResult;
 
-            data.objects[realId] = {...object.manifest};
-            delete data.objects[id];
-            delete data.objects[realId].original;
+        // process all our characters for writing
+        component = extractModuleComponent(modulePrefix, data.characters);
+        const allCharacters = component.allEntities;
+        data.characters = component.manifestResult;
 
-            object.scripts = object.scripts ? Object.keys(object.scripts) : [];
-
-            object.images = Object.keys(object.images).reduce((obj, key) => {
-                return {
-                    ...obj,
-                    [key]: object.images[key].image.replace(modulePrefix, ""),
-                };
-            }, {});
-
-            allObjects.push(object);
-        }
-
-        // process all our objects for writing
-        const allCharacters = [];
-        for (const id in data.characters) {
-            const realId = id.replace(modulePrefix, "");
-            const entity = data.characters[id];
-
-            data.characters[realId] = {...entity.manifest};
-            delete data.characters[id];
-            delete data.characters[realId].original;
-
-            entity.scripts = entity.scripts ? Object.keys(entity.scripts) : [];
-
-            entity.images = Object.keys(entity.images).reduce((obj, key) => {
-                return {
-                    ...obj,
-                    [key]: entity.images[key].image.replace(modulePrefix, ""),
-                };
-            }, {});
-
-            allCharacters.push(entity);
-        }
+        // process all our enemies for writing
+        component = extractModuleComponent(modulePrefix, data.enemies);
+        const allEnemies = component.allEntities;
+        data.enemies = component.manifestResult;
 
         const manifestFile = path.join(dir, "manifest.json");
 
@@ -251,44 +224,13 @@ module.exports = {
         fs.writeFileSync(manifestFile, dataString);
 
         // write objects
-        for (const object of allObjects) {
-            const manifestObjectPath = object.manifest.manifest;
-            const fullManifestObjectPath = path.join(dir, manifestObjectPath);
-
-            const saveData = {...object};
-            delete saveData.manifest;
-            saveData.id = saveData.id.replace(modulePrefix, "");
-
-            const saveDataString = JSON.stringify(saveData, null, 4);
-
-            fs.writeFileSync(fullManifestObjectPath, saveDataString);
-
-            if (object.manifest.manifest !== object.manifest.original) {
-                // clean up the old file   
-                const oldManifestObjectPath = path.join(dir, object.manifest.original);
-                fs.rmSync(oldManifestObjectPath);
-            }
-        }
+        writeModuleComponents(modulePrefix, dir, allObjects);
 
         // write characters
-        for (const entity of allCharacters) {
-            const manifestPath = entity.manifest.manifest;
-            const fullManifestPath = path.join(dir, manifestPath);
+        writeModuleComponents(modulePrefix, dir, allCharacters);
 
-            const saveData = {...entity};
-            delete saveData.manifest;
-            saveData.id = saveData.id.replace(modulePrefix, "");
-
-            const saveDataString = JSON.stringify(saveData, null, 4);
-
-            fs.writeFileSync(fullManifestPath, saveDataString);
-
-            if (entity.manifest.manifest !== entity.manifest.original) {
-                // clean up the old file   
-                const oldManifestPath = path.join(dir, entity.manifest.original);
-                fs.rmSync(oldManifestPath);
-            }
-        }
+        // write enemies
+        writeModuleComponents(modulePrefix, dir, allEnemies);
 
         return {
             success: true,

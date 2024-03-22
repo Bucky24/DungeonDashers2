@@ -6,7 +6,9 @@
         "disabled"
     ],
     "defaultState": "enabled",
-    "flags": ["nonblocking"],
+    "flags": [
+        "nonblocking"
+    ],
     "events": [
         {
             "on": "intersect",
