@@ -77,5 +77,10 @@
         "sir_jacob": {
             "manifest": "characters/sir_jacob.json"
         }
+    },
+    "enemies": {
+        "bat1": {
+            "manifest": "enemies/bat1.json"
+        }
     }
 }

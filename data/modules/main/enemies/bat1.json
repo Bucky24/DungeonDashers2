@@ -1,0 +1,20 @@
+{
+    "version": 2,
+    "id": "bat1",
+    "width": 1,
+    "height": 1,
+    "images": {
+        "base_right": "assets/enemies/bat.png"
+    },
+    "actionPoints": 10,
+    "maxHP": 10,
+    "skills": {
+        "ai": {
+            "type": "script",
+            "file": "scripts/bat_ai.js"
+        }
+    },
+    "scripts": [
+        "scripts/bat_ai.js"
+    ]
+}

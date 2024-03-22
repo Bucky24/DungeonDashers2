@@ -97,26 +97,32 @@ module.exports = {
         // grab all the object files
         const objects = Object.keys(manifest.objects || {});
         const allManifestObjects = {};
-
         for (const object of objects) {
             objectManifestData = getModuleComponent(name, moduleDir, manifest.objects[object], allScripts, allImages);
 
             allManifestObjects[modulePrefix + object] = objectManifestData;
         }
-
         manifest.objects = allManifestObjects;
 
         // grab all the character files
         const characters = Object.keys(manifest.characters || {});
         const allManifestCharacters = {};
-
         for (const character of characters) {
             characterManifestData = getModuleComponent(name, moduleDir, manifest.characters[character], allScripts, allImages);
 
             allManifestCharacters[modulePrefix + character] = characterManifestData;
         }
-
         manifest.characters = allManifestCharacters;
+
+        // grab all the enemy files
+        const enemies = Object.keys(manifest.enemies || {});
+        const allManifestEnemies = {};
+        for (const enemy of enemies) {
+            enemyManifestData = getModuleComponent(name, moduleDir, manifest.enemies[enemy], allScripts, allImages);
+
+            allManifestEnemies[modulePrefix + enemy] = enemyManifestData;
+        }
+        manifest.enemies = allManifestEnemies;
 
         manifest.images = allImages;
         manifest.scripts = allScripts;
