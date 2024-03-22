@@ -127,6 +127,15 @@ export function GameProvider({ children }) {
                 }
             }
 
+            for (const entity of enemies) {
+                if (entity.x === x && entity.y === y) {
+                    result.push({
+                        type: 'enemy',
+                        entity,
+                    });
+                }
+            }
+
             return result;
         },
         setObjectProperty: (id, key, value) => {
