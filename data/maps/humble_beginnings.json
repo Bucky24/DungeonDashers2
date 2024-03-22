@@ -4342,6 +4342,15 @@
             "y": 33
         }
     ],
+    "enemies": [
+		{ "type": "bat", "id": 1001, "x": 10, "y": 31, "data": { "doorTrigger": 37 }},
+		{ "type": "bat", "id": 1002, "x": 12, "y": 29, "data": { "doorTrigger": 37 }},
+		{ "type": "bat", "id": 1003, "x": 14, "y": 30, "data": { "doorTrigger": 37 }},
+		{ "type": "skeleton", "id": 1004, "x": 34, "y": 32, "data": { "doorTrigger": 49 } },
+		{ "type": "skeleton", "id": 1005, "x": 36, "y": 33, "data": { "doorTrigger": 49 } },
+		{ "type": "bat", "id": 1006, "doorTrigger": 49, "x": 40, "y": 35, "data": { "doorTrigger": 49 } },
+		{ "type": "bat", "id": 1007, "x": 41, "y": 31, "data": { "doorTrigger": 49 } }
+	],
     "triggers": {
         "remove_this_soon": {
             "conditions": [
