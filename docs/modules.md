@@ -13,7 +13,9 @@ The Manifest is a JSON file with the following format:
 | Key | Description |
 | -- | -- |
 | tiles | A list of tile ids mapped to a Tile |
-| objects | A list of object ids mapped to a ManifestContainer |
+| objects | A list of ids mapped to a ManifestContainer |
+| characters | A list of ids mapped to a ManifestContainer |
+| enemies | A list of ids mapped to a ManifestContainer |
 
 ## Tile
 

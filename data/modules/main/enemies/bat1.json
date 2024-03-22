@@ -14,6 +14,13 @@
             "file": "scripts/bat_ai.js"
         }
     },
+    "events": [
+        {
+            "on": "door_opened",
+            "type": "script",
+            "file": "scripts/enemy_door_spawn.js"
+        }
+    ],
     "scripts": [
         "scripts/bat_ai.js"
     ]
