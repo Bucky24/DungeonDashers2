@@ -52,6 +52,20 @@ function useGetObjectContext() {
                 // right now any amount of damage will destroy the object
                 destroyObject(objectData.id);
             },
+            _getEntity: function() {
+                return {
+                    type: 'object',
+                    entity: {
+                        ...objectData,
+                        state: this.state,
+                        flags: this.flags,
+                        data: this.data,
+                        type: this.type,
+                        x: this.x,
+                        y: this.y,
+                    },
+                };
+            }
         };
     }
 }

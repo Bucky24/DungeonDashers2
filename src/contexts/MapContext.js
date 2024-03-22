@@ -29,6 +29,7 @@ export function MapProvider({ children }) {
     const { loadModules, getLoadedModules } = useContext(ModuleContext);
     const [editable, setEditable] = useState(false);
     const [triggers, setTriggers] = useState({});
+    const [enemies, setEnemies] = useState([]);
 
     const value = {
         loaded,
@@ -36,6 +37,7 @@ export function MapProvider({ children }) {
         objects,
         characters,
         triggers,
+        enemies,
         loadMap: async (map, editable) => {
             setEditable(editable);
             const result = await Coms.send("getMap", { name: map });
@@ -49,6 +51,8 @@ export function MapProvider({ children }) {
             setMap(result.map.map || []);
             setObjects(result.map.objects || []);
             setCharacters(result.map.characters || []);
+            setEnemies(result.map.enemies || []);
+
             setTriggers(result.map.triggers);
 
             setLoaded(true);
@@ -56,6 +60,7 @@ export function MapProvider({ children }) {
             return {
                 objects: result.map.objects || [],
                 characters: result.map.characters || [],
+                enemies: result.map.enemies || [],
             };
         },
         editable,

@@ -16,6 +16,7 @@ export function ModuleProvider({ children }) {
     const [objects, setObjects] = useState({});
     const [characters, setCharacters] = useState({});
     const [scripts, setScripts] = useState({});
+    const [enemies, setEnemies] = useState({});
 
     useEffect(() => {
         const allTiles = {};
@@ -23,6 +24,7 @@ export function ModuleProvider({ children }) {
         const allObjects = {};
         const allCharacters = {};
         const allScripts = {};
+        const allEnemies = {};
         for (const module in modules) {
             const moduleData = modules[module];
 
@@ -45,6 +47,10 @@ export function ModuleProvider({ children }) {
             for (const id in moduleData.scripts) {
                 allScripts[id] = moduleData.scripts[id];
             }
+
+            for (const id in moduleData.enemies) {
+                allEnemies[id] = moduleData.enemies[id];
+            }
         }
 
         setTiles(allTiles);
@@ -52,6 +58,7 @@ export function ModuleProvider({ children }) {
         setObjects(allObjects);
         setCharacters(allCharacters);
         setScripts(allScripts);
+        setEnemies(allEnemies);
     }, [modules]);
 
     const value = {
@@ -107,6 +114,7 @@ export function ModuleProvider({ children }) {
         objects,
         characters,
         scripts,
+        enemies,
         modulesList: Object.keys(modules),
         getLoadedModules: () => {
             return Object.keys(modules);

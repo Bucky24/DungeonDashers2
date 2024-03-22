@@ -17,6 +17,7 @@ export default function useGameScriptContext(triggerEvent) {
         resetCamera,
         characters,
         getEntitiesAtPosition,
+        getEntities,
     } = useContext(GameContext);
     const { getTile } = useContext(MapContext);
     const { tiles } = useContext(ModuleContext);
@@ -94,5 +95,10 @@ export default function useGameScriptContext(triggerEvent) {
                 });
             }
         },
+        triggerEvent: async (event, other) => {
+            for (const entity of getEntities()) {
+                await finalTriggerEvent(event, [entity, other._getEntity()]);
+            }
+        }
     };
 }

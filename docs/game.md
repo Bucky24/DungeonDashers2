@@ -111,6 +111,14 @@ The isAccessible method returns if the given coordinates are accessible to the g
 | x | The x coord to check |
 | y | The y coord to check |
 
+### triggerEvent
+
+The triggerEvent method causes an event to be dispatched to every Entity in the game. This can be an existing event or a custom one. Returns a Promise that is resolved when the Event is done processing.
+
+| Param | Description |
+| -- | -- |
+| event | String containing the event to trigger |
+| triggeringEntity | The entity to be used for the "other" in the Event data |
 
 ### TreasureType
 

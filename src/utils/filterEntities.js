@@ -9,6 +9,9 @@ function doesEntityMatchFilter(entity, filter) {
 }
 
 export default function filterEntities(entities, filters) {
+    if (!filters || filters.length === 0) {
+        return entities;
+    }
     return entities.filter((entity) => {
         for (let i=0;i<filters.length;i++) {
             if (doesEntityMatchFilter(entity, filters[i])) {

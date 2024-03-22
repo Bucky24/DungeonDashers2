@@ -35,6 +35,7 @@ export function GameProvider({ children }) {
     const [paused, setPaused] = useState(false);
     const [cameraCenterPos, setCameraCenterPos] = useState(null);
     const { characters: characterData } = useContext(ModuleContext);
+    const [enemies, setEnemies] = useState([]);
 
     const value = {
         loaded,
@@ -44,6 +45,7 @@ export function GameProvider({ children }) {
         gold,
         paused,
         cameraCenterPos,
+        enemies,
         loadGame: (name) => {
             setLoaded(false);
             Coms.send('getSavedGame', { name }).then(async (result) => {
@@ -78,9 +80,20 @@ export function GameProvider({ children }) {
 
                 return object;
             });
+            const enemies = mapData.enemies.map((enemy) => {
+                if (!enemy.id) {
+                    return {
+                        ...enemy,
+                        id: objectId++,
+                    };
+                }
+
+                return enemy;
+            });
 
             setObjects(objects);
             setCharacters(mapData.characters);
+            setEnemies(enemies);
             setActiveCharacterIndex(0);
             setLoaded(true);
             objectIdRef.current = objectId;
@@ -197,6 +210,13 @@ export function GameProvider({ children }) {
 
                 return newObjects;
             });
+        },
+        getEntities: () => {
+            return [
+                ...objects.map(entity => { return { type: 'object', entity } }),
+                ...characters.map(entity => { return { type: 'character', entity } }),
+                ...enemies.map(entity => { return { type: 'enemy', entity } }),
+            ];
         }
     };
 

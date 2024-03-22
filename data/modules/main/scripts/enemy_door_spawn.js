@@ -1,0 +1,1 @@
+console.log('we are enemy door spawn');
