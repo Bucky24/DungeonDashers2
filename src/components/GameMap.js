@@ -10,6 +10,7 @@ import UIContext, { UI_MODE } from '../contexts/UIContext';
 import ModuleContext from '../contexts/ModuleContext';
 import useRunScript from '../hooks/useRunScript';
 import useGetEntityContext from '../hooks/useGetEntityContext';
+import useTriggerEvent from '../hooks/events/useTriggerEvent';
 
 export default function GameMap() {
     const { map } = useContext(MapContext);
@@ -23,6 +24,9 @@ export default function GameMap() {
         hasActiveEnemies,
         combatTurn,
         activeEnemyIndex,
+        setCombatTurn,
+        setActiveCharacterIndex,
+        setActiveEnemyIndex,
     } = useContext(GameContext);
     const {
         mode,
@@ -36,6 +40,7 @@ export default function GameMap() {
     const handleKeyboard = useHandleKeyboard();
     const runScript = useRunScript();
     const getEntityContext = useGetEntityContext();
+    const triggerEvent = useTriggerEvent();
 
     useEffect(() => {
         if (combatTurn === COMBAT_TURN.ENEMY && hasActiveEnemies) {
@@ -51,9 +56,15 @@ export default function GameMap() {
             const actualScript = data.scripts[aiScript.file];
 
             runScript(actualScript.script, {
-                entity: getEntityContext({ type: 'enemy', entity: enemy }),
+                entity: getEntityContext({ type: 'enemy', entity: enemy }, triggerEvent),
             }).then(() => {
-                console.log('enemy ai done');
+                // move to next enemy as appropriate or switch back to characters
+                const nextIndex = activeEnemyIndex + 1;
+                if (nextIndex >= enemies.length) {
+                    setCombatTurn(COMBAT_TURN.PLAYER);
+                    setActiveCharacterIndex(0);
+                    setActiveEnemyIndex(-1);
+                }
             });
         }
     }, [combatTurn, activeEnemyIndex]);

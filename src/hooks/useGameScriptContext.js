@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import GameContext, { TREASURE, MOVEMENT } from "../contexts/GameContext";
+import GameContext, { TREASURE, MOVEMENT, COMBAT_ACTION } from "../contexts/GameContext";
 import UIContext, { LOCATION } from "../contexts/UIContext";
 import useRunMapTrigger from "./useRunMapTrigger";
 import useGetEntityContext from "./useGetEntityContext";
@@ -29,6 +29,7 @@ export default function useGameScriptContext(triggerEvent) {
     return {
         LOCATION,
         MOVEMENT,
+        COMBAT_ACTION,
         characterCount: characters.length,
         giveTreasure: (type, amount, data) => {
             if (type === TREASURE.GOLD) {
@@ -99,6 +100,44 @@ export default function useGameScriptContext(triggerEvent) {
             for (const entity of getEntities()) {
                 await finalTriggerEvent(event, [entity, other._getEntity()]);
             }
+        },
+        getEntitiesWithinRange: (x, y, range) => {
+            const coords = [];
+            for (let i=1;i<=range;i++) {
+                // top line
+                for (let loopX=x-i;loopX<=x+i;loopX++) {
+                    coords.push([loopX, y-i]);
+                }
+
+                // bottom line
+                for (let loopX=x-i;loopX<=x+i;loopX++) {
+                    coords.push([loopX, y+i]);
+                }
+
+                // left line not counting top and bottom
+                for (let loopY=y-i+1;loopY<=y+i-1;loopY++) {
+                    coords.push([x-i, loopY]);
+                }
+
+                // right line not counting top and bottom
+                for (let loopY=y-i+1;loopY<=y+i-1;loopY++) {
+                    coords.push([x+i, loopY]);
+                }
+            }
+
+            let entities = [];
+            for (const coord of coords) {
+                const atPosition = getEntitiesAtPosition(coord[0], coord[1]);
+                entities = [...entities, ...atPosition];
+            }
+            const contexts = entities.map((entity) => {
+                return getEntityContext(entity, finalTriggerEvent);
+            });
+
+            return contexts;
+        },
+        distanceBetweenEntities: (entity1, entity2) => {
+            return Math.sqrt(Math.pow(entity2.x - entity1.x, 2) + Math.pow(entity2.y - entity1.y, 2));
         }
     };
 }

@@ -2,13 +2,21 @@ import useMoveActiveCharacter from "./useMoveActiveCharacter";
 import { ACTION_MAP } from '../../contexts/SettingsContext';
 import useCharacterSpecial from "./useCharacterSpecial";
 import { useContext } from "react";
-import GameContext from "../../contexts/GameContext";
+import GameContext, { COMBAT_TURN } from "../../contexts/GameContext";
 import ModuleContext from "../../contexts/ModuleContext";
 
 export default function takeAction() {
     const moveActiveCharacter = useMoveActiveCharacter();
     const characterSpecial = useCharacterSpecial();
-    const { activeCharacterIndex, setActiveCharacterIndex, characters, setCharacterProperty } = useContext(GameContext);
+    const {
+        activeCharacterIndex,
+        setActiveCharacterIndex,
+        characters,
+        setCharacterProperty,
+        setCombatTurn,
+        hasActiveEnemies,
+        setActiveEnemyIndex,
+    } = useContext(GameContext);
     const { characters: characterData } = useContext(ModuleContext);
 
     const actionMap = {
@@ -24,6 +32,11 @@ export default function takeAction() {
 
             let nextIndex = activeCharacterIndex + 1;
             if (nextIndex >= characters.length) {
+                if (hasActiveEnemies) {
+                    setCombatTurn(COMBAT_TURN.ENEMY);
+                    setActiveEnemyIndex(0);
+                    return;
+                }
                 nextIndex = 0;
             }
             setActiveCharacterIndex(nextIndex);

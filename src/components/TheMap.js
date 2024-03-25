@@ -227,6 +227,9 @@ export default function TheMap({
                         let width = data?.width || 1;
                         let height = data?.height || 1;
 
+                        let maxHp = 1;
+                        let hp = character.hp;
+
                         if (data) {
                             const state = character.state || BASE_STATES.RIGHT;
 
@@ -235,6 +238,11 @@ export default function TheMap({
                             if (imageForState) {
                                 const imageName = imageForState.image;
                                 image = getImage(imageName);
+                            }
+
+                            maxHp = data.maxHP;
+                            if (!hp) {
+                                hp = maxHp;
                             }
                         }
 
@@ -247,14 +255,43 @@ export default function TheMap({
                         }
 
                         return (
-                            <LayerImage
-                                key={`character_${character.x}_${character.y}_${index}`}
-                                x={character.x}
-                                y={character.y-height+1}
-                                src={image}
-                                width={width}
-                                height={height}
-                            />
+                            <React.Fragment key={`character_${character.x}_${character.y}_${index}`}>
+                                <LayerImage
+                                    x={character.x}
+                                    y={character.y-height+1}
+                                    src={image}
+                                    width={width}
+                                    height={height}
+                                />
+                                {inCombat && <Cell
+                                    x={character.x}
+                                    y={character.y-height+1}
+                                    width={width}
+                                    height={height}
+                                    cb={(dims) => {
+                                        const perPixel = dims.width / maxHp;
+                                        const pixels = perPixel * hp;
+                                        return <>
+                                            <Rect
+                                                x={dims.x}
+                                                x2={dims.x2}
+                                                y={dims.y}
+                                                y2={dims.y+5}
+                                                color="#f00"
+                                                fill={true}
+                                            />
+                                            <Rect
+                                                x={dims.x}
+                                                x2={dims.x + pixels}
+                                                y={dims.y}
+                                                y2={dims.y+5}
+                                                color="#0f0"
+                                                fill={true}
+                                            />
+                                        </>;
+                                    }}
+                                />}
+                            </React.Fragment>
                         );
                     })}
                     {enemies?.map((enemy, index) => {
@@ -266,6 +303,9 @@ export default function TheMap({
                         let width = data?.width || 1;
                         let height = data?.height || 1;
 
+                        let maxHp = 1;
+                        let hp = enemy.hp;
+
                         if (data) {
                             const state = enemy.state || BASE_STATES.RIGHT;
 
@@ -274,6 +314,11 @@ export default function TheMap({
                             if (imageForState) {
                                 const imageName = imageForState.image;
                                 image = getImage(imageName);
+                            }
+
+                            maxHp = data.maxHP;
+                            if (!hp) {
+                                hp = maxHp;
                             }
                         }
 
@@ -286,14 +331,43 @@ export default function TheMap({
                         }
 
                         return (
-                            <LayerImage
-                                key={`enemy_${enemy.x}_${enemy.y}_${index}`}
-                                x={enemy.x}
-                                y={enemy.y-height+1}
-                                src={image}
-                                width={width}
-                                height={height}
-                            />
+                            <React.Fragment key={`enemy_${enemy.x}_${enemy.y}_${index}`}>
+                                <LayerImage
+                                    x={enemy.x}
+                                    y={enemy.y-height+1}
+                                    src={image}
+                                    width={width}
+                                    height={height}
+                                />
+                                {inCombat && <Cell
+                                    x={enemy.x}
+                                    y={enemy.y-height+1}
+                                    width={width}
+                                    height={height}
+                                    cb={(dims) => {
+                                        const perPixel = dims.width / maxHp;
+                                        const pixels = perPixel * hp;
+                                        return <>
+                                            <Rect
+                                                x={dims.x}
+                                                x2={dims.x2}
+                                                y={dims.y}
+                                                y2={dims.y+5}
+                                                color="#f00"
+                                                fill={true}
+                                            />
+                                            <Rect
+                                                x={dims.x}
+                                                x2={dims.x + pixels}
+                                                y={dims.y}
+                                                y2={dims.y+5}
+                                                color="#0f0"
+                                                fill={true}
+                                            />
+                                        </>;
+                                    }}
+                                />}
+                            </React.Fragment>
                         );
                     })}
                 </Layer>

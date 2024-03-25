@@ -120,6 +120,25 @@ The triggerEvent method causes an event to be dispatched to every Entity in the 
 | event | String containing the event to trigger |
 | triggeringEntity | The entity to be used for the "other" in the Event data |
 
+### getEntitiesWithinRange
+
+The getEntitiesWithinRange method finds all Entities within a given radius from a specified point.
+
+| Param | Description |
+| -- | -- |
+| x | X coord to use as center of search |
+| y | Y coord to use as center of search |
+| radius | Radius of search |
+
+### distanceBetweenEntities
+
+The distanceBetweenEntities method returns the cardinal distance between two entities, irrespective if the entities can actually get to each other.
+
+| Param | Description |
+| -- | -- |
+| entity1 | Entity to start from |
+| entity2 | Entity to get distance to |
+
 ### TreasureType
 
 | Name | Description |
@@ -136,3 +155,10 @@ The triggerEvent method causes an event to be dispatched to every Entity in the 
 | Value | Description |
 | -- | -- |
 | WALKING | Walking along the ground |
+
+### COMBAT_ACTION
+
+| Value | Description |
+| -- | -- |
+| MOVE | Movement action |
+| ATTACK | Attack action |

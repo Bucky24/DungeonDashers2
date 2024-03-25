@@ -59,3 +59,33 @@ This method unsets the specified flag from the Entity
 | Param | Description |
 | -- | -- |
 | flag | The flag to remove |
+
+### entityType
+
+The entityType is a field on the context that can determine what type of Entity this is.
+
+### canTakeAction
+
+The canTakeAction method returns a boolean indicating if the Entity has enough action points to take the given action.
+
+| Param | Description |
+| -- | -- |
+| action | A COMBAT_ACTION from the GameContext |
+
+### moveTowards
+
+The moveTowards method allows the Entity to move a certain number of steps along a path towards given coordinates.
+
+| Param | Description |
+| -- | -- |
+| x | The x coord to move towards |
+| y | The y coord to move towards |
+| steps | How many steps to take towards the coordinate |
+
+### takeAction
+
+The takeAction method removes the expected number of action points from the Entity. Should be used always after an action is taken in combat.
+
+| Param | Description |
+| -- | -- |
+| action | A COMBAT_ACTION from the GameContext |

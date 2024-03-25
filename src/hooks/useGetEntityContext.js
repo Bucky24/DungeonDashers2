@@ -14,6 +14,7 @@ function useGetObjectContext() {
         const myFlags = getEntityFlags({ type: 'object', entity: objectData }, moduleData);
 
         return {
+            entityType: 'object',
             state: objectData.state || moduleData.defaultState,
             flags: myFlags,
             data: objectData.data,
@@ -77,13 +78,18 @@ function useGetObjectContext() {
 
 function useGetCharacterContext() {
     const { setCharacterProperty, getEntitiesAtPosition } = useContext(GameContext);
+    const { characters } = useContext(ModuleContext);
 
     // this should be the object from GameContext
     return (characterData, triggerEvent) => {
+        const data = characters[characterData.type];
+        const myHp = characterData.hp || data.maxHP;
         return {
+            entityType: 'character',
             data: characterData.data,
             x: characterData.x,
             y: characterData.y,
+            hp: myHp,
             getData: function() {
                 return this.data || null;
             },
@@ -110,22 +116,32 @@ function useGetCharacterContext() {
                 setCharacterProperty(characterData.id, "x", x);
                 setCharacterProperty(characterData.id, "y", y);
             },
+            damage: function(amount) {
+                const newHp = Math.max(0, this.hp - amount);
+                setCharacterProperty(characterData.id, "hp", newHp);
+            }
         };
     }
 }
 
 function useGetEnemyContext() {
     const { enemies } = useContext(ModuleContext);
-    const { setEnemyProperty } = useContext(GameContext);
+    const { setEnemyProperty, getEntitiesAtPosition } = useContext(GameContext);
 
     return (enemyData, triggerEvent) => {
         const moduleData = enemies[enemyData.type] || {};
         const myFlags = getEntityFlags({ type: 'enemy', entity: enemyData }, moduleData);
+        let actionPoints = enemyData.actionPoints || moduleData.actionPoints;
 
         return {
+            entityType: 'enemy',
+            type: enemyData.type,
             data: enemyData.data,
             flags: myFlags,
             id: enemyData.id,
+            actionPoints,
+            x: enemyData.x,
+            y: enemyData.y,
             getData: function() {
                 return this.data;
             },
@@ -139,6 +155,59 @@ function useGetEnemyContext() {
                 this.flags.splice(index, 1);
 
                 setEnemyProperty(this.id, "flags", [...this.flags]);
+            },
+            canTakeAction: function(action) {
+                // action will be one of COMBAT_ACTION which has a point cost associated as the value
+                return action && this.actionPoints >= action;
+            },
+            getPos: function() {
+                return {
+                    x: this.x,
+                    y: this.y,
+                };
+            },
+            moveTowards: async function(x, y, steps) {
+                let xOff = x - this.x;
+                let yOff = y - this.y;
+    
+                if (xOff === 0 && yOff === 0) {
+                    return;
+                }
+
+                // break it down to units
+                if (xOff != 0) xOff /= Math.abs(xOff);
+                if (yOff != 0) yOff /= Math.abs(yOff);
+
+                let curX = this.x;
+                let curY = this.y;
+                for (let i=0;i<steps;i++) {
+                    curX += xOff;
+                    curY += yOff;
+
+                    await this.moveTo(curX, curY);
+                }
+            },
+            moveTo: async function(x, y) {
+                // run intersection code
+                const entities = getEntitiesAtPosition(x, y);
+                if (entities.length > 0) {
+                    for (const entity of entities) {
+                        await triggerEvent(EVENTS.INTERSECT, [
+                            { type: 'enemy', entity: this },
+                            entity,
+                        ]);
+                    }
+                }
+
+                this.x = x;
+                this.y = y;
+                setEnemyProperty(this.id, "x", x);
+                setEnemyProperty(this.id, "y", y);
+            },
+            takeAction: function(action) {
+                this.actionPoints -= action;
+                this.actionPoints = Math.max(this.actionPoints, 0);
+                setEnemyProperty(this.id, "actionPoints", this.actionPoints);
             },
         };
     }

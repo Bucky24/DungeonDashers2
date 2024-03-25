@@ -25,9 +25,9 @@ export const MOVEMENT = {
     WALKING: 'movement/walking',
 };
 
-export const POINT_COST = {
-    MOVEMENT: 1,
-    COMBAT: 10,
+export const COMBAT_ACTION = {
+    MOVE: 1,
+    ATTACK: 10,
 };
 
 export const COMBAT_TURN = {
@@ -45,7 +45,7 @@ export function GameProvider({ children }) {
     const [gold, setGold] = useState(0);
     const [paused, setPaused] = useState(false);
     const [cameraCenterPos, setCameraCenterPos] = useState(null);
-    const { characters: characterData } = useContext(ModuleContext);
+    const { characters: characterData, enemies: enemyData } = useContext(ModuleContext);
     const [enemies, setEnemies] = useState([]);
     const [hasActiveEnemies, setHasActiveEnemies] = useState(false);
     const [combatTurn, setCombatTurn] = useState(COMBAT_TURN.PLAYER);
@@ -53,7 +53,11 @@ export function GameProvider({ children }) {
 
     useEffect(() => {
         let foundActive = false;
-        enemies?.map((enemy) => {
+        const newEnemies = enemies.filter((enemy) => {
+            return enemy.hp === undefined || enemy.hp > 0;
+        });
+
+        newEnemies?.map((enemy) => {
             if (enemy.flags?.includes(FLAGS.INACTIVE)) {
                 return;
             }
@@ -61,6 +65,9 @@ export function GameProvider({ children }) {
             foundActive = true;
         });
 
+        if (newEnemies.length !== enemies.length) {
+            setEnemies(newEnemies);
+        }
         setHasActiveEnemies(foundActive);
     }, [enemies]);
 
@@ -70,11 +77,35 @@ export function GameProvider({ children }) {
         }
 
         const activeCharacter = characters[activeCharacterIndex];
-        if (activeCharacter.actionPoints === 0) {
+        // if on the last character and they are out of action points
+        if (activeCharacter.actionPoints === 0 && activeCharacterIndex === characters.length-1) {
             setCombatTurn(COMBAT_TURN.ENEMY);
             setActiveEnemyIndex(0);
         }
     }, [characters, hasActiveEnemies]);
+
+    useEffect(() => {
+        setCharacters((characters) => {
+            const newCharacters = [...characters];
+            // reset action points for all characters
+            for (const character of newCharacters) {
+                const data = characterData[character.type];
+                character.actionPoints = data.actionPoints;
+            }
+            
+            return newCharacters;
+        });
+        // reset action points for all enemies
+        setEnemies((enemies) => {
+            const newEnemies = [...enemies];
+            for (const enemy of newEnemies) {
+                const data = enemyData[enemy.type];
+                enemy.actionPoints = data.actionPoints;
+            }
+            
+            return newEnemies;
+        });
+    }, [combatTurn]);
 
     const value = {
         loaded,
@@ -291,6 +322,7 @@ export function GameProvider({ children }) {
             ];
         },
         setCombatTurn,
+        setActiveEnemyIndex,
     };
 
     return (
