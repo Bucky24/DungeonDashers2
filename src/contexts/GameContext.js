@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import Coms from '../utils/coms';
 import MapContext from './MapContext';
@@ -25,6 +25,11 @@ export const MOVEMENT = {
     WALKING: 'movement/walking',
 };
 
+export const POINT_COST = {
+    MOVEMENT: 1,
+    COMBAT: 10,
+};
+
 export function GameProvider({ children }) {
     const [loaded, setLoaded] = useState(false);
     const { loadMap } = useContext(MapContext);
@@ -37,6 +42,20 @@ export function GameProvider({ children }) {
     const [cameraCenterPos, setCameraCenterPos] = useState(null);
     const { characters: characterData } = useContext(ModuleContext);
     const [enemies, setEnemies] = useState([]);
+    const [hasActiveEnemies, setHasActiveEnemies] = useState(false);
+
+    useEffect(() => {
+        let foundActive = false;
+        enemies?.map((enemy) => {
+            if (enemy.flags?.includes(FLAGS.INACTIVE)) {
+                return;
+            }
+
+            foundActive = true;
+        });
+
+        setHasActiveEnemies(foundActive);
+    }, [enemies]);
 
     const value = {
         loaded,
@@ -47,6 +66,7 @@ export function GameProvider({ children }) {
         paused,
         cameraCenterPos,
         enemies,
+        hasActiveEnemies,
         loadGame: (name) => {
             setLoaded(false);
             Coms.send('getSavedGame', { name }).then(async (result) => {
@@ -101,11 +121,13 @@ export function GameProvider({ children }) {
             setGold(0);
         },
         moveCharacter: (index, x, y) => {
-            const newChars = [...characters];
-            newChars[index].x = x;
-            newChars[index].y = y;
+            setCharacters((characters) => {
+                const newChars = [...characters];
+                newChars[index].x = x;
+                newChars[index].y = y;
 
-            setCharacters(newChars);
+                return newChars
+            });
         },
         getEntitiesAtPosition: (x, y) => {
             const result = [];
@@ -176,7 +198,6 @@ export function GameProvider({ children }) {
                 return newEntities;
             });
         },
-
         setEnemyProperty: (id, key, value) => {
             setEnemies((entities) => {
                 const entityIndex = entities.findIndex((entity) => entity.id === id);

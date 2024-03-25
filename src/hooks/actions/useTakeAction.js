@@ -3,11 +3,13 @@ import { ACTION_MAP } from '../../contexts/SettingsContext';
 import useCharacterSpecial from "./useCharacterSpecial";
 import { useContext } from "react";
 import GameContext from "../../contexts/GameContext";
+import ModuleContext from "../../contexts/ModuleContext";
 
 export default function takeAction() {
     const moveActiveCharacter = useMoveActiveCharacter();
     const characterSpecial = useCharacterSpecial();
-    const { activeCharacterIndex, setActiveCharacterIndex, characters } = useContext(GameContext);
+    const { activeCharacterIndex, setActiveCharacterIndex, characters, setCharacterProperty } = useContext(GameContext);
+    const { characters: characterData } = useContext(ModuleContext);
 
     const actionMap = {
         [ACTION_MAP.MOVE_LEFT]: () => moveActiveCharacter(-1, 0),
@@ -16,6 +18,10 @@ export default function takeAction() {
         [ACTION_MAP.MOVE_DOWN]: () => moveActiveCharacter(0, 1),
         [ACTION_MAP.SPECIAL_ACTION]: characterSpecial,
         [ACTION_MAP.NEXT_CHARACTER]: () => {
+            const activeCharacter = characters[activeCharacterIndex];
+            const charData = characterData[activeCharacter.type];
+            setCharacterProperty(activeCharacter.id, "actionPoints", charData.actionPoints);
+
             let nextIndex = activeCharacterIndex + 1;
             if (nextIndex >= characters.length) {
                 nextIndex = 0;

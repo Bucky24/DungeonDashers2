@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { Map, Layer, LayerImage, ZoomType, MoveType, Cell } from '@bucky24/react-canvas-map';
-import { Canvas, Rect } from '@bucky24/react-canvas';
+import { Canvas, Rect, Text } from '@bucky24/react-canvas';
 
 import ModuleContext from '../contexts/ModuleContext';
 import NotFoundImage from '../../assets/not_found.png';
@@ -15,7 +15,6 @@ export default function TheMap({
     onClick,
     onHover,
     showInvalidEntities,
-    hideObjects,
     zoom,
     zoomLocked,
     onKey,
@@ -24,6 +23,10 @@ export default function TheMap({
     centerY,
     selectionRectangles,
     selectedRectangle,
+    hasActiveEnemies,
+    combatTurnName,
+    combatPointsLeft,
+    combatPointsMax,
 }) {
     const [size, setSize] = useState({ width: 0, height: 0 });
     const {
@@ -313,6 +316,19 @@ export default function TheMap({
                     })}
                 </Layer>}
             </Map>
+            {hasActiveEnemies && <>
+                <Rect
+                    x={size.width-200}
+                    y={size.height-200}
+                    x2={size.width}
+                    y2={size.height}
+                    color="#fff"
+                    fill={true}
+                />
+                <Text x={size.width-200} y={size.height-200+24} font="24px Arial">Combat</Text>
+                <Text x={size.width-200} y={size.height-200+36} font="12px Arial">Current Turn: {combatTurnName}</Text>
+                <Text x={size.width-200} y={size.height-200+48} font="12px Arial">AP Left: {combatPointsLeft}/{combatPointsMax}</Text>
+            </>}
         </Canvas>
     );
 }

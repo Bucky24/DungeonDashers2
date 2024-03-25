@@ -15,6 +15,9 @@ The Manifest is a JSON file with the following format:
 | Key | Description |
 | -- | -- |
 | id | the ID of the character (must match the ID in the module manifest.json) |
+| name | The name of the character |
+| actionPoints | The max action points for the character |
+| maxHp | The max hp for the character |
 | images | A map of state to image path, see Base States for details |
 | skills | A map of skill name to Skill |
 | scripts | An array of file paths to scripts used for the Object. If you have a script as part of an Event and it is not listed here, it will not be loaded |

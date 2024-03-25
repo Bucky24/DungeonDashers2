@@ -7,6 +7,7 @@ import MapContext from '../contexts/MapContext';
 import { useHandleKeyboard } from '../utils/handleInput';
 import GameContext from '../contexts/GameContext';
 import UIContext, { UI_MODE } from '../contexts/UIContext';
+import ModuleContext from '../contexts/ModuleContext';
 
 export default function GameMap() {
     const { map } = useContext(MapContext);
@@ -17,6 +18,7 @@ export default function GameMap() {
         activeCharacterIndex,
         paused,
         cameraCenterPos,
+        hasActiveEnemies,
     } = useContext(GameContext);
     const {
         mode,
@@ -26,7 +28,16 @@ export default function GameMap() {
         dialog,
         clearDialog,
     } = useContext(UIContext);
+    const { characters: characterData } = useContext(ModuleContext);
     const handleKeyboard = useHandleKeyboard();
+
+    const activeCharacter = characters[activeCharacterIndex];
+    const activeData = characterData[activeCharacter.type];
+    let totalAp = activeCharacter.actionPoints;
+    if (totalAp === undefined) {
+        totalAp = activeData.actionPoints;
+    }
+    const maxAp = activeData?.actionPoints;
 
     return (<>
         <TheMap
@@ -36,6 +47,10 @@ export default function GameMap() {
             zoom={200}
             characters={characters}
             enemies={enemies}
+            hasActiveEnemies={hasActiveEnemies}
+            combatTurnName={activeData.name}
+            combatPointsLeft={totalAp}
+            combatPointsMax={maxAp}
             onKey={(code) => {
                 if (paused) {
                     return;
