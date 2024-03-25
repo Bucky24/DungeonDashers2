@@ -1,13 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import styles from './GameMap.css';
 
 import TheMap from './TheMap';
 import MapContext from '../contexts/MapContext';
 import { useHandleKeyboard } from '../utils/handleInput';
-import GameContext from '../contexts/GameContext';
+import GameContext, { COMBAT_TURN } from '../contexts/GameContext';
 import UIContext, { UI_MODE } from '../contexts/UIContext';
 import ModuleContext from '../contexts/ModuleContext';
+import useRunScript from '../hooks/useRunScript';
+import useGetEntityContext from '../hooks/useGetEntityContext';
 
 export default function GameMap() {
     const { map } = useContext(MapContext);
@@ -19,6 +21,8 @@ export default function GameMap() {
         paused,
         cameraCenterPos,
         hasActiveEnemies,
+        combatTurn,
+        activeEnemyIndex,
     } = useContext(GameContext);
     const {
         mode,
@@ -28,16 +32,54 @@ export default function GameMap() {
         dialog,
         clearDialog,
     } = useContext(UIContext);
-    const { characters: characterData } = useContext(ModuleContext);
+    const { characters: characterData, enemies: enemyData } = useContext(ModuleContext);
     const handleKeyboard = useHandleKeyboard();
+    const runScript = useRunScript();
+    const getEntityContext = useGetEntityContext();
 
-    const activeCharacter = characters[activeCharacterIndex];
-    const activeData = characterData[activeCharacter.type];
-    let totalAp = activeCharacter.actionPoints;
-    if (totalAp === undefined) {
-        totalAp = activeData.actionPoints;
+    useEffect(() => {
+        if (combatTurn === COMBAT_TURN.ENEMY && hasActiveEnemies) {
+            const enemy = enemies[activeEnemyIndex];
+            const data = enemyData[enemy.type];
+
+            const aiScript = data?.skills?.ai;
+
+            if (!aiScript) {
+                console.error(`Cannot find AI script for ${enemy.type}`);
+            }
+
+            const actualScript = data.scripts[aiScript.file];
+
+            runScript(actualScript.script, {
+                entity: getEntityContext({ type: 'enemy', entity: enemy }),
+            }).then(() => {
+                console.log('enemy ai done');
+            });
+        }
+    }, [combatTurn, activeEnemyIndex]);
+
+    let totalAp;
+    let maxAp;
+    let combatName;
+    if (combatTurn === COMBAT_TURN.PLAYER) {
+        const activeCharacter = characters[activeCharacterIndex];
+        const activeData = characterData[activeCharacter.type];
+        totalAp = activeCharacter.actionPoints;
+        if (totalAp === undefined) {
+            totalAp = activeData.actionPoints;
+        }
+        maxAp = activeData?.actionPoints;
+        combatName = activeData.name;
+    } else {
+        const activeEnemy = enemies[activeEnemyIndex];
+        const activeData = enemyData[activeEnemy.type];
+        totalAp = activeEnemy.actionPoints;
+        if (totalAp === undefined) {
+            totalAp = activeData.actionPoints;
+        }
+        maxAp = activeData?.actionPoints;
+        combatName = activeData.name;
     }
-    const maxAp = activeData?.actionPoints;
 
     return (<>
         <TheMap
@@ -47,12 +89,12 @@ export default function GameMap() {
             zoom={200}
             characters={characters}
             enemies={enemies}
-            hasActiveEnemies={hasActiveEnemies}
-            combatTurnName={activeData.name}
+            inCombat={hasActiveEnemies}
+            combatTurnName={combatName}
             combatPointsLeft={totalAp}
             combatPointsMax={maxAp}
             onKey={(code) => {
-                if (paused) {
+                if (paused || combatTurn !== COMBAT_TURN.PLAYER) {
                     return;
                 }
                 if (mode === UI_MODE.GAME) {

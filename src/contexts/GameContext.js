@@ -30,6 +30,11 @@ export const POINT_COST = {
     COMBAT: 10,
 };
 
+export const COMBAT_TURN = {
+    PLAYER: 'combat/player',
+    ENEMY: 'combat/enemy',
+};
+
 export function GameProvider({ children }) {
     const [loaded, setLoaded] = useState(false);
     const { loadMap } = useContext(MapContext);
@@ -43,6 +48,8 @@ export function GameProvider({ children }) {
     const { characters: characterData } = useContext(ModuleContext);
     const [enemies, setEnemies] = useState([]);
     const [hasActiveEnemies, setHasActiveEnemies] = useState(false);
+    const [combatTurn, setCombatTurn] = useState(COMBAT_TURN.PLAYER);
+    const [activeEnemyIndex, setActiveEnemyIndex] = useState(-1);
 
     useEffect(() => {
         let foundActive = false;
@@ -57,6 +64,18 @@ export function GameProvider({ children }) {
         setHasActiveEnemies(foundActive);
     }, [enemies]);
 
+    useEffect(() => {
+        if (!hasActiveEnemies && combatTurn === COMBAT_TURN.PLAYER) {
+            return;
+        }
+
+        const activeCharacter = characters[activeCharacterIndex];
+        if (activeCharacter.actionPoints === 0) {
+            setCombatTurn(COMBAT_TURN.ENEMY);
+            setActiveEnemyIndex(0);
+        }
+    }, [characters, hasActiveEnemies]);
+
     const value = {
         loaded,
         objects,
@@ -67,6 +86,8 @@ export function GameProvider({ children }) {
         cameraCenterPos,
         enemies,
         hasActiveEnemies,
+        combatTurn,
+        activeEnemyIndex,
         loadGame: (name) => {
             setLoaded(false);
             Coms.send('getSavedGame', { name }).then(async (result) => {
@@ -268,7 +289,8 @@ export function GameProvider({ children }) {
                 ...characters.map(entity => { return { type: 'character', entity } }),
                 ...enemies.map(entity => { return { type: 'enemy', entity } }),
             ];
-        }
+        },
+        setCombatTurn,
     };
 
     return (

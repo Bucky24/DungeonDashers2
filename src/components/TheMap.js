@@ -23,7 +23,7 @@ export default function TheMap({
     centerY,
     selectionRectangles,
     selectedRectangle,
-    hasActiveEnemies,
+    inCombat,
     combatTurnName,
     combatPointsLeft,
     combatPointsMax,
@@ -316,7 +316,7 @@ export default function TheMap({
                     })}
                 </Layer>}
             </Map>
-            {hasActiveEnemies && <>
+            {inCombat && <>
                 <Rect
                     x={size.width-200}
                     y={size.height-200}
