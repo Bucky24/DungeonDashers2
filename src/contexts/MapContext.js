@@ -53,7 +53,7 @@ export function MapProvider({ children }) {
             setCharacters(result.map.characters || []);
             setEnemies(result.map.enemies || []);
 
-            setTriggers(result.map.triggers);
+            setTriggers(result.map.triggers || {});
 
             setLoaded(true);
             
@@ -111,6 +111,7 @@ export function MapProvider({ children }) {
                 map,
                 characters,
                 objects,
+                enemies,
                 triggers,
             };
 
@@ -129,7 +130,43 @@ export function MapProvider({ children }) {
                     [id]: thisTrigger,
                 };
             })
-        }
+        },
+        createObject: (x, y, type) => {
+            setObjects((entities) => {
+                const newEntities = [...entities];
+                newEntities.push({
+                    type,
+                    x,
+                    y,
+                });
+
+                return newEntities;
+            });
+        },
+        createCharacter: (x, y, type) => {
+            setCharacters((entities) => {
+                const newEntities = [...entities];
+                newEntities.push({
+                    type,
+                    x,
+                    y,
+                });
+
+                return newEntities;
+            });
+        },
+        createEnemy: (x, y, type) => {
+            setEnemies((entities) => {
+                const newEntities = [...entities];
+                newEntities.push({
+                    type,
+                    x,
+                    y,
+                });
+
+                return newEntities;
+            });
+        },
     };
 
     return (

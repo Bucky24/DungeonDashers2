@@ -31,7 +31,7 @@ export default function MapEditor() {
                 </div>
             )}
             {loaded && (
-                <TabBar tabs={["Map", "Triggers"]} defaultTab="Triggers">
+                <TabBar tabs={["Map", "Triggers"]} defaultTab="Map">
                     <div style={{ position: 'relative' }}>
                         <EditorMap />
                         <EditorControls />

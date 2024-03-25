@@ -255,7 +255,7 @@ export default function TheMap({
                         );
                     })}
                     {enemies?.map((enemy, index) => {
-                        if (enemy.flags.includes(FLAGS.INACTIVE)) {
+                        if (enemy.flags?.includes(FLAGS.INACTIVE)) {
                             return;
                         }
                         const data = enemiesData[enemy.type];

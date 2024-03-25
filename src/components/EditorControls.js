@@ -1,18 +1,34 @@
 import React, { useContext } from 'react';
 
-import EditorContext, { EDITOR_MAP_TOOLS} from '../contexts/EditorContext';
+import EditorContext, { EDITOR_MAP_TOOLS } from '../contexts/EditorContext';
 import ModuleContext from '../contexts/ModuleContext';
 
 export default function EditorControls() {
     const {
         saveMap,
         hoveredEntities,
-        activeTile,
-        setActiveTile,
+        activeItem,
+        setActiveItem,
         tool,
         setTool,
     } = useContext(EditorContext);
-    const { tiles } = useContext(ModuleContext);
+    const { tiles, objects, characters, enemies } = useContext(ModuleContext);
+
+    let toolSelectData = null;
+    let toolSelectName = null;
+    if (tool === EDITOR_MAP_TOOLS.PLACE_TILE) {
+        toolSelectData = tiles;
+        toolSelectName = "Tile";
+    } else if (tool === EDITOR_MAP_TOOLS.PLACE_OBJECT) {
+        toolSelectData = objects;
+        toolSelectName = "Object";
+    } else if (tool === EDITOR_MAP_TOOLS.PLACE_CHARACTER) {
+        toolSelectData = characters;
+        toolSelectName = "Character";
+    } else if (tool === EDITOR_MAP_TOOLS.PLACE_ENEMY) {
+        toolSelectData = enemies;
+        toolSelectName = "Enemy";
+    }
 
     return (
         <div
@@ -41,24 +57,32 @@ export default function EditorControls() {
             </div>
             <div>
                 <div>Current Tool:</div>
-                <select value={tool} onChange={(e) => setTool(e.target.value)}>
+                <select value={tool} onChange={(e) => {
+                    setTool(e.target.value)
+                    setActiveItem('');
+                }}>
                     <option value="">Select a tool</option>
                     {Object.keys(EDITOR_MAP_TOOLS).map((key) => {
                         return <option key={`tool_${key}`} value={EDITOR_MAP_TOOLS[key]}>{key}</option>
                     })}
                 </select>
             </div>
-            <div>
+            {toolSelectData && <div>
                 <div>Selected Tile:</div>
-                <select value={activeTile} onChange={(e) => setActiveTile(e.target.value)}>
-                    <option value=''>Select a tile</option>
-                    {Object.keys(tiles).map((tile) => {
-                        const data = tiles[tile];
+                <select value={activeItem} onChange={(e) => setActiveItem(e.target.value)}>
+                    <option value=''>Select a {toolSelectName}</option>
+                    {Object.keys(toolSelectData).map((item) => {
+                        const data = toolSelectData[item];
 
-                        return <option key={`select_tile_${tile}`} value={tile}>{tile} ({data.type})</option>
+                        let text = item;
+                        if (data.type) {
+                            text += `(${data.type})`;
+                        }
+
+                        return <option key={`select_${toolSelectName}_${item}`} value={item}>{text}</option>
                     })}
                 </select>
-            </div>
+            </div>}
         </div>
     );
 }

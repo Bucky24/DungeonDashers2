@@ -22,7 +22,7 @@ export default function takeAction() {
             }
             setActiveCharacterIndex(nextIndex);
         },
-    }
+    };
 
     return (action) => {
         if (!actionMap[action]) {
