@@ -34,7 +34,7 @@ export default function ModuleEditor() {
                         }}>Save</button>
                     </div>
                 </div>
-                <TabBar tabs={['Tiles', 'Objects']} defaultTab='Objects'>
+                <TabBar tabs={['Tiles', 'Objects']} defaultTab='Tiles'>
                     <ModuleTileEditor module={module} />
                     <ModuleObjectEditor module={module} />
                 </TabBar>

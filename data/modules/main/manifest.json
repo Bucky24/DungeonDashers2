@@ -51,6 +51,18 @@
         "cliff_top": {
             "type": "hole",
             "image": "assets/tiles/cliff_top.png"
+        },
+        "right_bot_corner": {
+            "type": "wall",
+            "image": "assets/tiles/right_bot_corner.png"
+        },
+        "cliff_left_bot_nub": {
+            "type": "hole",
+            "image": "assets/tiles/cliff_left_bot_nub.png"
+        },
+        "cliff_left_bot_corner": {
+            "type": "hole",
+            "image": "assets/tiles/cliff_left_bot_corner.png"
         }
     },
     "objects": {
