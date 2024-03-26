@@ -6,21 +6,33 @@ export default UIContext;
 export const UI_MODE = {
     GAME: 'mode/game',
     CELL_SELECT: 'mode/cell_select',
+    MENU: ' mode/menu',
+    SAVE_MENU: 'mode/save_menu',
 };
 
 export const LOCATION = {
     STRAIGHT_LINES: 'location/straight_lines',
 };
 
+export const MENU_ITEMS = [
+    'Continue',
+    'Save Game',
+    'Exit Game',
+];
+
 export function UIProvider({ children }) {
     const [mode, setMode] = useState(UI_MODE.GAME);
     const [cellSelectData, setCellSelectData] = useState();
     const [dialog, setDialog] = useState();
+    const [showMenu, setShowMenu] = useState(false);
+    const [activeMenuItem, setActiveMenuItem] = useState(0);
 
     const value = {
         mode,
         cellSelectData,
         dialog,
+        showMenu,
+        activeMenuItem,
         enterCellSelect: (startX, startY, min, max, type, callback) => {
             const data = {
                 startX,
@@ -96,6 +108,20 @@ export function UIProvider({ children }) {
             cellSelectData.callback(cellSelectData.selected);
             setCellSelectData(null);
             setMode(UI_MODE.GAME);
+        },
+        setShowMenu,
+        setMode,
+        setActiveMenuItem,
+        chooseMenuItem: () => {
+            const item = MENU_ITEMS[activeMenuItem];
+
+            if (item === "Continue") {
+                setMode(UI_MODE.GAME);
+            } else if (item === "Save Game") {
+                setMode(UI_MODE.SAVE_MENU);
+            }
+
+            setShowMenu(false);
         }
     };
 

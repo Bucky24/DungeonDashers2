@@ -27,6 +27,7 @@ export default function TheMap({
     combatTurnName,
     combatPointsLeft,
     combatPointsMax,
+    fullFocus,
 }) {
     const [size, setSize] = useState({ width: 0, height: 0 });
     const {
@@ -131,6 +132,7 @@ export default function TheMap({
                     keys.splice(index, 1);
                 }
             }}
+            captureAllKeyEvents={fullFocus}
         >
             <Map
                 width={size.width}

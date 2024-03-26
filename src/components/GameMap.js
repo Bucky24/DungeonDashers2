@@ -6,11 +6,13 @@ import TheMap from './TheMap';
 import MapContext from '../contexts/MapContext';
 import { useHandleKeyboard } from '../utils/handleInput';
 import GameContext, { COMBAT_TURN } from '../contexts/GameContext';
-import UIContext, { UI_MODE } from '../contexts/UIContext';
+import UIContext, { MENU_ITEMS, UI_MODE } from '../contexts/UIContext';
 import ModuleContext from '../contexts/ModuleContext';
 import useRunScript from '../hooks/useRunScript';
 import useGetEntityContext from '../hooks/useGetEntityContext';
 import useTriggerEvent from '../hooks/events/useTriggerEvent';
+import GameMenu from './GameMenu';
+import SaveDialog from './SaveDialog';
 
 export default function GameMap() {
     const { map } = useContext(MapContext);
@@ -35,6 +37,10 @@ export default function GameMap() {
         acceptSelectedCell,
         dialog,
         clearDialog,
+        showMenu,
+        activeMenuItem,
+        setActiveMenuItem,
+        chooseMenuItem,
     } = useContext(UIContext);
     const { characters: characterData, enemies: enemyData } = useContext(ModuleContext);
     const handleKeyboard = useHandleKeyboard();
@@ -104,6 +110,7 @@ export default function GameMap() {
             combatTurnName={combatName}
             combatPointsLeft={totalAp}
             combatPointsMax={maxAp}
+            fullFocus={mode === UI_MODE.GAME || mode === UI_MODE.CELL_SELECT}
             onKey={(code) => {
                 if (paused || combatTurn !== COMBAT_TURN.PLAYER) {
                     return;
@@ -154,6 +161,14 @@ export default function GameMap() {
                     } else if (code === "Enter") {
                         acceptSelectedCell();
                     }
+                } else if (mode === UI_MODE.MENU) {
+                    if (code === "ArrowUp") {
+                        setActiveMenuItem(Math.max(0, activeMenuItem - 1));
+                    } else if (code === "ArrowDown") {
+                        setActiveMenuItem(Math.min(MENU_ITEMS.length-1, activeMenuItem + 1));
+                    } else if (code === "Enter") {
+                        chooseMenuItem();
+                    }
                 }
             }}
             moveLocked={true}
@@ -170,5 +185,11 @@ export default function GameMap() {
                 <button onClick={clearDialog}>Close</button>
             </div>
         </div>}
+        {showMenu && <div className={styles.menu_outer}>
+            <div className={styles.menu_inner}>
+                <GameMenu />
+            </div>
+        </div>}
+        {mode === UI_MODE.SAVE_MENU && <SaveDialog />}
     </>);
 }

@@ -13,9 +13,11 @@ const {
 const getSettings = require("./commands/getSettings");
 const extractModuleComponent = require("./utils/extractModuleComponent");
 const writeModuleComponents = require('./utils/writeModuleComponents');
+const saveGame = require("./commands/saveGame");
 
 module.exports = {
     getSettings,
+    saveGame,
     getSavedGames: () => {
         return {
             success: true,

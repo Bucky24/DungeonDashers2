@@ -30,6 +30,7 @@ export function MapProvider({ children }) {
     const [editable, setEditable] = useState(false);
     const [triggers, setTriggers] = useState({});
     const [enemies, setEnemies] = useState([]);
+    const [mapName, setMapName] = useState("");
 
     const value = {
         loaded,
@@ -38,8 +39,10 @@ export function MapProvider({ children }) {
         characters,
         triggers,
         enemies,
+        mapName,
         loadMap: async (map, editable) => {
             setEditable(editable);
+            setMapName(map);
             const result = await Coms.send("getMap", { name: map });
             if (!result.success) {
                 console.error(result.message);

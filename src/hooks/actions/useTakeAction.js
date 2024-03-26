@@ -4,6 +4,7 @@ import useCharacterSpecial from "./useCharacterSpecial";
 import { useContext } from "react";
 import GameContext, { COMBAT_TURN } from "../../contexts/GameContext";
 import ModuleContext from "../../contexts/ModuleContext";
+import UIContext, { UI_MODE } from "../../contexts/UIContext";
 
 export default function takeAction() {
     const moveActiveCharacter = useMoveActiveCharacter();
@@ -18,6 +19,7 @@ export default function takeAction() {
         setActiveEnemyIndex,
     } = useContext(GameContext);
     const { characters: characterData } = useContext(ModuleContext);
+    const { setShowMenu, setMode, setActiveMenuItem } = useContext(UIContext);
 
     const actionMap = {
         [ACTION_MAP.MOVE_LEFT]: () => moveActiveCharacter(-1, 0),
@@ -40,6 +42,11 @@ export default function takeAction() {
                 nextIndex = 0;
             }
             setActiveCharacterIndex(nextIndex);
+        },
+        [ACTION_MAP.OPEN_MENU]: () => {
+            setShowMenu(true);
+            setMode(UI_MODE.MENU);
+            setActiveMenuItem(0);
         },
     };
 

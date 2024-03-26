@@ -37,7 +37,7 @@ export const COMBAT_TURN = {
 
 export function GameProvider({ children }) {
     const [loaded, setLoaded] = useState(false);
-    const { loadMap } = useContext(MapContext);
+    const { loadMap, mapName } = useContext(MapContext);
     const [activeCharacterIndex, setActiveCharacterIndex] = useState(-1);
     const [objects, setObjects] = useState([]);
     const [characters, setCharacters] = useState([]);
@@ -323,6 +323,19 @@ export function GameProvider({ children }) {
         },
         setCombatTurn,
         setActiveEnemyIndex,
+        saveGame: async (name) => {
+            const saveData = {
+                map: mapName,
+                characters,
+                enemies,
+                objects,
+            };
+
+            await Coms.send("saveGame", {
+                name,
+                saveData,
+            });
+        }
     };
 
     return (

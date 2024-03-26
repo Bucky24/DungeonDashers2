@@ -11,6 +11,7 @@ const ACTIONS = [
     'MOVE_UP',
     'SPECIAL_ACTION',
     'NEXT_CHARACTER',
+    'OPEN_MENU',
 ];
 
 export const ACTION_MAP = ACTIONS.reduce((obj, action) => {
@@ -27,6 +28,7 @@ const DEFAULT_CONTROLS = {
     [ACTION_MAP.MOVE_UP]: 'KEY_ArrowUp',
     [ACTION_MAP.SPECIAL_ACTION]: 'KEY_Enter',
     [ACTION_MAP.NEXT_CHARACTER]: 'KEY_Space',
+    [ACTION_MAP.OPEN_MENU]: 'KEY_Escape',
 };
 
 export function SettingsProvider({ children }) {
