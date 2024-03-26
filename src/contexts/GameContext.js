@@ -129,11 +129,16 @@ export function GameProvider({ children }) {
 
                 const map = result.game.map;
 
-                const mapData = await loadMap(map);
+                await loadMap(map);
 
-                setObjects(mapData.objects);
-                setCharacters(mapData.characters);
-                setActiveCharacterIndex(0);
+                setObjects(result.game.objects);
+                setCharacters(result.game.characters);
+                setEnemies(result.game.enemies);
+                setActiveCharacterIndex(result.game.gameData.activeCharacterIndex);
+                setActiveEnemyIndex(result.game.gameData.activeEnemyIndex);
+                setGold(result.game.gameData.gold);
+                setCombatTurn(result.game.gameData.combatTurn);
+                objectIdRef.current = result.game.gameData.objectId;
                 setLoaded(true);
             });
         },
@@ -329,6 +334,13 @@ export function GameProvider({ children }) {
                 characters,
                 enemies,
                 objects,
+                gameData: {
+                    activeCharacterIndex,
+                    activeEnemyIndex,
+                    gold,
+                    combatTurn,
+                    objectId: objectIdRef.current,
+                },
             };
 
             await Coms.send("saveGame", {

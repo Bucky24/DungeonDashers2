@@ -4,12 +4,12 @@ import GameContext from '../contexts/GameContext';
 import Game from './Game';
 
 export default function NewGame() {
-    const { map } = useParams();
-    const { newGame } = useContext(GameContext);
+    const { game } = useParams();
+    const { loadGame } = useContext(GameContext);
 
     useEffect(() => {
-        newGame(map);
-    }, [map]);
+        loadGame(game);
+    }, [game]);
 
     return <Game />
 }

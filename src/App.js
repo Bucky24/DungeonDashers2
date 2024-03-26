@@ -3,12 +3,13 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import styles from './styles.css';
 
-import UIContext, { PANES } from './contexts/UIContext';
+import UIContext from './contexts/UIContext';
 import Game from './views/Game';
 import MapEditor from './views/MapEditor';
 import ModuleEditor from './views/ModuleEditor';
 import Home from './views/Home';
 import NewGame from './views/NewGame';
+import LoadGame from './views/LoadGame';
 
 export default function App() {
 	const { pane } = useContext(UIContext);
@@ -18,6 +19,7 @@ export default function App() {
 			<Routes>
 				<Route path="/game" element={<Game />} />
 				<Route path="/game/new/:map" element={<NewGame />} />
+				<Route path="/game/load/:game" element={<LoadGame />} />
 				<Route path="/editor/map/:map" element={<MapEditor />} />
 				<Route path="/editor/module/:module" element={<ModuleEditor />} />
 				<Route path="/" element={<Home />} />

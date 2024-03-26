@@ -7,10 +7,13 @@ export default function Home() {
     return <div style={{ display: 'flex', flexDirection: 'column' }}>
         <button onClick={() => {
             navigate("/game/new/map1");
-        }}>Game (map1)</button>
+        }}>New Game (map1)</button>
         <button onClick={() => {
             navigate("/game/new/humble_beginnings");
-        }}>Game (humble beginnings)</button>
+        }}>New Game (humble beginnings)</button>
+        <button onClick={() => {
+            navigate("/game/load/test");
+        }}>Load Game (test)</button>
         <button onClick={() => {
             navigate("/editor/module/main");
         }}>Module editor (main)</button>
