@@ -11,12 +11,9 @@ export default function takeAction() {
     const characterSpecial = useCharacterSpecial();
     const {
         activeCharacterIndex,
-        setActiveCharacterIndex,
         characters,
         setCharacterProperty,
-        setCombatTurn,
-        hasActiveEnemies,
-        setActiveEnemyIndex,
+        setNextActiveCharacter,
     } = useContext(GameContext);
     const { characters: characterData } = useContext(ModuleContext);
     const { setShowMenu, setMode, setActiveMenuItem } = useContext(UIContext);
@@ -31,17 +28,7 @@ export default function takeAction() {
             const activeCharacter = characters[activeCharacterIndex];
             const charData = characterData[activeCharacter.type];
             setCharacterProperty(activeCharacter.id, "actionPoints", charData.actionPoints);
-
-            let nextIndex = activeCharacterIndex + 1;
-            if (nextIndex >= characters.length) {
-                if (hasActiveEnemies) {
-                    setCombatTurn(COMBAT_TURN.ENEMY);
-                    setActiveEnemyIndex(0);
-                    return;
-                }
-                nextIndex = 0;
-            }
-            setActiveCharacterIndex(nextIndex);
+            setNextActiveCharacter();
         },
         [ACTION_MAP.OPEN_MENU]: () => {
             setShowMenu(true);

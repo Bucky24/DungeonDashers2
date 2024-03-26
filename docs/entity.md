@@ -10,6 +10,7 @@ Entities can have a number of flags applied to them. These can be custom, and ca
 | -- | -- |
 | nonblocking | This Entity will not block the passage of other entities. Defaults to off |
 | inactive | This Entity will not be visible, cannot be collided with, and will not take a turn during combat |
+| disabled | This entity will not take a turn during combat, but can be collided with, damaged, and will be visible |
 
 ## Data
 
@@ -89,3 +90,7 @@ The takeAction method removes the expected number of action points from the Enti
 | Param | Description |
 | -- | -- |
 | action | A COMBAT_ACTION from the GameContext |
+
+### setFlag
+
+A function that takes in a flag as a string and sets it to `on`

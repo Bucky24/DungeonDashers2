@@ -40,7 +40,3 @@ A function that returns the current state of the object
 ### setState
 
 A function that takes in a string and updates the state of the object
-
-### setFlag
-
-A function that takes in a flag as a string and sets it to `on`

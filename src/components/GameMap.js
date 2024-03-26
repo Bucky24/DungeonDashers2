@@ -27,8 +27,8 @@ export default function GameMap() {
         combatTurn,
         activeEnemyIndex,
         setCombatTurn,
-        setActiveCharacterIndex,
         setActiveEnemyIndex,
+        setNextActiveCharacter,
     } = useContext(GameContext);
     const {
         mode,
@@ -49,9 +49,26 @@ export default function GameMap() {
     const triggerEvent = useTriggerEvent();
 
     useEffect(() => {
+        const nextEnemy = () => {
+            // move to next enemy as appropriate or switch back to characters
+            const nextIndex = activeEnemyIndex + 1;
+            if (nextIndex >= enemies.length) {
+                setCombatTurn(COMBAT_TURN.PLAYER);
+
+                setNextActiveCharacter(0);
+                setActiveEnemyIndex(-1);
+            } else {
+                setActiveEnemyIndex(nextIndex);
+            }
+        }
         if (combatTurn === COMBAT_TURN.ENEMY && hasActiveEnemies) {
             const enemy = enemies[activeEnemyIndex];
             const data = enemyData[enemy.type];
+
+            if (enemy.flags.includes("inactive")) {
+                nextEnemy();
+                return;
+            }
 
             const aiScript = data?.skills?.ai;
 
@@ -64,13 +81,7 @@ export default function GameMap() {
             runScript(actualScript.script, {
                 entity: getEntityContext({ type: 'enemy', entity: enemy }, triggerEvent),
             }).then(() => {
-                // move to next enemy as appropriate or switch back to characters
-                const nextIndex = activeEnemyIndex + 1;
-                if (nextIndex >= enemies.length) {
-                    setCombatTurn(COMBAT_TURN.PLAYER);
-                    setActiveCharacterIndex(0);
-                    setActiveEnemyIndex(-1);
-                }
+                nextEnemy();
             });
         }
     }, [combatTurn, activeEnemyIndex]);
@@ -87,15 +98,15 @@ export default function GameMap() {
         }
         maxAp = activeData?.actionPoints;
         combatName = activeData.name;
-    } else {
+    } else if (combatTurn === COMBAT_TURN.ENEMY) {
         const activeEnemy = enemies[activeEnemyIndex];
         const activeData = enemyData[activeEnemy.type];
         totalAp = activeEnemy.actionPoints;
         if (totalAp === undefined) {
-            totalAp = activeData.actionPoints;
+            totalAp = activeData?.actionPoints || 0;
         }
         maxAp = activeData?.actionPoints;
-        combatName = activeData.name;
+        combatName = activeData?.name || "";
     }
 
     return (<>
@@ -112,7 +123,7 @@ export default function GameMap() {
             combatPointsMax={maxAp}
             fullFocus={mode === UI_MODE.GAME || mode === UI_MODE.CELL_SELECT}
             onKey={(code) => {
-                if (paused || combatTurn !== COMBAT_TURN.PLAYER) {
+                if (paused || combatTurn === COMBAT_TURN.ENEMY) {
                     return;
                 }
                 if (mode === UI_MODE.GAME) {

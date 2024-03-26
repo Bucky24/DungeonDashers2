@@ -139,6 +139,22 @@ The distanceBetweenEntities method returns the cardinal distance between two ent
 | entity1 | Entity to start from |
 | entity2 | Entity to get distance to |
 
+### getCharacterIdByIndex
+
+The getCharacterIdByIndex method returns the Entity ID for the given character, or null if the index is out of bounds.
+
+| Param | Description |
+| -- | -- |
+| index | Index of the character to locate |
+
+### getEntityById
+
+The getEntityById method returns the Entity associated with the given ID, or null if not found.
+
+| Param | Description |
+| -- | -- |
+| id | ID of the Entity to locate |
+
 ### TreasureType
 
 | Name | Description |

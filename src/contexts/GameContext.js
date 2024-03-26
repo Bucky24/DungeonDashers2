@@ -15,6 +15,7 @@ export const EVENTS = {
 export const FLAGS = {
     NONBLOCKING: 'nonblocking',
     INACTIVE: 'inactive',
+    DISABLED: 'disabled',
 };
 
 export const TREASURE = {
@@ -33,6 +34,7 @@ export const COMBAT_ACTION = {
 export const COMBAT_TURN = {
     PLAYER: 'combat/player',
     ENEMY: 'combat/enemy',
+    NONE: 'combat/none',
 };
 
 export function GameProvider({ children }) {
@@ -48,9 +50,11 @@ export function GameProvider({ children }) {
     const { characters: characterData, enemies: enemyData } = useContext(ModuleContext);
     const [enemies, setEnemies] = useState([]);
     const [hasActiveEnemies, setHasActiveEnemies] = useState(false);
-    const [combatTurn, setCombatTurn] = useState(COMBAT_TURN.PLAYER);
+    const [combatTurn, setCombatTurn] = useState(COMBAT_TURN.NONE);
     const [activeEnemyIndex, setActiveEnemyIndex] = useState(-1);
+    const justLoadedRef = useRef(false);
 
+    // this is the main way to enter combat
     useEffect(() => {
         let foundActive = false;
         const newEnemies = enemies.filter((enemy) => {
@@ -69,6 +73,9 @@ export function GameProvider({ children }) {
             setEnemies(newEnemies);
         }
         setHasActiveEnemies(foundActive);
+        if (!hasActiveEnemies && foundActive) {
+            setCombatTurn(COMBAT_TURN.PLAYER);
+        }
     }, [enemies]);
 
     useEffect(() => {
@@ -77,6 +84,9 @@ export function GameProvider({ children }) {
         }
 
         const activeCharacter = characters[activeCharacterIndex];
+        if (!activeCharacter) {
+            return;
+        }
         // if on the last character and they are out of action points
         if (activeCharacter.actionPoints === 0 && activeCharacterIndex === characters.length-1) {
             setCombatTurn(COMBAT_TURN.ENEMY);
@@ -85,12 +95,19 @@ export function GameProvider({ children }) {
     }, [characters, hasActiveEnemies]);
 
     useEffect(() => {
+        // if we just loaded, it's likely characters
+        // already have action points set, if the save
+        // was done in middle of combat. In that case
+        // do not overwrite that data here
+        if (justLoadedRef.current) {
+            return;
+        }
         setCharacters((characters) => {
             const newCharacters = [...characters];
             // reset action points for all characters
             for (const character of newCharacters) {
                 const data = characterData[character.type];
-                character.actionPoints = data.actionPoints;
+                character.actionPoints = data?.actionPoints;
             }
             
             return newCharacters;
@@ -100,7 +117,7 @@ export function GameProvider({ children }) {
             const newEnemies = [...enemies];
             for (const enemy of newEnemies) {
                 const data = enemyData[enemy.type];
-                enemy.actionPoints = data.actionPoints;
+                enemy.actionPoints = data?.actionPoints;
             }
             
             return newEnemies;
@@ -140,6 +157,10 @@ export function GameProvider({ children }) {
                 setCombatTurn(result.game.gameData.combatTurn);
                 objectIdRef.current = result.game.gameData.objectId;
                 setLoaded(true);
+                justLoadedRef.current = true;
+                setTimeout(() => {
+                    justLoadedRef.current = false;
+                }, 50);
             });
         },
         newGame: async (map) => {
@@ -176,6 +197,7 @@ export function GameProvider({ children }) {
             setLoaded(true);
             objectIdRef.current = objectId;
             setGold(0);
+            setCombatTurn(COMBAT_TURN.NONE);
         },
         moveCharacter: (index, x, y) => {
             setCharacters((characters) => {
@@ -347,6 +369,44 @@ export function GameProvider({ children }) {
                 name,
                 saveData,
             });
+        },
+        setNextActiveCharacter: (startingIndex) => {
+            let nextIndex = startingIndex;
+            
+            if (nextIndex === undefined) {
+                nextIndex = activeCharacterIndex + 1;
+            }
+            while (true) {
+                if (nextIndex === activeCharacterIndex) {
+                    return;
+                }
+
+                const currentCharacter = characters[nextIndex];
+                let isValidCharacter = true;
+                if (currentCharacter?.flags?.includes(FLAGS.DISABLED)) {
+                    isValidCharacter = false;
+                }
+
+                if (!currentCharacter) {
+                    isValidCharacter = false;
+                }
+
+                if (isValidCharacter) {
+                    setActiveCharacterIndex(nextIndex);
+                    return;
+                }
+
+                nextIndex ++;
+
+                if (nextIndex >= characters.length) {
+                    if (hasActiveEnemies) {
+                        setCombatTurn(COMBAT_TURN.ENEMY);
+                        setActiveEnemyIndex(0);
+                        return;
+                    }
+                    nextIndex = 0;
+                }
+            }
         }
     };
 

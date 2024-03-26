@@ -15,9 +15,11 @@ export default function useGameScriptContext(triggerEvent) {
         addCharacter,
         setActiveCharacterIndex,
         resetCamera,
-        characters,
         getEntitiesAtPosition,
         getEntities,
+        characters,
+        objects,
+        enemies,
     } = useContext(GameContext);
     const { getTile } = useContext(MapContext);
     const { tiles } = useContext(ModuleContext);
@@ -138,6 +140,32 @@ export default function useGameScriptContext(triggerEvent) {
         },
         distanceBetweenEntities: (entity1, entity2) => {
             return Math.sqrt(Math.pow(entity2.x - entity1.x, 2) + Math.pow(entity2.y - entity1.y, 2));
+        },
+        getCharacterIdByIndex: (index) => {
+            if (index < 0 || index >= characters.length) {
+                return null;
+            }
+
+            return characters[index].id;
+        },
+        getEntityById: (id) => {
+            for (const entity of objects) {
+                if (entity.id === id) {
+                    return getEntityContext({ type: 'object', entity });
+                }
+            }
+            for (const entity of characters) {
+                if (entity.id === id) {
+                    return getEntityContext({ type: 'character', entity });
+                }
+            }
+            for (const entity of enemies) {
+                if (entity.id === id) {
+                    return getEntityContext({ type: 'enemy', entity });
+                }
+            }
+
+            return null;
         }
     };
 }

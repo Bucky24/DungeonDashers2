@@ -84,12 +84,14 @@ function useGetCharacterContext() {
     return (characterData, triggerEvent) => {
         const data = characters[characterData.type];
         const myHp = characterData.hp || data.maxHP;
+        const flags = characterData.flags || [];
         return {
             entityType: 'character',
             data: characterData.data,
             x: characterData.x,
             y: characterData.y,
             hp: myHp,
+            flags,
             getData: function() {
                 return this.data || null;
             },
@@ -105,7 +107,7 @@ function useGetCharacterContext() {
                 if (entities.length > 0) {
                     for (const entity of entities) {
                         await triggerEvent(EVENTS.INTERSECT, [
-                            { type: 'character', entity: this },
+                            this._getEntity(),
                             entity,
                         ]);
                     }
@@ -119,7 +121,38 @@ function useGetCharacterContext() {
             damage: function(amount) {
                 const newHp = Math.max(0, this.hp - amount);
                 setCharacterProperty(characterData.id, "hp", newHp);
-            }
+            },
+            setFlag: function(flag) {
+                if (this.flags.includes(flag)) {
+                    return;
+                }
+
+                this.flags.push(flag);
+                setCharacterProperty(characterData.id, "flags", [...this.flags]);
+            },
+            removeFlag: function(flag) {
+                if (!this.flags.includes(flag)) {
+                    return;
+                }
+
+                const index = this.flags.indexOf(flag);
+
+                this.flags.splice(index, 1);
+
+                setCharacterProperty(this.id, "flags", [...this.flags]);
+            },
+            _getEntity: function() {
+                return {
+                    type: 'character',
+                    entity: {
+                        ...characterData,
+                        flags: this.flags,
+                        data: this.data,
+                        x: this.x,
+                        y: this.y,
+                    },
+                };
+            },
         };
     }
 }

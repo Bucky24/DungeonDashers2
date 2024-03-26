@@ -4343,14 +4343,91 @@
         }
     ],
     "enemies": [
-		{ "type": "main_bat1", "id": 1001, "x": 10, "y": 31, "data": { "doorTrigger": 37 }, "flags": ["inactive"]},
-		{ "type": "main_bat1", "id": 1002, "x": 12, "y": 29, "data": { "doorTrigger": 37 }, "flags": ["inactive"]},
-		{ "type": "main_bat1", "id": 1003, "x": 14, "y": 30, "data": { "doorTrigger": 37 }, "flags": ["inactive"]},
-		{ "type": "main_skeleton", "id": 1004, "x": 34, "y": 32, "data": { "doorTrigger": 49 }, "flags": ["inactive"]},
-		{ "type": "main_skeleton", "id": 1005, "x": 36, "y": 33, "data": { "doorTrigger": 49 }, "flags": ["inactive"] },
-		{ "type": "main_bat1", "id": 1006, "x": 40, "y": 35, "data": { "doorTrigger": 49 }, "flags": ["inactive"] },
-		{ "type": "main_bat1", "id": 1007, "x": 41, "y": 31, "data": { "doorTrigger": 49 }, "flags": ["inactive"] }
-	],
+        {
+            "type": "main_bat1",
+            "id": 1001,
+            "x": 10,
+            "y": 31,
+            "data": {
+                "doorTrigger": 37
+            },
+            "flags": [
+                "inactive"
+            ]
+        },
+        {
+            "type": "main_bat1",
+            "id": 1002,
+            "x": 12,
+            "y": 29,
+            "data": {
+                "doorTrigger": 37
+            },
+            "flags": [
+                "inactive"
+            ]
+        },
+        {
+            "type": "main_bat1",
+            "id": 1003,
+            "x": 14,
+            "y": 30,
+            "data": {
+                "doorTrigger": 37
+            },
+            "flags": [
+                "inactive"
+            ]
+        },
+        {
+            "type": "main_skeleton",
+            "id": 1004,
+            "x": 34,
+            "y": 32,
+            "data": {
+                "doorTrigger": 49
+            },
+            "flags": [
+                "inactive"
+            ]
+        },
+        {
+            "type": "main_skeleton",
+            "id": 1005,
+            "x": 36,
+            "y": 33,
+            "data": {
+                "doorTrigger": 49
+            },
+            "flags": [
+                "inactive"
+            ]
+        },
+        {
+            "type": "main_bat1",
+            "id": 1006,
+            "x": 40,
+            "y": 35,
+            "data": {
+                "doorTrigger": 49
+            },
+            "flags": [
+                "inactive"
+            ]
+        },
+        {
+            "type": "main_bat1",
+            "id": 1007,
+            "x": 41,
+            "y": 31,
+            "data": {
+                "doorTrigger": 49
+            },
+            "flags": [
+                "inactive"
+            ]
+        }
+    ],
     "triggers": {
         "remove_this_soon": {
             "conditions": [
@@ -4374,7 +4451,7 @@
             "effects": [
                 {
                     "type": "script",
-                    "code": "this.game.setPause(true);\nawait this.game.showDialog(\"Hmmm... I can't blink through that. There's no telling what's on the other side.\", \"main_ryder\");\nthis.game.centerCamera(4, 31);\nconst characterIndex = await this.game.createCharacter(\"main_sir_jacob\",4, 31);\nawait this.game.showDialog(\"WHERE ARE YOU, WIZARD SCUM?\", 'main_sir_jacob');\nawait this.game.showDialog('SHOW YOURSELF!', 'main_sir_jacob');\nawait this.game.showDialog('Or are you too cowardly to face my cold steel?', 'main_sir_jacob');\nthis.game.setActiveCharacter(characterIndex);\nthis.game.resetCamera();\nthis.game.setPause(false);"
+                    "code": "this.game.setPause(true);\nawait this.game.showDialog(\"Hmmm... I can't blink through that. There's no telling what's on the other side.\", \"main_ryder\");\nthis.game.centerCamera(4, 31);\nconst characterIndex = await this.game.createCharacter(\"main_sir_jacob\",4, 31);\nawait this.game.showDialog(\"WHERE ARE YOU, WIZARD SCUM?\", 'main_sir_jacob');\nawait this.game.showDialog('SHOW YOURSELF!', 'main_sir_jacob');\nawait this.game.showDialog('Or are you too cowardly to face my cold steel?', 'main_sir_jacob');\nthis.game.setActiveCharacter(characterIndex);\nthis.game.resetCamera();\nthis.game.setPause(false);\nconst ryderIndex = 0;\nconst ryderId = this.game.getCharacterIdByIndex(ryderIndex);\nconst ryderEntity = this.game.getEntityById(ryderId);\nryderEntity.setFlag(\"disabled\");"
                 }
             ]
         },
@@ -4382,7 +4459,7 @@
             "effects": [
                 {
                     "type": "script",
-                    "code": "this.game.setPause(true);\nawait this.game.showMultipleDialog([\n{dialog:\"Oh... err... hello.\", character:\"main_ryder\"},\n{dialog: \"YOU THERE! Who are you? Tell me now.\", character:'main_sir_jacob'},\n{dialog:'I\\'m... err... Ryder... Who are you?',character:'main_ryder'},\n{dialog:'I am Sir Jacob, a trusted member of the King\\'s Royal Guard, and I am on a mission.', character:'main_sir_jacob'},\n{dialog:'Say... young traveller, have you seen a wizard among these parts?',character:'main_sir_jacob'},\n{dialog: 'I chased him to the opening of the cave. He seems to have brought us here by some dark magic.', character: 'main_sir_jacob'},\n{dialog: 'Yeah! I think I saw him too, just outside.', character: 'main_ryder'},\n{dialog: 'It is my duty to find him. I will knock him to the ground. Are you experienced with that dagger?', character: 'main_sir_jacob'},\n{dialog:'...That depends on how you define \"experienced\".',character:'main_ryder'},\n{dialog: 'I\\'ll be watching you... fellow wanderer.', character:'main_sir_jacob'},\n{dialog: 'Let us journey forth.', character: 'main_sir_jacob'}\n]);\nthis.game.setPause(false);"
+                    "code": "this.game.setPause(true);\nawait this.game.showMultipleDialog([\n{dialog:\"Oh... err... hello.\", character:\"main_ryder\"},\n{dialog: \"YOU THERE! Who are you? Tell me now.\", character:'main_sir_jacob'},\n{dialog:'I\\'m... err... Ryder... Who are you?',character:'main_ryder'},\n{dialog:'I am Sir Jacob, a trusted member of the King\\'s Royal Guard, and I am on a mission.', character:'main_sir_jacob'},\n{dialog:'Say... young traveller, have you seen a wizard among these parts?',character:'main_sir_jacob'},\n{dialog: 'I chased him to the opening of the cave. He seems to have brought us here by some dark magic.', character: 'main_sir_jacob'},\n{dialog: 'Yeah! I think I saw him too, just outside.', character: 'main_ryder'},\n{dialog: 'It is my duty to find him. I will knock him to the ground. Are you experienced with that dagger?', character: 'main_sir_jacob'},\n{dialog:'...That depends on how you define \"experienced\".',character:'main_ryder'},\n{dialog: 'I\\'ll be watching you... fellow wanderer.', character:'main_sir_jacob'},\n{dialog: 'Let us journey forth.', character: 'main_sir_jacob'}\n]);\nthis.game.setPause(false);\nconst ryderIndex = 0;\nconst ryderId = this.game.getCharacterIdByIndex(ryderIndex);\nconst ryderEntity = this.game.getEntityById(ryderId);\nryderEntity.removeFlag(\"disabled\");"
                 }
             ]
         },
