@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';
 
-import styles from './ModuleObjectEditor.css';
-
 import ModuleContext from '../contexts/ModuleContext';
 import TextField from './TextField';
+import SidebarNav from './SidebarNav';
 
 export default function ModuleObjectEditor({ module }) {
     const { objects, changeObject } = useContext(ModuleContext);
@@ -20,17 +19,10 @@ export default function ModuleObjectEditor({ module }) {
     const activeWithoutPrefix = activeObject.replace(modulePrefix, "");
 
     return <section style={{ display: 'flex' }}>
-        <aside style={{ flexShrink: 0, flexBasis: 200, marginRight: 20 }}>
-            {Object.keys(objects).map((key) => {
-                return <div
-                    key={`object_${key}`}
-                    className={classNames(
-                        activeObject === key && styles.active,
-                    )}
-                    onClick={() => setActiveObject(key)}
-                >{key.replace(modulePrefix, "")}</div>
-            })}
-        </aside>
+        <SidebarNav
+            items={Object.keys(objects).map((key) => key.replace(modulePrefix, ""))}
+            activeItem={activeObject.replace(modulePrefix, "")}
+            setActiveItem={(item) => setActiveObject(modulePrefix + item)} />
         {activeObject && objects[activeObject] && <div>
             <h2>Object {activeWithoutPrefix}</h2>
             <h3>General Properties</h3>

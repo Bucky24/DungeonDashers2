@@ -4,6 +4,13 @@ import Coms from '../utils/coms';
 import ImageContext from './ImageContext';
 import { TILE_TYPE } from './MapContext';
 
+export const BASE_STATES = {
+    LEFT: 'base_left',
+    RIGHT: 'base_right',
+    UP: 'base_up',
+    DOWN: 'base_down',
+};
+
 const ModuleContext = React.createContext({});
 export default ModuleContext;
 
@@ -60,6 +67,69 @@ export function ModuleProvider({ children }) {
         setScripts(allScripts);
         setEnemies(allEnemies);
     }, [modules]);
+
+    const updateEntity = (modules, module, type, id, key, value) => {
+        if (key === "id") {
+            // prevent actually deleting the tile if it's the same
+            if (value === id) {
+                return modules;
+            }
+            const items = {...modules[module][type]};
+            items[value] = items[id];
+            items[value].id = value;
+            delete items[id];
+            return {
+                ...modules,
+                [module]: {
+                    ...modules[module],
+                    [type]: items,
+                },
+            };
+        } else {
+            const items = {...modules[module][type]};
+
+            const path = key.split(".");
+
+            let current = items[id];
+            while (path.length > 1) {
+                const segment = path.shift();
+                if (!current[segment]) {
+                    if (typeof current === "object") {
+                        current[segment] = {};
+                        current = current[segment];
+                    } else {
+                        console.error(`Cannot find ${key}`, path, JSON.stringify(current));
+                    }
+                    break;
+                } else {
+                    current = current[segment];
+                }
+            }
+
+            if (path.length > 1) {
+                // didn't find it. No change
+                return modules;
+            }
+
+            if (value === null) {
+                if (Array.isArray(current)) {
+                    current.splice(path[0], 1);
+                } else {
+                    delete current[path[0]];
+                }
+            } else {
+                current[path[0]] = value;
+            }
+
+            return {
+                ...modules,
+                [module]: {
+                    ...modules[module],
+                    [type]: items,
+                },
+            };
+        }
+    }
 
     const value = {
         loadModules: (names) => {
@@ -181,65 +251,14 @@ export function ModuleProvider({ children }) {
             }
         },
         changeObject: (module, id, key, value) => {
-            if (key === "id") {
-                // prevent actually deleting the tile if it's the same
-                if (value === id) {
-                    return;
-                }
-                setModules((modules) => {
-                    const items = {...modules[module].objects};
-                    items[value] = items[id];
-                    items[value].id = value;
-                    delete items[id];
-                    return {
-                        ...modules,
-                        [module]: {
-                            ...modules[module],
-                            objects: items,
-                        },
-                    };
-                });
-            } else {
-                setModules((modules) => {
-                    const items = {...modules[module].objects};
-
-                    const path = key.split(".");
-
-                    let current = items[id];
-                    while (path.length > 1) {
-                        const segment = path.shift();
-                        if (!current[segment]) {
-                            console.error(`Cannot find ${key}`, path, current);
-                            break;
-                        } else {
-                            current = current[segment];
-                        }
-                    }
-
-                    if (path.length > 1) {
-                        // didn't find it. No change
-                        return modules;
-                    }
-
-                    if (value === null) {
-                        if (Array.isArray(current)) {
-                            current.splice(path[0], 1);
-                        } else {
-                            delete current[path[0]];
-                        }
-                    } else {
-                        current[path[0]] = value;
-                    }
-
-                    return {
-                        ...modules,
-                        [module]: {
-                            ...modules[module],
-                            objects: items,
-                        },
-                    };
-                });
-            }
+            setModules((modules) => {
+                return updateEntity(modules, module, "objects", id, key, value);
+            });
+        },
+        changeEnemy: (module, id, key, value) => {
+            setModules((modules) => {
+                return updateEntity(modules, module, "enemies", id, key, value);
+            });
         },
         addTile: (module) => {
             setModules((modules) => {
@@ -257,6 +276,30 @@ export function ModuleProvider({ children }) {
                 };
             });
         },
+        addEnemy: (module, name) => {
+            setModules((modules) => {
+                const enemies = {...modules[module].enemies};
+                if (enemies[name]) {
+                    return enemies;
+                }
+                enemies[name] = {
+                    version: 2,
+                    id: name,
+                    manifest: {
+                        manifest: "enemies/" + name + ".json",
+                        original: "enemies/" + name + ".json",
+                    },
+                    scripts: {},
+                };
+                return {
+                    ...modules,
+                    [module]: {
+                        ...modules[module],
+                        enemies,
+                    },
+                };
+            });
+        }
     };
 
     return (

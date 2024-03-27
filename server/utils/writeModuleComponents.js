@@ -14,7 +14,10 @@ module.exports = function(modulePrefix, dir, entities) {
 
         fs.writeFileSync(fullManifestPath, saveDataString);
 
-        if (entity.manifest.manifest !== entity.manifest.original) {
+        if (
+            entity.manifest.manifest !== entity.manifest.original &&
+            fs.existsSync(entity.manifest.original)
+        ) {
             // clean up the old file   
             const oldManifestPath = path.join(dir, entity.manifest.original);
             fs.rmSync(oldManifestPath);

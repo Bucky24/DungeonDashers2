@@ -99,6 +99,9 @@
     "enemies": {
         "bat1": {
             "manifest": "enemies/bat1.json"
+        },
+        "skeleton1": {
+            "manifest": "enemies/skeleton1.json"
         }
     }
 }

@@ -1,0 +1,31 @@
+{
+    "version": 2,
+    "id": "skeleton1",
+    "scripts": [
+        "scripts/skeleton1_ai.js",
+        "scripts/enemy_door_spawn.js"
+    ],
+    "images": {
+        "base_right": "assets/enemies/skeleton1.png"
+    },
+    "name": "Skeleton",
+    "width": 1,
+    "height": 1,
+    "actionPoints": 10,
+    "maxHP": 20,
+    "skills": {
+        "ai": {
+            "type": "script",
+            "file": "scripts/skeleton1_ai.js"
+        }
+    },
+    "events": [
+        {
+            "on": "door_opened",
+            "file": {
+                "type": "script",
+                "file": "scripts/enemy_door_spawn.js"
+            }
+        }
+    ]
+}
