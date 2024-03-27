@@ -77,7 +77,7 @@ export function GameProvider({ children }) {
             setCombatTurn(COMBAT_TURN.PLAYER);
         }
 
-        if (!hasActiveEnemies && !justLoadedRef.current) {
+        if (!hasActiveEnemies && !foundActive && !justLoadedRef.current) {
             setCombatTurn(COMBAT_TURN.NONE);
         }
     }, [enemies]);

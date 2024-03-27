@@ -4224,25 +4224,22 @@
             "y": 23
         },
         {
-            "type": "main_switch",
+            "type": "main_switch1",
             "id": 41,
             "x": 37,
             "y": 22,
             "data": [
                 {
-                    "type": "unlock_door",
+                    "type": "open_door",
                     "id": 42
                 }
             ]
         },
         {
-            "type": "main_door1",
+            "type": "main_door2",
             "id": 42,
             "x": 32,
-            "y": 25,
-            "flags": [
-                "locked"
-            ]
+            "y": 25
         },
         {
             "type": "main_trigger1",
@@ -4258,22 +4255,40 @@
             ]
         },
         {
-            "type": "main_trigger",
+            "type": "main_trigger1",
             "id": 44,
             "x": 37,
-            "y": 23
+            "y": 23,
+            "data": [
+                {
+                    "type": "map_trigger",
+                    "name": "ryder_blinks"
+                }
+            ]
         },
         {
-            "type": "main_trigger",
+            "type": "main_trigger1",
             "id": 45,
             "x": 37,
-            "y": 24
+            "y": 24,
+            "data": [
+                {
+                    "type": "map_trigger",
+                    "name": "ryder_blinks"
+                }
+            ]
         },
         {
-            "type": "main_trigger",
+            "type": "main_trigger1",
             "id": 46,
             "x": 37,
-            "y": 25
+            "y": 25,
+            "data": [
+                {
+                    "type": "map_trigger",
+                    "name": "ryder_blinks"
+                }
+            ]
         },
         {
             "type": "main_rock1",
@@ -4467,7 +4482,7 @@
             "effects": [
                 {
                     "type": "script",
-                    "code": "this.game.setPause(true);await this.game.showMultipleDialog([{dialog:'WHAT! You blinked! You're a wizard?', character:'main_sir_jacob'},{dialog:'Sort of...',character:'main_ryder'},{dialog: 'Well as long as you're on the side of good deeds then we shall have no quarrel.', character: 'sir_jacob'}]);this.game.setPause(false);this.game.getEntityById(44).setState('disabled');this.game.getEntityById(45).setState('disabled');this.game.getEntityById(46).setState('disabled');"
+                    "code": "this.game.setPause(true);\nawait this.game.showMultipleDialog([\n{dialog:'WHAT! You blinked! You\\'re a wizard?', character:'main_sir_jacob'},\n{dialog:'Sort of...',character:'main_ryder'},\n{dialog: 'Well as long as you\\'re on the side of good deeds then we shall have no quarrel.', character: 'sir_jacob'}\n]);\nthis.game.setPause(false);\nthis.game.getEntityById(44).setState('disabled');\nthis.game.getEntityById(45).setState('disabled');\nthis.game.getEntityById(46).setState('disabled');"
                 }
             ]
         }

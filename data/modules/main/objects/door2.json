@@ -1,0 +1,29 @@
+{
+    "version": 2,
+    "id": "door2",
+    "states": [
+        "open_horiz",
+        "open_vert",
+        "closed_horiz",
+        "closed_vert"
+    ],
+    "defaultState": "closed_horiz",
+    "events": [
+        {
+            "on": "collide",
+            "filters": [
+                "entity_character",
+                "entity_enemy"
+            ],
+            "type": "script",
+            "file": "scripts/door_collide.js"
+        }
+    ],
+    "scripts": [
+        "scripts/door_collide.js"
+    ],
+    "images": {
+        "closed_horiz": "assets/objects/door2_horiz_closed.png",
+        "open_horiz": "assets/objects/door2_horiz_open.png"
+    }
+}

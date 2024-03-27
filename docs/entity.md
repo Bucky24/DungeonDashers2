@@ -75,13 +75,14 @@ The canTakeAction method returns a boolean indicating if the Entity has enough a
 
 ### moveTowards
 
-The moveTowards method allows the Entity to move a certain number of steps along a path towards given coordinates.
+The moveTowards method allows the Entity to move a certain number of steps along a path towards given coordinates. Returns true if the movement was successful.
 
 | Param | Description |
 | -- | -- |
 | x | The x coord to move towards |
 | y | The y coord to move towards |
 | steps | How many steps to take towards the coordinate |
+| collide | If true, don't take steps that would cause a collision. Default false |
 
 ### takeAction
 

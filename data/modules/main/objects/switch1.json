@@ -1,0 +1,26 @@
+{
+    "version": 2,
+    "id": "switch1",
+    "states": [
+        "off",
+        "on"
+    ],
+    "defaultState": "off",
+    "events": [
+        {
+            "on": "collide",
+            "filters": [
+                "entity_character"
+            ],
+            "type": "script",
+            "file": "scripts/switch_collide.js"
+        }
+    ],
+    "scripts": [
+        "scripts/switch_collide.js"
+    ],
+    "images": {
+        "off": "assets/objects/switch1_off.png",
+        "on": "assets/objects/switch1_on.png"
+    }
+}

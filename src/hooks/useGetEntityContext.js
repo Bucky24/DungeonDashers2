@@ -72,6 +72,17 @@ function useGetObjectContext() {
             getId: function() {
                 return this.id;
             },
+            removeFlag: function(flag) {
+                if (!this.flags.includes(flag)) {
+                    return;
+                }
+
+                const index = this.flags.indexOf(flag);
+
+                this.flags.splice(index, 1);
+
+                setObjectProperty(this.id, "flags", [...this.flags]);
+            },
         };
     }
 }
@@ -199,7 +210,7 @@ function useGetEnemyContext() {
                     y: this.y,
                 };
             },
-            moveTowards: async function(x, y, steps) {
+            moveTowards: async function(x, y, steps, collide = false) {
                 let xOff = x - this.x;
                 let yOff = y - this.y;
     
@@ -217,8 +228,17 @@ function useGetEnemyContext() {
                     curX += xOff;
                     curY += yOff;
 
+                    if (collide) {
+                        const entities = getEntitiesAtPosition(curX, curY);
+                        if (entities.length > 0) {
+                            return false;
+                        }
+                    }
+
                     await this.moveTo(curX, curY);
                 }
+
+                return true;
             },
             moveTo: async function(x, y) {
                 // run intersection code
