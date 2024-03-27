@@ -6,7 +6,7 @@ import TextField from './TextField';
 import SidebarNav from './SidebarNav';
 
 export default function ModuleObjectEditor({ module }) {
-    const { objects, changeObject } = useContext(ModuleContext);
+    const { objects, changeObject, addObject } = useContext(ModuleContext);
     const [activeObject, setActiveObject] = useState('');
 
     useEffect(() => {
@@ -22,7 +22,11 @@ export default function ModuleObjectEditor({ module }) {
         <SidebarNav
             items={Object.keys(objects).map((key) => key.replace(modulePrefix, ""))}
             activeItem={activeObject.replace(modulePrefix, "")}
-            setActiveItem={(item) => setActiveObject(modulePrefix + item)} />
+            setActiveItem={(item) => setActiveObject(modulePrefix + item)}
+            onNew={(name) => {
+                addObject(module, modulePrefix + name);
+            }}
+        />
         {activeObject && objects[activeObject] && <div>
             <h2>Object {activeWithoutPrefix}</h2>
             <h3>General Properties</h3>
@@ -31,14 +35,14 @@ export default function ModuleObjectEditor({ module }) {
                     <tr>
                         <td>ID</td>
                         <td><TextField value={activeWithoutPrefix} onBlur={(newId) => {
-                            changeObject(module, activeWithoutPrefix, "id", newId);
+                            changeObject(module, activeObject, "id", modulePrefix + newId);
                             setActiveObject(modulePrefix + newId);
                         }} /></td>
                     </tr>
                     <tr>
                         <td>Manifest File</td>
                         <td><TextField value={objects[activeObject].manifest.manifest} onBlur={(newValue) => {
-                            changeObject(module, activeWithoutPrefix, "manifest.manifest", newValue);
+                            changeObject(module, activeObject, "manifest.manifest", newValue);
                         }} /></td>
                     </tr>
                 </tbody>
@@ -52,7 +56,7 @@ export default function ModuleObjectEditor({ module }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {objects[activeObject].states.map((state, index) => {
+                    {(objects[activeObject].states || []).map((state, index) => {
                         
                         return <tr key={`object_state_${state}`}>
                             <td><TextField value={state} onBlur={(newValue) => {
@@ -85,7 +89,7 @@ export default function ModuleObjectEditor({ module }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {Object.keys(objects[activeObject].images).map((key) => {
+                    {Object.keys(objects[activeObject].images || {}).map((key) => {
                         const imageData = objects[activeObject].images[key];
                         
                         return <tr key={`object_image_${key}`}>

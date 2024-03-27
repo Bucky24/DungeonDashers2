@@ -10,7 +10,7 @@
     },
     "name": "Skeleton",
     "width": 1,
-    "height": 1,
+    "height": 2,
     "actionPoints": 10,
     "maxHP": 20,
     "skills": {

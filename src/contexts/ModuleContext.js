@@ -299,6 +299,31 @@ export function ModuleProvider({ children }) {
                     },
                 };
             });
+        },
+        addObject: (module, name) => {
+            setModules((modules) => {
+                const entities = {...modules[module].objects};
+                if (entities[name]) {
+                    return entities;
+                }
+                entities[name] = {
+                    version: 2,
+                    id: name,
+                    manifest: {
+                        manifest: "objects/" + name + ".json",
+                        original: "objects/" + name + ".json",
+                    },
+                    scripts: {},
+                };
+
+                return {
+                    ...modules,
+                    [module]: {
+                        ...modules[module],
+                        objects: entities,
+                    },
+                };
+            });
         }
     };
 

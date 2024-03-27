@@ -86,6 +86,9 @@
         },
         "switch1": {
             "manifest": "objects/switch1.json"
+        },
+        "portal1": {
+            "manifest": "objects/portal1.json"
         }
     },
     "characters": {
