@@ -194,7 +194,8 @@ export default function ModuleEnemyEditor({ module }) {
                                 <select
                                     value={event.file}
                                     onChange={(newData) => {
-                                        changeEnemy(module, activeEnemy, `events.${index}.file`, {
+                                        changeEnemy(module, activeEnemy, `events.${index}`, {
+                                            ...event,
                                             type: 'script',
                                             file: newData.target.value,
                                         });

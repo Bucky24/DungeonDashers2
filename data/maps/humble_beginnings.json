@@ -4395,7 +4395,7 @@
             ]
         },
         {
-            "type": "main_skeleton",
+            "type": "main_skeleton1",
             "id": 1004,
             "x": 34,
             "y": 32,
@@ -4407,7 +4407,7 @@
             ]
         },
         {
-            "type": "main_skeleton",
+            "type": "main_skeleton1",
             "id": 1005,
             "x": 36,
             "y": 33,

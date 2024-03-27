@@ -22,10 +22,8 @@
     "events": [
         {
             "on": "door_opened",
-            "file": {
-                "type": "script",
-                "file": "scripts/enemy_door_spawn.js"
-            }
+            "file": "scripts/enemy_door_spawn.js",
+            "type": "script"
         }
     ]
 }

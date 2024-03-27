@@ -28,6 +28,7 @@ export default function EditorMap() {
             objects={objects}
             characters={characters}
             enemies={enemies}
+            showInactive={true}
             onClick={(cellX, cellY, button) => {
                 //console.log(cellX, cellY, button);
                 if (button === ButtonTypes.LEFT) {

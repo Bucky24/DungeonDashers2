@@ -28,6 +28,7 @@ export default function TheMap({
     combatPointsLeft,
     combatPointsMax,
     fullFocus,
+    showInactive,
 }) {
     const [size, setSize] = useState({ width: 0, height: 0 });
     const {
@@ -297,7 +298,7 @@ export default function TheMap({
                         );
                     })}
                     {enemies?.map((enemy, index) => {
-                        if (enemy.flags?.includes(FLAGS.INACTIVE)) {
+                        if (enemy.flags?.includes(FLAGS.INACTIVE) && !showInactive) {
                             return;
                         }
                         const data = enemiesData[enemy.type];
