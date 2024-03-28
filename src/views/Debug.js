@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function Home() {
+export default function Debug() {
     const navigate = useNavigate();
 
     return <div style={{ display: 'flex', flexDirection: 'column' }}>
