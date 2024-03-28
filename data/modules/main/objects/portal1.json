@@ -1,6 +1,23 @@
 {
     "version": 2,
     "id": "portal1",
-    "scripts": [],
-    "images": {}
+    "scripts": [
+        "scripts/portal_collide.js"
+    ],
+    "images": {
+        "exists": "assets/objects/portal1.png"
+    },
+    "name": "Portal",
+    "width": "1",
+    "height": "1",
+    "states": [
+        "exists"
+    ],
+    "events": [
+        {
+            "on": "intersect",
+            "type": "script",
+            "file": "scripts/portal_collide.js"
+        }
+    ]
 }

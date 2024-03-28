@@ -4,13 +4,6 @@ import Coms from '../utils/coms';
 import ImageContext from './ImageContext';
 import { TILE_TYPE } from './MapContext';
 
-export const BASE_STATES = {
-    LEFT: 'base_left',
-    RIGHT: 'base_right',
-    UP: 'base_up',
-    DOWN: 'base_down',
-};
-
 const ModuleContext = React.createContext({});
 export default ModuleContext;
 
