@@ -67,6 +67,22 @@ export default function ModuleEntityEditor({
                             changeEntity(module, activeEntityKey, "manifest.manifest", newValue);
                         }} /></td>
                     </tr>
+                    <tr>
+                        <td>Default State</td>
+                        <td>
+                            <select
+                                value={activeEntityData.defaultState || ''}
+                                onChange={(newData) => {
+                                    changeEntity(module, activeEntityKey, "defaultState", newData.target.value);
+                                }}
+                            >
+                                <option value="">None</option>
+                                {(activeEntityData.states || []).map((state) => {
+                                    return <option key={`default_state_${state}`} value={state}>{state}</option>
+                                })}
+                            </select>
+                        </td>
+                    </tr>
                     {GENERAL_FIELDS.map(generateField)}
                     {canFight && GENERAL_COMBAT_FIELDS.map(generateField)}
                     {hasAi && <tr>
@@ -120,6 +136,36 @@ export default function ModuleEntityEditor({
                 newStates.push("");
                 changeEntity(module, activeEntityKey, `states`, newStates);
             }}>Add State</button>
+            <h3>Flags</h3>
+            <table border={1}>
+                <thead>
+                    <tr>
+                        <th>Flag</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {(activeEntityData.flags || []).map((flag, index) => {
+                        return <tr key={`entity_flag_${flag}`}>
+                            <td><TextField value={flag} onBlur={(newValue) => {
+                                changeEntity(module, activeEntityKey, `flags.${index}`, newValue);
+                            }}/></td>
+                            <td>
+                                <button onClick={() => {
+                                    changeEntity(module, activeEntityKey, `flags.${index}`, null);
+                                }}>
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    })}
+                </tbody>
+            </table>
+            <button onClick={() => {
+                const newFlags = [...activeEntityData.flags || []];
+                newFlags.push("");
+                changeEntity(module, activeEntityKey, `flags`, newFlags);
+            }}>Add Flag</button>
             <h3>Images</h3>
             <table border={1}>
                 <thead>

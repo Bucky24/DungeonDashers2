@@ -155,6 +155,19 @@ The getEntityById method returns the Entity associated with the given ID, or nul
 | -- | -- |
 | id | ID of the Entity to locate |
 
+### getEntitiesOfType
+
+The getEntitiesOfType method locates all Entities matching the give EntityType and type.
+
+| Param | Description |
+| -- | -- |
+| entityType | One of EntityType |
+| type | The specific type ID of the Entities you want |
+
+### victory
+
+The victory method immediately causes the player to win the current game. It takes no parameters.
+
 ### TreasureType
 
 | Name | Description |
@@ -178,3 +191,11 @@ The getEntityById method returns the Entity associated with the given ID, or nul
 | -- | -- |
 | MOVE | Movement action |
 | ATTACK | Attack action |
+
+### EntityType
+
+| Value | Description |
+| -- | -- |
+| object | Object Entities |
+| character | Character Entities |
+| enemy | Enemy Entities |

@@ -37,6 +37,12 @@ export const COMBAT_TURN = {
     NONE: 'combat/none',
 };
 
+export const GAME_STATE = {
+    PLAYING: 'game_state/playing',
+    LOST: 'game_state/lost',
+    WON: 'game_state/won',
+};
+
 export function GameProvider({ children }) {
     const [loaded, setLoaded] = useState(false);
     const { loadMap, mapName } = useContext(MapContext);
@@ -53,6 +59,7 @@ export function GameProvider({ children }) {
     const [combatTurn, setCombatTurn] = useState(COMBAT_TURN.NONE);
     const [activeEnemyIndex, setActiveEnemyIndex] = useState(-1);
     const justLoadedRef = useRef(false);
+    const [gameState, setGameState] = useState(GAME_STATE.PLAYING);
 
     // this is the main way to enter combat
     useEffect(() => {
@@ -140,6 +147,7 @@ export function GameProvider({ children }) {
         hasActiveEnemies,
         combatTurn,
         activeEnemyIndex,
+        gameState,
         loadGame: (name) => {
             setLoaded(false);
             Coms.send('getSavedGame', { name }).then(async (result) => {
@@ -165,6 +173,7 @@ export function GameProvider({ children }) {
                 setTimeout(() => {
                     justLoadedRef.current = false;
                 }, 50);
+                setGameState(GAME_STATE.PLAYING);
             });
         },
         newGame: async (map) => {
@@ -202,6 +211,7 @@ export function GameProvider({ children }) {
             objectIdRef.current = objectId;
             setGold(0);
             setCombatTurn(COMBAT_TURN.NONE);
+            setGameState(GAME_STATE.PLAYING);
         },
         moveCharacter: (index, x, y) => {
             setCharacters((characters) => {
@@ -411,7 +421,8 @@ export function GameProvider({ children }) {
                     nextIndex = 0;
                 }
             }
-        }
+        },
+        setGameState,
     };
 
     return (

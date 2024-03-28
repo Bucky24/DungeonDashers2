@@ -8,6 +8,7 @@ export const UI_MODE = {
     CELL_SELECT: 'mode/cell_select',
     MENU: ' mode/menu',
     SAVE_MENU: 'mode/save_menu',
+    GAME_END: 'mode/game_end',
 };
 
 export const LOCATION = {

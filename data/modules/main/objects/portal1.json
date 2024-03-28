@@ -19,5 +19,9 @@
             "type": "script",
             "file": "scripts/portal_collide.js"
         }
+    ],
+    "defaultState": "exists",
+    "flags": [
+        "nonblocking"
     ]
 }

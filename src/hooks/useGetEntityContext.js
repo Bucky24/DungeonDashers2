@@ -4,29 +4,28 @@ import ModuleContext from '../contexts/ModuleContext';
 import GameContext, { EVENTS } from '../contexts/GameContext';
 import getEntityFlags from '../utils/getEntityFlags';
 
-function useGetObjectContext() {
-    const { objects } = useContext(ModuleContext);
-    const { setObjectProperty, destroyObject } = useContext(GameContext);
-
-    // this should be the object from GameContext
-    return (objectData) => {
-        const moduleData = objects[objectData.type] || {};
-        const myFlags = getEntityFlags({ type: 'object', entity: objectData }, moduleData);
+function useGetGenericEntityContext() {
+    return (entityData, moduleData, entityType, updateEntity) => {
+        const myFlags = getEntityFlags({ type: entityType, entity: entityData }, moduleData);
+        const myHp = entityData.hp || moduleData.maxHP;
+        const actionPoints = entityData.actionPoints || moduleData.actionPoints;
 
         return {
-            entityType: 'object',
-            state: objectData.state || moduleData.defaultState,
+            entityType,
+            state: entityData.state || moduleData.defaultState,
             flags: myFlags,
-            data: objectData.data,
-            type: objectData.type,
-            x: objectData.x,
-            y: objectData.y,
-            id: objectData.id,
+            data: entityData.data,
+            type: entityData.type,
+            x: entityData.x,
+            y: entityData.y,
+            id: entityData.id,
+            hp: myHp,
+            actionPoints,
             getState: function() {
                 return this.state;
             },
             setState: function(newState) {
-                setObjectProperty(objectData.id, "state", newState);
+                updateEntity(this.id, "state", newState);
                 this.state = newState;
             },
             setFlag: function(flag) {
@@ -36,38 +35,13 @@ function useGetObjectContext() {
 
                 this.flags.push(flag);
 
-                setObjectProperty(objectData.id, "flags", [...this.flags]);
+                updateEntity(this.id, "flags", [...this.flags]);
             },
             getData: function() {
                 return this.data || null;
             },
             getFlags: function() {
                 return this.flags || [];
-            },
-            moveTo: function(x, y) {
-                this.x = x;
-                this.y = y;
-                setObjectProperty(objectData.id, "x", x);
-                setObjectProperty(objectData.id, "y", y);
-            },
-            damage: (amount) => {
-                // right now any amount of damage will destroy the object
-                destroyObject(objectData.id);
-            },
-            _getEntity: function() {
-                return {
-                    type: 'object',
-                    entity: {
-                        ...objectData,
-                        state: this.state,
-                        flags: this.flags,
-                        data: this.data,
-                        type: this.type,
-                        x: this.x,
-                        y: this.y,
-                        id: this.id,
-                    },
-                };
             },
             getId: function() {
                 return this.id;
@@ -81,7 +55,67 @@ function useGetObjectContext() {
 
                 this.flags.splice(index, 1);
 
-                setObjectProperty(this.id, "flags", [...this.flags]);
+                updateEntity(this.id, "flags", [...this.flags]);
+            },
+            getPos: function() {
+                return {
+                    x: this.x,
+                    y: this.y,
+                };
+            },
+            canTakeAction: function(action) {
+                // action will be one of COMBAT_ACTION which has a point cost associated as the value
+                return action && this.actionPoints >= action;
+            },
+            takeAction: function(action) {
+                this.actionPoints -= action;
+                this.actionPoints = Math.max(this.actionPoints, 0);
+                updateEntity(this.id, "actionPoints", this.actionPoints);
+            },
+
+            _getEntity: function() {
+                return {
+                    type: entityType,
+                    entity: {
+                        ...entityData,
+                        state: this.state,
+                        flags: this.flags,
+                        data: this.data,
+                        type: this.type,
+                        x: this.x,
+                        y: this.y,
+                        id: this.id,
+                        hp: this.hp,
+                        actionPoints,
+                    },
+                };
+            },
+        };
+    }
+}
+
+function useGetObjectContext() {
+    const { objects } = useContext(ModuleContext);
+    const { setObjectProperty, destroyObject } = useContext(GameContext);
+    const getGenericEntityContext = useGetGenericEntityContext();
+
+    // this should be the object from GameContext
+    return (objectData) => {
+        const moduleData = objects[objectData.type] || {};
+
+        const generic = getGenericEntityContext(objectData, moduleData, "object", setObjectProperty);
+
+        return {
+            ...generic,
+            moveTo: function(x, y) {
+                this.x = x;
+                this.y = y;
+                setObjectProperty(objectData.id, "x", x);
+                setObjectProperty(objectData.id, "y", y);
+            },
+            damage: (amount) => {
+                // right now any amount of damage will destroy the object
+                destroyObject(objectData.id);
             },
         };
     }
@@ -90,28 +124,15 @@ function useGetObjectContext() {
 function useGetCharacterContext() {
     const { setCharacterProperty, getEntitiesAtPosition } = useContext(GameContext);
     const { characters } = useContext(ModuleContext);
+    const getGenericEntityContext = useGetGenericEntityContext();
 
     // this should be the object from GameContext
     return (characterData, triggerEvent) => {
         const data = characters[characterData.type];
-        const myHp = characterData.hp || data.maxHP;
-        const flags = characterData.flags || [];
+        const generic = getGenericEntityContext(characterData, data, "character", setCharacterProperty);
+        
         return {
-            entityType: 'character',
-            data: characterData.data,
-            x: characterData.x,
-            y: characterData.y,
-            hp: myHp,
-            flags,
-            getData: function() {
-                return this.data || null;
-            },
-            getPos: function() {
-                return {
-                    x: this.x,
-                    y: this.y,
-                };
-            },
+            ...generic,
             moveTo: async function(x, y) {
                 // run intersection code
                 const entities = getEntitiesAtPosition(x, y);
@@ -133,37 +154,6 @@ function useGetCharacterContext() {
                 const newHp = Math.max(0, this.hp - amount);
                 setCharacterProperty(characterData.id, "hp", newHp);
             },
-            setFlag: function(flag) {
-                if (this.flags.includes(flag)) {
-                    return;
-                }
-
-                this.flags.push(flag);
-                setCharacterProperty(characterData.id, "flags", [...this.flags]);
-            },
-            removeFlag: function(flag) {
-                if (!this.flags.includes(flag)) {
-                    return;
-                }
-
-                const index = this.flags.indexOf(flag);
-
-                this.flags.splice(index, 1);
-
-                setCharacterProperty(this.id, "flags", [...this.flags]);
-            },
-            _getEntity: function() {
-                return {
-                    type: 'character',
-                    entity: {
-                        ...characterData,
-                        flags: this.flags,
-                        data: this.data,
-                        x: this.x,
-                        y: this.y,
-                    },
-                };
-            },
         };
     }
 }
@@ -171,45 +161,15 @@ function useGetCharacterContext() {
 function useGetEnemyContext() {
     const { enemies } = useContext(ModuleContext);
     const { setEnemyProperty, getEntitiesAtPosition } = useContext(GameContext);
+    const getGenericEntityContext = useGetGenericEntityContext();
 
     return (enemyData, triggerEvent) => {
         const moduleData = enemies[enemyData.type] || {};
-        const myFlags = getEntityFlags({ type: 'enemy', entity: enemyData }, moduleData);
-        let actionPoints = enemyData.actionPoints || moduleData.actionPoints;
+
+        const generic = getGenericEntityContext(enemyData, moduleData, "enemy", setEnemyProperty);
 
         return {
-            entityType: 'enemy',
-            type: enemyData.type,
-            data: enemyData.data,
-            flags: myFlags,
-            id: enemyData.id,
-            actionPoints,
-            x: enemyData.x,
-            y: enemyData.y,
-            getData: function() {
-                return this.data;
-            },
-            removeFlag: function(flag) {
-                if (!this.flags.includes(flag)) {
-                    return;
-                }
-
-                const index = this.flags.indexOf(flag);
-
-                this.flags.splice(index, 1);
-
-                setEnemyProperty(this.id, "flags", [...this.flags]);
-            },
-            canTakeAction: function(action) {
-                // action will be one of COMBAT_ACTION which has a point cost associated as the value
-                return action && this.actionPoints >= action;
-            },
-            getPos: function() {
-                return {
-                    x: this.x,
-                    y: this.y,
-                };
-            },
+            ...generic,
             moveTowards: async function(x, y, steps, collide = false) {
                 let xOff = x - this.x;
                 let yOff = y - this.y;
@@ -256,11 +216,6 @@ function useGetEnemyContext() {
                 this.y = y;
                 setEnemyProperty(this.id, "x", x);
                 setEnemyProperty(this.id, "y", y);
-            },
-            takeAction: function(action) {
-                this.actionPoints -= action;
-                this.actionPoints = Math.max(this.actionPoints, 0);
-                setEnemyProperty(this.id, "actionPoints", this.actionPoints);
             },
         };
     }

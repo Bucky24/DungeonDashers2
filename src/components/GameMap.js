@@ -5,7 +5,7 @@ import styles from './GameMap.css';
 import TheMap from './TheMap';
 import MapContext from '../contexts/MapContext';
 import { useHandleKeyboard } from '../utils/handleInput';
-import GameContext, { COMBAT_TURN } from '../contexts/GameContext';
+import GameContext, { COMBAT_TURN, GAME_STATE } from '../contexts/GameContext';
 import UIContext, { MENU_ITEMS, UI_MODE } from '../contexts/UIContext';
 import ModuleContext from '../contexts/ModuleContext';
 import useRunScript from '../hooks/useRunScript';
@@ -13,6 +13,7 @@ import useGetEntityContext from '../hooks/useGetEntityContext';
 import useTriggerEvent from '../hooks/events/useTriggerEvent';
 import GameMenu from './GameMenu';
 import SaveDialog from './SaveDialog';
+import VictoryDialog from './VictoryDialog';
 
 export default function GameMap() {
     const { map } = useContext(MapContext);
@@ -29,6 +30,7 @@ export default function GameMap() {
         setCombatTurn,
         setActiveEnemyIndex,
         setNextActiveCharacter,
+        gameState,
     } = useContext(GameContext);
     const {
         mode,
@@ -202,5 +204,6 @@ export default function GameMap() {
             </div>
         </div>}
         {mode === UI_MODE.SAVE_MENU && <SaveDialog />}
+        {gameState === GAME_STATE.WON && <VictoryDialog />}
     </>);
 }

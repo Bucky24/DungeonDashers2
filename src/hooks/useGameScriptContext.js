@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import GameContext, { TREASURE, MOVEMENT, COMBAT_ACTION } from "../contexts/GameContext";
-import UIContext, { LOCATION } from "../contexts/UIContext";
+import GameContext, { TREASURE, MOVEMENT, COMBAT_ACTION, GAME_STATE } from "../contexts/GameContext";
+import UIContext, { LOCATION, UI_MODE } from "../contexts/UIContext";
 import useRunMapTrigger from "./useRunMapTrigger";
 import useGetEntityContext from "./useGetEntityContext";
 import useTriggerEvent from "./events/useTriggerEvent";
@@ -20,10 +20,11 @@ export default function useGameScriptContext(triggerEvent) {
         characters,
         objects,
         enemies,
+        setGameState,
     } = useContext(GameContext);
     const { getTile } = useContext(MapContext);
     const { tiles } = useContext(ModuleContext);
-    const { enterCellSelect, startDialog } = useContext(UIContext);
+    const { enterCellSelect, startDialog, setMode } = useContext(UIContext);
     const runMapTrigger = useRunMapTrigger();
     const getEntityContext = useGetEntityContext();
     const finalTriggerEvent = triggerEvent || useTriggerEvent();
@@ -166,6 +167,28 @@ export default function useGameScriptContext(triggerEvent) {
             }
 
             return null;
+        },
+        getEntitiesOfType: (entityType, type) => {
+            const matching = [];
+            let entities = [];
+            if (entityType === "object") {
+                entities = objects;
+            } else if (entityType === "character") {
+                entities = characters;
+            } else if (entityType == "enemy") {
+                entities = enemies;
+            }
+            for (const entity of entities) {
+                if (entity.type === type) {
+                    matching.push(getEntityContext({ type: entityType, entity }));
+                }
+            }
+
+            return matching;
+        },
+        victory: () => {
+            setMode(UI_MODE.GAME_END);
+            setGameState(GAME_STATE.WON);
         }
     };
 }

@@ -1,22 +1,19 @@
 import React, { useContext, useEffect, useRef } from 'react';
+
 import UIContext, { UI_MODE } from '../contexts/UIContext';
 import GameContext from '../contexts/GameContext';
+import DialogBase from './DialogBase';
 
 export default function SaveDialog() {
-    const dialogRef = useRef();
     const inputRef = useRef();
     const { setMode } = useContext(UIContext);
     const { saveGame } = useContext(GameContext);
 
     useEffect(() => {
-        dialogRef.current.show();
-    }, [dialogRef.current]);
-
-    useEffect(() => {
         inputRef.current.focus();
     }, [inputRef.current]);
 
-    return <dialog style={{ top: 40 }} ref={dialogRef}>
+    return <DialogBase>
         <h3>Enter save game name</h3>
         <h4>Enter to continue, Esc to cancel</h4>
         <input ref={inputRef} type="text" onKeyDown={async (e) => {
@@ -35,5 +32,5 @@ export default function SaveDialog() {
                 setMode(UI_MODE.GAME);
             }
         }} />
-    </dialog>
+    </DialogBase>
 }
