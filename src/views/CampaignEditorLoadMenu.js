@@ -5,24 +5,26 @@ import StandardMenu from '../components/StandardMenu';
 import MenuOuter from '../components/MenuOuter';
 import Coms from '../utils/coms';
 
-export default function MapEditorLoadMenu() {
+export default function CampaignEditorLoadMenu() {
     const navigate = useNavigate();
-    const [maps, setMaps] = useState([]);
+    const [campaigns, setCampaigns] = useState([]);
 
     useEffect(() => {
-        Coms.send("getMapNames").then((data) => {
-            setMaps(data.maps);
+        Coms.send("getCampaignNames").then((data) => {
+            if (data.success) {
+                setCampaigns(data.campaigns);
+            }
         });
     }, []);
 
     return <MenuOuter>
         <StandardMenu
-            items={[...maps, "Back"]}
+            items={[...campaigns, "Back"]}
             onSelect={(item) => {
                 if (item === "Back") {
-                    navigate("/editor/map");
+                    navigate("/editor/campaign");
                 } else {
-                    navigate(`/editor/map/${item}`);
+                    navigate(`/editor/campaign/${item}`);
                 }
             }}
         />

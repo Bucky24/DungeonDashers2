@@ -14,6 +14,9 @@ import CampaignView from './views/CampaignView';
 import EditorMenu from './views/EditorMenu';
 import MapEditorMenu from './views/MapEditorMenu';
 import MapEditorLoadMenu from './views/MapEditorLoadMenu';
+import CampaignEditorMenu from './views/CampaignEditorMenu';
+import CampaignEditorLoadMenu from './views/CampaignEditorLoadMenu';
+import CampaignEditor from './views/CampaignEditor';
 
 export default function App() {
 	return (<BrowserRouter>
@@ -29,6 +32,9 @@ export default function App() {
 				<Route path="/editor/map/new/:map" element={<MapEditor newMap />} />
 				<Route path="/editor/map/:map" element={<MapEditor />} />
 				<Route path="/editor/module/:module" element={<ModuleEditor />} />
+				<Route path="/editor/campaign" element={<CampaignEditorMenu />} />
+				<Route path="/editor/campaign/load" element={<CampaignEditorLoadMenu />} />
+				<Route path="/editor/campaign/:campaign" element={<CampaignEditor />} />
 				<Route path="/campaign/:campaign" element={<CampaignView />} />
 				<Route path="/debug" element={<Debug />} />
 				<Route path="/" element={<MainMenu />} />

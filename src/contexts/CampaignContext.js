@@ -34,7 +34,18 @@ export function CampaignProvider({ children }) {
                 setActiveCampaign(campaign);
                 setLoaded(false);
             }
-        }
+        },
+        updateActiveCampaign: (key, value) => {
+            setCampaignData((data) => {
+                return {
+                    ...data,
+                    [key]: value,
+                };
+            });
+        },
+        saveCampaign: () => {
+            Coms.send("saveCampaign", { name: activeCampaign, saveData: campaignData });
+        },
     };
 
     return <CampaignContext.Provider value={value}>

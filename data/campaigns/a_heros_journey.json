@@ -6,6 +6,10 @@
         "image": "a_heros_journey_background.png"
     },
     "maps": [
-        { "map": "humble_beginnings", "x": 100, "y": 100 }
+        {
+            "map": "humble_beginnings",
+            "x": 100,
+            "y": 100
+        }
     ]
 }

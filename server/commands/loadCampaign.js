@@ -18,6 +18,7 @@ module.exports = function({ campaign }) {
     const data = getJsonFile(file);
 
     // get path to background
+    data.background.originalImage = data.background.image;
     data.background.image = getImageSlug('campaign', data.background.image);
 
     return {

@@ -16,12 +16,16 @@ const writeModuleComponents = require('./utils/writeModuleComponents');
 const saveGame = require("./commands/saveGame");
 const loadCampaign = require("./commands/loadCampaign");
 const getMapNames = require("./commands/getMapNames");
+const getCampaignNames = require("./commands/getCampaignNames");
+const saveCampaign = require("./commands/saveCampaign");
 
 module.exports = {
     getSettings,
     saveGame,
     loadCampaign,
     getMapNames,
+    getCampaignNames,
+    saveCampaign,
     getSavedGames: () => {
         return {
             success: true,

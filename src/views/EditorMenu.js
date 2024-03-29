@@ -9,12 +9,14 @@ export default function EditorMenu() {
 
     return <MenuOuter>
         <StandardMenu
-            items={["Map Editor", "Module Editor", "Back"]}
+            items={["Map Editor", "Module Editor", 'Campaign Editor', "Back"]}
             onSelect={(item) => {
                 if (item === "Back") {
                     navigate("/");
                 } else if (item === "Map Editor") {
                     navigate('/editor/map');
+                } else if (item === 'Campaign Editor') {
+                    navigate('/editor/campaign');
                 } else {
                     console.log(item);
                 }
