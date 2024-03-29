@@ -1,7 +1,5 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React from 'react';
 
-import UIContext, { UI_MODE } from '../contexts/UIContext';
-import GameContext from '../contexts/GameContext';
 import DialogBase from './DialogBase';
 
 export default function VictoryDialog() {

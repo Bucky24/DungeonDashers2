@@ -19,10 +19,10 @@ export const EDITOR_MAP_TOOLS = {
 };
 
 export function EditorProvider({ children}) {
-    const { loadMap, getSaveData: getMapSaveData } = useContext(MapContext);
+    const { loadMap, getSaveData: getMapSaveData, createNewMap } = useContext(MapContext);
     const { loadModules, getSaveData: getModuleSaveData } = useContext(ModuleContext);
 
-    const [loaded, setLoaded] = useState(true);
+    const [loaded, setLoaded] = useState(false);
     const [map, setMap] = useState(null);
     const [saving, setSaving] = useState(false);
     const [module, setModule] = useState(null);
@@ -32,17 +32,23 @@ export function EditorProvider({ children}) {
 
     const value = {
         loaded,
+        map,
         loadMap: async (map) => {
             setLoaded(true);
             setMap(map);
 
             loadMap(map, true);
         },
+        createNewMap: (name) => {
+            createNewMap(name);
+            setLoaded(true);
+            setMap(name);
+        },
         saveMap: () => {
             setSaving(true);
             const mapData = getMapSaveData();
 
-            Coms.send("saveMap", { name: map, data: mapData }).then((result) => {
+            return Coms.send("saveMap", { name: map, data: mapData }).then((result) => {
                 setSaving(false);
                 if (!result.success) {
                     console.error(result.message);

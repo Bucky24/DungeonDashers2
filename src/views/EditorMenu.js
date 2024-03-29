@@ -4,19 +4,21 @@ import { useNavigate } from 'react-router-dom';
 import StandardMenu from '../components/StandardMenu';
 import MenuOuter from '../components/MenuOuter';
 
-export default function MainMenu() {
+export default function EditorMenu() {
     const navigate = useNavigate();
 
     return <MenuOuter>
         <StandardMenu
-            items={["New Game", "Load Game", "Editors", "Settings", "Exit Game"]}
+            items={["Map Editor", "Module Editor", "Back"]}
             onSelect={(item) => {
-                if (item === "Editors") {
-                    navigate("/editor");
+                if (item === "Back") {
+                    navigate("/");
+                } else if (item === "Map Editor") {
+                    navigate('/editor/map');
                 } else {
                     console.log(item);
                 }
             }}
         />
-    </MenuOuter>;
+    </MenuOuter>
 }

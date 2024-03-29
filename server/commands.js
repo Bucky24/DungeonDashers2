@@ -15,11 +15,13 @@ const extractModuleComponent = require("./utils/extractModuleComponent");
 const writeModuleComponents = require('./utils/writeModuleComponents');
 const saveGame = require("./commands/saveGame");
 const loadCampaign = require("./commands/loadCampaign");
+const getMapNames = require("./commands/getMapNames");
 
 module.exports = {
     getSettings,
     saveGame,
     loadCampaign,
+    getMapNames,
     getSavedGames: () => {
         return {
             success: true,

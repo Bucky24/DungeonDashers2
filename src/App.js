@@ -1,9 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import styles from './styles.css';
 
-import UIContext from './contexts/UIContext';
 import Game from './views/Game';
 import MapEditor from './views/MapEditor';
 import ModuleEditor from './views/ModuleEditor';
@@ -12,10 +11,11 @@ import LoadGame from './views/LoadGame';
 import MainMenu from './views/MainMenu';
 import Debug from './views/Debug';
 import CampaignView from './views/CampaignView';
+import EditorMenu from './views/EditorMenu';
+import MapEditorMenu from './views/MapEditorMenu';
+import MapEditorLoadMenu from './views/MapEditorLoadMenu';
 
 export default function App() {
-	const { pane } = useContext(UIContext);
-
 	return (<BrowserRouter>
 		<div className={styles.appRoot}>
 			<Routes>
@@ -23,6 +23,10 @@ export default function App() {
 				<Route path="/game/new/:map" element={<NewGame />} />
 				<Route path="/game/new/:campaign/:map" element={<NewGame />} />
 				<Route path="/game/load/:game" element={<LoadGame />} />
+				<Route path="/editor" element={<EditorMenu />} />
+				<Route path="/editor/map" element={<MapEditorMenu />} />
+				<Route path="/editor/map/load" element={<MapEditorLoadMenu />} />
+				<Route path="/editor/map/new/:map" element={<MapEditor newMap />} />
 				<Route path="/editor/map/:map" element={<MapEditor />} />
 				<Route path="/editor/module/:module" element={<ModuleEditor />} />
 				<Route path="/campaign/:campaign" element={<CampaignView />} />

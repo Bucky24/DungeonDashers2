@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-export default function TextField({ value: initialValue, onBlur }) {
+export default function TextField({ value: initialValue, onBlur, onEnter }) {
     const [value, setValue] = useState(initialValue);
 
     useEffect(() => {
@@ -10,8 +10,21 @@ export default function TextField({ value: initialValue, onBlur }) {
     }, [initialValue]);
 
     return (
-        <input type="text" value={value} onChange={(e) => setValue(e.target.value)} onBlur={() => {
-            onBlur(value);
-        }} />
+        <input
+            type="text"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            onBlur={() => {
+                onBlur(value);
+            }}
+            onKeyUp={(e) => {
+                if (e.code === "Enter") {
+                    e.preventDefault();
+                    if (onEnter) {
+                        onEnter(value);
+                    }
+                }
+            }}
+        />
     );
 }

@@ -10,8 +10,8 @@ import EditorControls from '../components/EditorControls';
 import TabBar from '../components/TabBar';
 import MapTriggerEditor from '../components/MapTriggerEditor';
 
-export default function MapEditor() {
-    const { loaded: editorLoaded, loadMap } = useContext(EditorContext);
+export default function MapEditor({ newMap }) {
+    const { loaded: editorLoaded, loadMap, createNewMap } = useContext(EditorContext);
 	const { loaded: moduleLoaded } = useContext(ModuleContext);
 	const { loaded: imagesLoaded } = useContext(ImageContext);
     const { loaded: mapLoaded } = useContext(MapContext);
@@ -20,8 +20,14 @@ export default function MapEditor() {
 	const loaded = editorLoaded && moduleLoaded && imagesLoaded && mapLoaded;
 
     useEffect(() => {
-        loadMap(map);
-    }, [map]);
+        if (map) {
+            if (newMap) {
+                createNewMap(map);
+            } else {
+                loadMap(map);
+            }
+        }
+    }, [map, newMap]);
 
     return (
         <>
@@ -34,7 +40,7 @@ export default function MapEditor() {
                 <TabBar tabs={["Map", "Triggers"]} defaultTab="Map">
                     <div style={{ position: 'relative' }}>
                         <EditorMap />
-                        <EditorControls />
+                        <EditorControls newMap={newMap} />
                     </div>
                     <MapTriggerEditor />
                 </TabBar>

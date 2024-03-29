@@ -1,6 +1,6 @@
 # Saves
 
-Saves store data for a specific saved game
+Saves store data for a specific saved campaign
 
 ## Structure
 
@@ -12,5 +12,5 @@ The file structure is as follows:
 
 | Key | Description |
 | -- | -- |
-| saveType | A string, "game", indicating this is a saved game |
-| map | The map that this game was played on |
+| saveType | A string, "campaign", indicating this is a saved campaign |
+| mapsWon | A list of map names that have already been completed |

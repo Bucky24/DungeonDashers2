@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import EditorContext, { EDITOR_MAP_TOOLS } from '../contexts/EditorContext';
 import ModuleContext from '../contexts/ModuleContext';
 
-export default function EditorControls() {
+export default function EditorControls({ newMap }) {
     const {
         saveMap,
         hoveredEntities,
@@ -11,8 +12,10 @@ export default function EditorControls() {
         setActiveItem,
         tool,
         setTool,
+        map,
     } = useContext(EditorContext);
     const { tiles, objects, characters, enemies } = useContext(ModuleContext);
+    const navigate = useNavigate();
 
     let toolSelectData = null;
     let toolSelectName = null;
@@ -43,7 +46,12 @@ export default function EditorControls() {
             <div>
                 <button
                     onClick={() => {
-                        saveMap();
+                        saveMap().then(() => {
+                            // if new map, we just saved so reload it with the non-new-map context
+                            if (newMap) {
+                                navigate(`/editor/map/${map}`);
+                            }
+                        });
                     }}
                 >
                     Save

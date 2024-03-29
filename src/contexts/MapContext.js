@@ -170,6 +170,18 @@ export function MapProvider({ children }) {
                 return newEntities;
             });
         },
+        createNewMap: (name) => {
+            setEditable(true);
+            setMapName(name);
+            setEnemies([]);
+            setMap([]);
+            setCharacters([]);
+            setObjects([]);
+            setTriggers({});
+            setLoaded(true);
+            
+            loadModules(['main']);
+        },
     };
 
     return (

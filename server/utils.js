@@ -69,6 +69,25 @@ function getImageSlug(type, filePath, data) {
     return btoa(JSON.stringify(resultObj));
 }
 
+function getAllInDirectories(dirs) {
+    const files = [];
+
+    for (const dir of dirs) {
+        const contents = fs.readdirSync(dir);
+
+        for (const file of contents) {
+            if (file.endsWith(".json")) {
+                files.push({
+                    name: path.parse(file).name,
+                    path: path.join(dir, file),
+                });
+            }
+        }
+    }
+
+    return files;
+}
+
 module.exports = {
     directories,
     locateInDirectories,
@@ -153,5 +172,6 @@ module.exports = {
         }
 
         return objectData;
-    }
+    },
+    getAllInDirectories,
 };

@@ -6,7 +6,7 @@ export default function StandardMenu({ items, onSelect }) {
 
     useEffect(() => {
         setActiveItem(items[0]);
-    }, []);
+    }, [items]);
     return <div style={{ width: 300 }}>
         <MenuBase
             activeItem={activeItem}

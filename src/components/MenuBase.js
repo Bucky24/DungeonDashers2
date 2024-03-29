@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react';
 export default function MenuBase({activeItem, items, itemFn, setActiveItem, selectItem }) {
     const activeItemRef = useRef(activeItem);
     const selectItemRef = useRef(selectItem);
+    const itemsRef = useRef(items);
 
     useEffect(() => {
         activeItemRef.current = activeItem;
@@ -13,21 +14,27 @@ export default function MenuBase({activeItem, items, itemFn, setActiveItem, sele
     }, [selectItem]);
 
     useEffect(() => {
+        itemsRef.current = items;
+    }, [items]);
+
+    useEffect(() => {
         const listener = (event) => {
             const { code } = event;
 
-            const index = items.findIndex((item) => item === activeItemRef.current);
+            const index = itemsRef.current.findIndex((item) => {
+                return item === activeItemRef.current;
+            });
             let nextIndex = index;
             if (code === "ArrowUp") {
                 nextIndex = Math.max(index - 1, 0);
             } else if (code === "ArrowDown") {
-                nextIndex = Math.min(index + 1, items.length-1);
+                nextIndex = Math.min(index + 1, itemsRef.current.length-1);
             } else if (code === "Enter") {
                 selectItemRef.current();
             }
 
             if (setActiveItem) {
-                setActiveItem(items[nextIndex]);
+                setActiveItem(itemsRef.current[nextIndex]);
             }
         }
         window.addEventListener("keyup", listener);
