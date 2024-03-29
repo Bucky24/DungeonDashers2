@@ -13,6 +13,9 @@ const directories = {
     map: [
         path.resolve(__dirname, "..", "data", "maps"),
     ],
+    campaign: [
+        path.resolve(__dirname, "..", "data", "campaigns"),
+    ],
 };
 
 function locateInDirectories(name, dirs, extra = '') {

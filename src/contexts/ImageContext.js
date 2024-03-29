@@ -54,6 +54,9 @@ export function ImageProvider({ children }) {
         loaded,
         images,
         fullImages,
+        getImage: (id) => {
+            return images[id];
+        },
     };
 
     return (

@@ -23,5 +23,8 @@ export default function Debug() {
         <button onClick={() => {
             navigate("/editor/map/humble_beginnings");
         }}>Map Editor (humble beginnings)</button>
+        <button onClick={() => {
+            navigate("/campaign/a_heros_journey");
+        }}>Campaign (a hero's journey)</button>
     </div>
 }

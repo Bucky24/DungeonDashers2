@@ -14,10 +14,12 @@ const getSettings = require("./commands/getSettings");
 const extractModuleComponent = require("./utils/extractModuleComponent");
 const writeModuleComponents = require('./utils/writeModuleComponents');
 const saveGame = require("./commands/saveGame");
+const loadCampaign = require("./commands/loadCampaign");
 
 module.exports = {
     getSettings,
     saveGame,
+    loadCampaign,
     getSavedGames: () => {
         return {
             success: true,
@@ -152,6 +154,7 @@ module.exports = {
         const imageFile = locateInDirectories(decoded.filePath, validDirectories, extra);
 
         if (!imageFile) {
+            console.error('Can\'t find image', decoded, 'in directories', validDirectories);
             return {
                 success: false,
                 message: `Couldn't find image ${decoded.filePath} in any directories`,

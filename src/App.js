@@ -11,6 +11,7 @@ import NewGame from './views/NewGame';
 import LoadGame from './views/LoadGame';
 import MainMenu from './views/MainMenu';
 import Debug from './views/Debug';
+import CampaignView from './views/CampaignView';
 
 export default function App() {
 	const { pane } = useContext(UIContext);
@@ -20,9 +21,11 @@ export default function App() {
 			<Routes>
 				<Route path="/game" element={<Game />} />
 				<Route path="/game/new/:map" element={<NewGame />} />
+				<Route path="/game/new/:campaign/:map" element={<NewGame />} />
 				<Route path="/game/load/:game" element={<LoadGame />} />
 				<Route path="/editor/map/:map" element={<MapEditor />} />
 				<Route path="/editor/module/:module" element={<ModuleEditor />} />
+				<Route path="/campaign/:campaign" element={<CampaignView />} />
 				<Route path="/debug" element={<Debug />} />
 				<Route path="/" element={<MainMenu />} />
 			</Routes>

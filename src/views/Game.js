@@ -5,7 +5,7 @@ import useLoaded from '../hooks/useLoaded';
 import GameHud from '../components/GameHud';
 
 export default function Game() {
-    const loaded = useLoaded();
+    const { allLoaded: loaded } = useLoaded();
 
     return (
         <>
