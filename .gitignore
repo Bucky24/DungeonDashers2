@@ -1,7 +1,9 @@
-node_modules
-npm-debug.log
 build
+node_modules
+.DS_Store
+dist
 electron_game
 electron_editor
-dist
 electron-v6.1.11-win32-ia32.zip
+settings/*
+data/saves

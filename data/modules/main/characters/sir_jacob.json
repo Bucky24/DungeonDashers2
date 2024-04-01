@@ -1,0 +1,21 @@
+{
+    "version": 2,
+    "id": "sir_jacob",
+    "name": "Sir Jacob",
+    "width": 1,
+    "height": 3,
+    "images": {
+        "base_right": "assets/characters/sir_jacob_front.png"
+    },
+    "actionPoints": 20,
+    "maxHP": 30,
+    "skills": {
+        "special": {
+            "type": "script",
+            "file": "scripts/sir_jacob_special.js"
+        }
+    },
+    "scripts": [
+        "scripts/sir_jacob_special.js"
+    ]
+}

@@ -1,0 +1,130 @@
+{
+    "version": 2,
+    "modules": [
+        "main"
+    ],
+    "map": [
+        {
+            "x": 12,
+            "y": 7,
+            "tile": "main_ground1"
+        },
+        {
+            "x": 11,
+            "y": 9,
+            "tile": "main_ground1"
+        },
+        {
+            "x": 11,
+            "y": 7,
+            "tile": "main_ground1"
+        },
+        {
+            "x": 15,
+            "y": 7,
+            "tile": "main_ground1"
+        },
+        {
+            "x": 10,
+            "y": 6,
+            "tile": "main_ground1"
+        },
+        {
+            "x": 10,
+            "y": 7,
+            "tile": "main_ground1"
+        },
+        {
+            "x": 10,
+            "y": 8,
+            "tile": "main_ground1"
+        },
+        {
+            "x": 9,
+            "y": 7,
+            "tile": "main_ground1"
+        },
+        {
+            "x": 8,
+            "y": 7,
+            "tile": "main_ground1"
+        },
+        {
+            "x": 8,
+            "y": 6,
+            "tile": "main_ground1"
+        },
+        {
+            "x": 9,
+            "y": 8,
+            "tile": "main_ground1"
+        },
+        {
+            "x": 8,
+            "y": 8,
+            "tile": "main_ground1"
+        },
+        {
+            "x": 8,
+            "y": 9,
+            "tile": "main_ground1"
+        },
+        {
+            "x": 9,
+            "y": 9,
+            "tile": "main_ground1"
+        },
+        {
+            "x": 10,
+            "y": 9,
+            "tile": "main_ground1"
+        },
+        {
+            "x": 9,
+            "y": 6,
+            "tile": "main_ground1"
+        },
+        {
+            "x": 11,
+            "y": 6,
+            "tile": "main_ground1"
+        },
+        {
+            "x": 11,
+            "y": 8,
+            "tile": "main_ground1"
+        },
+        {
+            "x": 13,
+            "y": 7,
+            "tile": "main_ground1"
+        },
+        {
+            "x": 14,
+            "y": 7,
+            "tile": "main_ground1"
+        }
+    ],
+    "characters": [
+        {
+            "type": "main_ryder",
+            "x": 9,
+            "y": 8
+        }
+    ],
+    "objects": [
+        {
+            "type": "main_portal1",
+            "x": 15,
+            "y": 7
+        }
+    ],
+    "enemies": [
+        {
+            "type": "main_bat1",
+            "x": 11,
+            "y": 7
+        }
+    ],
+    "triggers": {}
+}

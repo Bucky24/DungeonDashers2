@@ -1,0 +1,21 @@
+{
+    "version": 2,
+    "id": "ryder",
+    "name": "Ryder",
+    "width": 1,
+    "height": 3,
+    "images": {
+        "base_right": "assets/characters/ryder_right.png"
+    },
+    "actionPoints": 30,
+    "maxHP": 30,
+    "skills": {
+        "special": {
+            "type": "script",
+            "file": "scripts/ryder_special.js"
+        }
+    },
+    "scripts": [
+        "scripts/ryder_special.js"
+    ]
+}

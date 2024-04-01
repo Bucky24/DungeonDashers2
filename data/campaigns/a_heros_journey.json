@@ -1,0 +1,20 @@
+{
+    "version": 2,
+    "width": 500,
+    "height": 500,
+    "background": {
+        "image": "a_heros_journey_background.png"
+    },
+    "maps": [
+        {
+            "map": "humble_beginnings",
+            "x": 100,
+            "y": 100
+        },
+        {
+            "map": "map1",
+            "x": 200,
+            "y": 150
+        }
+    ]
+}

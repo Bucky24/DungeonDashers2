@@ -1,0 +1,110 @@
+{
+    "tiles": {
+        "ground1": {
+            "type": "ground",
+            "image": "assets/tiles/ground1.png"
+        },
+        "bottom_wall": {
+            "type": "wall",
+            "image": "assets/tiles/bottom_wall.png"
+        },
+        "upper_wall_middle": {
+            "type": "wall",
+            "image": "assets/tiles/upper_wall_middle.png"
+        },
+        "left_wall": {
+            "type": "wall",
+            "image": "assets/tiles/left_wall.png"
+        },
+        "hole": {
+            "type": "hole",
+            "image": "assets/tiles/hole.png"
+        },
+        "upper_wall_top": {
+            "type": "wall",
+            "image": "assets/tiles/upper_wall_top.png"
+        },
+        "cliff_bot": {
+            "type": "wall",
+            "image": "assets/tiles/cliff_bot.png"
+        },
+        "left_top_corner": {
+            "type": "wall",
+            "image": "assets/tiles/left_top_corner.png"
+        },
+        "left_bot_corner": {
+            "type": "wall",
+            "image": "assets/tiles/left_bot_corner.png"
+        },
+        "right_wall": {
+            "type": "wall",
+            "image": "assets/tiles/right_wall.png"
+        },
+        "right_top_corner": {
+            "type": "wall",
+            "image": "assets/tiles/right_top_corner.png"
+        },
+        "cliff_left_right": {
+            "type": "hole",
+            "image": "assets/tiles/cliff_left_right.png"
+        },
+        "cliff_top": {
+            "type": "hole",
+            "image": "assets/tiles/cliff_top.png"
+        },
+        "right_bot_corner": {
+            "type": "wall",
+            "image": "assets/tiles/right_bot_corner.png"
+        },
+        "cliff_left_bot_nub": {
+            "type": "hole",
+            "image": "assets/tiles/cliff_left_bot_nub.png"
+        },
+        "cliff_left_bot_corner": {
+            "type": "hole",
+            "image": "assets/tiles/cliff_left_bot_corner.png"
+        }
+    },
+    "objects": {
+        "door1": {
+            "manifest": "objects/door1.json"
+        },
+        "door2": {
+            "manifest": "objects/door2.json"
+        },
+        "rock_spike1": {
+            "manifest": "objects/rock_spike1.json"
+        },
+        "chest1": {
+            "manifest": "objects/chest1.json"
+        },
+        "rock1": {
+            "manifest": "objects/rock1.json"
+        },
+        "trigger1": {
+            "manifest": "objects/trigger1.json"
+        },
+        "switch1": {
+            "manifest": "objects/switch1.json"
+        },
+        "portal1": {
+            "manifest": "objects/portal1.json"
+        }
+    },
+    "characters": {
+        "ryder": {
+            "manifest": "characters/ryder.json"
+        },
+        "sir_jacob": {
+            "manifest": "characters/sir_jacob.json"
+        }
+    },
+    "enemies": {
+        "bat1": {
+            "manifest": "enemies/bat1.json"
+        },
+        "skeleton1": {
+            "manifest": "enemies/skeleton1.json"
+        }
+    }
+}

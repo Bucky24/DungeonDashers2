@@ -1,0 +1,26 @@
+{
+    "version": 2,
+    "id": "trigger1",
+    "states": [
+        "enabled",
+        "disabled"
+    ],
+    "defaultState": "enabled",
+    "flags": [
+        "nonblocking"
+    ],
+    "events": [
+        {
+            "on": "intersect",
+            "filters": [
+                "entity_character"
+            ],
+            "type": "script",
+            "file": "scripts/handle_trigger.js"
+        }
+    ],
+    "scripts": [
+        "scripts/handle_trigger.js"
+    ],
+    "images": {}
+}

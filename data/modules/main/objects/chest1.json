@@ -1,0 +1,25 @@
+{
+    "version": 2,
+    "id": "chest1",
+    "states": [
+        "open",
+        "closed"
+    ],
+    "defaultState": "closed",
+    "events": [
+        {
+            "on": "collide",
+            "filters": [
+                "entity_character"
+            ],
+            "type": "script",
+            "file": "scripts/chest_collide.js"
+        }
+    ],
+    "scripts": [
+        "scripts/chest_collide.js"
+    ],
+    "images": {
+        "closed": "assets/objects/chest1_closed.png"
+    }
+}

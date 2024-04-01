@@ -1,0 +1,12 @@
+{
+    "version": 2,
+    "id": "rock_spike1",
+    "states": [
+        "exists"
+    ],
+    "defaultState": "exists",
+    "images": {
+        "exists": "assets/objects/rock_spike1.png"
+    },
+    "scripts": []
+}

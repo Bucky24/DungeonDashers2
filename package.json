@@ -1,56 +1,37 @@
 {
-  "name": "dungeon-dashers-2",
-  "version": "0.6.0",
-  "dependencies": {
-    "@bucky24/mobile-detect": "2.3.0",
-    "@bucky24/react-canvas": "1.6.4",
-    "@bucky24/react-canvas-map": "^0.6.2",
-    "classnames": "2.2.6",
-    "css-loader": "6.7.2",
-    "dotenv": "6.0.0",
-    "dotenv-expand": "4.2.0",
-    "joi": "^17.2.1",
-    "mini-css-extract-plugin": "2.7.2",
-    "react": "16.8.3",
-    "react-dom": "16.8.2",
-    "react-redux": "7.0.3",
-    "redux": "4.0.1",
-    "resolve": "1.10.0"
-  },
-  "main": "./src/electronClient/main.js",
-  "scripts": {
-    "start-game": "cross-env NODE_ENV=development webpack-dev-server --config webpack.config.game.js",
-    "build-game": "webpack --config webpack.config.game.js",
-    "electron-game": "cross-env-shell ELECTRON=true NODE_ENV=development npm run build-game && cross-env NODE_ENV=development electron .\"",
-    "start-editor": "cross-env NODE_ENV=development webpack-dev-server --config webpack.config.editor.js",
-    "build-editor": "webpack --config webpack.config.editor.js",
-    "electron-editor": "cross-env ELECTRON=true NODE_ENV=development npm run build-editor && cross-env NODE_ENV=development electron .",
-    "build": "npm run build-game && npm run build-editor",
-    "build-game-electron": "cross-env ELECTRON=true npm run build-game"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
-  "devDependencies": {
-    "@babel/core": "7.2.2",
-    "@babel/preset-env": "7.5.2",
-    "@babel/preset-react": "7.0.0",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-loader": "8.3.0",
-    "cross-env": "^7.0.2",
-    "electron": "22.3.25",
-    "file-loader": "6.2.0",
-    "html-webpack-plugin": "5.5.0",
-    "image-webpack-loader": "8.0.1",
-    "json-loader": "0.5.7",
-    "progress-bar-webpack-plugin": "1.12.1",
-    "style-loader": "3.3.1",
-    "url-loader": "4.1.1",
-    "webpack": "5.76.0",
-    "webpack-cli": "4.9.1",
-    "webpack-dev-server": "4.11.1"
-  }
+    "name": "dungeon_dashers_2",
+    "version": "0.1.0",
+    "scripts": {
+        "build": "webpack",
+        "dev": "ELECTRON=true NODE_ENV=development npm run build && NODE_ENV=development npm start",
+        "start": "electron .",
+        "postinstall": "npm run build",
+        "dev_web": "node server.js"
+    },
+    "devDependencies": {
+        "@babel/core": "7.24.0",
+        "@babel/plugin-proposal-class-properties": "7.12.1",
+        "@babel/preset-env": "7.12.11",
+        "@babel/preset-react": "7.12.10",
+        "babel-loader": "8.2.2",
+        "css-loader": "5.0.1",
+        "file-loader": "6.2.0",
+        "html-webpack-plugin": "5.2.0",
+        "style-loader": "2.0.0",
+        "webpack": "5.90.3",
+        "webpack-cli": "5.1.4",
+        "webpack-dev-server": "5.0.2",
+        "ws": "8.5.0"
+    },
+    "dependencies": {
+        "@bucky24/react-canvas": "3.1.4",
+        "@bucky24/react-canvas-map": "2.0.3",
+        "classnames": "^2.5.1",
+        "electron": "29.1.6",
+        "express": "4.17.1",
+        "prop-types": "15.8.1",
+        "react": "18.2.0",
+        "react-dom": "18.2.0",
+        "react-router-dom": "^6.22.3"
+    }
 }
