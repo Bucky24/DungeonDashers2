@@ -3,6 +3,10 @@ const path = require('path');
 
 const Logger = require("./logger");
 
+// TODO: need to lock this down in case of electron we don't
+// allow saving to these directories or loading from editor
+// however right now we don't know what we are doing, game
+// should still be able to load from these
 const directories = {
     save: [
         path.resolve(__dirname, "..", "data", "saves"),

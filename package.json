@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "scripts": {
         "build": "webpack",
-        "dev": "NODE_ENV=development npm run build && NODE_ENV=development npm start",
+        "dev": "ELECTRON=true NODE_ENV=development npm run build && NODE_ENV=development npm start",
         "start": "electron .",
         "postinstall": "npm run build",
         "dev_web": "node server.js"
@@ -27,7 +27,7 @@
         "@bucky24/react-canvas": "3.1.4",
         "@bucky24/react-canvas-map": "2.0.3",
         "classnames": "^2.5.1",
-        "electron": "29.1.0",
+        "electron": "29.1.6",
         "express": "4.17.1",
         "prop-types": "15.8.1",
         "react": "18.2.0",

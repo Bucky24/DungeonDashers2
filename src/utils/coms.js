@@ -27,6 +27,7 @@ if (ipcRenderer) {
 }
 
 export default {
+    isElectron: !!ipcRenderer,
 	send: (command, data) => {
         if (ipcRenderer) {
     		const myID = CALLBACK_ID;

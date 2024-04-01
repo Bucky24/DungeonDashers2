@@ -1,3 +1,6 @@
+// used by utils to know which directories should be available
+process.env.ELECTRON = true;
+
 const electron = require('electron');
 const commands = require('./server/commands');
 
