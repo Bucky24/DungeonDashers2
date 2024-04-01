@@ -46,9 +46,15 @@ export function CampaignProvider({ children }) {
         campaignDataRef,
         campaignSaveData: activeSave,
         loadCampaign: (campaign) => {
+            if (!campaign) {
+                setLoaded(true);
+                return;
+            }
             if (activeCampaign !== campaign) {
                 setActiveCampaign(campaign);
                 setLoaded(false);
+            } else {
+                setLoaded(true);
             }
         },
         updateActiveCampaign: (key, value) => {
@@ -76,6 +82,7 @@ export function CampaignProvider({ children }) {
             let saveData = activeSave;
             if (!activeSave) {
                 saveData = {
+                    type: 'campaign',
                     maps: [],
                 };
             }

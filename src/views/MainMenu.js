@@ -13,6 +13,8 @@ export default function MainMenu() {
             onSelect={(item) => {
                 if (item === "Editors") {
                     navigate("/editor");
+                } else if (item === "Load Game") {
+                    navigate("/game/load");
                 } else {
                     console.log(item);
                 }

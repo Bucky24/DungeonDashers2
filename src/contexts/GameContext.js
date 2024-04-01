@@ -375,6 +375,7 @@ export function GameProvider({ children }) {
         setActiveEnemyIndex,
         saveGame: async (name) => {
             const saveData = {
+                type: 'game',
                 map: mapName,
                 campaign: activeCampaign,
                 characters,

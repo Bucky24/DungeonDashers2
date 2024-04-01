@@ -9,6 +9,7 @@ const {
     locateInDirectoriesForSave,
     getModuleComponent,
     directories,
+    getAllInDirectories,
 } = require('./utils');
 const getSettings = require("./commands/getSettings");
 const extractModuleComponent = require("./utils/extractModuleComponent");
@@ -31,9 +32,15 @@ module.exports = {
     updateCampaignSave,
     loadSavedCampaign,
     getSavedGames: () => {
+        const allSaves = getAllInDirectories(directories.save);
+
+        const filteredSaves = allSaves.filter((save) => {
+            return !save.name.includes("__CAMPAIGN");
+        }).map((data) => data.name);
+
         return {
             success: true,
-            games: ['main'],
+            games: filteredSaves,
         };
     },
     getSavedGame: ({ name }) => {
