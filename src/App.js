@@ -18,12 +18,14 @@ import CampaignEditorMenu from './views/CampaignEditorMenu';
 import CampaignEditorLoadMenu from './views/CampaignEditorLoadMenu';
 import CampaignEditor from './views/CampaignEditor';
 import LoadGameMenu from './views/LoadGameMenu';
+import SelectCampaignMenu from './views/SelectCampaignMenu';
 
 export default function App() {
 	return (<BrowserRouter>
 		<div className={styles.appRoot}>
 			<Routes>
 				<Route path="/game" element={<Game />} />
+				<Route path="/game/new" element={<SelectCampaignMenu />} /> 
 				<Route path="/game/new/:map" element={<NewGame />} />
 				<Route path="/game/new/:campaign/:map" element={<NewGame />} />
 				<Route path="/game/load" element={<LoadGameMenu />} />

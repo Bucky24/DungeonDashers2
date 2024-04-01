@@ -15,6 +15,8 @@ export default function MainMenu() {
                     navigate("/editor");
                 } else if (item === "Load Game") {
                     navigate("/game/load");
+                } else if (item === "New Game") {
+                    navigate("/game/new");
                 } else {
                     console.log(item);
                 }

@@ -70,6 +70,30 @@ export default function CampaignView() {
         loadCampaign(campaign);
     }, [campaign]);
 
+    useEffect(() => {
+        if (campaignLoaded) {
+            const allMaps = campaignData.maps.map(data => data.map);
+            const remainingMaps = [...allMaps];
+            // basically figure out what maps are left by removing
+            // all the ones we have already won
+            for (const map of mapsAlreadyWon) {
+                const index = remainingMaps.indexOf(map);
+                if (index >= 0) {
+                    remainingMaps.splice(index, 1);
+                }
+            }
+
+            // if there are any left, select the first one
+            // otherwise select the last map possible
+            if (remainingMaps.length > 0) {
+                const finalIndex = allMaps.indexOf(remainingMaps[0]);
+                setActiveMap(finalIndex);
+            } else {
+                setActiveMap(allMaps.length-1);
+            }
+        }
+    }, [campaignData, campaignLoaded]);
+
     if (!campaignLoaded) {
         return <div>Loading</div>;
     }
