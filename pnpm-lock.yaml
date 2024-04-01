@@ -2535,7 +2535,7 @@ packages:
     dev: true
 
   /ee-first@1.1.1:
-    resolution: {integrity: sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=}
+    resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
 
   /electron-to-chromium@1.4.141:
     resolution: {integrity: sha512-mfBcbqc0qc6RlxrsIgLG2wCqkiPAjEezHxGTu7p3dHHFOurH4EjS9rFZndX5axC8264rI1Pcbw8uQP39oZckeA==}
@@ -4900,8 +4900,8 @@ packages:
       webpack-merge: 5.8.0
     dev: true
 
-  /webpack-dev-middleware@7.0.0(webpack@5.90.3):
-    resolution: {integrity: sha512-tZ5hqsWwww/8DislmrzXE3x+4f+v10H1z57mA2dWFrILb4i3xX+dPhTkcdR0DLyQztrhF2AUmO5nN085UYjd/Q==}
+  /webpack-dev-middleware@7.2.0(webpack@5.90.3):
+    resolution: {integrity: sha512-VLzmsjJrf+3UVf3QsT3E7xZ9F9bdhUhQFGRxyl6bmYR+W519UWnK6/teZeqAFFjWEtpVs+JqNPCVqB/s7P4tGg==}
     engines: {node: '>= 18.12.0'}
     peerDependencies:
       webpack: ^5.0.0
@@ -4912,6 +4912,7 @@ packages:
       colorette: 2.0.16
       memfs: 4.7.7
       mime-types: 2.1.35
+      on-finished: 2.4.1
       range-parser: 1.2.1
       schema-utils: 4.2.0
       webpack: 5.90.3(webpack-cli@5.1.4)
@@ -4960,7 +4961,7 @@ packages:
       spdy: 4.0.2
       webpack: 5.90.3(webpack-cli@5.1.4)
       webpack-cli: 5.1.4(webpack-dev-server@5.0.2)(webpack@5.90.3)
-      webpack-dev-middleware: 7.0.0(webpack@5.90.3)
+      webpack-dev-middleware: 7.2.0(webpack@5.90.3)
       ws: 8.16.0
     transitivePeerDependencies:
       - bufferutil
