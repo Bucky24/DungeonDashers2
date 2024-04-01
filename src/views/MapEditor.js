@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import EditorContext from '../contexts/EditorContext';
 import ModuleContext from '../contexts/ModuleContext';
@@ -16,6 +16,7 @@ export default function MapEditor({ newMap }) {
 	const { loaded: imagesLoaded } = useContext(ImageContext);
     const { loaded: mapLoaded } = useContext(MapContext);
     const { map } = useParams();
+    const navigate = useNavigate();
 
 	const loaded = editorLoaded && moduleLoaded && imagesLoaded && mapLoaded;
 
@@ -36,7 +37,8 @@ export default function MapEditor({ newMap }) {
                     Loading
                 </div>
             )}
-            {loaded && (
+            {loaded && (<>
+                <button onClick={() => navigate("/editor/map")}>Back</button>
                 <TabBar tabs={["Map", "Triggers"]} defaultTab="Map">
                     <div style={{ position: 'relative' }}>
                         <EditorMap />
@@ -44,7 +46,7 @@ export default function MapEditor({ newMap }) {
                     </div>
                     <MapTriggerEditor />
                 </TabBar>
-            )}
+            </>)}
         </>
     );
 }

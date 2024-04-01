@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import useLoaded from '../hooks/useLoaded';
 import CampaignContext from '../contexts/CampaignContext';
@@ -16,6 +16,7 @@ export default function CampaignEditor() {
         saveCampaign,
     } = useContext(CampaignContext);
     const [mapNames, setMapNames] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         Coms.send("getMapNames").then((data) => {
@@ -32,6 +33,7 @@ export default function CampaignEditor() {
     }
 
     return <div style={{ marginLeft: 10 }}>
+        <button onClick={() => navigate("/editor")}>Back</button>
         <h2>Campaign {campaign}</h2>
         <h3>General</h3>
         <table border={1}>
@@ -39,7 +41,7 @@ export default function CampaignEditor() {
                 <tr>
                     <td>Width</td>
                     <td>
-                        <TextField value={campaignData.width || '0'} onBlur={(value) => {
+                        <TextField value={campaignData?.width || '0'} onBlur={(value) => {
                             const intValue = parseInt(value);
                             updateActiveCampaign('width', intValue);
                         }} />
@@ -48,7 +50,7 @@ export default function CampaignEditor() {
                 <tr>
                     <td>Height</td>
                     <td>
-                        <TextField value={campaignData.height || '0'} onBlur={(value) => {
+                        <TextField value={campaignData?.height || '0'} onBlur={(value) => {
                             const intValue = parseInt(value);
                             updateActiveCampaign('height', intValue);
                         }} />
