@@ -74,6 +74,7 @@ export default function CampaignEditor() {
                     <th>Name</th>
                     <th>X</th>
                     <th>Y</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -106,6 +107,15 @@ export default function CampaignEditor() {
                                 maps[index].y = parseInt(newValue);
                                 updateActiveCampaign('maps', maps);
                             }} />
+                        </td>
+                        <td>
+                            <button onClick={() => {
+                                if (confirm("Are you sure?")) {
+                                    const maps = [...campaignData.maps];
+                                    maps.splice(index, 1);
+                                    updateActiveCampaign('maps', maps);
+                                }
+                            }}>Remove</button>
                         </td>
                     </tr>
                 })}

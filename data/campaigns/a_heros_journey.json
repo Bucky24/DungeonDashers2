@@ -10,11 +10,6 @@
             "map": "humble_beginnings",
             "x": 100,
             "y": 100
-        },
-        {
-            "map": "map1",
-            "x": 200,
-            "y": 150
         }
     ]
 }
