@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import Coms from '../utils/coms';
 import MapContext from './MapContext';
 import ModuleContext from './ModuleContext';
+import CampaignContext from './CampaignContext';
 
 const GameContext = React.createContext({});
 export default GameContext;
@@ -60,6 +61,7 @@ export function GameProvider({ children }) {
     const [activeEnemyIndex, setActiveEnemyIndex] = useState(-1);
     const justLoadedRef = useRef(false);
     const [gameState, setGameState] = useState(GAME_STATE.PLAYING);
+    const { handleMapVictory } = useContext(CampaignContext);
 
     // this is the main way to enter combat
     useEffect(() => {
@@ -134,6 +136,12 @@ export function GameProvider({ children }) {
             return newEnemies;
         });
     }, [combatTurn]);
+
+    useEffect(() => {
+        if (gameState === GAME_STATE.WON) {
+            handleMapVictory(mapName);
+        }
+    }, [gameState]);
 
     const value = {
         loaded,

@@ -7,13 +7,15 @@ import ImageContext from '../contexts/ImageContext';
 
 export default function CampaignView() {
     const { campaign } = useParams();
-    const { loadCampaign, campaignData } = useContext(CampaignContext);
+    const { loadCampaign, campaignData, campaignDataRef, campaignSaveData } = useContext(CampaignContext);
     const { campaignLoaded } = useLoaded();
     const { getImage } = useContext(ImageContext);
     const [size, setSize] = useState({ width: 1, height: 1 });
     const [activeMap, setActiveMap] = useState(0);
     const enterHandlerRef = useRef(() => {});
     const navigate = useNavigate();
+
+    const mapsAlreadyWon = campaignSaveData?.maps.map((data) => data.map) ?? [];
 
     enterHandlerRef.current = () => {
         const map = campaignData.maps[activeMap].map;
@@ -34,6 +36,23 @@ export default function CampaignView() {
 
             if (code === "Enter") {
                 enterHandlerRef.current();
+            } else if (code === "ArrowUp") {
+                setActiveMap((active) => {
+                    let next = active-1;
+                    if (next < 0) {
+                        next = campaignDataRef.current.maps.length-1;
+                    }
+                    return next;
+                });
+            } else if (code === "ArrowDown") {
+                setActiveMap((active) => {
+                    let next = active + 1;
+                    if (next > campaignDataRef.current.maps.length-1) {
+                        next = 0;
+                    }
+
+                    return next;
+                });
             }
         }
 
@@ -67,13 +86,23 @@ export default function CampaignView() {
         {campaignData.maps.map((mapData, index) => {
             const selected = index === activeMap;
             const { x, y, map } = mapData;
+            const won = mapsAlreadyWon.includes(map);
+
+            let backgroundColor = "#000";
+            if (won) {
+                backgroundColor = "#0f0";
+            }
+            if (selected) {
+                backgroundColor = "#f00";
+            }
+
             return <div key={map} style={{
                 width: 25,
                 height: 25,
                 position: 'absolute',
                 top: y * heightRatio,
                 left: x * widthRatio,
-                backgroundColor: selected ? '#f00' : '#000',
+                backgroundColor,
                 borderRadius: 99,
             }}>
                 <div style={{ marginTop: -22 }}>{map}</div>

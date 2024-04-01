@@ -18,6 +18,8 @@ const loadCampaign = require("./commands/loadCampaign");
 const getMapNames = require("./commands/getMapNames");
 const getCampaignNames = require("./commands/getCampaignNames");
 const saveCampaign = require("./commands/saveCampaign");
+const updateCampaignSave = require("./commands/updateCampaignSave");
+const loadSavedCampaign = require("./commands/loadSavedCampaign");
 
 module.exports = {
     getSettings,
@@ -26,6 +28,8 @@ module.exports = {
     getMapNames,
     getCampaignNames,
     saveCampaign,
+    updateCampaignSave,
+    loadSavedCampaign,
     getSavedGames: () => {
         return {
             success: true,

@@ -1,8 +1,10 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
 import useLoaded from '../hooks/useLoaded';
 import CampaignContext from '../contexts/CampaignContext';
 import TextField from '../components/TextField';
+import Coms from '../utils/coms';
 
 export default function CampaignEditor() {
     const { campaign } = useParams();
@@ -13,6 +15,13 @@ export default function CampaignEditor() {
         updateActiveCampaign,
         saveCampaign,
     } = useContext(CampaignContext);
+    const [mapNames, setMapNames] = useState([]);
+
+    useEffect(() => {
+        Coms.send("getMapNames").then((data) => {
+            setMapNames(data.maps);
+        });
+    }, []);
 
     useEffect(() => {
         loadCampaign(campaign);
@@ -58,7 +67,60 @@ export default function CampaignEditor() {
                 </tr>
             </tbody>
         </table>
+        <h3>Maps</h3>
+        <table border={1}>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>X</th>
+                    <th>Y</th>
+                </tr>
+            </thead>
+            <tbody>
+                {campaignData.maps.map((mapData, index) => {
+                    const { map, x, y } = mapData;
 
+                    return <tr key={`map_${index}`}>
+                        <td>
+                            <select value={map} onChange={(event) => {
+                                const maps = [...campaignData.maps];
+                                maps[index].map = event.target.value;
+                                updateActiveCampaign('maps', maps);
+                            }}>
+                                <option value=''>None</option>
+                                {mapNames.map((mapName) => {
+                                    return <option key={mapName} value={mapName}>{mapName}</option>
+                                })}
+                            </select>
+                        </td>
+                        <td>
+                            <TextField value={x} onBlur={(newValue) => {
+                                const maps = [...campaignData.maps];
+                                maps[index].x = parseInt(newValue);
+                                updateActiveCampaign('maps', maps);
+                            }} />
+                        </td>
+                        <td>
+                            <TextField value={y} onBlur={(newValue) => {
+                                const maps = [...campaignData.maps];
+                                maps[index].y = parseInt(newValue);
+                                updateActiveCampaign('maps', maps);
+                            }} />
+                        </td>
+                    </tr>
+                })}
+            </tbody>
+        </table>
+        <button onClick={() => {
+            const maps = [...campaignData.maps];
+            maps.push({
+                map: '',
+                x: 0,
+                y: 0,
+            });
+            updateActiveCampaign('maps', maps);
+        }}>Add Map</button>
+        <br/><br/>
         <button onClick={saveCampaign}>Save</button>
     </div>
 }

@@ -112,7 +112,13 @@
             "y": 8
         }
     ],
-    "objects": [],
+    "objects": [
+        {
+            "type": "main_portal1",
+            "x": 15,
+            "y": 7
+        }
+    ],
     "enemies": [
         {
             "type": "main_bat1",

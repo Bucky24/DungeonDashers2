@@ -88,8 +88,8 @@ export default function GameMap() {
         }
     }, [combatTurn, activeEnemyIndex]);
 
-    let totalAp;
-    let maxAp;
+    let totalAp = 1;
+    let maxAp = 1;
     let combatName;
     if (combatTurn === COMBAT_TURN.PLAYER) {
         const activeCharacter = characters[activeCharacterIndex];
@@ -102,13 +102,15 @@ export default function GameMap() {
         combatName = activeData.name;
     } else if (combatTurn === COMBAT_TURN.ENEMY) {
         const activeEnemy = enemies[activeEnemyIndex];
-        const activeData = enemyData[activeEnemy.type];
-        totalAp = activeEnemy.actionPoints;
-        if (totalAp === undefined) {
-            totalAp = activeData?.actionPoints || 0;
+        if (activeEnemy) {
+            const activeData = enemyData[activeEnemy.type];
+            totalAp = activeEnemy.actionPoints;
+            if (totalAp === undefined) {
+                totalAp = activeData?.actionPoints || 0;
+            }
+            maxAp = activeData?.actionPoints;
+            combatName = activeData?.name || "";
         }
-        maxAp = activeData?.actionPoints;
-        combatName = activeData?.name || "";
     }
 
     return (<>
