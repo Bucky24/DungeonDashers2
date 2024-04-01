@@ -80,6 +80,11 @@ export function CampaignProvider({ children }) {
                 };
             }
 
+            const existingMaps = saveData.maps.map((data) => data.map);
+            if (existingMaps.includes(map)) {
+                return;
+            }
+
             saveData.maps.push({
                 map,
             });

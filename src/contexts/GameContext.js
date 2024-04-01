@@ -61,7 +61,7 @@ export function GameProvider({ children }) {
     const [activeEnemyIndex, setActiveEnemyIndex] = useState(-1);
     const justLoadedRef = useRef(false);
     const [gameState, setGameState] = useState(GAME_STATE.PLAYING);
-    const { handleMapVictory } = useContext(CampaignContext);
+    const { handleMapVictory, activeCampaign, loadCampaign } = useContext(CampaignContext);
 
     // this is the main way to enter combat
     useEffect(() => {
@@ -182,6 +182,7 @@ export function GameProvider({ children }) {
                     justLoadedRef.current = false;
                 }, 50);
                 setGameState(GAME_STATE.PLAYING);
+                loadCampaign(result.game.campaign);
             });
         },
         newGame: async (map) => {
@@ -375,6 +376,7 @@ export function GameProvider({ children }) {
         saveGame: async (name) => {
             const saveData = {
                 map: mapName,
+                campaign: activeCampaign,
                 characters,
                 enemies,
                 objects,
