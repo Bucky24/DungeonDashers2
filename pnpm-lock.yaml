@@ -11,6 +11,9 @@ dependencies:
   '@bucky24/react-canvas-map':
     specifier: 2.0.3
     version: 2.0.3(@bucky24/react-canvas@3.1.4)
+  appdata-path:
+    specifier: ^1.0.0
+    version: 1.0.0
   classnames:
     specifier: ^2.5.1
     version: 2.5.1
@@ -1942,6 +1945,10 @@ packages:
       normalize-path: 3.0.0
       picomatch: 2.3.1
     dev: true
+
+  /appdata-path@1.0.0:
+    resolution: {integrity: sha512-ZbH3ezXfnT/YE3NdqduIt4lBV+H0ybvA2Qx3K76gIjQvh8gROpDFdDLpx6B1QJtW7zxisCbpTlCLhKqoR8cDBw==}
+    dev: false
 
   /array-flatten@1.1.1:
     resolution: {integrity: sha512-PCVAQswWemu6UdxsDFFX/+gVeYqKAod3D3UVm91jHwynguOwAvYPhx8nNlM++NqRcK6CxxpUafjmhIdKiHibqg==}

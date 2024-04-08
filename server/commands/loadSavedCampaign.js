@@ -4,7 +4,7 @@ const fs = require("fs");
 const { directories, locateInDirectories, getJsonFile } = require("../utils");
 
 module.exports = function({ campaign }) {
-    const file = locateInDirectories(`${campaign}__CAMPAIGN.json`, directories.save);
+    const file = locateInDirectories(`${campaign}__CAMPAIGN.json`, directories.saves.load);
 
     if (!file) {
         return {

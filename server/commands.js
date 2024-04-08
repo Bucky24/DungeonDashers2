@@ -32,7 +32,7 @@ module.exports = {
     updateCampaignSave,
     loadSavedCampaign,
     getSavedGames: () => {
-        const allSaves = getAllInDirectories(directories.save);
+        const allSaves = getAllInDirectories(directories.saves.load);
 
         const filteredSaves = allSaves.filter((save) => {
             return !save.name.includes("__CAMPAIGN");
@@ -44,7 +44,7 @@ module.exports = {
         };
     },
     getSavedGame: ({ name }) => {
-        const file = locateInDirectories(`${name}.json`, directories.save);
+        const file = locateInDirectories(`${name}.json`, directories.saves.load);
 
         if (!file) {
             return {
@@ -61,7 +61,7 @@ module.exports = {
         };
     },
     getMap: ({ name }) => {
-        const file = locateInDirectories(`${name}.json`, directories.map);
+        const file = locateInDirectories(`${name}.json`, directories.maps.load);
 
         if (!file) {
             return {
@@ -78,7 +78,7 @@ module.exports = {
         };
     },
     getModule: ({ name }) => {
-        const moduleDir = locateInDirectories(name, directories.modules);
+        const moduleDir = locateInDirectories(name, directories.modules.load);
 
         const modulePrefix = `${name}_`;
 
@@ -165,7 +165,7 @@ module.exports = {
             };
         }
 
-        const validDirectories = directories[decoded.type] || [];
+        const validDirectories = directories[decoded.type].load || [];
         const extra = decoded.data?.extra ?? '';
 
         const imageFile = locateInDirectories(decoded.filePath, validDirectories, extra);
@@ -189,7 +189,7 @@ module.exports = {
         };
     },
     saveMap: ({ name, data }) => {
-        const file = locateInDirectoriesForSave(`${name}.json`, directories.map);
+        const file = locateInDirectoriesForSave(`${name}.json`, directories.maps.save);
         
         if (!file) {
             return {
@@ -207,7 +207,7 @@ module.exports = {
         };
     },
     saveModule: ({ name, data }) => {
-        const dir = locateInDirectoriesForSave(`${name}`, directories.modules);
+        const dir = locateInDirectoriesForSave(`${name}`, directories.modules.save);
         const modulePrefix = `${name}_`;
 
         if (!dir) {

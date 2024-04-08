@@ -1,26 +1,66 @@
 const fs = require('fs');
 const path = require('path');
+const getAppDataPath = require("appdata-path");
 
 const Logger = require("./logger");
+
+const userPath = getAppDataPath("DungeonDashers2");
+if (!fs.existsSync(userPath)) {
+    fs.mkdirSync(userPath);
+}
+
+console.log(`Using ${userPath} as data directory for user`);
 
 // TODO: need to lock this down in case of electron we don't
 // allow saving to these directories or loading from editor
 // however right now we don't know what we are doing, game
 // should still be able to load from these
 const directories = {
-    save: [
-        path.resolve(__dirname, "..", "data", "saves"),
-    ],
-    modules: [
-        path.resolve(__dirname, "..", "data", "modules"),
-    ],
-    map: [
-        path.resolve(__dirname, "..", "data", "maps"),
-    ],
-    campaign: [
-        path.resolve(__dirname, "..", "data", "campaigns"),
-    ],
+    saves: {
+        load: [
+            path.resolve(__dirname, "..", "data", "saves"),
+            path.resolve(userPath, "saves"),
+        ],
+        save: [
+            path.resolve(userPath, "saves"),
+        ],
+    },
+    modules: {
+        load: [
+            path.resolve(__dirname, "..", "data", "modules"),
+            path.resolve(userPath, "modules"),
+        ],
+        save: [
+            path.resolve(userPath, "modules"),
+        ],
+    },
+    maps: {
+        load: [
+            path.resolve(__dirname, "..", "data", "maps"),
+            path.resolve(userPath, "maps"),
+        ],
+        save: [
+            path.resolve(userPath, "maps"),
+        ],
+    },
+    campaigns: {
+        load: [
+            path.resolve(__dirname, "..", "data", "campaigns"),
+            path.resolve(userPath, "campaigns"),
+        ],
+        save: [
+            path.resolve(userPath, "campaigns"),
+        ],
+    },
 };
+
+// if running a dev build, then we can write to the system default modules
+if (process.env.NODE_ENV === 'development') {
+    directories.saves.save.unshift(directories.saves.load[0]);
+    directories.modules.save.unshift(directories.modules.load[0]);
+    directories.maps.save.unshift(directories.maps.load[0]);
+    directories.campaigns.save.unshift(directories.campaigns.load[0]);
+}
 
 function locateInDirectories(name, dirs, extra = '') {
     let foundFile = null;
@@ -77,6 +117,9 @@ function getAllInDirectories(dirs) {
     const files = [];
 
     for (const dir of dirs) {
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir);
+        }
         const contents = fs.readdirSync(dir);
 
         for (const file of contents) {

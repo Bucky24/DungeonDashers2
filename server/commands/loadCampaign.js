@@ -6,7 +6,7 @@ const {
 } = require("../utils");
 
 module.exports = function({ campaign }) {
-    const file = locateInDirectories(`${campaign}.json`, directories.campaign);
+    const file = locateInDirectories(`${campaign}.json`, directories.campaigns.load);
 
     if (!file) {
         return {
@@ -19,7 +19,7 @@ module.exports = function({ campaign }) {
 
     // get path to background
     data.background.originalImage = data.background.image;
-    data.background.image = getImageSlug('campaign', data.background.image);
+    data.background.image = getImageSlug('campaigns', data.background.image);
 
     return {
         success: true,

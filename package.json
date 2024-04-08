@@ -2,11 +2,11 @@
     "name": "dungeon_dashers_2",
     "version": "0.1.0",
     "scripts": {
-        "build": "webpack",
-        "dev": "ELECTRON=true NODE_ENV=development npm run build && NODE_ENV=development npm start",
+        "build": "ELECTRON=true webpack",
+        "dev": "NODE_ENV=development npm run build && NODE_ENV=development npm start",
         "start": "electron .",
         "postinstall": "npm run build",
-        "dev_web": "node server.js"
+        "dev_web": "NODE_ENV=development node server.js"
     },
     "devDependencies": {
         "@babel/core": "7.24.0",
@@ -26,6 +26,7 @@
     "dependencies": {
         "@bucky24/react-canvas": "3.1.4",
         "@bucky24/react-canvas-map": "2.0.3",
+        "appdata-path": "^1.0.0",
         "classnames": "^2.5.1",
         "electron": "29.1.6",
         "express": "4.17.1",

@@ -4,7 +4,7 @@ const fs = require("fs");
 const { directories, locateInDirectoriesForSave } = require("../utils");
 
 module.exports = function({ campaign, data }) {
-    const file = locateInDirectoriesForSave(`${campaign}__CAMPAIGN.json`, directories.save);
+    const file = locateInDirectoriesForSave(`${campaign}__CAMPAIGN.json`, directories.saves.save);
 
     if (!file) {
         return {

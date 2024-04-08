@@ -4,7 +4,7 @@ const fs = require("fs");
 const { directories, getAllInDirectories } = require("../utils");
 
 module.exports = function() {
-    const files = getAllInDirectories(directories.campaign);
+    const files = getAllInDirectories(directories.campaigns.load);
 
     return {
         success: true,
