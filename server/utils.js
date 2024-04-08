@@ -21,36 +21,28 @@ const directories = {
             path.resolve(__dirname, "..", "data", "saves"),
             path.resolve(userPath, "saves"),
         ],
-        save: [
-            path.resolve(userPath, "saves"),
-        ],
+        save: [],
     },
     modules: {
         load: [
             path.resolve(__dirname, "..", "data", "modules"),
             path.resolve(userPath, "modules"),
         ],
-        save: [
-            path.resolve(userPath, "modules"),
-        ],
+        save: [],
     },
     maps: {
         load: [
             path.resolve(__dirname, "..", "data", "maps"),
             path.resolve(userPath, "maps"),
         ],
-        save: [
-            path.resolve(userPath, "maps"),
-        ],
+        save: [],
     },
     campaigns: {
         load: [
             path.resolve(__dirname, "..", "data", "campaigns"),
             path.resolve(userPath, "campaigns"),
         ],
-        save: [
-            path.resolve(userPath, "campaigns"),
-        ],
+        save: [],
     },
 };
 
@@ -60,6 +52,11 @@ if (process.env.NODE_ENV === 'development') {
     directories.modules.save.unshift(directories.modules.load[0]);
     directories.maps.save.unshift(directories.maps.load[0]);
     directories.campaigns.save.unshift(directories.campaigns.load[0]);
+} else {
+    directories.saves.save.unshift(directories.saves.load[1]);
+    directories.modules.save.unshift(directories.modules.load[1]);
+    directories.maps.save.unshift(directories.maps.load[1]);
+    directories.campaigns.save.unshift(directories.campaigns.load[1]);
 }
 
 function locateInDirectories(name, dirs, extra = '') {

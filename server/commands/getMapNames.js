@@ -3,8 +3,12 @@ const fs = require("fs");
 
 const { directories, getAllInDirectories } = require("../utils");
 
-module.exports = function() {
-    const files = getAllInDirectories(directories.maps.load);
+module.exports = function(params) {
+    let files = getAllInDirectories(directories.maps.load);
+
+    if (params.save) {
+        files = getAllInDirectories(directories.maps.save);
+    }
 
     return {
         success: true,

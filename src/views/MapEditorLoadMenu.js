@@ -10,7 +10,7 @@ export default function MapEditorLoadMenu() {
     const [maps, setMaps] = useState([]);
 
     useEffect(() => {
-        Coms.send("getMapNames").then((data) => {
+        Coms.send("getMapNames", {save: true}).then((data) => {
             setMaps(data.maps);
         });
     }, []);
