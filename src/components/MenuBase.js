@@ -4,9 +4,16 @@ export default function MenuBase({activeItem, items, itemFn, setActiveItem, sele
     const activeItemRef = useRef(activeItem);
     const selectItemRef = useRef(selectItem);
     const itemsRef = useRef(items);
+    const activeIndexRef = useRef(0);
 
     useEffect(() => {
-        activeItemRef.current = activeItem;
+        if (activeItemRef.current !== activeItem) {
+            activeItemRef.current = activeItem;
+            const index = itemsRef.current.findIndex((item) => {
+                return item === activeItem;
+            });
+            activeIndexRef.current = index;
+        }
     }, [activeItem]);
 
     useEffect(() => {
@@ -21,14 +28,11 @@ export default function MenuBase({activeItem, items, itemFn, setActiveItem, sele
         const listener = (event) => {
             const { code } = event;
 
-            const index = itemsRef.current.findIndex((item) => {
-                return item === activeItemRef.current;
-            });
-            let nextIndex = index;
+            let nextIndex = activeIndexRef.current;
             if (code === "ArrowUp") {
-                nextIndex = Math.max(index - 1, 0);
+                nextIndex = Math.max(nextIndex - 1, 0);
             } else if (code === "ArrowDown") {
-                nextIndex = Math.min(index + 1, itemsRef.current.length-1);
+                nextIndex = Math.min(nextIndex + 1, itemsRef.current.length-1);
             } else if (code === "Enter") {
                 selectItemRef.current();
             }
@@ -36,6 +40,8 @@ export default function MenuBase({activeItem, items, itemFn, setActiveItem, sele
             if (setActiveItem) {
                 setActiveItem(itemsRef.current[nextIndex]);
             }
+            activeItemRef.current = itemsRef.current[nextIndex];
+            activeIndexRef.current = nextIndex;
         }
         window.addEventListener("keyup", listener);
 
@@ -46,8 +52,8 @@ export default function MenuBase({activeItem, items, itemFn, setActiveItem, sele
 
     return <div>
         {items.map((item, index) => {
-            return <div key={item}>
-                {itemFn(item, activeItem === item)}
+            return <div key={`${item}_${index}`}>
+                {itemFn(item, activeIndexRef.current === index)}
             </div>
         })}
     </div>
