@@ -132,6 +132,29 @@ function getAllInDirectories(dirs) {
     return files;
 }
 
+function getAllDirsInDirectories(dirs) {
+    const result = [];
+
+    for (const dir of dirs) {
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir);
+        }
+        const contents = fs.readdirSync(dir);
+
+        for (const file of contents) {
+            const fullPath = path.join(dir, file);
+            if (fs.lstatSync(fullPath).isDirectory()) {
+                result.push({
+                    name: file,
+                    path: fullPath,
+                });
+            }
+        }
+    }
+
+    return result;
+}
+
 module.exports = {
     directories,
     locateInDirectories,
@@ -218,4 +241,5 @@ module.exports = {
         return objectData;
     },
     getAllInDirectories,
+    getAllDirsInDirectories,
 };

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import EditorContext from '../contexts/EditorContext';
 import ModuleContext from '../contexts/ModuleContext';
@@ -8,13 +8,18 @@ import TabBar from '../components/TabBar';
 import ModuleObjectEditor from '../components/ModuleObjectEditor';
 import ModuleEnemyEditor from '../components/ModuleEnemyEditor';
 
-export default function ModuleEditor() {
-    const { loaded: editorLoaded, loadModule, module, saveModules } = useContext(EditorContext);
+export default function ModuleEditor({ newModule }) {
+    const { loaded: editorLoaded, loadModule, module, saveModules, createNewModule } = useContext(EditorContext);
 	const { loaded: moduleLoaded, tiles, changeTile, addTile } = useContext(ModuleContext);
     const { module: moduleId } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        loadModule(moduleId);
+        if (newModule) {
+            createNewModule(moduleId);
+        } else {
+            loadModule(moduleId);
+        }
     }, [moduleId]);
 
     const loaded = editorLoaded && moduleLoaded;
@@ -33,6 +38,9 @@ export default function ModuleEditor() {
                         <button onClick={() => {
                             saveModules();
                         }}>Save</button>
+                        <button onClick={() => {
+                            navigate("/editor/module/load");
+                        }}>Back</button>
                     </div>
                 </div>
                 <TabBar tabs={['Tiles', 'Objects', 'Enemies']} defaultTab='Objects'>

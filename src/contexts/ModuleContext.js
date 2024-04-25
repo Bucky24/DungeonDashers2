@@ -208,6 +208,23 @@ export function ModuleProvider({ children }) {
                 };
             }, {});
         },
+        createNewModule: (module) => {
+            setModules((modules) => {
+                const newModule = {
+                    tiles: {},
+                    objects: {},
+                    characters: {},
+                    enemies: {},
+                    images: {},
+                    scripts: {},
+                };
+                return {
+                    ...modules,
+                    [module]: newModule,
+                };
+            });
+            setLoaded(true);
+        },
         changeTile: (module, id, key, value) => {
             if (key === "id") {
                 if (value === id) {

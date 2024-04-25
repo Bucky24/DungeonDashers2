@@ -21,6 +21,7 @@ const getCampaignNames = require("./commands/getCampaignNames");
 const saveCampaign = require("./commands/saveCampaign");
 const updateCampaignSave = require("./commands/updateCampaignSave");
 const loadSavedCampaign = require("./commands/loadSavedCampaign");
+const getModuleNames = require("./commands/getModuleNames");
 
 module.exports = {
     getSettings,
@@ -31,6 +32,7 @@ module.exports = {
     saveCampaign,
     updateCampaignSave,
     loadSavedCampaign,
+    getModuleNames,
     getSavedGames: () => {
         const allSaves = getAllInDirectories(directories.saves.load);
 
@@ -240,6 +242,10 @@ module.exports = {
         data.enemies = component.manifestResult;
 
         const manifestFile = path.join(dir, "manifest.json");
+
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir);
+        }
 
         const dataString = JSON.stringify(data, null, 4);
 

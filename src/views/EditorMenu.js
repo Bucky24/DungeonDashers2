@@ -17,6 +17,8 @@ export default function EditorMenu() {
                     navigate('/editor/map');
                 } else if (item === 'Campaign Editor') {
                     navigate('/editor/campaign');
+                } else if (item === "Module Editor") {
+                    navigate("/editor/module");
                 } else {
                     console.log(item);
                 }

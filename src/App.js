@@ -20,6 +20,8 @@ import CampaignEditor from './views/CampaignEditor';
 import LoadGameMenu from './views/LoadGameMenu';
 import SelectCampaignMenu from './views/SelectCampaignMenu';
 import Coms from './utils/coms';
+import ModuleEditorMenu from './views/ModuleEditorMenu';
+import ModuleEditorLoadMenu from './views/ModuleEditorLoadMenu';
 
 export default function App() {
 	const routes = <div className={styles.appRoot}>
@@ -35,7 +37,10 @@ export default function App() {
 			<Route path="/editor/map/load" element={<MapEditorLoadMenu />} />
 			<Route path="/editor/map/new/:map" element={<MapEditor newMap />} />
 			<Route path="/editor/map/:map" element={<MapEditor />} />
+			<Route path="/editor/module" element={<ModuleEditorMenu />} />
+			<Route path="/editor/module/load" element={<ModuleEditorLoadMenu />} />
 			<Route path="/editor/module/:module" element={<ModuleEditor />} />
+			<Route path="/editor/module/new/:module" element={<ModuleEditor newModule />} />
 			<Route path="/editor/campaign" element={<CampaignEditorMenu />} />
 			<Route path="/editor/campaign/load" element={<CampaignEditorLoadMenu />} />
 			<Route path="/editor/campaign/:campaign" element={<CampaignEditor />} />

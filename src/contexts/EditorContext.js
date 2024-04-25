@@ -20,7 +20,7 @@ export const EDITOR_MAP_TOOLS = {
 
 export function EditorProvider({ children}) {
     const { loadMap, getSaveData: getMapSaveData, createNewMap } = useContext(MapContext);
-    const { loadModules, getSaveData: getModuleSaveData } = useContext(ModuleContext);
+    const { loadModules, getSaveData: getModuleSaveData, createNewModule } = useContext(ModuleContext);
 
     const [loaded, setLoaded] = useState(false);
     const [map, setMap] = useState(null);
@@ -82,6 +82,11 @@ export function EditorProvider({ children}) {
             setModule(module);
 
             loadModules([module]);
+        },
+        createNewModule: async (module) => {
+            createNewModule(module);
+            setModule(module);
+            setLoaded(true);
         },
         module,
         hoveredEntities,
