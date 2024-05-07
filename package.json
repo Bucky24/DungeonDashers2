@@ -1,12 +1,12 @@
 {
     "name": "dungeon_dashers_2",
-    "version": "0.1.0",
+    "version": "0.7.0",
     "scripts": {
-        "build": "ELECTRON=true webpack",
-        "dev": "NODE_ENV=development npm run build && NODE_ENV=development npm start",
+        "build": "cross-env ELECTRON=true webpack",
+        "dev": "cross-env NODE_ENV=development npm run build && cross-env NODE_ENV=development npm start",
         "start": "electron .",
         "postinstall": "npm run build",
-        "dev_web": "NODE_ENV=development node server.js"
+        "dev_web": "cross-env NODE_ENV=development node server.js"
     },
     "devDependencies": {
         "@babel/core": "7.24.0",
@@ -28,6 +28,7 @@
         "@bucky24/react-canvas-map": "2.0.3",
         "appdata-path": "^1.0.0",
         "classnames": "^2.5.1",
+        "cross-env": "^7.0.3",
         "electron": "29.1.6",
         "express": "4.19.2",
         "prop-types": "15.8.1",

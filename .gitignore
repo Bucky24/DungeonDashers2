@@ -4,6 +4,6 @@ node_modules
 dist
 electron_game
 electron_editor
-electron-v6.1.11-win32-ia32.zip
+electron-*.zip
 settings/*
 data/saves

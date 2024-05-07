@@ -52,3 +52,10 @@ v0.6.0
 * Improved scripting
 * Destructable objects
 * Replicate the first original campaign scenario
+
+v0.7.0
+* Full rebuild of game
+* Much more flexible and detailed data loading system
+* More editors for various objects
+* Editors now embedded in game
+* Clear documentation for all data objects
