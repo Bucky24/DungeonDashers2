@@ -10,6 +10,10 @@ For v0.8.0
 * Basic menu for character stats/equipment
 * Character directions
 * More nuanced stats for characters and enemies
+* Better enemy AI
+    * Better pathfinding
+    * allow moving through enemies as long as they can land somewhere safe
+* Fix known bugs
 
 For v0.9.0
 * Basic animation system, movement and attack

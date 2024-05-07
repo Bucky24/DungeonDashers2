@@ -6,5 +6,6 @@
 * Save game probably does not save trigger state
 * Combat pane is obscured by buttons
 * Dialogs cut off words
-* Quit button doesn't do anything
+* Quit button doesn't do anything (quit game and quit app)
+* Closing the electron window keeps the process alive still
 * Doors are centered wrong in their square
