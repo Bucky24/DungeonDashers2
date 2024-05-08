@@ -1,6 +1,9 @@
 For v0.8.0
 * All original base characters, including special abilities
-* Flesh out editors, more QOL
+* Flesh out editors
+* QOL
+    * Improve green square for selection of spaces
+    * Add in tooltips for actions at specific parts
 * Add equipment back, provide effects
 * Two full campaign missions from original game
 * Full data validation and version control/conversion
@@ -14,6 +17,7 @@ For v0.8.0
     * Better pathfinding
     * allow moving through enemies as long as they can land somewhere safe
 * Fix known bugs
+* Add simple character binding UI
 
 For v0.9.0
 * Basic animation system, movement and attack
