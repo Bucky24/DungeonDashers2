@@ -61,3 +61,11 @@ v0.7.0
 * Clear documentation for all data objects
 
 NOTES: v0.7.0 is not compatible with maps or saves from earlier versions.
+
+v0.8.0
+* Added the ability to remove entities in map editor.
+* Added the ability to select and edit entities in map editor.
+
+Bug Fixes:
+* Sir Jacob is no longer stopped by chests
+* Quit button when in game now returns you to the main menu

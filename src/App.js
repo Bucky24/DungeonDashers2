@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, HashRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import styles from './styles.css';
 
@@ -19,12 +19,11 @@ import CampaignEditorLoadMenu from './views/CampaignEditorLoadMenu';
 import CampaignEditor from './views/CampaignEditor';
 import LoadGameMenu from './views/LoadGameMenu';
 import SelectCampaignMenu from './views/SelectCampaignMenu';
-import Coms from './utils/coms';
 import ModuleEditorMenu from './views/ModuleEditorMenu';
 import ModuleEditorLoadMenu from './views/ModuleEditorLoadMenu';
 
 export default function App() {
-	const routes = <div className={styles.appRoot}>
+	return <div className={styles.appRoot}>
 		<Routes>
 			<Route path="/game" element={<Game />} />
 			<Route path="/game/new" element={<SelectCampaignMenu />} /> 
@@ -49,13 +48,4 @@ export default function App() {
 			<Route path="/" element={<MainMenu />} />
 		</Routes>
 	</div>
-
-	if (Coms.isElectron) {
-		// browser router doesn't work with electron
-		return <HashRouter>{routes}</HashRouter>;
-	}
-
-	return (<BrowserRouter>
-		{routes}
-	</BrowserRouter>);
 }

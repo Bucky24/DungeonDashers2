@@ -133,7 +133,7 @@ function useGetCharacterContext() {
         
         return {
             ...generic,
-            moveTo: async function(x, y) {
+            moveTo: async function(x, y, collide = false) {
                 // run intersection code
                 const entities = getEntitiesAtPosition(x, y);
                 if (entities.length > 0) {
@@ -142,17 +142,23 @@ function useGetCharacterContext() {
                             this._getEntity(),
                             entity,
                         ]);
+                        if (collide) {
+                            await triggerEvent(EVENTS.COLLIDE, [
+                                this._getEntity(),
+                                entity,
+                            ]);
+                        }
                     }
                 }
 
                 this.x = x;
                 this.y = y;
-                setCharacterProperty(characterData.id, "x", x);
-                setCharacterProperty(characterData.id, "y", y);
+                setCharacterProperty(characterData.type, "x", x);
+                setCharacterProperty(characterData.type, "y", y);
             },
             damage: function(amount) {
                 const newHp = Math.max(0, this.hp - amount);
-                setCharacterProperty(characterData.id, "hp", newHp);
+                setCharacterProperty(characterData.type, "hp", newHp);
             },
         };
     }

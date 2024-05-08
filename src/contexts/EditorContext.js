@@ -29,10 +29,13 @@ export function EditorProvider({ children}) {
     const [hoveredEntities, setHoveredEntities] = useState([]);
     const [activeItem, setActiveItem] = useState('');
     const [tool, setTool] = useState('');
+    const [selectedCell, setSelectedCell] = useState({ x: 10, y: 8 });
 
     const value = {
         loaded,
         map,
+        selectedCell,
+        setSelectedCell,
         loadMap: async (map) => {
             setLoaded(true);
             setMap(map);

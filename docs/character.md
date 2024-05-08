@@ -54,6 +54,7 @@ A function that moves the character to the specific point
 | -- | -- |
 | x | X coord to move to |
 | y | Y coord to move to |
+| collide | A boolean indicating if collision events should be run for items on the space |
 
 ## Base States
 

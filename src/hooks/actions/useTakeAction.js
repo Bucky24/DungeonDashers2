@@ -27,7 +27,7 @@ export default function takeAction() {
         [ACTION_MAP.NEXT_CHARACTER]: () => {
             const activeCharacter = characters[activeCharacterIndex];
             const charData = characterData[activeCharacter.type];
-            setCharacterProperty(activeCharacter.id, "actionPoints", charData.actionPoints);
+            setCharacterProperty(activeCharacter.type, "actionPoints", charData.actionPoints);
             setNextActiveCharacter();
         },
         [ACTION_MAP.OPEN_MENU]: () => {

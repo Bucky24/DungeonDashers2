@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const UIContext = React.createContext({});
 export default UIContext;
@@ -27,6 +28,7 @@ export function UIProvider({ children }) {
     const [dialog, setDialog] = useState();
     const [showMenu, setShowMenu] = useState(false);
     const [activeMenuItem, setActiveMenuItem] = useState(0);
+    const navigate = useNavigate();
 
     const value = {
         mode,
@@ -120,6 +122,8 @@ export function UIProvider({ children }) {
                 setMode(UI_MODE.GAME);
             } else if (item === "Save Game") {
                 setMode(UI_MODE.SAVE_MENU);
+            } else if (item === "Exit Game") {
+                navigate("/");
             }
 
             setShowMenu(false);

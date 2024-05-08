@@ -281,9 +281,9 @@ export function GameProvider({ children }) {
                 return newObjects;
             });
         },
-        setCharacterProperty: (id, key, value) => {
+        setCharacterProperty: (type, key, value) => {
             setCharacters((entities) => {
-                const entityIndex = entities.findIndex((entity) => entity.id === id);
+                const entityIndex = entities.findIndex((entity) => entity.type === type);
                 const entity = entities[entityIndex];
 
                 if (!entity) {
@@ -320,7 +320,9 @@ export function GameProvider({ children }) {
             });
         },
         addGold: (amount) => {
-            setGold(Math.max(0, gold + amount));
+            setGold((gold) => {
+                return Math.max(0, gold + amount);
+            });
         },
         setPaused,
         centerCamera: (x, y) => {

@@ -15,11 +15,13 @@ export default function EditorMap() {
         createObject,
         createCharacter,
         createEnemy,
+        removeEntities,
     } = useContext(MapContext);
     const {
         setHoveredEntities,
         activeItem,
         tool,
+        setSelectedCell,
     } = useContext(EditorContext);
 
     return (
@@ -29,6 +31,8 @@ export default function EditorMap() {
             characters={characters}
             enemies={enemies}
             showInactive={true}
+            heightOffset={60}
+            fullFocus={false}
             onClick={(cellX, cellY, button) => {
                 //console.log(cellX, cellY, button);
                 if (button === ButtonTypes.LEFT) {
@@ -50,6 +54,10 @@ export default function EditorMap() {
                         }
                     } else if (tool === EDITOR_MAP_TOOLS.REMOVE_TIILE || tool === EDITOR_MAP_TOOLS.REMOVE_ALL) {
                         setTile(cellX, cellY, null);
+                    } else if (tool === EDITOR_MAP_TOOLS.REMOVE_ENTITY) {
+                        removeEntities(cellX, cellY);
+                    } else if (tool === EDITOR_MAP_TOOLS.SELECT) {
+                        setSelectedCell({ x: cellX, y: cellY });
                     }
                 } else if (button === ButtonTypes.RIGHT) {
                     setTile(cellX, cellY, null);

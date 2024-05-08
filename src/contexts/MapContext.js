@@ -136,11 +136,32 @@ export function MapProvider({ children }) {
         },
         createObject: (x, y, type) => {
             setObjects((entities) => {
+                let highestId = 0;
+                for (const entity of entities) {
+                    if (!entity.id) continue;
+                    highestId = Math.max(highestId, entity.id);
+                }
                 const newEntities = [...entities];
                 newEntities.push({
                     type,
                     x,
                     y,
+                    id: highestId + 1,
+                });
+
+                return newEntities;
+            });
+        },
+        updateObject: (id, key, value) => {
+            setObjects((entities) => {
+                const newEntities = entities.map((entity) => {
+                    if (entity.id === id) {
+                        return {
+                           ...entity,
+                            [key]: value,
+                        };   
+                    }
+                    return entity;
                 });
 
                 return newEntities;
@@ -153,6 +174,31 @@ export function MapProvider({ children }) {
                     type,
                     x,
                     y,
+                });
+
+                return newEntities;
+            });
+        },
+        removeEntities: (x, y) => {
+            setCharacters((entities) => {
+                const newEntities = entities.filter((entity) => {
+                    return entity.x!== x || entity.y!== y;
+                });
+
+                return newEntities;
+            });
+
+            setEnemies((entities) => {
+                const newEntities = entities.filter((entity) => {
+                    return entity.x!== x || entity.y!== y;
+                });
+
+                return newEntities;
+            });
+
+            setObjects((entities) => {
+                const newEntities = entities.filter((entity) => {
+                    return entity.x!== x || entity.y!== y;
                 });
 
                 return newEntities;
@@ -181,6 +227,39 @@ export function MapProvider({ children }) {
             setLoaded(true);
             
             loadModules(['main']);
+        },
+        // NOTE should be used for editor only. When in game, use
+        // getEntitiesAtPosition in the GameContext
+        entitiesAtPosition: (x, y) => {
+            const result = [];
+            for (const entity of objects) {
+                if (entity.x ===x && entity.y === y) {
+                    result.push({
+                        type: 'object',
+                        entity,
+                    });
+                }
+            }
+
+            for (const entity of characters) {
+                if (entity.x === x && entity.y === y) {
+                    result.push({
+                        type: 'character',
+                        entity,
+                    });
+                }
+            }
+
+            for (const entity of enemies) {
+                if (entity.x === x && entity.y === y) {
+                    result.push({
+                        type: 'enemy',
+                        entity,
+                    });
+                }
+            }
+
+            return result;
         },
     };
 

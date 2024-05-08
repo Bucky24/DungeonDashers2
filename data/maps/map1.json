@@ -107,6 +107,11 @@
     ],
     "characters": [
         {
+            "type": "main_sir_jacob",
+            "x": 10,
+            "y": 6
+        },
+        {
             "type": "main_ryder",
             "x": 9,
             "y": 8
@@ -116,15 +121,34 @@
         {
             "type": "main_portal1",
             "x": 15,
-            "y": 7
-        }
-    ],
-    "enemies": [
+            "y": 7,
+            "id": 1
+        },
         {
-            "type": "main_bat1",
-            "x": 11,
-            "y": 7
+            "type": "main_chest1",
+            "x": 10,
+            "y": 8,
+            "id": 2,
+            "data": [
+                {
+                    "type": "gold",
+                    "amount": 15
+                }
+            ]
+        },
+        {
+            "type": "main_chest1",
+            "x": 10,
+            "y": 9,
+            "id": 3,
+            "data": [
+                {
+                    "type": "gold",
+                    "amount": 10
+                }
+            ]
         }
     ],
+    "enemies": [],
     "triggers": {}
 }

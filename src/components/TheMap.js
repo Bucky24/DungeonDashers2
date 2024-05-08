@@ -29,6 +29,7 @@ export default function TheMap({
     combatPointsMax,
     fullFocus,
     showInactive,
+    heightOffset,
 }) {
     const [size, setSize] = useState({ width: 0, height: 0 });
     const {
@@ -46,7 +47,7 @@ export default function TheMap({
     const resize = () => {
         setSize({
             width: window.innerWidth,
-            height: window.innerHeight,
+            height: window.innerHeight - (heightOffset || 0),
         });
     }
 

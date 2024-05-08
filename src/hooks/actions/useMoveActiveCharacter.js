@@ -75,7 +75,7 @@ export default function useMoveActiveCharacter() {
                 const eData = enemyData[enemy.entity.type];
                 let enemyHp = enemy.entity.hp || eData.maxHP;
                 setEnemyProperty(enemy.entity.id, "hp", Math.max(0, enemyHp - 5));
-                setCharacterProperty(character.id, "actionPoints", totalPoints - pointCost);
+                setCharacterProperty(character.type, "actionPoints", totalPoints - pointCost);
             } else {
                 for (const entity of collidableEntities) {
                     await triggerEvent(EVENTS.COLLIDE, [
@@ -101,7 +101,7 @@ export default function useMoveActiveCharacter() {
             }
         }
 
-        setCharacterProperty(character.id, "actionPoints", totalPoints - pointCost);
+        setCharacterProperty(character.type, "actionPoints", totalPoints - pointCost);
         moveCharacter(activeCharacterIndex, character.x + xOff, character.y + yOff);
     }
 }

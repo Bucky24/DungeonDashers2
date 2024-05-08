@@ -1,4 +1,3 @@
-* Sir Jacob can't break chests with his special
 * Sir Jacob gets stopped by opened doors when using special
 * Ryder's special can teleport to unwalkable spaces
 * Characters should be able to move through each other as long as they have action points to move afterwards.
@@ -6,7 +5,7 @@
 * Save game probably does not save trigger state
 * Combat pane is obscured by buttons
 * Dialogs cut off words
-* Quit button doesn't do anything (quit game and quit app)
+* Quit button doesn't do anything (quit app)
 * Closing the electron window keeps the process alive still
 * Doors are centered wrong in their square
 * It's possible for Ryder to finish map 1 because when he blinks from 1 pad to the other the collision happens on both!

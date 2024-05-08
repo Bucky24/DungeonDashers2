@@ -39,12 +39,13 @@ while (true) {
         break;
     }
 
-    // do destruction
+    // move
+    await this.game.sleep(100);
+    await this.entity.moveTo(curX, curY, true);
+
+    // do destruction. Has to happen after movement because otherwise
+    // any collision events will explode (since object no longer exists)
     for (const entity of collidableEntities) {
         entity.damage(100);
     }
-
-    // move
-    await this.game.sleep(100);
-    await this.entity.moveTo(curX, curY);
 }
