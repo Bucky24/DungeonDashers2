@@ -2,9 +2,6 @@
 * Ryder's special can teleport to unwalkable spaces
 * Characters should be able to move through each other as long as they have action points to move afterwards.
 * Ryder should be disabled in combat while Sir Jacob is fighting before he sees Ryder
-* Save game probably does not save trigger state
-* Combat pane is obscured by buttons
-* Dialogs cut off words
 * Quit button doesn't do anything (quit app)
 * Closing the electron window keeps the process alive still
 * Doors are centered wrong in their square
