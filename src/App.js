@@ -21,6 +21,8 @@ import LoadGameMenu from './views/LoadGameMenu';
 import SelectCampaignMenu from './views/SelectCampaignMenu';
 import ModuleEditorMenu from './views/ModuleEditorMenu';
 import ModuleEditorLoadMenu from './views/ModuleEditorLoadMenu';
+import SettingsMenu from './views/SettingsMenu';
+import SettingsControlsMenu from './views/SettingsControlsMenu';
 
 export default function App() {
 	return <div className={styles.appRoot}>
@@ -44,6 +46,8 @@ export default function App() {
 			<Route path="/editor/campaign/load" element={<CampaignEditorLoadMenu />} />
 			<Route path="/editor/campaign/:campaign" element={<CampaignEditor />} />
 			<Route path="/campaign/:campaign" element={<CampaignView />} />
+			<Route path="/settings" element={<SettingsMenu />} />
+			<Route path="/settings/controls" element={<SettingsControlsMenu />} />
 			<Route path="/debug" element={<Debug />} />
 			<Route path="/" element={<MainMenu />} />
 		</Routes>

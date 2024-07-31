@@ -17,6 +17,8 @@ export default function MainMenu() {
                     navigate("/game/load");
                 } else if (item === "New Game") {
                     navigate("/game/new");
+                } else if (item === "Settings") {
+                    navigate("/settings");
                 } else {
                     console.log(item);
                 }

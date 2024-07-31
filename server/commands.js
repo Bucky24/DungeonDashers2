@@ -22,6 +22,7 @@ const saveCampaign = require("./commands/saveCampaign");
 const updateCampaignSave = require("./commands/updateCampaignSave");
 const loadSavedCampaign = require("./commands/loadSavedCampaign");
 const getModuleNames = require("./commands/getModuleNames");
+const setSetting = require("./commands/setSetting");
 
 module.exports = {
     getSettings,
@@ -33,6 +34,7 @@ module.exports = {
     updateCampaignSave,
     loadSavedCampaign,
     getModuleNames,
+    setSetting,
     getSavedGames: () => {
         const allSaves = getAllInDirectories(directories.saves.load);
 

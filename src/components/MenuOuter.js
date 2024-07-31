@@ -2,7 +2,7 @@ import React from 'react';
 
 import TitleScreen from '../../assets/title_screen.png';
 
-export default function MenuOuter({ children }) {
+export default function MenuOuter({ children, center }) {
     return <div style={{
         width: '100vw',
         height: '100vh',
@@ -13,8 +13,8 @@ export default function MenuOuter({ children }) {
         <div style={{
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'flex-end',
-            height: 'calc(100% - 100px)',
+            alignItems: center ? 'center' : 'flex-end',
+            height: center ? '100%' : 'calc(100% - 100px)',
         }}>
             {children}
         </div>

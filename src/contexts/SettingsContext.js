@@ -4,7 +4,7 @@ import Coms from '../utils/coms';
 const SettingsContext = React.createContext();
 export default SettingsContext;
 
-const ACTIONS = [
+export const ACTIONS = [
     'MOVE_LEFT',
     'MOVE_RIGHT',
     'MOVE_DOWN',
@@ -36,12 +36,16 @@ export function SettingsProvider({ children }) {
     const [loaded, setLoaded] = useState(false);
     const [actionsByControl, setActionsByControl] = useState({});
 
-    useEffect(() => {
-        Coms.send("getSettings", {}).then((settings) => {
-            setControls(settings.controls || {});
+    const loadSettings = () => {
+        Coms.send("getSettings", {}).then((result) => {
+            setControls(result.settings.controls || {});
 
             setLoaded(true);
         });
+    }
+
+    useEffect(() => {
+        loadSettings();
     }, []);
 
     useEffect(() => {
@@ -59,6 +63,13 @@ export function SettingsProvider({ children }) {
         },
         getActionForControl: (control) => {
             return actionsByControl[control];
+        },
+        setActionControl: (action, control) => {
+            const newControls = {...controls,[action]: control};
+
+            Coms.send("setSetting", { setting: 'controls', data: newControls }).then(() => {
+                loadSettings();
+            });
         },
         loaded,
     };
