@@ -13,7 +13,7 @@ export default function EditorMap() {
         characters,
         enemies,
         createObject,
-        createCharacter,
+        placeCharacter,
         createEnemy,
         removeEntities,
     } = useContext(MapContext);
@@ -46,7 +46,7 @@ export default function EditorMap() {
                         }
                     } else if (tool === EDITOR_MAP_TOOLS.PLACE_CHARACTER) {
                         if (activeItem && activeItem !== "") {
-                            createCharacter(cellX, cellY, activeItem);
+                            placeCharacter(cellX, cellY, activeItem);
                         }
                     } else if (tool === EDITOR_MAP_TOOLS.PLACE_ENEMY) {
                         if (activeItem && activeItem !== "") {

@@ -15,7 +15,6 @@ For v0.8.0
 * More nuanced stats for characters and enemies
 * Better enemy AI
     * Better pathfinding
-    * allow moving through enemies as long as they can land somewhere safe
 * Fix known bugs
 * Add simple character binding UI
 

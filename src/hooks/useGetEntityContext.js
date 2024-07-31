@@ -63,9 +63,9 @@ function useGetGenericEntityContext() {
                     y: this.y,
                 };
             },
-            canTakeAction: function(action) {
+            canTakeAction: function(action, times = 1) {
                 // action will be one of COMBAT_ACTION which has a point cost associated as the value
-                return action && this.actionPoints >= action;
+                return action && this.actionPoints >= action*times;
             },
             takeAction: function(action) {
                 this.actionPoints -= action;

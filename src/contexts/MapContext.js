@@ -167,9 +167,9 @@ export function MapProvider({ children }) {
                 return newEntities;
             });
         },
-        createCharacter: (x, y, type) => {
+        placeCharacter: (x, y, type) => {
             setCharacters((entities) => {
-                const newEntities = [...entities];
+                const newEntities = [...entities].filter((entity) => entity.type !== type);
                 newEntities.push({
                     type,
                     x,

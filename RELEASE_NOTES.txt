@@ -65,7 +65,9 @@ NOTES: v0.7.0 is not compatible with maps or saves from earlier versions.
 v0.8.0 (unreleased)
 * Added the ability to remove entities in map editor.
 * Added the ability to select and edit entities in map editor.
+* Slightly better movement for enemies
 
 Bug Fixes:
 * Sir Jacob is no longer stopped by chests
 * Quit button when in game now returns you to the main menu
+* Placing a character in the editor will no longer duplicate the character

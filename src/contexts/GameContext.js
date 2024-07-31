@@ -206,6 +206,7 @@ export function GameProvider({ children }) {
                     return {
                         ...enemy,
                         id: objectId++,
+                        flags: enemy.flags || [],
                     };
                 }
 

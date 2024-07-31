@@ -72,6 +72,7 @@ The canTakeAction method returns a boolean indicating if the Entity has enough a
 | Param | Description |
 | -- | -- |
 | action | A COMBAT_ACTION from the GameContext |
+| times | The number of times to take the action. Defaults 1 |
 
 ### moveTowards
 

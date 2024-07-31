@@ -21,6 +21,21 @@ while (true) {
     }
 
     if (this.entity.canTakeAction(this.game.COMBAT_ACTION.MOVE)) {
+        // if we are on top of something, we need to move off of it
+        const objectsUnder = this.game.getEntitiesAt(this.entity.getPos().x, this.entity.getPos().y).filter(object => object.id !== this.entity.id);
+        const onEntity = objectsUnder.length > 0;
+        if (onEntity) {
+            await this.entity.moveTowards(
+                this.entity.getPos().x,
+                this.entity.getPos().y + 1,
+                1,
+                true,
+            );
+            this.entity.takeAction(this.game.COMBAT_ACTION.MOVE);
+            await this.game.sleep(500);
+            continue;
+        }
+
         const objectsAround = this.game.getEntitiesWithinRange(this.entity.getPos().x, this.entity.getPos().y, 7);
         let closest = null;
         let distance = null;
@@ -42,12 +57,14 @@ while (true) {
             break;
         }
 
+        const allowCollide = !this.entity.canTakeAction(this.game.COMBAT_ACTION.MOVE, 2);
         const moveResult = await this.entity.moveTowards(
             closest.getPos().x,
             closest.getPos().y,
             1,
-            true,
+            allowCollide,
         );
+        console.log('tried to move to', closest.getPos(), moveResult);
         this.entity.takeAction(this.game.COMBAT_ACTION.MOVE);
         await this.game.sleep(500);
 
