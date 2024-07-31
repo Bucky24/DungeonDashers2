@@ -66,6 +66,7 @@ v0.8.0 (unreleased)
 * Added the ability to remove entities in map editor.
 * Added the ability to select and edit entities in map editor.
 * Slightly better movement for enemies
+* Add simple controls UI
 
 Bug Fixes:
 * Sir Jacob is no longer stopped by chests

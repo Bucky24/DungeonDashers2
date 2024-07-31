@@ -16,7 +16,6 @@ For v0.8.0
 * Better enemy AI
     * Better pathfinding
 * Fix known bugs
-* Add simple character binding UI
 
 For v0.9.0
 * Basic animation system, movement and attack
