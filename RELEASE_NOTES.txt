@@ -67,6 +67,7 @@ v0.8.0 (unreleased)
 * Added the ability to select and edit entities in map editor.
 * Slightly better movement for enemies
 * Add simple controls UI
+* Added Elf character and bell mechanics
 
 Bug Fixes:
 * Sir Jacob is no longer stopped by chests
