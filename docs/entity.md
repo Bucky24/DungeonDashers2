@@ -43,7 +43,7 @@ This method moves the Entity to a specific x and y. The Entity will teleport the
 
 ### damage
 
-This method does the specified amount of damage to the Entity's health
+This method does the specified amount of damage to the Entity's health. This will rigger an "attacked" event, and if any event handler returns a false, then the attack will be cancelled.
 
 | Param | Description |
 | -- | -- |

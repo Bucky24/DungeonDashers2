@@ -89,6 +89,9 @@
         },
         "portal1": {
             "manifest": "objects/portal1.json"
+        },
+        "bell1": {
+            "manifest": "objects/bell1.json"
         }
     },
     "characters": {

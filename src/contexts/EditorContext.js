@@ -28,7 +28,7 @@ export function EditorProvider({ children}) {
     const [module, setModule] = useState(null);
     const [hoveredEntities, setHoveredEntities] = useState([]);
     const [activeItem, setActiveItem] = useState('');
-    const [tool, setTool] = useState('');
+    const [tool, setTool] = useState(EDITOR_MAP_TOOLS.SELECT);
     const [selectedCell, setSelectedCell] = useState(null);
 
     const value = {

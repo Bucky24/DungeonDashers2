@@ -118,6 +118,33 @@
             "x": 15,
             "y": 7,
             "id": 1
+        },
+        {
+            "type": "main_door1",
+            "x": 12,
+            "y": 7,
+            "id": 2,
+            "flags": [
+                "locked"
+            ]
+        },
+        {
+            "type": "main_bell1",
+            "x": 11,
+            "y": 9,
+            "id": 3,
+            "data": [
+                {
+                    "type": "open_door",
+                    "id": 2
+                }
+            ]
+        },
+        {
+            "type": "main_bell1",
+            "x": 23,
+            "y": 7,
+            "id": 4
         }
     ],
     "enemies": [],

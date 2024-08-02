@@ -28,6 +28,8 @@ See the events.md file for a full description of events. The main events support
 | Event |
 | -- |
 | collide |
+| attacked |
+| intersect |
 
 When an Event is triggered, the context will be an ObjectContext
 

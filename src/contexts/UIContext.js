@@ -47,7 +47,7 @@ export function UIProvider({ children }) {
                 selected: null,
             };
 
-            const cells = [];
+            let cells = [];
             if (type === LOCATION.STRAIGHT_LINES) {
                 // left line
                 for (let i=startX-max;i<=startX-min;i++) {
@@ -77,6 +77,8 @@ export function UIProvider({ children }) {
                         y: i,
                     });
                 }
+            } else if (Array.isArray(type)) {
+                cells = [...type];
             } else {
                 console.error(`Invalid direction ${type}`);
                 callback(null);

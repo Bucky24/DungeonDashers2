@@ -1,0 +1,25 @@
+{
+    "version": 2,
+    "id": "bell1",
+    "states": [
+        "exists"
+    ],
+    "defaultState": "exists",
+    "images": {
+        "exists": "assets/objects/bell1.png"
+    },
+    "flags": [
+        "attackable"
+    ],
+    "scripts": [
+        "scripts/bell_attacked.js"
+    ],
+    "events": [
+        {
+            "on": "attacked",
+            "type": "script",
+            "file": "scripts/bell_attacked.js",
+            "filterPosition": false
+        }
+    ]
+}

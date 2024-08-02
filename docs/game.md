@@ -22,7 +22,7 @@ The userChooseLocation method allows the player to select a location on the game
 | y | The y to start the valid selection from |
 | min | The min distance away from the x,y that the selection must be |
 | max | The max distance away from the x,y that the selection must be |
-| type | Determines what cells are valid to select, one of LOCATION |
+| typeOrPoints | Determines what cells are valid to select, one of LOCATION, or an array of Point objects |
 
 ### runTrigger
 
@@ -168,6 +168,17 @@ The getEntitiesOfType method locates all Entities matching the give EntityType a
 
 The victory method immediately causes the player to win the current game. It takes no parameters.
 
+### getTargets
+
+The getTargets method takes in some data and returns appropriate targets based on criteria.
+
+| Param | Description |
+| -- | -- |
+| targetType | One of TARGET_TYPE |
+| x | The x to start from |
+| y | The y to start from |
+| radius | The radius to search for targets |
+
 ### TreasureType
 
 | Name | Description |
@@ -199,3 +210,13 @@ The victory method immediately causes the player to win the current game. It tak
 | object | Object Entities |
 | character | Character Entities |
 | enemy | Enemy Entities |
+
+### TARGET_TYPE
+
+| Value | Description |
+| -- | -- |
+| ATTACKABLE | Any object that has the "attackable" flag |
+
+### Point
+
+An object containing x and y coordinates as keys.

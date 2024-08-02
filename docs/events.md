@@ -11,6 +11,7 @@ Events are objects with the following structure:
 | on | The actual event that can trigger this action
 | filters | An array of filters for the event |
 | type | The type of action to take. Must be one of EventAction |
+| filterPosition | Determines if any entities already at the position of the entity processing this event should be removed. Default to true |
 
 The event may also contain additional fields based on the filters or actions.
 

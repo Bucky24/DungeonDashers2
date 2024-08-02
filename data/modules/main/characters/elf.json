@@ -12,10 +12,10 @@
     "skills": {
         "special": {
             "type": "script",
-            "file": "scripts/ryder_special.js"
+            "file": "scripts/elf_special.js"
         }
     },
     "scripts": [
-        "scripts/ryder_special.js"
+        "scripts/elf_special.js"
     ]
 }

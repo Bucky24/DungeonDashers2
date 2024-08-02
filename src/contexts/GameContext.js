@@ -11,6 +11,7 @@ export default GameContext;
 export const EVENTS = {
     COLLIDE: 'collide',
     INTERSECT: 'intersect',
+    ATTACKED: 'attacked',
 };
 
 export const FLAGS = {
@@ -42,6 +43,10 @@ export const GAME_STATE = {
     PLAYING: 'game_state/playing',
     LOST: 'game_state/lost',
     WON: 'game_state/won',
+};
+
+export const TARGET_TYPE = {
+    ATTACKABLE: 'target_type/attackable',
 };
 
 export function GameProvider({ children }) {
