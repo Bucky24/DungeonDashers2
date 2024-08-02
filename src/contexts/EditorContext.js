@@ -29,7 +29,7 @@ export function EditorProvider({ children}) {
     const [hoveredEntities, setHoveredEntities] = useState([]);
     const [activeItem, setActiveItem] = useState('');
     const [tool, setTool] = useState('');
-    const [selectedCell, setSelectedCell] = useState({ x: 10, y: 8 });
+    const [selectedCell, setSelectedCell] = useState(null);
 
     const value = {
         loaded,

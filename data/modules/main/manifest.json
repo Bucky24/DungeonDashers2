@@ -97,6 +97,9 @@
         },
         "sir_jacob": {
             "manifest": "characters/sir_jacob.json"
+        },
+        "elf": {
+            "manifest": "characters/elf.json"
         }
     },
     "enemies": {

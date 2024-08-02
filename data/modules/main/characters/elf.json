@@ -1,0 +1,21 @@
+{
+    "version": 2,
+    "id": "elf",
+    "name": "Elf",
+    "width": 1,
+    "height": 3,
+    "images": {
+        "base_down": "assets/characters/elf_front.png"
+    },
+    "actionPoints": 30,
+    "maxHP": 30,
+    "skills": {
+        "special": {
+            "type": "script",
+            "file": "scripts/ryder_special.js"
+        }
+    },
+    "scripts": [
+        "scripts/ryder_special.js"
+    ]
+}

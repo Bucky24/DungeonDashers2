@@ -19,10 +19,7 @@ For v0.8.0
 
 For v0.9.0
 * Basic animation system, movement and attack
-* Editor for custom objects
 * Editor for equipment
 * Three full campaign missions from original game
 * More complex AI - better pathfinding, fleeing after attack, summoning
 * Improve script editor
-* Ability to write AI scripts for enemies and special actions for characters
-* Start work on basic mod system

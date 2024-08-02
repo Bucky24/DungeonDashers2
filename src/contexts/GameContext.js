@@ -288,8 +288,8 @@ export function GameProvider({ children }) {
                 const entity = entities[entityIndex];
 
                 if (!entity) {
-                    console.error(`Can't find character with id ${id}`);
-                    return;
+                    console.error(`Can't find character with type ${type}`);
+                    return entities;
                 }
 
                 const newEntities = [...entities];

@@ -235,9 +235,19 @@ export default function TheMap({
                         let hp = character.hp;
 
                         if (data) {
-                            const state = character.state || BASE_STATES.RIGHT;
+                            const state = character.state || BASE_STATES.DOWN;
 
-                            const imageForState = data.images[state];
+                            let imageForState = data.images[state];
+
+                            if (!imageForState) {
+                                for (const key in BASE_STATES) {
+                                    const state = BASE_STATES[key];
+                                    if (data.images[state]) {
+                                        imageForState = data.images[state];
+                                    }
+                                    break;
+                                }
+                            }
 
                             if (imageForState) {
                                 const imageName = imageForState.image;

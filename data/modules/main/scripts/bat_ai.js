@@ -64,7 +64,6 @@ while (true) {
             1,
             allowCollide,
         );
-        console.log('tried to move to', closest.getPos(), moveResult);
         this.entity.takeAction(this.game.COMBAT_ACTION.MOVE);
         await this.game.sleep(500);
 

@@ -5,7 +5,7 @@
     "width": 1,
     "height": 3,
     "images": {
-        "base_right": "assets/characters/sir_jacob_front.png"
+        "base_down": "assets/characters/sir_jacob_front.png"
     },
     "actionPoints": 20,
     "maxHP": 30,
