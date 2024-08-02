@@ -17,7 +17,7 @@ function useGetObjectEventHandlers() {
 
         return objectData.events.filter((eventData) => {
             return eventData.on === event;
-        })
+        });
     }
 }
 

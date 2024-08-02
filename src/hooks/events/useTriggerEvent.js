@@ -17,10 +17,11 @@ export default function useTriggerEvent() {
 
             for (const handler of handlerData) {
                 const filteredEntities = filterEntities(entities, handler.filters);
+                const filterOnPosition = handler.filterPosition !== false;
                 for (const entity2 of filteredEntities) {
                     // if they're standing in the same spot they already collided
                     // so we don't need to process it
-                    if (entity.entity.x === entity2.entity.x && entity.entity.y === entity2.entity.y) {
+                    if (entity.entity.x === entity2.entity.x && entity.entity.y === entity2.entity.y && filterOnPosition) {
                         continue;
                     }
 

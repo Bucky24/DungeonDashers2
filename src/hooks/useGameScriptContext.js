@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import GameContext, { TREASURE, MOVEMENT, COMBAT_ACTION, GAME_STATE } from "../contexts/GameContext";
+import GameContext, { TREASURE, MOVEMENT, COMBAT_ACTION, GAME_STATE, TARGET_TYPE } from "../contexts/GameContext";
 import UIContext, { LOCATION, UI_MODE } from "../contexts/UIContext";
 import useRunMapTrigger from "./useRunMapTrigger";
 import useGetEntityContext from "./useGetEntityContext";
@@ -29,10 +29,11 @@ export default function useGameScriptContext(triggerEvent) {
     const getEntityContext = useGetEntityContext();
     const finalTriggerEvent = triggerEvent || useTriggerEvent();
     
-    return {
+    const context = {
         LOCATION,
         MOVEMENT,
         COMBAT_ACTION,
+        TARGET_TYPE,
         characterCount: characters.length,
         giveTreasure: (type, amount, data) => {
             if (type === TREASURE.GOLD) {
@@ -41,9 +42,9 @@ export default function useGameScriptContext(triggerEvent) {
                 console.error(`Unknown treasure type: ${type}`);
             }
         },
-        userChooseLocation: (x, y, min, max, direction) => {
+        userChooseLocation: (x, y, min, max, directionOrPoints) => {
             return new Promise((resolve) => {
-                enterCellSelect(x, y, min, max, direction, resolve);
+                enterCellSelect(x, y, min, max, directionOrPoints, resolve);
             });
         },
         runTrigger: function(name) {
@@ -151,6 +152,7 @@ export default function useGameScriptContext(triggerEvent) {
         },
         getEntityById: (id) => {
             for (const entity of objects) {
+                console.log(entity, id);
                 if (entity.id === id) {
                     return getEntityContext({ type: 'object', entity });
                 }
@@ -189,6 +191,22 @@ export default function useGameScriptContext(triggerEvent) {
         victory: () => {
             setMode(UI_MODE.GAME_END);
             setGameState(GAME_STATE.WON);
-        }
+        },
+        getTargets: (targetType, x, y, range) => {
+            const entities = context.getEntitiesWithinRange(x, y, range);
+
+            const targets = entities.filter((entity) => {
+                switch (targetType) {
+                    case TARGET_TYPE.ATTACKABLE:
+                        return entity.flags && entity.flags.includes("attackable");
+                    default:
+                        throw new Error(`Invalid target type ${targetType}`);
+                }
+            });
+
+            return targets;
+        },
     };
+
+    return context;
 }

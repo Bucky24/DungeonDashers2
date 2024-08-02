@@ -100,7 +100,7 @@ function useGetObjectContext() {
     const getGenericEntityContext = useGetGenericEntityContext();
 
     // this should be the object from GameContext
-    return (objectData) => {
+    return (objectData, triggerEvent) => {
         const moduleData = objects[objectData.type] || {};
 
         const generic = getGenericEntityContext(objectData, moduleData, "object", setObjectProperty);
@@ -113,7 +113,14 @@ function useGetObjectContext() {
                 setObjectProperty(objectData.id, "x", x);
                 setObjectProperty(objectData.id, "y", y);
             },
-            damage: (amount) => {
+            damage: async (amount) => {
+                const results = await triggerEvent(EVENTS.ATTACKED, [generic._getEntity()]);
+                // if any false result, cancel damage
+                console.log(results);
+                if (results.some((result) => result === false)) {
+                    return;
+                }
+
                 // right now any amount of damage will destroy the object
                 destroyObject(objectData.id);
             },
