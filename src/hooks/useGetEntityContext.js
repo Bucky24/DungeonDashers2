@@ -29,6 +29,12 @@ function useGetGenericEntityContext() {
                 this.state = newState;
             },
             setFlag: function(flag) {
+                if (this.antiFlags && this.antiFlags.includes(flag)) {
+                    const index = this.antiFlags.indexOf(flag);
+
+                    this.antiFlags.splice(index, 1);
+                    updateEntity(this.id, "antiFlags", [...this.flags]);
+                }
                 if (this.flags.includes(flag)) {
                     return;
                 }
@@ -47,15 +53,15 @@ function useGetGenericEntityContext() {
                 return this.id;
             },
             removeFlag: function(flag) {
-                if (!this.flags.includes(flag)) {
-                    return;
-                }
-
                 const index = this.flags.indexOf(flag);
 
                 this.flags.splice(index, 1);
 
                 updateEntity(this.id, "flags", [...this.flags]);
+                updateEntity(this.id, "antiFlags", [
+                    ...this.antiFlags || [],
+                    flag,
+                ]);
             },
             getPos: function() {
                 return {

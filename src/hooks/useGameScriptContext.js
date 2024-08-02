@@ -152,7 +152,6 @@ export default function useGameScriptContext(triggerEvent) {
         },
         getEntityById: (id) => {
             for (const entity of objects) {
-                console.log(entity, id);
                 if (entity.id === id) {
                     return getEntityContext({ type: 'object', entity });
                 }

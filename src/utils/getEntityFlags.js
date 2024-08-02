@@ -8,5 +8,16 @@ export default function getEntityFlags(entity, entityData) {
         }
     }
 
+    if (entity.entity.antiFlags) {
+        // if it's set in anitflags, means we've tried to unset it before
+        // so make sure it's actually removed from our result
+        for (const flag of entity.entity.antiFlags) {
+            if (myFlags.includes(flag)) {
+                const index = myFlags.indexOf(flag);
+                myFlags.splice(index, 1);
+            }
+        }
+    }
+
     return myFlags;
 }
