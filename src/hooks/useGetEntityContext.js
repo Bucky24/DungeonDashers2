@@ -122,7 +122,6 @@ function useGetObjectContext() {
             damage: async (amount) => {
                 const results = await triggerEvent(EVENTS.ATTACKED, [generic._getEntity()]);
                 // if any false result, cancel damage
-                console.log(results);
                 if (results.some((result) => result === false)) {
                     return;
                 }
