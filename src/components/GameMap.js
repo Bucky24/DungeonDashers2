@@ -14,6 +14,8 @@ import useTriggerEvent from '../hooks/events/useTriggerEvent';
 import GameMenu from './GameMenu';
 import SaveDialog from './SaveDialog';
 import VictoryDialog from './VictoryDialog';
+import DialogTopLeftImage from '../../assets/dialog_top_left.png';
+import DialogBottomRightImage from '../../assets/dialog_bottom_right.png';
 
 export default function GameMap() {
     const { map } = useContext(MapContext);
@@ -207,6 +209,8 @@ export default function GameMap() {
                     className={styles.dialog_portrait}
                     src={getImage(characterData[dialog.character].images.dialog_portrait.image)}
                 />}
+                <img src={DialogTopLeftImage} className={styles.dialog_top_left} />
+                <img src={DialogBottomRightImage} className={styles.dialog_bottom_right} />
                 <div>{dialog.dialog}</div>
             </div>
         </div>}

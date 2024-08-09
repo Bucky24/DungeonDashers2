@@ -20,8 +20,22 @@
 .dialog_portrait {
     width: 80px;
     position: absolute;
-    top: -60px;
-    left: -40px;
+    top: -90px;
+    left: 0px;
+}
+
+.dialog_top_left {
+    position: absolute;
+    top: 0;
+    left: 0px;
+    width: 20px;
+}
+
+.dialog_bottom_right {
+    position: absolute;
+    bottom: 0;
+    right: 0px;
+    width: 20px;
 }
 
 .menu_outer {
