@@ -7,7 +7,7 @@ For v0.8.0
 * Add equipment back, provide effects
 * Two full campaign missions from original game
 * Full data validation and version control/conversion
-* Improve in-game dialog system (closer to real life)
+* Add portraits for all four characters
 * Begin work on audio system
 * Add simple script editor
 * Basic menu for character stats/equipment
