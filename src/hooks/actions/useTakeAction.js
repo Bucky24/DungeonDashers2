@@ -14,17 +14,40 @@ export default function takeAction() {
         characters,
         setCharacterProperty,
         setNextActiveCharacter,
+        paused,
     } = useContext(GameContext);
     const characterData = getCharacters();
-    const { setShowMenu, setMode, setActiveMenuItem } = useContext(UIContext);
+    const {
+        setShowMenu,
+        setMode,
+        setActiveMenuItem,
+        dialog,
+        clearDialog,
+    } = useContext(UIContext);
 
     const actionMap = {
-        [ACTION_MAP.MOVE_LEFT]: () => moveActiveCharacter(-1, 0),
-        [ACTION_MAP.MOVE_RIGHT]: () => moveActiveCharacter(1, 0),
-        [ACTION_MAP.MOVE_UP]: () => moveActiveCharacter(0, -1),
-        [ACTION_MAP.MOVE_DOWN]: () => moveActiveCharacter(0, 1),
-        [ACTION_MAP.SPECIAL_ACTION]: characterSpecial,
+        [ACTION_MAP.MOVE_LEFT]: () => {
+            if (paused) return;
+            moveActiveCharacter(-1, 0);
+        },
+        [ACTION_MAP.MOVE_RIGHT]: () => {
+            if (paused) return;
+            moveActiveCharacter(1, 0);
+        },
+        [ACTION_MAP.MOVE_UP]: () => {
+            if (paused) return;
+            moveActiveCharacter(0, -1);
+        },
+        [ACTION_MAP.MOVE_DOWN]: () => {
+            if (paused) return;
+            moveActiveCharacter(0, 1);
+        },
+        [ACTION_MAP.SPECIAL_ACTION]: () => {
+            if (paused) return;
+            characterSpecial();
+        },
         [ACTION_MAP.NEXT_CHARACTER]: () => {
+            if (paused) return;
             const activeCharacter = characters[activeCharacterIndex];
             const charData = characterData[activeCharacter.type];
             setCharacterProperty(activeCharacter.type, "actionPoints", charData.actionPoints);
@@ -35,6 +58,12 @@ export default function takeAction() {
             setMode(UI_MODE.MENU);
             setActiveMenuItem(0);
         },
+        [ACTION_MAP.CLOSE_DIALOG]: () => {
+            if (dialog) {
+                clearDialog();
+                return true;
+            }
+        },
     };
 
     return (action) => {
@@ -43,6 +72,6 @@ export default function takeAction() {
             return;
         }
 
-        actionMap[action]();
+        return actionMap[action]();
     }
 }

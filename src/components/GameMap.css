@@ -11,8 +11,17 @@
     width: 90%;
     max-width: 400px;
     height: 100px;
-    background-color: white;
+    background-color: black;
     padding: 30px;
+    color: white;
+    position: relative;
+}
+
+.dialog_portrait {
+    width: 80px;
+    position: absolute;
+    top: -60px;
+    left: -40px;
 }
 
 .menu_outer {

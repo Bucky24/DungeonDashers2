@@ -4,16 +4,18 @@ import SettingsContext from "../contexts/SettingsContext";
 import useTakeAction from '../hooks/actions/useTakeAction';
 
 function useHandleInput() {
-    const { getActionForControl } = useContext(SettingsContext);
+    const { getActionsForControl } = useContext(SettingsContext);
     const takeAction = useTakeAction();
 
     return (input) => {
-        const action = getActionForControl(input);
-        if (!action) {
-            return;
+        const actions = getActionsForControl(input);
+        for (const action of actions) {
+            const result = takeAction(action);
+            // if true is returned, the action was handled
+            if (result) {
+                break;
+            }
         }
-
-        takeAction(action);
     }
 }
 

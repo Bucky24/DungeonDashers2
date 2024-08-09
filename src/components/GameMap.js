@@ -44,7 +44,11 @@ export default function GameMap() {
         setActiveMenuItem,
         chooseMenuItem,
     } = useContext(UIContext);
-    const { characters: characterData, enemies: enemyData } = useContext(ModuleContext);
+    const {
+        characters: characterData,
+        enemies: enemyData,
+        getImage,
+    } = useContext(ModuleContext);
     const handleKeyboard = useHandleKeyboard();
     const runScript = useRunScript();
     const getEntityContext = useGetEntityContext();
@@ -127,12 +131,15 @@ export default function GameMap() {
             combatPointsMax={maxAp}
             fullFocus={mode === UI_MODE.GAME || mode === UI_MODE.CELL_SELECT}
             onKey={(code) => {
-                if (paused || combatTurn === COMBAT_TURN.ENEMY) {
+                if (combatTurn === COMBAT_TURN.ENEMY) {
                     return;
                 }
                 if (mode === UI_MODE.GAME) {
                     handleKeyboard(code);
                 } else if (mode === UI_MODE.CELL_SELECT) {
+                    if (paused) {
+                        return;
+                    }
                     if (code === "ArrowLeft") {
                         let leftMost = null;
                         for (const cell of cellSelectData.cells) {
@@ -196,8 +203,11 @@ export default function GameMap() {
         />
         {dialog && <div className={styles.dialog_outer}>
             <div className={styles.dialog_inner}>
+                {dialog.character && characterData[dialog.character].images.dialog_portrait && <img
+                    className={styles.dialog_portrait}
+                    src={getImage(characterData[dialog.character].images.dialog_portrait.image)}
+                />}
                 <div>{dialog.dialog}</div>
-                <button onClick={clearDialog}>Close</button>
             </div>
         </div>}
         {showMenu && <div className={styles.menu_outer}>

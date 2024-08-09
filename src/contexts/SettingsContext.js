@@ -5,6 +5,7 @@ const SettingsContext = React.createContext();
 export default SettingsContext;
 
 export const ACTIONS = [
+    'CLOSE_DIALOG',
     'MOVE_LEFT',
     'MOVE_RIGHT',
     'MOVE_DOWN',
@@ -29,6 +30,7 @@ const DEFAULT_CONTROLS = {
     [ACTION_MAP.SPECIAL_ACTION]: 'KEY_Enter',
     [ACTION_MAP.NEXT_CHARACTER]: 'KEY_Space',
     [ACTION_MAP.OPEN_MENU]: 'KEY_Escape',
+    [ACTION_MAP.CLOSE_DIALOG]: 'KEY_Space',
 };
 
 export function SettingsProvider({ children }) {
@@ -52,7 +54,10 @@ export function SettingsProvider({ children }) {
         const newActionsByControls = {};
         for (const action of ACTIONS) {
             const control = controls[action] || DEFAULT_CONTROLS[action];
-            newActionsByControls[control] = action;
+            if (!newActionsByControls[control]) {
+                newActionsByControls[control] = [];
+            }
+            newActionsByControls[control].push(action);
         }
         setActionsByControl(newActionsByControls);
     }, [controls]);
@@ -61,7 +66,7 @@ export function SettingsProvider({ children }) {
         getControlForAction: (action) => {
             return controls[action] || DEFAULT_CONTROLS[action];
         },
-        getActionForControl: (control) => {
+        getActionsForControl: (control) => {
             return actionsByControl[control];
         },
         setActionControl: (action, control) => {
