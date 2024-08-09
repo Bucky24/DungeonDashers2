@@ -3,6 +3,18 @@ import React, { useContext, useEffect, useState } from 'react';
 import Coms from '../utils/coms';
 import ImageContext from './ImageContext';
 import { TILE_TYPE } from './MapContext';
+import {
+    getModules,
+    setModule,
+    getModule,
+    getTiles,
+    getObjects,
+    getCharacters,
+    getEnemies,
+    getScripts,
+    getImages,
+} from '../data/moduleData';
+import useRender from '../hooks/useRender';
 
 const ModuleContext = React.createContext({});
 export default ModuleContext;
@@ -10,60 +22,12 @@ export default ModuleContext;
 export function ModuleProvider({ children }) {
     const [loaded, setLoaded] = useState(false);
     const { loadImage, images: loadedImages } = useContext(ImageContext);
-    const [modules, setModules] = useState({});
-    const [tiles, setTiles] = useState({});
-    const [images, setImages] = useState({});
-    const [objects, setObjects] = useState({});
-    const [characters, setCharacters] = useState({});
-    const [scripts, setScripts] = useState({});
-    const [enemies, setEnemies] = useState({});
-
-    useEffect(() => {
-        const allTiles = {};
-        const allImages = {};
-        const allObjects = {};
-        const allCharacters = {};
-        const allScripts = {};
-        const allEnemies = {};
-        for (const module in modules) {
-            const moduleData = modules[module];
-
-            for (const tileId in moduleData.tiles) {
-                allTiles[tileId] = moduleData.tiles[tileId];
-            }
-
-            for (const imageId in moduleData.images) {
-                allImages[imageId] = moduleData.images[imageId];
-            }
-
-            for (const objectId in moduleData.objects) {
-                allObjects[objectId] = moduleData.objects[objectId];
-            }
-
-            for (const id in moduleData.characters) {
-                allCharacters[id] = moduleData.characters[id];
-            }
-
-            for (const id in moduleData.scripts) {
-                allScripts[id] = moduleData.scripts[id];
-            }
-
-            for (const id in moduleData.enemies) {
-                allEnemies[id] = moduleData.enemies[id];
-            }
-        }
-
-        setTiles(allTiles);
-        setImages(allImages);
-        setObjects(allObjects);
-        setCharacters(allCharacters);
-        setScripts(allScripts);
-        setEnemies(allEnemies);
-    }, [modules]);
+    const render = useRender();
+    const modules = getModules();
 
     const updateEntity = (modules, module, type, id, key, value) => {
         if (key === "id") {
-            // prevent actually deleting the tile if it's the same
+            // prevent actually deleting the entity if it's the same
             if (value === id) {
                 return modules;
             }
@@ -123,7 +87,7 @@ export function ModuleProvider({ children }) {
             };
         }
     }
-
+ 
     const value = {
         loadModules: (names) => {
             if (!names) {
@@ -141,7 +105,6 @@ export function ModuleProvider({ children }) {
 
                 const module = result.module;
 
-                //console.log(module);
                 for (const image in module.images) {
                     const tileData = module.images[image];
                     const imageId = loadImage(tileData);
@@ -151,12 +114,8 @@ export function ModuleProvider({ children }) {
                     };
                 }
 
-                setModules((modules) => {
-                    return {
-                        ...modules,
-                        [name]: module,
-                    };
-                });
+                setModule(name, module);
+                render();
             });
 
             Promise.all(promises).then(() => {
@@ -164,6 +123,7 @@ export function ModuleProvider({ children }) {
             });
         },
         getImage: (image) => {
+            const images = getImages();
             if (!images[image]) {
                 return null;
             }
@@ -173,11 +133,11 @@ export function ModuleProvider({ children }) {
             return loadedImages[imageId];
         },
         loaded,
-        tiles,
-        objects,
-        characters,
-        scripts,
-        enemies,
+        tiles: getTiles(),
+        objects: getObjects(),
+        characters: getCharacters(),
+        scripts: getScripts(),
+        enemies: getEnemies(),
         modulesList: Object.keys(modules),
         getLoadedModules: () => {
             return Object.keys(modules);
@@ -209,19 +169,13 @@ export function ModuleProvider({ children }) {
             }, {});
         },
         createNewModule: (module) => {
-            setModules((modules) => {
-                const newModule = {
-                    tiles: {},
-                    objects: {},
-                    characters: {},
-                    enemies: {},
-                    images: {},
-                    scripts: {},
-                };
-                return {
-                    ...modules,
-                    [module]: newModule,
-                };
+            setModule(module, {
+                tiles: {},
+                objects: {},
+                characters: {},
+                enemies: {},
+                images: {},
+                scripts: {},
             });
             setLoaded(true);
         },
@@ -230,110 +184,77 @@ export function ModuleProvider({ children }) {
                 if (value === id) {
                     return;
                 }
-                setModules((modules) => {
-                    const tiles = {...modules[module].tiles};
-                    tiles[value] = tiles[id];
-                    delete tiles[id];
-                    return {
-                        ...modules,
-                        [module]: {
-                            ...modules[module],
-                            tiles,
-                        },
-                    };
-                });
+                const moduleData = getModule(module);
+                moduleData.tiles[value] = moduleData.tiles[id];
+                delete moduleData.tiles[id];
+                setModule(module, moduleData);
             } else {
-                setModules((modules) => {
-                    return {
-                        ...modules,
-                        [module]: {
-                            ...modules[module],
-                            tiles: {
-                                ...modules[module].tiles,
-                                [id]: {
-                                    ...modules[module].tiles[id],
-                                    [key]: value,
-                                },
-                            },
-                        },
-                    };
-                });
+                const moduleData = getModule(module);
+                moduleData.tiles[id][key] = value;
+                setModule(module, moduleData);
             }
+            render();
         },
         changeObject: (module, id, key, value) => {
-            setModules((modules) => {
-                return updateEntity(modules, module, "objects", id, key, value);
-            });
+            const modules = getModules();
+            setModule(
+                module,
+                updateEntity(modules, module, "objects", id, key, value)[module],
+            );
+            render();
         },
         changeEnemy: (module, id, key, value) => {
-            setModules((modules) => {
-                return updateEntity(modules, module, "enemies", id, key, value);
-            });
+            const modules = getModules();
+            setModule(
+                module,
+                updateEntity(modules, module, "enemies", id, key, value)[module],
+            );
+            render();
         },
         addTile: (module) => {
-            setModules((modules) => {
-                const tiles = {...modules[module].tiles};
-                tiles[''] = {
-                    rawImage: '',
-                    type: TILE_TYPE.GROUND,
-                };
-                return {
-                    ...modules,
-                    [module]: {
-                        ...modules[module],
-                        tiles,
-                    },
-                };
-            });
+            const moduleData = getModule(module);
+            moduleData.tiles[''] = {
+                rawImage: '',
+                type: TILE_TYPE.GROUND,
+            };
+            setModule(module, moduleData);
+            render();
         },
         addEnemy: (module, name) => {
-            setModules((modules) => {
-                const enemies = {...modules[module].enemies};
-                if (enemies[name]) {
-                    return enemies;
-                }
-                enemies[name] = {
-                    version: 2,
-                    id: name,
-                    manifest: {
-                        manifest: "enemies/" + name + ".json",
-                        original: "enemies/" + name + ".json",
-                    },
-                    scripts: {},
-                };
-                return {
-                    ...modules,
-                    [module]: {
-                        ...modules[module],
-                        enemies,
-                    },
-                };
-            });
+            const moduleData = getModule(module);
+            if (moduleData.enemies[name]) {
+                return;
+            }
+            moduleData.enemies[name] = {
+                version: 2,
+                id: name,
+                manifest: {
+                    manifest: "enemies/" + name + ".json",
+                    original: "enemies/" + name + ".json",
+                },
+                scripts: {},
+                images: {},
+            };
+            setModule(module, moduleData);
+            render();
         },
         addObject: (module, name) => {
-            setModules((modules) => {
-                const entities = {...modules[module].objects};
-                if (entities[name]) {
-                    return entities;
-                }
-                entities[name] = {
-                    version: 2,
-                    id: name,
-                    manifest: {
-                        manifest: "objects/" + name + ".json",
-                        original: "objects/" + name + ".json",
-                    },
-                    scripts: {},
-                };
-
-                return {
-                    ...modules,
-                    [module]: {
-                        ...modules[module],
-                        objects: entities,
-                    },
-                };
-            });
+            const moduleData = getModule(module);
+            if (moduleData.objects[name]) {
+                return;
+            }
+            moduleData.objects[name] = {
+                version: 2,
+                id: name,
+                manifest: {
+                    manifest: "objects/" + name + ".json",
+                    original: "objects/" + name + ".json",
+                },
+                scripts: {},
+                images: {},
+            };
+            setModule(module, moduleData);
+            render();
         }
     };
 

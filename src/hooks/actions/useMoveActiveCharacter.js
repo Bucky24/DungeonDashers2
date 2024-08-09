@@ -4,7 +4,7 @@ import MapContext, { TILE_TYPE } from "../../contexts/MapContext";
 import ModuleContext from "../../contexts/ModuleContext";
 import useTriggerEvent from "../events/useTriggerEvent";
 import getEntityFlags from "../../utils/getEntityFlags";
-import useGetEntityData from "../useGetEntityData";
+import getEntityData from "../../data/helpers/getEntityData";
 
 export default function useMoveActiveCharacter() {
     const {
@@ -19,7 +19,6 @@ export default function useMoveActiveCharacter() {
     const { getTile } = useContext(MapContext);
     const { tiles, characters: characterData, enemies: enemyData } = useContext(ModuleContext);
     const triggerEvent = useTriggerEvent();
-    const getEntityData = useGetEntityData();
 
     return async (xOff, yOff) => {
         if (xOff === 0 && yOff === 0) {

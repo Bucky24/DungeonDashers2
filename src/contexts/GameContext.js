@@ -217,9 +217,20 @@ export function GameProvider({ children }) {
 
                 return enemy;
             });
+            const characters = mapData.characters.map((entity) => {
+                if (!entity.id) {
+                    return {
+                        ...entity,
+                        id: objectId++,
+                        flags: entity.flags || [],
+                    };
+                }
+
+                return entity;
+            });
 
             setObjects(objects);
-            setCharacters(mapData.characters);
+            setCharacters(characters);
             setEnemies(enemies);
             setActiveCharacterIndex(0);
             setLoaded(true);
@@ -290,10 +301,15 @@ export function GameProvider({ children }) {
         setCharacterProperty: (type, key, value) => {
             setCharacters((entities) => {
                 const entityIndex = entities.findIndex((entity) => entity.type === type);
-                const entity = entities[entityIndex];
+                let entity = entities[entityIndex];
 
                 if (!entity) {
-                    console.error(`Can't find character with type ${type}`);
+                    // try to find it by id
+                    const entityIndex = entities.findIndex((entity) => entity.id === type);
+                    entity = entities[entityIndex];
+                }
+                if (!entity) {
+                    console.error(`Can't find character with type ${type} (trying to set ${key} to ${value}`);
                     return entities;
                 }
 

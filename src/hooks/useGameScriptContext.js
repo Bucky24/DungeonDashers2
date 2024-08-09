@@ -143,12 +143,14 @@ export default function useGameScriptContext(triggerEvent) {
         distanceBetweenEntities: (entity1, entity2) => {
             return Math.sqrt(Math.pow(entity2.x - entity1.x, 2) + Math.pow(entity2.y - entity1.y, 2));
         },
-        getCharacterIdByIndex: (index) => {
-            if (index < 0 || index >= characters.length) {
-                return null;
+        getCharacterByType: (type) => {
+            for (const character of characters) {
+                if (character.type === type) {
+                    return getEntityContext({ type: 'character', entity: character });
+                }
             }
 
-            return characters[index].id;
+            return null;
         },
         getEntityById: (id) => {
             for (const entity of objects) {

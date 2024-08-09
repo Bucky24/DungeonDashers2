@@ -1,10 +1,9 @@
 import useTriggerEvent from "./events/useTriggerEvent";
 import useGetEntityContext from "./useGetEntityContext";
-import useGetEntityData from "./useGetEntityData";
 import useRunScript from "./useRunScript";
+import getEntityData from "../data/helpers/getEntityData";
 
 export default function useCharacterSkill() {
-    const getEntityData = useGetEntityData();
     const runScript = useRunScript();
     const getEntityContext = useGetEntityContext();
     const triggerEvent = useTriggerEvent();

@@ -37,6 +37,7 @@ export default function ModuleEditor({ newModule }) {
                     <div>
                         <button onClick={() => {
                             saveModules();
+                            navigate(`/editor/module/${module}`);
                         }}>Save</button>
                         <button onClick={() => {
                             navigate("/editor/module/load");

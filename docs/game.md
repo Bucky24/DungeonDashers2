@@ -139,13 +139,13 @@ The distanceBetweenEntities method returns the cardinal distance between two ent
 | entity1 | Entity to start from |
 | entity2 | Entity to get distance to |
 
-### getCharacterIdByIndex
+### getCharacterByType
 
-The getCharacterIdByIndex method returns the Entity ID for the given character, or null if the index is out of bounds.
+The getCharacterByType method returns the Entity for the given character, or null if no character by that type is found.
 
 | Param | Description |
 | -- | -- |
-| index | Index of the character to locate |
+| type | Type of the character to locate |
 
 ### getEntityById
 

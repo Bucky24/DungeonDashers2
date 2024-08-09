@@ -2,13 +2,12 @@ import filterEntities from "../../utils/filterEntities";
 import useGetEventHandlers from "./useGetEventHandlers";
 import useRunScript from "../useRunScript";
 import useGetEntityContext from '../useGetEntityContext';
-import useGetEntityData from "../useGetEntityData";
+import getEntityData from "../../data/helpers/getEntityData";
 
 export default function useTriggerEvent() {
     const getEventHandlers = useGetEventHandlers();
     let runScript;
     const getEntityContext = useGetEntityContext();
-    const getEntityData = useGetEntityData();
 
     const triggerEvent = async (event, entities = []) => {
         const results = [];
