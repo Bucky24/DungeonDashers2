@@ -3,9 +3,11 @@ import React, { useContext } from 'react';
 import ModuleContext from '../contexts/ModuleContext';
 import { TILE_TYPE } from '../contexts/MapContext';
 import TextField from '../components/TextField';
+import { getTiles } from '../data/moduleData';
 
 export default function ModuleTileEditor({ module }) {
-    const { tiles, changeTile, addTile } = useContext(ModuleContext);
+    const { changeTile, addTile } = useContext(ModuleContext);
+    const tiles = getTiles();
 
     return <section>
         <div>Tiles:</div>

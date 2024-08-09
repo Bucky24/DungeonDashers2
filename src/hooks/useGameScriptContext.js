@@ -5,7 +5,7 @@ import useRunMapTrigger from "./useRunMapTrigger";
 import useGetEntityContext from "./useGetEntityContext";
 import useTriggerEvent from "./events/useTriggerEvent";
 import MapContext, { TILE_TYPE } from "../contexts/MapContext";
-import ModuleContext from "../contexts/ModuleContext";
+import { getTiles } from "../data/moduleData";
 
 export default function useGameScriptContext(triggerEvent) {
     const {
@@ -23,7 +23,7 @@ export default function useGameScriptContext(triggerEvent) {
         setGameState,
     } = useContext(GameContext);
     const { getTile } = useContext(MapContext);
-    const { tiles } = useContext(ModuleContext);
+    const tiles = getTiles();
     const { enterCellSelect, startDialog, setMode } = useContext(UIContext);
     const runMapTrigger = useRunMapTrigger();
     const getEntityContext = useGetEntityContext();

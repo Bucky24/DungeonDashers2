@@ -1,11 +1,10 @@
 import filterEntities from "../../utils/filterEntities";
-import useGetEventHandlers from "./useGetEventHandlers";
 import useRunScript from "../useRunScript";
 import useGetEntityContext from '../useGetEntityContext';
 import getEntityData from "../../data/helpers/getEntityData";
+import getEventHandlers from "../../data/helpers/getEventHandlers";
 
 export default function useTriggerEvent() {
-    const getEventHandlers = useGetEventHandlers();
     let runScript;
     const getEntityContext = useGetEntityContext();
 

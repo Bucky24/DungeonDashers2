@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import Coms from '../utils/coms';
 import MapContext from './MapContext';
-import ModuleContext from './ModuleContext';
 import CampaignContext from './CampaignContext';
+import { getCharacters, getEnemies } from '../data/moduleData';
 
 const GameContext = React.createContext({});
 export default GameContext;
@@ -59,7 +59,6 @@ export function GameProvider({ children }) {
     const [gold, setGold] = useState(0);
     const [paused, setPaused] = useState(false);
     const [cameraCenterPos, setCameraCenterPos] = useState(null);
-    const { characters: characterData, enemies: enemyData } = useContext(ModuleContext);
     const [enemies, setEnemies] = useState([]);
     const [hasActiveEnemies, setHasActiveEnemies] = useState(false);
     const [combatTurn, setCombatTurn] = useState(COMBAT_TURN.NONE);
@@ -121,6 +120,7 @@ export function GameProvider({ children }) {
             return;
         }
         setCharacters((characters) => {
+            const characterData = getCharacters();
             const newCharacters = [...characters];
             // reset action points for all characters
             for (const character of newCharacters) {
@@ -132,6 +132,7 @@ export function GameProvider({ children }) {
         });
         // reset action points for all enemies
         setEnemies((enemies) => {
+            const enemyData = getEnemies();
             const newEnemies = [...enemies];
             for (const enemy of newEnemies) {
                 const data = enemyData[enemy.type];
@@ -351,6 +352,7 @@ export function GameProvider({ children }) {
             setCameraCenterPos({ x, y });
         },
         addCharacter: (type, x, y) => {
+            const characterData = getCharacters();
             if (!characterData[type]) {
                 console.error(`Unknown character type ${type}`);
             }

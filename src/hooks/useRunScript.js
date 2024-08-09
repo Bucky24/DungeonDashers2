@@ -1,13 +1,12 @@
-import { useContext } from "react";
-import ModuleContext from "../contexts/ModuleContext";
 import useGameScriptContext from "./useGameScriptContext";
 import runCode from "../utils/runCode";
+import { getScripts } from "../data/moduleData";
 
 export default function useRunScript(triggerEvent) {
-    const { scripts } = useContext(ModuleContext);
     const gameScriptContext = useGameScriptContext(triggerEvent);
 
     return async (scriptId, data) => {
+        const scripts = getScripts();
         const code = scripts[scriptId];
         if (!code) {
             console.error(`Can't find code for ${scriptId}`);

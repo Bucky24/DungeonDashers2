@@ -2,9 +2,9 @@ import useMoveActiveCharacter from "./useMoveActiveCharacter";
 import { ACTION_MAP } from '../../contexts/SettingsContext';
 import useCharacterSpecial from "./useCharacterSpecial";
 import { useContext } from "react";
-import GameContext, { COMBAT_TURN } from "../../contexts/GameContext";
-import ModuleContext from "../../contexts/ModuleContext";
+import GameContext from "../../contexts/GameContext";
 import UIContext, { UI_MODE } from "../../contexts/UIContext";
+import { getCharacters } from "../../data/moduleData";
 
 export default function takeAction() {
     const moveActiveCharacter = useMoveActiveCharacter();
@@ -15,7 +15,7 @@ export default function takeAction() {
         setCharacterProperty,
         setNextActiveCharacter,
     } = useContext(GameContext);
-    const { characters: characterData } = useContext(ModuleContext);
+    const characterData = getCharacters();
     const { setShowMenu, setMode, setActiveMenuItem } = useContext(UIContext);
 
     const actionMap = {

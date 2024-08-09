@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 
-import ModuleContext from '../contexts/ModuleContext';
 import GameContext, { EVENTS } from '../contexts/GameContext';
 import getEntityFlags from '../utils/getEntityFlags';
+import { getCharacters, getEnemies, getObjects } from '../data/moduleData';
 
 function useGetGenericEntityContext() {
     return (entityData, moduleData, entityType, updateEntity) => {
@@ -101,12 +101,12 @@ function useGetGenericEntityContext() {
 }
 
 function useGetObjectContext() {
-    const { objects } = useContext(ModuleContext);
     const { setObjectProperty, destroyObject } = useContext(GameContext);
     const getGenericEntityContext = useGetGenericEntityContext();
 
     // this should be the object from GameContext
     return (objectData, triggerEvent) => {
+        const objects = getObjects();
         const moduleData = objects[objectData.type] || {};
 
         const generic = getGenericEntityContext(objectData, moduleData, "object", setObjectProperty);
@@ -135,11 +135,11 @@ function useGetObjectContext() {
 
 function useGetCharacterContext() {
     const { setCharacterProperty, getEntitiesAtPosition } = useContext(GameContext);
-    const { characters } = useContext(ModuleContext);
     const getGenericEntityContext = useGetGenericEntityContext();
 
     // this should be the object from GameContext
     return (characterData, triggerEvent) => {
+        const characters = getCharacters();
         const data = characters[characterData.type];
         const generic = getGenericEntityContext(characterData, data, "character", setCharacterProperty);
         
@@ -177,11 +177,11 @@ function useGetCharacterContext() {
 }
 
 function useGetEnemyContext() {
-    const { enemies } = useContext(ModuleContext);
     const { setEnemyProperty, getEntitiesAtPosition } = useContext(GameContext);
     const getGenericEntityContext = useGetGenericEntityContext();
 
     return (enemyData, triggerEvent) => {
+        const enemies = getEnemies();
         const moduleData = enemies[enemyData.type] || {};
 
         const generic = getGenericEntityContext(enemyData, moduleData, "enemy", setEnemyProperty);

@@ -2,7 +2,12 @@ import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import EditorContext, { EDITOR_MAP_TOOLS } from '../contexts/EditorContext';
-import ModuleContext from '../contexts/ModuleContext';
+import {
+    getTiles,
+    getObjects,
+    getCharacters,
+    getEnemies,
+} from '../data/moduleData';
 
 export default function EditorControls({ newMap }) {
     const {
@@ -14,7 +19,10 @@ export default function EditorControls({ newMap }) {
         setTool,
         map,
     } = useContext(EditorContext);
-    const { tiles, objects, characters, enemies } = useContext(ModuleContext);
+    const tiles = getTiles();
+    const objects = getObjects();
+    const characters = getCharacters();
+    const enemies = getEnemies();
     const navigate = useNavigate();
 
     let toolSelectData = null;

@@ -124,14 +124,19 @@ export default function TheMap({
                     return;
                 }
                 if (onKey) {
-                    keys.push(code);
+                    setKeys([
+                        ...keys,
+                        code,
+                    ]);
                     onKey(code);
                 }
             }}
             onKeyUp={({ code }) => {
                 const index = keys.indexOf(code);
                 if (index > -1) {
-                    keys.splice(index, 1);
+                    const newKeys = [...keys];
+                    newKeys.splice(index, 1);
+                    setKeys(newKeys);
                 }
             }}
             captureAllKeyEvents={fullFocus}

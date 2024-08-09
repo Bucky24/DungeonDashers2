@@ -1,10 +1,8 @@
-import { useContext } from "react"
-import ModuleContext from "../../contexts/ModuleContext"
+import { getCharacters, getEnemies, getObjects } from "../../data/moduleData";
 
 function useGetObjectEventHandlers() {
-    const { objects } = useContext(ModuleContext);
-
     return (objectType, event) => {
+        const objects = getObjects();
         const objectData = objects[objectType];
         const result = [];
 
@@ -22,9 +20,8 @@ function useGetObjectEventHandlers() {
 }
 
 function useGetCharacterEventHandlers() {
-    const { characters } = useContext(ModuleContext);
-
     return (type, event) => {
+        const characters = getCharacters();
         const entityData = characters[type];
         const result = [];
 
@@ -42,9 +39,8 @@ function useGetCharacterEventHandlers() {
 }
 
 function useGetEnemyEventHandlers() {
-    const { enemies } = useContext(ModuleContext);
-
     return (type, event) => {
+        const enemies = getEnemies();
         const entityData = enemies[type];
         const result = [];
 
