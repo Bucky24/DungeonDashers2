@@ -1,21 +1,21 @@
 {
     "version": 2,
-    "id": "elf",
-    "name": "Elf",
+    "id": "january",
+    "name": "January",
     "width": 1,
     "height": 3,
     "images": {
-        "base_down": "assets/characters/elf_front.png"
+        "base_down": "assets/characters/january_front.png"
     },
     "actionPoints": 30,
     "maxHP": 30,
     "skills": {
         "special": {
             "type": "script",
-            "file": "scripts/elf_special.js"
+            "file": "scripts/january_special.js"
         }
     },
     "scripts": [
-        "scripts/elf_special.js"
+        "scripts/january_special.js"
     ]
 }
