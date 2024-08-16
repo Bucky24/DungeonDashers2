@@ -21,6 +21,7 @@ export default function CodeEditor({ code, onChange }) {
                 width: '100%',
                 height: '100%',
             }}
+            tabSize={4}
         />
     </div>
 }

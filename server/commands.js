@@ -243,6 +243,10 @@ module.exports = {
         const allEnemies = component.allEntities;
         data.enemies = component.manifestResult;
 
+        component = extractModuleComponent(modulePrefix, data.scripts);
+        const allScripts = component.allEntities;
+        delete data.scripts;
+
         const manifestFile = path.join(dir, "manifest.json");
 
         if (!fs.existsSync(dir)) {
@@ -261,6 +265,9 @@ module.exports = {
 
         // write enemies
         writeModuleComponents(modulePrefix, dir, allEnemies);
+
+        // write scripts
+        // can't use writeModuleComponents because no manifest
 
         return {
             success: true,

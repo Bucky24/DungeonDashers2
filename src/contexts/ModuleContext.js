@@ -160,7 +160,6 @@ export function ModuleProvider({ children }) {
                 };
 
                 delete newModule.images;
-                delete newModule.scripts;
                 
                 return {
                     ...obj,
@@ -255,7 +254,13 @@ export function ModuleProvider({ children }) {
             };
             setModule(module, moduleData);
             render();
-        }
+        },
+        updateScript: (module, id, code) => {
+            const moduleData = getModule(module);
+            moduleData.scripts[id] = code;
+            setModule(module, moduleData);
+            render();
+        },
     };
 
     return (
