@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import MapContext from '../contexts/MapContext';
 import EditorContext from '../contexts/EditorContext';
+import CodeEditor from './CodeEditor';
 
 export default function MapTriggerEditor() {
     const { triggers, updateTriggerEffect } = useContext(MapContext);
@@ -28,16 +29,13 @@ export default function MapTriggerEditor() {
             <h3>Effects</h3>
             {activeTrigger.effects?.map((effect, index) => {
                 return <div key={`effect_${index}`}>
-                    <textarea
-                        style={{ width: 'calc(100% - 10px)', height: 300}}
-                        onChange={(e) => {
+                    <CodeEditor code={effect.code} onChange={(e) => {
                             updateTriggerEffect(activeTriggerId, index, {
                                 type: 'script',
-                                code: e.target.value,
+                                code: e,
                             });
                         }}
-                        value={effect.code}
-                    ></textarea>
+                    />
                 </div>
             })}
         </div>}

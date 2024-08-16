@@ -4444,24 +4444,6 @@
         }
     ],
     "triggers": {
-        "remove_this_soon": {
-            "conditions": [
-                {
-                    "type": "variableCheck",
-                    "data": {
-                        "variable": "totalCharactersAlive",
-                        "operator": "==",
-                        "comparisonVariable": "charactersOnPortal"
-                    }
-                }
-            ],
-            "effects": [
-                {
-                    "type": "winGame",
-                    "data": {}
-                }
-            ]
-        },
         "spawn_sir_jacob": {
             "effects": [
                 {
