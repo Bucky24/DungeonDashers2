@@ -67,7 +67,7 @@ export function SettingsProvider({ children }) {
             return controls[action] || DEFAULT_CONTROLS[action];
         },
         getActionsForControl: (control) => {
-            return actionsByControl[control];
+            return actionsByControl[control] || [];
         },
         setActionControl: (action, control) => {
             const newControls = {...controls,[action]: control};

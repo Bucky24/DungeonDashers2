@@ -205,7 +205,7 @@ export default function GameMap() {
         />
         {dialog && <div className={styles.dialog_outer}>
             <div className={styles.dialog_inner}>
-                {dialog.character && characterData[dialog.character].images.dialog_portrait && <img
+                {dialog.character && characterData[dialog.character] && characterData[dialog.character].images.dialog_portrait && <img
                     className={styles.dialog_portrait}
                     src={getImage(characterData[dialog.character].images.dialog_portrait.image)}
                 />}

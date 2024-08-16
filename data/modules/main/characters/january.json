@@ -5,7 +5,10 @@
     "width": 1,
     "height": 3,
     "images": {
-        "base_down": "assets/characters/january_front.png"
+        "base_down": "assets/characters/january_front.png",
+        "base_up": "assets/characters/january_back.png",
+        "base_left": "assets/characters/january_left.png",
+        "base_right": "assets/characters/january_right.png"
     },
     "actionPoints": 30,
     "maxHP": 30,

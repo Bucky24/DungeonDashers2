@@ -35,6 +35,22 @@ export default function useMoveActiveCharacter() {
         const newX = character.x + xOff;
         const newY = character.y + yOff;
 
+        let newState = "base_down";
+
+        if (xOff === 0) {
+            if (yOff > 0) {
+                newState = "base_down";
+            } else {
+                newState = "base_up";
+            }
+        } else {
+            if (xOff > 0) {
+                newState = "base_right";
+            } else {
+                newState = "base_left";
+            }
+        }
+
         const tile = getTile(newX, newY);
         const tileData = tiles[tile?.tile];
 
@@ -101,6 +117,7 @@ export default function useMoveActiveCharacter() {
         }
 
         setCharacterProperty(character.type, "actionPoints", totalPoints - pointCost);
+        setCharacterProperty(character.type, "state", newState);
         moveCharacter(activeCharacterIndex, character.x + xOff, character.y + yOff);
     }
 }

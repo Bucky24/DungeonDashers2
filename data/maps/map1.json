@@ -139,14 +139,14 @@
                     "id": 2
                 }
             ]
-        },
-        {
-            "type": "main_bell1",
-            "x": 23,
-            "y": 7,
-            "id": 4
         }
     ],
-    "enemies": [],
+    "enemies": [
+        {
+            "type": "main_bat1",
+            "x": 9,
+            "y": 9
+        }
+    ],
     "triggers": {}
 }

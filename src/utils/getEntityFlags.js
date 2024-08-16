@@ -1,4 +1,5 @@
 export default function getEntityFlags(entity, entityData) {
+    console.log(entity, entityData);
     const myFlags = entity.entity.flags || [];
     if (entityData?.flags) {
         for (const flag of entityData.flags) {

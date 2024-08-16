@@ -50,6 +50,7 @@ export default function App() {
 			<Route path="/settings/controls" element={<SettingsControlsMenu />} />
 			<Route path="/debug" element={<Debug />} />
 			<Route path="/" element={<MainMenu />} />
+			<Route path="*" element={<MainMenu />} />
 		</Routes>
 	</div>
 }

@@ -249,8 +249,8 @@ export default function TheMap({
                                     const state = BASE_STATES[key];
                                     if (data.images[state]) {
                                         imageForState = data.images[state];
+                                        break;
                                     }
-                                    break;
                                 }
                             }
 
