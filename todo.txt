@@ -9,7 +9,6 @@ For v0.8.0
 * Full data validation and version control/conversion
 * Add portraits for all four characters
 * Begin work on audio system
-* Add simple script editor
 * Basic menu for character stats/equipment
 * Character directions
 * More nuanced stats for characters and enemies
