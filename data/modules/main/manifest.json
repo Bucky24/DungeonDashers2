@@ -95,14 +95,17 @@
         }
     },
     "characters": {
-        "ryder": {
-            "manifest": "characters/ryder.json"
-        },
         "sir_jacob": {
             "manifest": "characters/sir_jacob.json"
         },
         "january": {
             "manifest": "characters/january.json"
+        },
+        "ryder": {
+            "manifest": "characters/ryder.json"
+        },
+        "wizard": {
+            "manifest": "characters/wizard.json"
         }
     },
     "enemies": {

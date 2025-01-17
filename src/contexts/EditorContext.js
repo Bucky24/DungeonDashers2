@@ -78,6 +78,7 @@ export function EditorProvider({ children}) {
 
             Promise.all(promises).then(() => {
                 setSaving(false);
+                loadModules(Object.keys(moduleData));
             });
         },
         loadModule: async (module) => {

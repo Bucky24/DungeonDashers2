@@ -8,6 +8,7 @@ import TabBar from '../components/TabBar';
 import ModuleObjectEditor from '../components/ModuleObjectEditor';
 import ModuleEnemyEditor from '../components/ModuleEnemyEditor';
 import ModuleScriptEditor from '../components/ModuleScriptEditor';
+import ModuleCharacterEditor from '../components/ModuleCharacterEditor';
 
 export default function ModuleEditor({ newModule }) {
     const { loaded: editorLoaded, loadModule, module, saveModules, createNewModule } = useContext(EditorContext);
@@ -45,7 +46,8 @@ export default function ModuleEditor({ newModule }) {
                         }}>Back</button>
                     </div>
                 </div>
-                <TabBar tabs={['Tiles', 'Objects', 'Enemies', 'Scripts']} defaultTab='Objects'>
+                <TabBar tabs={['Characters', 'Tiles', 'Objects', 'Enemies', 'Scripts']} defaultTab='Characters'>
+                    <ModuleCharacterEditor module={module} />
                     <ModuleTileEditor module={module} />
                     <ModuleObjectEditor module={module} />
                     <ModuleEnemyEditor module={module} />

@@ -125,7 +125,7 @@ module.exports = {
         const objects = Object.keys(manifest.objects || {});
         const allManifestObjects = {};
         for (const object of objects) {
-            objectManifestData = getModuleComponent(name, moduleDir, manifest.objects[object], allScripts, allImages);
+            objectManifestData = getModuleComponent(name, moduleDir, manifest.objects[object], allScripts, allImages, object);
 
             allManifestObjects[modulePrefix + object] = objectManifestData;
         }
@@ -135,7 +135,7 @@ module.exports = {
         const characters = Object.keys(manifest.characters || {});
         const allManifestCharacters = {};
         for (const character of characters) {
-            characterManifestData = getModuleComponent(name, moduleDir, manifest.characters[character], allScripts, allImages);
+            characterManifestData = getModuleComponent(name, moduleDir, manifest.characters[character], allScripts, allImages, character);
 
             allManifestCharacters[modulePrefix + character] = characterManifestData;
         }
@@ -145,7 +145,7 @@ module.exports = {
         const enemies = Object.keys(manifest.enemies || {});
         const allManifestEnemies = {};
         for (const enemy of enemies) {
-            enemyManifestData = getModuleComponent(name, moduleDir, manifest.enemies[enemy], allScripts, allImages);
+            enemyManifestData = getModuleComponent(name, moduleDir, manifest.enemies[enemy], allScripts, allImages, enemy);
 
             allManifestEnemies[modulePrefix + enemy] = enemyManifestData;
         }

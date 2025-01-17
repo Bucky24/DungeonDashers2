@@ -192,13 +192,13 @@ module.exports = {
             return null;
         }
     },
-    getModuleComponent: (module, moduleDir, componentManifest, allScripts, allImages) => {
+    getModuleComponent: (module, moduleDir, componentManifest, allScripts, allImages, componentName) => {
         const manifestPath = componentManifest.manifest;
         const fullManifestPath = path.join(moduleDir, manifestPath);
         const modulePrefix = module + "_";
 
         if (!fs.existsSync(fullManifestPath)) {
-            Logger.error(`Cannot find manifest for ${object}: ${fullManifestPath} not found`);
+            Logger.error(`Cannot find manifest for ${componentName}: ${fullManifestPath} not found`);
             return;
         }
 

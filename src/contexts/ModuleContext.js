@@ -194,6 +194,14 @@ export function ModuleProvider({ children }) {
             }
             render();
         },
+        changeCharacter: (module, id, key, value) => {
+            const modules = getModules();
+            setModule(
+                module,
+                updateEntity(modules, module, "characters", id, key, value)[module],
+            );
+            render();
+        },
         changeObject: (module, id, key, value) => {
             const modules = getModules();
             setModule(
@@ -215,6 +223,26 @@ export function ModuleProvider({ children }) {
             moduleData.tiles[''] = {
                 rawImage: '',
                 type: TILE_TYPE.GROUND,
+            };
+            setModule(module, moduleData);
+            render();
+        },
+        addCharacter: (module, name) => {
+            const moduleData = getModule(module);
+            if (moduleData.characters[name]) {
+                return;
+            }
+            const nameWithoutModule = name.replace(module + "_", "");
+            console.log(name);
+            moduleData.characters[name] = {
+                version: 2,
+                id: name,
+                manifest: {
+                    manifest: "characters/" + nameWithoutModule + ".json",
+                    original: "characters/" + nameWithoutModule + ".json",
+                },
+                scripts: {},
+                images: {},
             };
             setModule(module, moduleData);
             render();
