@@ -71,8 +71,13 @@ v0.8.0 (unreleased)
 * Improve in-game dialog system (closer to real life)
 * Dialog can now be closed with key input rather than button
 * Add simple script editor
+* Add character editor
+* Added Wizard Whitebeard character
 
 Bug Fixes:
 * Sir Jacob is no longer stopped by chests
 * Quit button when in game now returns you to the main menu
 * Placing a character in the editor will no longer duplicate the character
+* Changing the manifest now correctly renames the manifest file
+* Entity editor no longer saves various numeric fields as strings
+* Game no longer crashes when going into combat with a character that has no max HP

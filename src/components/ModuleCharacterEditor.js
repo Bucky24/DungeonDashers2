@@ -15,5 +15,6 @@ export default function ModuleCharacterEditor({ module }) {
         changeEntity={changeCharacter}
         hasAi={true}
         canFight={true}
+        extraImages={['dialog_portrait']}
     />;
 }

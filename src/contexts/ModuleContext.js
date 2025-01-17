@@ -19,6 +19,13 @@ import useRender from '../hooks/useRender';
 const ModuleContext = React.createContext({});
 export default ModuleContext;
 
+const NUMERIC_ENTITY_FILEDS = [
+    'width',
+    'height',
+    'actionPoints',
+    'maxHp',
+];
+
 export function ModuleProvider({ children }) {
     const [loaded, setLoaded] = useState(false);
     const { loadImage, images: loadedImages } = useContext(ImageContext);
@@ -75,6 +82,9 @@ export function ModuleProvider({ children }) {
                     delete current[path[0]];
                 }
             } else {
+                if (NUMERIC_ENTITY_FILEDS.includes(path[0])) {
+                    value = parseInt(value, 10);
+                }
                 current[path[0]] = value;
             }
 

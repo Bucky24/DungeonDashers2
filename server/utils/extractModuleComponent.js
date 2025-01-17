@@ -12,6 +12,9 @@ module.exports = function(modulePrefix, entityMap) {
         entity.scripts = entity.scripts ? Object.keys(entity.scripts) : [];
 
         entity.images = Object.keys(entity.images || {}).reduce((obj, key) => {
+            if (!entity.images[key].image) {
+                return obj;
+            }
             return {
                 ...obj,
                 [key]: entity.images[key].image.replace(modulePrefix, ""),

@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
-import { Map, Layer, LayerImage, ZoomType, MoveType, Cell } from '@bucky24/react-canvas-map';
 import { Canvas, Rect, Text } from '@bucky24/react-canvas';
+import { Cell, Layer, LayerImage, Map, MoveType, ZoomType } from '@bucky24/react-canvas-map';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 
-import ModuleContext from '../contexts/ModuleContext';
 import NotFoundImage from '../../assets/not_found.png';
-import { BASE_STATES } from '../contexts/MapContext';
 import { FLAGS } from '../contexts/GameContext';
+import { BASE_STATES } from '../contexts/MapContext';
+import ModuleContext from '../contexts/ModuleContext';
 
 export default function TheMap({
     map,
@@ -288,8 +288,12 @@ export default function TheMap({
                                     width={width}
                                     height={height}
                                     cb={(dims) => {
+                                        if (!maxHp) {
+                                            return;
+                                        }
                                         const perPixel = dims.width / maxHp;
                                         const pixels = perPixel * hp;
+
                                         return <>
                                             <Rect
                                                 x={dims.x}

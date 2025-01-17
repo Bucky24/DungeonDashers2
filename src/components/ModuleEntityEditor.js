@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import SidebarNav from './SidebarNav';
 import TextField from './TextField';
 import { BASE_STATES } from '../contexts/MapContext';
+import { processTemplate } from '../utils/processTemplate';
 
 const GENERAL_FIELDS = [
     { key: 'name', name: 'Name' },
@@ -23,6 +24,7 @@ export default function ModuleEntityEditor({
     changeEntity,
     canFight,
     hasAi,
+    extraImages,
 }) {
     const [activeEntityKey, setActiveEntityKey] = useState('');
 
@@ -189,7 +191,6 @@ export default function ModuleEntityEditor({
                             </tr>
                         })}
                         {(activeEntityData.states || []).map((key) => {
-                            console.log(activeEntityData);
                             const imageData = activeEntityData.images[key] || {};
                             
                             return <tr key={`entity_image_${key}`}>
@@ -198,6 +199,26 @@ export default function ModuleEntityEditor({
                                     <TextField
                                         value={imageData.rawPath || ''}
                                         onBlur={(newData) => changeEntity(module, activeEntityKey, `images.${key}`, {
+                                            image: modulePrefix + newData,
+                                            rawImage: newData,
+                                        })}
+                                    />
+                                </td>
+                            </tr>
+                        })}
+                        {extraImages && extraImages.map((image) => {
+                            const realImageKey = processTemplate(image, {
+                                id: keyWithoutPrefix,
+                            });
+
+                            const imageData = activeEntityData.images[realImageKey] || {};
+                            
+                            return <tr key={`entity_image_${realImageKey}`}>
+                                <td>{realImageKey}</td>
+                                <td>
+                                    <TextField
+                                        value={imageData.rawPath || ''}
+                                        onBlur={(newData) => changeEntity(module, activeEntityKey, `images.${realImageKey}`, {
                                             image: modulePrefix + newData,
                                             rawImage: newData,
                                         })}

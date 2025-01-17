@@ -107,8 +107,8 @@
     ],
     "characters": [
         {
-            "type": "main_january",
-            "x": 8,
+            "type": "main_wizard",
+            "x": 9,
             "y": 7
         }
     ],
@@ -126,18 +126,6 @@
             "id": 2,
             "flags": [
                 "locked"
-            ]
-        },
-        {
-            "type": "main_bell1",
-            "x": 11,
-            "y": 9,
-            "id": 3,
-            "data": [
-                {
-                    "type": "open_door",
-                    "id": 2
-                }
             ]
         }
     ],

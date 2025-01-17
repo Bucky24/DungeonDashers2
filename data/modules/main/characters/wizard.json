@@ -2,5 +2,14 @@
     "version": 2,
     "id": "wizard",
     "scripts": [],
-    "images": {}
+    "images": {
+        "dialog_portrait": "assets/characters/wizard_portrait.png",
+        "base_right": "assets/characters/wizard_right.png",
+        "base_up": "assets/characters/wizard_back.png"
+    },
+    "width": 1,
+    "height": 2,
+    "actionPoints": 20,
+    "name": "",
+    "maxHP": "20"
 }

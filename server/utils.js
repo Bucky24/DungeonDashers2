@@ -62,6 +62,10 @@ if (process.env.NODE_ENV === 'development') {
 function locateInDirectories(name, dirs, extra = '') {
     let foundFile = null;
 
+    if (name === "") {
+        return foundFile;
+    }
+
     for (const dir of dirs) {
         let fullPath = path.join(dir, name);
         if (extra || extra !== '') {
@@ -212,6 +216,9 @@ module.exports = {
         if (objectData.images) {
             for (const state in objectData.images) {
                 const objectImagePath = objectData.images[state];
+                if (objectImagePath === "") {
+                    continue;
+                }
 
                 allImages[modulePrefix + objectImagePath] = getImageSlug('modules', objectImagePath, { extra: module });
 
