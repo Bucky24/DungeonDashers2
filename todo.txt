@@ -22,3 +22,14 @@ For v0.9.0
 * More complex AI - better pathfinding, fleeing after attack, summoning
 * Improve script editor
 * Full images for all directions for characters/enemies
+* Add asset editor for adding images/sounds/etc to modules
+* Nicer UI for editors
+    * Entity
+    * Map
+    * Tile
+* Test multiple modules in one map (should work, but lets check)
+* Real background for base campaign
+* Better controls for moving between scenarios in campaign
+* Intro screen for scenarios
+* Better victory dialog
+* Character xp and basic leveling
