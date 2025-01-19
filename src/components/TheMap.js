@@ -167,7 +167,7 @@ export default function TheMap({
                 centerX={centerX}
                 centerY={centerY}
             >
-                <Layer>
+                <Layer id="tiles">
                     {map?.map(({ x, y, tile }, index) => {
                         const tileData = tiles[tile];
                         let image = getImage(tileData?.image);
@@ -191,7 +191,7 @@ export default function TheMap({
                         );
                     })}
                 </Layer>
-                <Layer>
+                <Layer id="objects">
                     {objects?.map((obj, index) => {
                         const objectData = objectsData[obj.type];
                         let image = null;
@@ -229,7 +229,7 @@ export default function TheMap({
                         );
                     })}
                 </Layer>
-                <Layer>
+                <Layer id="entities">
                     {characters?.map((character, index) => {
                         const data = charactersData[character.type];
                         let image = null;
@@ -394,7 +394,7 @@ export default function TheMap({
                         );
                     })}
                 </Layer>
-                {selectionRectangles && <Layer>
+                {selectionRectangles && <Layer id="selection">
                     {selectionRectangles.map(({ x, y }) => {
                         return <Cell
                             key={`selection_${x}_${y}`}

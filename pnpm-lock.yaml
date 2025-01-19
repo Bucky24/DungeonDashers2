@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@bucky24/react-canvas':
-        specifier: 3.1.4
-        version: 3.1.4(react@18.2.0)
+        specifier: 3.1.6
+        version: 3.1.6(react@18.2.0)
       '@bucky24/react-canvas-map':
-        specifier: 2.0.3
-        version: 2.0.3(@bucky24/react-canvas@3.1.4(react@18.2.0))
+        specifier: 2.0.8
+        version: 2.0.8(@bucky24/react-canvas@3.1.6(react@18.2.0))
       appdata-path:
         specifier: ^1.0.0
         version: 1.0.0
@@ -62,19 +62,19 @@ importers:
         version: 7.12.10(@babel/core@7.24.0)
       babel-loader:
         specifier: 8.2.2
-        version: 8.2.2(@babel/core@7.24.0)(webpack@5.90.3(webpack-cli@5.1.4))
+        version: 8.2.2(@babel/core@7.24.0)(webpack@5.90.3)
       css-loader:
         specifier: 5.0.1
-        version: 5.0.1(webpack@5.90.3(webpack-cli@5.1.4))
+        version: 5.0.1(webpack@5.90.3)
       file-loader:
         specifier: 6.2.0
-        version: 6.2.0(webpack@5.90.3(webpack-cli@5.1.4))
+        version: 6.2.0(webpack@5.90.3)
       html-webpack-plugin:
         specifier: 5.2.0
-        version: 5.2.0(webpack@5.90.3(webpack-cli@5.1.4))
+        version: 5.2.0(webpack@5.90.3)
       style-loader:
         specifier: 2.0.0
-        version: 2.0.0(webpack@5.90.3(webpack-cli@5.1.4))
+        version: 2.0.0(webpack@5.90.3)
       webpack:
         specifier: 5.90.3
         version: 5.90.3(webpack-cli@5.1.4)
@@ -627,13 +627,13 @@ packages:
     resolution: {integrity: sha512-6mQNsaLeXTw0nxYUYu+NSa4Hx4BlF1x1x8/PMFbiR+GBSr+2DkECc69b8hgy2frEodNcvPffeH8YfWd3LI6jhQ==}
     engines: {node: '>=6.9.0'}
 
-  '@bucky24/react-canvas-map@2.0.3':
-    resolution: {integrity: sha512-CSOlv51ILWwvyJLa/E7n2SVXi7rBPyXzO4ZynH9KUNHARQRrjLWBCTmivrd5VeMjznAVRUnpDlzjsqO51LJh2g==}
+  '@bucky24/react-canvas-map@2.0.8':
+    resolution: {integrity: sha512-A5yo9OZ0pNzZFsPC6Ua3B6jc2+KwNiCWE9fHpL/f7CZj39ISMeeWoVFAFxNP4X6C9z1pE/4cnFWAVNhUpSbdxQ==}
     peerDependencies:
-      '@bucky24/react-canvas': ^3.1.4
+      '@bucky24/react-canvas': ^3.1.5
 
-  '@bucky24/react-canvas@3.1.4':
-    resolution: {integrity: sha512-t9n6rUoWRHJUe3yRy3LS4RZQJtW+QHA+K+hqBUtr2i8QyySGQfVZjCfcUFKMoEExpHoJqhJHMm3c6vWKNVE2Iw==}
+  '@bucky24/react-canvas@3.1.6':
+    resolution: {integrity: sha512-wcb5svnSx6z8CcpNDibJ9wU7G4e549hvlzunFjazi2AyNvKRHmVDGk5rmtN8XnuOwiZk9gLYl38eIW3B74Envw==}
     peerDependencies:
       react: 18.x.x
 
@@ -3282,14 +3282,14 @@ snapshots:
       '@babel/helper-validator-identifier': 7.24.5
       to-fast-properties: 2.0.0
 
-  '@bucky24/react-canvas-map@2.0.3(@bucky24/react-canvas@3.1.4(react@18.2.0))':
+  '@bucky24/react-canvas-map@2.0.8(@bucky24/react-canvas@3.1.6(react@18.2.0))':
     dependencies:
-      '@bucky24/react-canvas': 3.1.4(react@18.2.0)
+      '@bucky24/react-canvas': 3.1.6(react@18.2.0)
       '@bucky24/toolbox': 0.1.0
       prop-types: 15.8.1
       react-fast-compare: 3.2.2
 
-  '@bucky24/react-canvas@3.1.4(react@18.2.0)':
+  '@bucky24/react-canvas@3.1.6(react@18.2.0)':
     dependencies:
       prop-types: 15.7.2
       react: 18.2.0
@@ -3565,17 +3565,17 @@ snapshots:
       '@webassemblyjs/ast': 1.12.1
       '@xtuc/long': 4.2.2
 
-  '@webpack-cli/configtest@2.1.1(webpack-cli@5.1.4(webpack-dev-server@5.0.2)(webpack@5.90.3))(webpack@5.90.3(webpack-cli@5.1.4))':
+  '@webpack-cli/configtest@2.1.1(webpack-cli@5.1.4)(webpack@5.90.3)':
     dependencies:
       webpack: 5.90.3(webpack-cli@5.1.4)
       webpack-cli: 5.1.4(webpack-dev-server@5.0.2)(webpack@5.90.3)
 
-  '@webpack-cli/info@2.0.2(webpack-cli@5.1.4(webpack-dev-server@5.0.2)(webpack@5.90.3))(webpack@5.90.3(webpack-cli@5.1.4))':
+  '@webpack-cli/info@2.0.2(webpack-cli@5.1.4)(webpack@5.90.3)':
     dependencies:
       webpack: 5.90.3(webpack-cli@5.1.4)
       webpack-cli: 5.1.4(webpack-dev-server@5.0.2)(webpack@5.90.3)
 
-  '@webpack-cli/serve@2.0.5(webpack-cli@5.1.4(webpack-dev-server@5.0.2)(webpack@5.90.3))(webpack-dev-server@5.0.2(webpack-cli@5.1.4)(webpack@5.90.3))(webpack@5.90.3(webpack-cli@5.1.4))':
+  '@webpack-cli/serve@2.0.5(webpack-cli@5.1.4)(webpack-dev-server@5.0.2)(webpack@5.90.3)':
     dependencies:
       webpack: 5.90.3(webpack-cli@5.1.4)
       webpack-cli: 5.1.4(webpack-dev-server@5.0.2)(webpack@5.90.3)
@@ -3651,7 +3651,7 @@ snapshots:
 
   array-flatten@1.1.1: {}
 
-  babel-loader@8.2.2(@babel/core@7.24.0)(webpack@5.90.3(webpack-cli@5.1.4)):
+  babel-loader@8.2.2(@babel/core@7.24.0)(webpack@5.90.3):
     dependencies:
       '@babel/core': 7.24.0
       find-cache-dir: 3.3.2
@@ -3855,7 +3855,7 @@ snapshots:
       shebang-command: 2.0.0
       which: 2.0.2
 
-  css-loader@5.0.1(webpack@5.90.3(webpack-cli@5.1.4)):
+  css-loader@5.0.1(webpack@5.90.3):
     dependencies:
       camelcase: 6.3.0
       cssesc: 3.0.0
@@ -4112,7 +4112,7 @@ snapshots:
     dependencies:
       pend: 1.2.0
 
-  file-loader@6.2.0(webpack@5.90.3(webpack-cli@5.1.4)):
+  file-loader@6.2.0(webpack@5.90.3):
     dependencies:
       loader-utils: 2.0.4
       schema-utils: 3.3.0
@@ -4276,7 +4276,7 @@ snapshots:
       relateurl: 0.2.7
       terser: 4.8.1
 
-  html-webpack-plugin@5.2.0(webpack@5.90.3(webpack-cli@5.1.4)):
+  html-webpack-plugin@5.2.0(webpack@5.90.3):
     dependencies:
       '@types/html-minifier-terser': 5.1.2
       html-minifier-terser: 5.1.1
@@ -5107,7 +5107,7 @@ snapshots:
 
   strip-final-newline@2.0.0: {}
 
-  style-loader@2.0.0(webpack@5.90.3(webpack-cli@5.1.4)):
+  style-loader@2.0.0(webpack@5.90.3):
     dependencies:
       loader-utils: 2.0.4
       schema-utils: 3.3.0
@@ -5131,7 +5131,7 @@ snapshots:
 
   tapable@2.2.1: {}
 
-  terser-webpack-plugin@5.3.10(webpack@5.90.3(webpack-cli@5.1.4)):
+  terser-webpack-plugin@5.3.10(webpack@5.90.3):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
       jest-worker: 27.5.1
@@ -5231,9 +5231,9 @@ snapshots:
   webpack-cli@5.1.4(webpack-dev-server@5.0.2)(webpack@5.90.3):
     dependencies:
       '@discoveryjs/json-ext': 0.5.7
-      '@webpack-cli/configtest': 2.1.1(webpack-cli@5.1.4(webpack-dev-server@5.0.2)(webpack@5.90.3))(webpack@5.90.3(webpack-cli@5.1.4))
-      '@webpack-cli/info': 2.0.2(webpack-cli@5.1.4(webpack-dev-server@5.0.2)(webpack@5.90.3))(webpack@5.90.3(webpack-cli@5.1.4))
-      '@webpack-cli/serve': 2.0.5(webpack-cli@5.1.4(webpack-dev-server@5.0.2)(webpack@5.90.3))(webpack-dev-server@5.0.2(webpack-cli@5.1.4)(webpack@5.90.3))(webpack@5.90.3(webpack-cli@5.1.4))
+      '@webpack-cli/configtest': 2.1.1(webpack-cli@5.1.4)(webpack@5.90.3)
+      '@webpack-cli/info': 2.0.2(webpack-cli@5.1.4)(webpack@5.90.3)
+      '@webpack-cli/serve': 2.0.5(webpack-cli@5.1.4)(webpack-dev-server@5.0.2)(webpack@5.90.3)
       colorette: 2.0.20
       commander: 10.0.1
       cross-spawn: 7.0.3
@@ -5247,7 +5247,7 @@ snapshots:
     optionalDependencies:
       webpack-dev-server: 5.0.2(webpack-cli@5.1.4)(webpack@5.90.3)
 
-  webpack-dev-middleware@7.2.1(webpack@5.90.3(webpack-cli@5.1.4)):
+  webpack-dev-middleware@7.2.1(webpack@5.90.3):
     dependencies:
       colorette: 2.0.20
       memfs: 4.9.2
@@ -5288,7 +5288,7 @@ snapshots:
       serve-index: 1.9.1
       sockjs: 0.3.24
       spdy: 4.0.2
-      webpack-dev-middleware: 7.2.1(webpack@5.90.3(webpack-cli@5.1.4))
+      webpack-dev-middleware: 7.2.1(webpack@5.90.3)
       ws: 8.17.0
     optionalDependencies:
       webpack: 5.90.3(webpack-cli@5.1.4)
@@ -5330,7 +5330,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 3.3.0
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.10(webpack@5.90.3(webpack-cli@5.1.4))
+      terser-webpack-plugin: 5.3.10(webpack@5.90.3)
       watchpack: 2.4.1
       webpack-sources: 3.2.3
     optionalDependencies:
