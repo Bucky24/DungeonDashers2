@@ -7,7 +7,8 @@ import CodeEditor from './CodeEditor';
 export default function ModuleScriptEditor({ module }) {
     const scripts = getScripts();
     const [activeScript, setActiveScript] = useState(null);
-    const { updateScript } = useContext(ModuleContext);
+    const { updateScript, addScript } = useContext(ModuleContext);
+    const modulePrefix = `${module}_`;
 
     return <div style={{
         display: 'flex',
@@ -17,6 +18,12 @@ export default function ModuleScriptEditor({ module }) {
             <SidebarNav
                 items={Object.keys(scripts)}
                 setActiveItem={setActiveScript}
+                onNew={(name) => {
+                    if (!name.endsWith(".js")) {
+                        name += ".js";
+                    }
+                    addScript(module, modulePrefix + "scripts/" + name);
+                }}
             />
         </div>
         {activeScript && <CodeEditor

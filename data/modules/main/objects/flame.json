@@ -1,0 +1,27 @@
+{
+    "version": 2,
+    "id": "flame",
+    "scripts": [
+        "scripts/flame_collide.js"
+    ],
+    "images": {
+        "on": "assets/objects/flame_on.png",
+        "off": "assets/objects/flame_off.png"
+    },
+    "name": "Flame",
+    "width": 2,
+    "height": 3,
+    "states": [
+        "on",
+        "off"
+    ],
+    "defaultState": "on",
+    "flags": [],
+    "events": [
+        {
+            "on": "collide",
+            "type": "script",
+            "file": "scripts/flame_collide.js"
+        }
+    ]
+}

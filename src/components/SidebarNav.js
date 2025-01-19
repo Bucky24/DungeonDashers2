@@ -14,6 +14,9 @@ export default function SidebarNav({ items, activeItem, setActiveItem, onNew }) 
                 onClick={() => setActiveItem(key)}
             >{key}</div>
         })}
-        <button onClick={() => onNew('unnamed')}>Add</button>
+        <button onClick={() => {
+            const name = window.prompt("Enter name");
+            onNew(name || 'unnamed');
+        }}>Add</button>
     </aside>
 }

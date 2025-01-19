@@ -195,8 +195,8 @@ export default function TheMap({
                     {objects?.map((obj, index) => {
                         const objectData = objectsData[obj.type];
                         let image = null;
-                        let width = 1;
-                        let height = 1;
+                        let width = objectData.width || 1;
+                        let height = objectData.height || 1;
 
                         if (objectData) {
                             const state = obj.state || objectData.defaultState;
@@ -223,8 +223,8 @@ export default function TheMap({
                                 x={obj.x}
                                 y={obj.y}
                                 src={image}
-                                width={1}
-                                height={1}
+                                width={width}
+                                height={height}
                             />
                         );
                     })}

@@ -92,6 +92,9 @@
         },
         "bell1": {
             "manifest": "objects/bell1.json"
+        },
+        "flame": {
+            "manifest": "objects/flame.json"
         }
     },
     "characters": {

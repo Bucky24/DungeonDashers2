@@ -299,6 +299,12 @@ export function ModuleProvider({ children }) {
             setModule(module, moduleData);
             render();
         },
+        addScript: (module, name) => {
+            const moduleData = getModule(module);
+            moduleData.scripts[name] = "";
+            setModule(module, moduleData);
+            render();
+        },
     };
 
     return (

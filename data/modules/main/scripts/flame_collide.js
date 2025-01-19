@@ -4,7 +4,9 @@ if (!Array.isArray(data)) {
     console.error("Invalid data for flame entity, expected array");
     return;
 }
-
+if (this.entity.getState() !== "on") {
+    return;
+}
 for (const effect of data) {
     if (effect.type === "open_door") {
         const doorId = effect.id;
@@ -19,10 +21,10 @@ for (const effect of data) {
             entity.setFlag('nonblocking');
         }
     } else {
-        console.error(`Unknown bell effect ${effect.type}`);
+        console.error(`Unknown flame effect ${effect.type}`);
     }
 }
 
-this.entity.removeFlag("attackable");
+this.entity.setState("off");
 
 return false;
