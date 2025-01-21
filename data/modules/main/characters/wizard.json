@@ -1,7 +1,6 @@
 {
     "version": 2,
     "id": "wizard",
-    "scripts": [],
     "images": {
         "dialog_portrait": "assets/characters/wizard_portrait.png",
         "base_right": "assets/characters/wizard_right.png",
@@ -11,5 +10,14 @@
     "height": 2,
     "actionPoints": 20,
     "name": "",
-    "maxHP": "20"
+    "maxHP": "20",
+    "skills": {
+        "special": {
+            "type": "script",
+            "file": "scripts/january_special.js"
+        }
+    },
+    "scripts": [
+        "scripts/january_special.js"
+    ]
 }
