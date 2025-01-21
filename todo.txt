@@ -1,6 +1,4 @@
 For v0.8.0
-* All original base characters, including special abilities
-* Flesh out editors
 * QOL
     * Improve green square for selection of spaces
     * Add in tooltips for actions at specific parts
@@ -33,3 +31,4 @@ For v0.9.0
 * Intro screen for scenarios
 * Better victory dialog
 * Character xp and basic leveling
+* Projectiles for ranged attacks
