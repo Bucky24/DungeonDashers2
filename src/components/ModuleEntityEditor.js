@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import SidebarNav from './SidebarNav';
 import TextField from './TextField';
 import { BASE_STATES } from '../contexts/MapContext';
 import { processTemplate } from '../utils/processTemplate';
+import SearchContext from '../contexts/SearchContext';
 
 const GENERAL_FIELDS = [
     { key: 'name', name: 'Name' },
@@ -27,6 +28,15 @@ export default function ModuleEntityEditor({
     extraImages,
 }) {
     const [activeEntityKey, setActiveEntityKey] = useState('');
+    const { changeSearch } = useContext(SearchContext);
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const entity = params.get("entity");
+        if (entity) {
+            setActiveEntityKey(entity);
+        }
+    }, []);
 
     const modulePrefix = `${module}_`;
 
@@ -44,11 +54,15 @@ export default function ModuleEntityEditor({
 
     return <section>
         <h2>{name}</h2>
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex', paddingBottom: 20 }}>
             <SidebarNav
                 items={Object.keys(entities).map((key) => key.replace(modulePrefix, ""))}
                 activeItem={activeEntityKey.replace(modulePrefix, "")}
-                setActiveItem={(item) => setActiveEntityKey(modulePrefix + item)}
+                setActiveItem={(item) => {
+                    const key = modulePrefix + item;
+                    setActiveEntityKey(key);
+                    changeSearch("entity", key);
+                }}
                 onNew={(name) => {
                     createEntity(module, modulePrefix + name);
                 }}
@@ -299,6 +313,57 @@ export default function ModuleEntityEditor({
                     newEvents.push({});
                     changeEntity(module, activeEntityKey, `events`, newEvents);
                 }}>Add Event Handler</button>
+                <h3>Slots</h3>
+                <table border={1}>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {activeEntityData.slots?.map((slot, index) => {
+                            return <tr>
+                                <td>
+                                    <TextField
+                                        value={slot.type}
+                                        onBlur={(newData) => {
+                                            const newSlots = [...activeEntityData.slots];
+                                            newSlots[index].type = newData;
+                                            changeEntity(module, activeEntityKey, `slots`, newSlots);
+                                        }}
+                                    />
+                                </td>
+                                <td>
+                                    <TextField
+                                        value={slot.name}
+                                        onBlur={(newData) => {
+                                            const newSlots = [...activeEntityData.slots];
+                                            newSlots[index].name = newData;
+                                            changeEntity(module, activeEntityKey, `slots`, newSlots);
+                                        }}
+                                    />
+                                </td>
+                                <td>
+                                    <button onClick={() => {
+                                        const newSlots = [...activeEntityData.slots];
+                                        newSlots.splice(index, 1);
+                                        changeEntity(module, activeEntityKey, `slots`, newSlots);
+                                    }}>Remove</button>
+                                </td>
+                            </tr>
+                        })}
+                    </tbody>
+                </table>
+                <button onClick={() => {
+                    const newSlots = [...activeEntityData.slots || []];
+                    newSlots.push({
+                        type: '',
+                        name: '',
+                    });
+                    changeEntity(module, activeEntityKey, `slots`, newSlots);
+                }}>Add Slot</button>
             </div>}
         </div>
     </section>;

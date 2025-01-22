@@ -17,5 +17,11 @@
     },
     "scripts": [
         "scripts/sir_jacob_special.js"
+    ],
+    "slots": [
+        {
+            "type": "head",
+            "name": "Head"
+        }
     ]
 }

@@ -243,7 +243,6 @@ export function ModuleProvider({ children }) {
                 return;
             }
             const nameWithoutModule = name.replace(module + "_", "");
-            console.log(name);
             moduleData.characters[name] = {
                 version: 2,
                 id: name,
@@ -253,6 +252,7 @@ export function ModuleProvider({ children }) {
                 },
                 scripts: {},
                 images: {},
+                slots: [],
             };
             setModule(module, moduleData);
             render();

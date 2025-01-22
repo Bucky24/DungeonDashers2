@@ -12,26 +12,29 @@ import { UIProvider } from './contexts/UIContext';
 import { SettingsProvider } from './contexts/SettingsContext';
 import { CampaignProvider } from './contexts/CampaignContext';
 import Coms from './utils/coms';
+import { SearchProvider } from './contexts/SearchContext';
 
 const root = createRoot(document.getElementById('root'));
 
 const providerStack = (
 <SettingsProvider>
-    <UIProvider>
-        <ImageProvider>
-            <CampaignProvider>
-                <ModuleProvider>
-                    <MapProvider>
-                        <EditorProvider>
-                            <GameProvider>
-                                <App />
-                            </GameProvider>
-                        </EditorProvider>
-                    </MapProvider>
-                </ModuleProvider>
-            </CampaignProvider>
-        </ImageProvider>    
-    </UIProvider>
+    <SearchProvider>
+        <UIProvider>
+            <ImageProvider>
+                <CampaignProvider>
+                    <ModuleProvider>
+                        <MapProvider>
+                            <EditorProvider>
+                                <GameProvider>
+                                    <App />
+                                </GameProvider>
+                            </EditorProvider>
+                        </MapProvider>
+                    </ModuleProvider>
+                </CampaignProvider>
+            </ImageProvider>    
+        </UIProvider>
+    </SearchProvider>
 </SettingsProvider>
 );
 

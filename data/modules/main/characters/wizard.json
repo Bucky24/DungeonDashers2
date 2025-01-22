@@ -19,5 +19,11 @@
     },
     "scripts": [
         "scripts/january_special.js"
+    ],
+    "slots": [
+        {
+            "type": "head",
+            "name": "Head"
+        }
     ]
 }

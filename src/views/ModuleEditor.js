@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import EditorContext from '../contexts/EditorContext';
@@ -9,12 +9,15 @@ import ModuleObjectEditor from '../components/ModuleObjectEditor';
 import ModuleEnemyEditor from '../components/ModuleEnemyEditor';
 import ModuleScriptEditor from '../components/ModuleScriptEditor';
 import ModuleCharacterEditor from '../components/ModuleCharacterEditor';
+import SearchContext from '../contexts/SearchContext';
 
 export default function ModuleEditor({ newModule }) {
     const { loaded: editorLoaded, loadModule, module, saveModules, createNewModule } = useContext(EditorContext);
-	const { loaded: moduleLoaded, tiles, changeTile, addTile } = useContext(ModuleContext);
+	const { loaded: moduleLoaded } = useContext(ModuleContext);
     const { module: moduleId } = useParams();
     const navigate = useNavigate();
+    const { changeSearch, search } = useContext(SearchContext);
+    const [initialTab, setInitialTab] = useState('Characters');
 
     useEffect(() => {
         if (newModule) {
@@ -23,6 +26,12 @@ export default function ModuleEditor({ newModule }) {
             loadModule(moduleId);
         }
     }, [moduleId]);
+
+    useEffect(() => {
+        if (search.tab) {
+            setInitialTab(search.tab);
+        }
+    }, [search.tab])
 
     const loaded = editorLoaded && moduleLoaded;
 
@@ -39,14 +48,21 @@ export default function ModuleEditor({ newModule }) {
                     <div>
                         <button onClick={() => {
                             saveModules();
-                            navigate(`/editor/module/${module}`);
+                            window.location.reload();
                         }}>Save</button>
                         <button onClick={() => {
                             navigate("/editor/module/load");
                         }}>Back</button>
                     </div>
                 </div>
-                <TabBar tabs={['Characters', 'Tiles', 'Objects', 'Enemies', 'Scripts']} defaultTab='Characters'>
+                <TabBar
+                    tabs={['Characters', 'Tiles', 'Objects', 'Enemies', 'Scripts']}
+                    initialTab={initialTab}
+                    onChange={(tab) => {
+                        changeSearch('tab', tab);
+                        changeSearch('entity', null);
+                    }}
+                >
                     <ModuleCharacterEditor module={module} />
                     <ModuleTileEditor module={module} />
                     <ModuleObjectEditor module={module} />

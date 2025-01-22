@@ -21,6 +21,7 @@ The Manifest is a JSON file with the following format:
 | images | A map of state to image path, see Base States for details |
 | skills | A map of skill name to Skill |
 | scripts | An array of file paths to scripts used for the Object. If you have a script as part of an Event and it is not listed here, it will not be loaded |
+| slots | An array of Slot objects. This provides info on where Equipment can be added. |
 
 ## Skill
 
@@ -28,11 +29,11 @@ An Skill is block of data that describes something the Character can do other th
 
 | Key | Description |
 | -- | -- |
-| type | One of Type |
+| type | One of ScriptType |
 
-There may be additional parameters depending on the Type
+There may be additional parameters depending on the ScriptType
 
-## Type
+## ScriptType
 
 ### script
 
@@ -43,6 +44,15 @@ The script type runs a script when the action is taken.
 | Key | Description |
 | -- | -- |
 | file | Path to the file containing code |
+
+## Slot
+
+A Slot provides information about a place that Equipment can be equipped to.
+
+| Key | Description |
+| -- | -- |
+| type | This indicates the type of the slot. This determines which types of Equipment can be put into this Slot (the type of the Equipment must match the type of the Slot). |
+| name | The name of the slot. Optional, type is used as a default. |
 
 ## CharacterContext
 
