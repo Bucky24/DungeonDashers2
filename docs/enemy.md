@@ -14,7 +14,7 @@ The Manifest is a JSON file with the following format:
 
 | Key | Description |
 | -- | -- |
-| id | the ID of the character (must match the ID in the module manifest.json) |
+| id | the ID of the enemy (must match the ID in the module manifest.json) |
 | name | The name of the enemy |
 | actionPoints | The max action points for the enemy |
 | maxHp | The max hp for the enemy |

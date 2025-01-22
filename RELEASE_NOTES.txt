@@ -74,6 +74,7 @@ v0.8.0 (unreleased)
 * Add character editor
 * Added Wizard Whitebeard character and magic flame mechanisms
 * Added directions for characters
+* Added equipment slots for characters
 
 Bug Fixes:
 * Sir Jacob is no longer stopped by chests
