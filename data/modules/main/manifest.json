@@ -118,5 +118,10 @@
         "skeleton1": {
             "manifest": "enemies/skeleton1.json"
         }
+    },
+    "equipment": {
+        "Helm_of_Cool": {
+            "manifest": "equipment/main_Helm_of_Cool.json"
+        }
     }
 }

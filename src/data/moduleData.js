@@ -9,6 +9,7 @@ function updateComputedData() {
     const allCharacters = {};
     const allScripts = {};
     const allEnemies = {};
+    const allEquipment = {};
     for (const module in modules) {
         const moduleData = modules[module];
 
@@ -35,6 +36,10 @@ function updateComputedData() {
         for (const id in moduleData.enemies) {
             allEnemies[id] = moduleData.enemies[id];
         }
+
+        for (const id in moduleData.equipment) {
+            allEquipment[id] = moduleData.equipment[id];
+        }
     }
 
     computedData = {
@@ -44,6 +49,7 @@ function updateComputedData() {
         objects: allObjects,
         scripts: allScripts,
         enemies: allEnemies,
+        equipment: allEquipment,
     };
 }
 
@@ -85,4 +91,8 @@ export function getScripts() {
 
 export function getEnemies() {
     return computedData.enemies || {};
+}
+
+export function getEquipment() {
+    return computedData.equipment || {};
 }

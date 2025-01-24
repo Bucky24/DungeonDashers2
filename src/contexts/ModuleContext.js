@@ -13,6 +13,7 @@ import {
     getEnemies,
     getScripts,
     getImages,
+    getEquipment,
 } from '../data/moduleData';
 import useRender from '../hooks/useRender';
 
@@ -148,6 +149,7 @@ export function ModuleProvider({ children }) {
         characters: getCharacters(),
         scripts: getScripts(),
         enemies: getEnemies(),
+        equipment: getEquipment(),
         modulesList: Object.keys(modules),
         getLoadedModules: () => {
             return Object.keys(modules);
@@ -185,6 +187,7 @@ export function ModuleProvider({ children }) {
                 enemies: {},
                 images: {},
                 scripts: {},
+                equipment: {},
             });
             setLoaded(true);
         },
@@ -289,6 +292,30 @@ export function ModuleProvider({ children }) {
                 },
                 scripts: {},
                 images: {},
+            };
+            setModule(module, moduleData);
+            render();
+        },
+        addEquipment: (module, name) => {
+            name = name.replaceAll(" ", "_");
+            const moduleData = getModule(module);
+            if (!moduleData.equipment) {
+                moduleData.equipment = {};
+            }
+            if (moduleData.equipment[name]) {
+                return;
+            }
+            moduleData.equipment[name] = {
+                version: 2,
+                id: name,
+                name: '',
+                type: '',
+                manifest: {
+                    manifest: "equipment/" + name + ".json",
+                    original: "equipment/" + name + ".json",
+                },
+                mainImage: '',
+                stats: {},
             };
             setModule(module, moduleData);
             render();

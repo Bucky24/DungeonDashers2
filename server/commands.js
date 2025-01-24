@@ -243,6 +243,11 @@ module.exports = {
         const allEnemies = component.allEntities;
         data.enemies = component.manifestResult;
 
+        // process all our equipment for writing
+        component = extractModuleComponent(modulePrefix, data.equipment || {});
+        const allEquipment = component.allEntities;
+        data.equipment = component.manifestResult;
+
         const scriptData = data.scripts;
         delete data.scripts;
 
@@ -264,6 +269,9 @@ module.exports = {
 
         // write enemies
         writeModuleComponents(modulePrefix, dir, allEnemies);
+
+        // write equipment
+        writeModuleComponents(modulePrefix, dir, allEquipment);
 
         // write scripts
         // can't use writeModuleComponents because no manifest

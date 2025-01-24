@@ -7,7 +7,9 @@ module.exports = function(modulePrefix, entityMap) {
 
         manifestResult[realId] = {...entity.manifest};
         delete manifestResult[id];
-        delete manifestResult[realId].original;
+        if (manifestResult[realId]) {
+            delete manifestResult[realId].original;
+        }
 
         entity.scripts = entity.scripts ? Object.keys(entity.scripts) : [];
 

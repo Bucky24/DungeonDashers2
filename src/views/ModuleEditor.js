@@ -10,6 +10,7 @@ import ModuleEnemyEditor from '../components/ModuleEnemyEditor';
 import ModuleScriptEditor from '../components/ModuleScriptEditor';
 import ModuleCharacterEditor from '../components/ModuleCharacterEditor';
 import SearchContext from '../contexts/SearchContext';
+import ModuleEquipmentEditor from '../components/ModuleEquipmentEditor';
 
 export default function ModuleEditor({ newModule }) {
     const { loaded: editorLoaded, loadModule, module, saveModules, createNewModule } = useContext(EditorContext);
@@ -56,7 +57,7 @@ export default function ModuleEditor({ newModule }) {
                     </div>
                 </div>
                 <TabBar
-                    tabs={['Characters', 'Tiles', 'Objects', 'Enemies', 'Scripts']}
+                    tabs={['Characters', 'Tiles', 'Objects', 'Enemies', 'Scripts', 'Equipment']}
                     initialTab={initialTab}
                     onChange={(tab) => {
                         changeSearch('tab', tab);
@@ -68,6 +69,7 @@ export default function ModuleEditor({ newModule }) {
                     <ModuleObjectEditor module={module} />
                     <ModuleEnemyEditor module={module} />
                     <ModuleScriptEditor module={module} />
+                    <ModuleEquipmentEditor module={module} />
                 </TabBar>
             </>)}
         </>
