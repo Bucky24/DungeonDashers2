@@ -320,6 +320,14 @@ export function ModuleProvider({ children }) {
             setModule(module, moduleData);
             render();
         },
+        changeEquipment: (module, id, key, value) => {
+            const modules = getModules();
+            setModule(
+                module,
+                updateEntity(modules, module, "equipment", id, key, value)[module],
+            );
+            render();
+        },
         updateScript: (module, id, code) => {
             const moduleData = getModule(module);
             moduleData.scripts[id] = code;

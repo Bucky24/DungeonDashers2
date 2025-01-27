@@ -151,6 +151,16 @@ module.exports = {
         }
         manifest.enemies = allManifestEnemies;
 
+        // grab all the equipment files
+        const equipments = Object.keys(manifest.equipment || {});
+        const allManifestEquipment = {};
+        for (const equipment of equipments) {
+            equipmentManifestData = getModuleComponent(name, moduleDir, manifest.equipment[equipment], allScripts, allImages, equipment);
+
+            allManifestEquipment[modulePrefix + equipment] = equipmentManifestData;
+        }
+        manifest.equipment = allManifestEquipment;
+
         manifest.images = allImages;
         manifest.scripts = allScripts;
 
