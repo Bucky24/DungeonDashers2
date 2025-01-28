@@ -212,20 +212,34 @@ module.exports = {
 
         objectData.id = modulePrefix + objectData.id;
 
+        const imagePaths = ['images', 'mainImage'];
+
         // process images
-        if (objectData.images) {
-            for (const state in objectData.images) {
-                const objectImagePath = objectData.images[state];
-                if (objectImagePath === "") {
-                    continue;
+        for (const path of imagePaths) {
+            if (objectData[path]) {
+                const imageData = objectData[path];
+                if (typeof imageData === 'string') {
+                    allImages[modulePrefix + imageData] = getImageSlug('modules', imageData, { extra: module });
+
+                    objectData[path] = {
+                        image: modulePrefix + imageData,
+                        rawPath: imageData,
+                    };
+                } else {
+                    for (const state in imageData) {
+                        const objectImagePath = imageData[state];
+                        if (objectImagePath === "") {
+                            continue;
+                        }
+
+                        allImages[modulePrefix + objectImagePath] = getImageSlug('modules', objectImagePath, { extra: module });
+
+                        imageData[state] = {
+                            image: modulePrefix + objectImagePath,
+                            rawPath: objectImagePath,
+                        };
+                    }
                 }
-
-                allImages[modulePrefix + objectImagePath] = getImageSlug('modules', objectImagePath, { extra: module });
-
-                objectData.images[state] = {
-                    image: modulePrefix + objectImagePath,
-                    rawPath: objectImagePath,
-                };
             }
         }
 

@@ -3,8 +3,16 @@
     "id": "Helm_of_Cool",
     "name": "",
     "type": "",
-    "mainImage": "",
-    "stats": {},
-    "scripts": [],
-    "images": {}
+    "mainImage": "assets/equipment/helm_of_cool.png",
+    "stats": [
+        {
+            "stat": "maxHp",
+            "operator": "INCREASE",
+            "value": {
+                "type": "CONST",
+                "data": 10
+            }
+        }
+    ],
+    "scripts": []
 }

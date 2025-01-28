@@ -315,7 +315,7 @@ export function ModuleProvider({ children }) {
                     original: "equipment/" + name + ".json",
                 },
                 mainImage: '',
-                stats: {},
+                stats: [],
             };
             setModule(module, moduleData);
             render();

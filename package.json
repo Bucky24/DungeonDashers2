@@ -5,7 +5,6 @@
         "build": "cross-env ELECTRON=true webpack",
         "dev": "cross-env NODE_ENV=development npm run build && cross-env NODE_ENV=development npm start",
         "start": "electron .",
-        "postinstall": "npm run build",
         "dev_web": "cross-env NODE_ENV=development node server.js"
     },
     "devDependencies": {

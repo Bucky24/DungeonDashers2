@@ -13,15 +13,25 @@ module.exports = function(modulePrefix, entityMap) {
 
         entity.scripts = entity.scripts ? Object.keys(entity.scripts) : [];
 
-        entity.images = Object.keys(entity.images || {}).reduce((obj, key) => {
-            if (!entity.images[key].image) {
-                return obj;
+        const imagePaths = ['images', 'mainImage'];
+        for (const path of imagePaths) {
+            if (entity[path]) {
+                const data = entity[path];
+                if (path !== "images") {
+                    entity[path] = data.image.replace(modulePrefix, "");
+                } else {
+                    entity[path] = Object.keys(data || {}).reduce((obj, key) => {
+                        if (!data[key].image) {
+                            return obj;
+                        }
+                        return {
+                            ...obj,
+                            [key]: data[key].image.replace(modulePrefix, ""),
+                        };
+                    }, {});
+                }
             }
-            return {
-                ...obj,
-                [key]: entity.images[key].image.replace(modulePrefix, ""),
-            };
-        }, {});
+        }
 
         allEntities.push(entity);
     }
