@@ -6,12 +6,12 @@
     "mainImage": "assets/equipment/helm_of_cool.png",
     "stats": [
         {
-            "stat": "maxHp",
             "operator": "INCREASE",
             "value": {
                 "type": "CONST",
                 "data": 10
-            }
+            },
+            "stat": "actionPoints"
         }
     ],
     "scripts": []

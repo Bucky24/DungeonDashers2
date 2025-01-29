@@ -75,6 +75,7 @@ v0.8.0 (unreleased)
 * Added Wizard Whitebeard character and magic flame mechanisms
 * Added directions for characters
 * Added equipment slots for characters
+* Equipment as an item in modules and editor
 
 Bug Fixes:
 * Sir Jacob is no longer stopped by chests
@@ -83,3 +84,4 @@ Bug Fixes:
 * Changing the manifest now correctly renames the manifest file
 * Entity editor no longer saves various numeric fields as strings
 * Game no longer crashes when going into combat with a character that has no max HP
+* Ryder is now disabled on map 1 when Sir Jacob is in the initial fight sequence

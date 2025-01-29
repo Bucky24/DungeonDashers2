@@ -24,7 +24,7 @@ export default function ModuleEquipmentEditor({ module }) {
     const activeEquipmentData = activeEquipment && equipment[activeEquipment];
 
     return <div style={{ display: 'flex' }}>
-        <div>
+        <div style={{ marginRight: 10 }}>
             <h2>Equipment</h2>
             <SidebarNav
                 items={Object.keys(equipment).map((key) => key.replace(modulePrefix, ""))}
@@ -75,30 +75,45 @@ export default function ModuleEquipmentEditor({ module }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {activeEquipmentData.stats.map((stat) => {
-                        return <tr>
+                    {activeEquipmentData.stats.map((stat, index) => {
+                        return <tr key={`stat_${index}`}>
                             <td>
-                                <select value={stat.stat}>
+                                <select value={stat.stat} onChange={(e) => {
+                                    changeEquipment(module, activeEquipment, `stats.${index}.stat`, e.target.value);
+                                }}>
                                     <option value="maxHp">Max HP</option>
                                     <option value="actionPoints">Action Points</option>
                                 </select>
                             </td>
                             <td>
-                                <select value={stat.operator}>
+                                <select value={stat.operator} onChange={(e) => {
+                                    changeEquipment(module, activeEquipment, `stats.${index}.operator`, e.target.value);
+                                }}>
                                     <option value="INCREASE">Increase</option>
                                     <option value="DECREASE">Decrease</option>
                                 </select>
                             </td>
                             <td>
                                 <div>Value type:</div>
-                                <select value={stat.value.type}>
+                                <select value={stat.value.type} onChange={(e) => {
+                                    changeEquipment(module, activeEquipment, `stats.${index}.value.type`, e.target.value);
+                                }}>
                                     <option value="CONST">Constant</option>
                                 </select>
                                 <div>Data</div>
-                                <TextField value={stat.value.data} />
+                                <TextField value={stat.value.data} onBlur={(newValue) => {
+                                    if (stat.value.type === 'CONST') {
+                                        newValue = parseInt(newValue, 10);
+                                    }
+                                    changeEquipment(module, activeEquipment, `stats.${index}.value.data`, newValue);
+                                }} />
                             </td>
                             <th>
-                                <button>X</button>
+                                <button onClick={() => {
+                                    if (window.confirm("Are you sure you want to remove this?")) {
+                                        changeEquipment(module, activeEquipment, `stats.${index}`, null);
+                                    }
+                                }}>X</button>
                             </th>
                         </tr>
                     })}

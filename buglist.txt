@@ -1,7 +1,6 @@
 * Sir Jacob gets stopped by opened doors when using special
 * Ryder's special can teleport to unwalkable spaces (off map)
 * Characters should be able to move through each other as long as they have action points to move afterwards.
-* Ryder should be disabled in combat while Sir Jacob is fighting before he sees Ryder
 * Quit button doesn't do anything (quit app)
 * Closing the electron window keeps the process alive still
 * Doors are centered wrong in their square
