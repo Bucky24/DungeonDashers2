@@ -183,6 +183,15 @@ The getTargets method takes in some data and returns appropriate targets based o
 
 | Name | Description |
 | gold | Standard gold that the player can spend. Shared among all Characters |
+| equipment | A piece of equipment that can be slotted onto a Character. In this case, the data field must follow the format of TreasureEquipmentData |
+
+### TreasureEquipmentData
+
+An object that indicates what kind of equipment should be given as treasure
+
+| Param | Description |
+| -- | -- |
+| type | An equipment ID |
 
 ### LOCATION
 

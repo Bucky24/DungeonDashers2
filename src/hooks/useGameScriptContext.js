@@ -5,7 +5,7 @@ import useRunMapTrigger from "./useRunMapTrigger";
 import useGetEntityContext from "./useGetEntityContext";
 import useTriggerEvent from "./events/useTriggerEvent";
 import MapContext, { TILE_TYPE } from "../contexts/MapContext";
-import { getTiles } from "../data/moduleData";
+import { getTiles, getEquipment } from "../data/moduleData";
 
 export default function useGameScriptContext(triggerEvent) {
     const {
@@ -21,9 +21,11 @@ export default function useGameScriptContext(triggerEvent) {
         objects,
         enemies,
         setGameState,
+        addEquipment,
     } = useContext(GameContext);
     const { getTile } = useContext(MapContext);
     const tiles = getTiles();
+    const equipment = getEquipment();
     const { enterCellSelect, startDialog, setMode } = useContext(UIContext);
     const runMapTrigger = useRunMapTrigger();
     const getEntityContext = useGetEntityContext();
@@ -38,6 +40,14 @@ export default function useGameScriptContext(triggerEvent) {
         giveTreasure: (type, amount, data) => {
             if (type === TREASURE.GOLD) {
                 addGold(amount);
+            } else if (type === TREASURE.EQUIPMENT) {
+                const { type: equipmentId } = data;
+
+                if (!equipment[equipmentId]) {
+                    console.error(`Cannot find equipment with id ${equipmentId}`);
+                } else {
+                    addEquipment(equipmentId);
+                }
             } else {
                 console.error(`Unknown treasure type: ${type}`);
             }

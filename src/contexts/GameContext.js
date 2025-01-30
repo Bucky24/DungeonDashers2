@@ -22,6 +22,7 @@ export const FLAGS = {
 
 export const TREASURE = {
     GOLD: 'gold',
+    EQUIPMENT: 'equipment',
 };
 
 export const MOVEMENT = {
@@ -65,7 +66,8 @@ export function GameProvider({ children }) {
     const [activeEnemyIndex, setActiveEnemyIndex] = useState(-1);
     const justLoadedRef = useRef(false);
     const [gameState, setGameState] = useState(GAME_STATE.PLAYING);
-    const { handleMapVictory, activeCampaign, loadCampaign } = useContext(CampaignContext);
+    const [gameEquipment, setGameEquipment] = useState([]);
+    const { handleMapVictory, activeCampaign, loadCampaign, saveCampaignSave, campaignEquipment } = useContext(CampaignContext);
 
     // this is the main way to enter combat
     useEffect(() => {
@@ -162,6 +164,7 @@ export function GameProvider({ children }) {
         combatTurn,
         activeEnemyIndex,
         gameState,
+        gameEquipment: [...gameEquipment, ...campaignEquipment],
         loadGame: (name) => {
             setLoaded(false);
             Coms.send('getSavedGame', { name }).then(async (result) => {
@@ -189,6 +192,9 @@ export function GameProvider({ children }) {
                 }, 50);
                 setGameState(GAME_STATE.PLAYING);
                 loadCampaign(result.game.campaign);
+                if (!result.game.campaign) {
+                    setGameEquipment(result.game.equipment || []);
+                }
             });
         },
         newGame: async (map) => {
@@ -347,6 +353,17 @@ export function GameProvider({ children }) {
                 return Math.max(0, gold + amount);
             });
         },
+        addEquipment: (type) => {
+            if (activeCampaign) {
+                addCampaignEquipment(type);
+            } else {
+                setGameEquipment((equipment) => {
+                    return [...equipment, {
+                        type,
+                    }];
+                });
+            }
+        },
         setPaused,
         centerCamera: (x, y) => {
             setCameraCenterPos({ x, y });
@@ -414,12 +431,17 @@ export function GameProvider({ children }) {
                     combatTurn,
                     objectId: objectIdRef.current,
                 },
+                equipment: gameEquipment,
             };
 
             await Coms.send("saveGame", {
                 name,
                 saveData,
             });
+
+            if (activeCampaign) {
+                saveCampaignSave();
+            }
         },
         setNextActiveCharacter: (startingIndex) => {
             let nextIndex = startingIndex;

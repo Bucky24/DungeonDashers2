@@ -13,6 +13,7 @@ export function CampaignProvider({ children }) {
     const [loaded, setLoaded] = useState(true);
     const { loadImage } = useContext(ImageContext);
     const [activeSave, setActiveSave] = useState(null);
+    const [campaignEquipment, setCampaignEquipment] = useState([]);
 
     useEffect(() => {
         if (activeCampaign) {
@@ -28,8 +29,10 @@ export function CampaignProvider({ children }) {
             Coms.send("loadSavedCampaign", { campaign: activeCampaign }).then((data) => {
                 if (!data.success) {
                     setActiveSave(null);
+                    setCampaignEquipment(null);
                 } else {
                     setActiveSave(data.data);
+                    setCampaignEquipment(data.data.equpment || []);
                 }
             });
         }
@@ -45,6 +48,7 @@ export function CampaignProvider({ children }) {
         campaignData,
         campaignDataRef,
         campaignSaveData: activeSave,
+        campaignEquipment,
         loadCampaign: (campaign) => {
             if (!campaign) {
                 setLoaded(true);
@@ -97,7 +101,25 @@ export function CampaignProvider({ children }) {
             });
 
             Coms.send('updateCampaignSave', { campaign: activeCampaign, data: saveData });
-        }
+        },
+        saveCampaignSave: () => {
+            if (!activeCampaign) {
+                return;
+            }
+
+            Coms.send('updateCampaignSave', { campaign: activeCampaign, data: saveData });
+        },
+        setCampaignEquipment: (equipment) => {
+            if (!equipment) {
+                equipment = [];
+            }
+            setCampaignEquipment(equipment);
+        },
+        addCampaignEquipment: (type) => {
+            setCampaignEquipment((equipment) => {
+                return [...equipment, { type }];
+            });
+        },
     };
 
     return <CampaignContext.Provider value={value}>

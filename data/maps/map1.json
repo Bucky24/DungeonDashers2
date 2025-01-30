@@ -129,14 +129,17 @@
             ]
         },
         {
-            "type": "main_flame",
-            "x": 10,
-            "y": 7,
+            "type": "main_chest1",
+            "x": 8,
+            "y": 9,
             "id": 3,
             "data": [
                 {
-                    "type": "open_door",
-                    "id": 2
+                    "type": "equipment",
+                    "amount": 1,
+                    "data": {
+                        "type": "main_Helm_of_Cool"
+                    }
                 }
             ]
         }

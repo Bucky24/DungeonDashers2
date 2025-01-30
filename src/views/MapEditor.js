@@ -42,7 +42,7 @@ export default function MapEditor({ newMap }) {
             )}
             {loaded && (<>
                 <button onClick={() => navigate("/editor/map")}>Back</button>
-                <TabBar tabs={["Map", "Triggers"]} defaultTab="Map">
+                <TabBar tabs={["Map", "Triggers"]} initialTab="Map">
                     <div style={{ position: 'relative' }}>
                         <EditorMap />
                         <EditorControls newMap={newMap} />
