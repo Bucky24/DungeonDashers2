@@ -29,10 +29,10 @@ export function CampaignProvider({ children }) {
             Coms.send("loadSavedCampaign", { campaign: activeCampaign }).then((data) => {
                 if (!data.success) {
                     setActiveSave(null);
-                    setCampaignEquipment(null);
+                    setCampaignEquipment([]);
                 } else {
                     setActiveSave(data.data);
-                    setCampaignEquipment(data.data.equpment || []);
+                    setCampaignEquipment(data.data.equipment || []);
                 }
             });
         }
@@ -88,6 +88,7 @@ export function CampaignProvider({ children }) {
                 saveData = {
                     type: 'campaign',
                     maps: [],
+                    equipment: campaignEquipment,
                 };
             }
 
@@ -105,6 +106,15 @@ export function CampaignProvider({ children }) {
         saveCampaignSave: () => {
             if (!activeCampaign) {
                 return;
+            }
+
+            let saveData = activeSave;
+            if (!activeSave) {
+                saveData = {
+                    type: 'campaign',
+                    maps: [],
+                    equipment: campaignEquipment,
+                };
             }
 
             Coms.send('updateCampaignSave', { campaign: activeCampaign, data: saveData });
