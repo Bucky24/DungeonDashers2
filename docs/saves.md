@@ -32,6 +32,7 @@ The file structure of a campaign save is as follows:
 | type | A string, "campaign", indicating this is a saved campaign |
 | maps | A list of map names, that indicate which maps the player has already won |
 | equipment | A list of SaveEquipment items |
+| characters| A list of CampaignCharacter objects |
 
 # Data Types
 
@@ -66,3 +67,12 @@ This object contains various data about the state of the game
 | gold | The current amount of gold for the party |
 | combatTurn | An enum indicating who's turn it is in combat (player or enemies) |
 | objectId | The current object ID that will be used for the next entity that is created in the game |
+
+## CampaignCharacter
+
+This object contains data about characters in a campaign
+
+| Key | Description |
+| -- | -- |
+| type | The character type |
+| slots | A list of MapEquipmentSlots from the game map |
