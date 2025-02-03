@@ -10,6 +10,7 @@ export const UI_MODE = {
     MENU: ' mode/menu',
     SAVE_MENU: 'mode/save_menu',
     GAME_END: 'mode/game_end',
+    EQUIPMENT_MENU: 'mode/equipment_menu',
 };
 
 export const LOCATION = {
@@ -18,6 +19,7 @@ export const LOCATION = {
 
 export const MENU_ITEMS = [
     'Continue',
+    'Equipment',
     'Save Game',
     'Exit Game',
 ];
@@ -126,6 +128,8 @@ export function UIProvider({ children }) {
                 setMode(UI_MODE.SAVE_MENU);
             } else if (item === "Exit Game") {
                 navigate("/");
+            } else if (item === 'Equipment') {
+                setMode(UI_MODE.EQUIPMENT_MENU);
             }
 
             setShowMenu(false);

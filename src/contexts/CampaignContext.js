@@ -14,6 +14,7 @@ export function CampaignProvider({ children }) {
     const { loadImage } = useContext(ImageContext);
     const [activeSave, setActiveSave] = useState(null);
     const [campaignEquipment, setCampaignEquipment] = useState([]);
+    const [campaignCharacters, setCampaignCharacters] = useState([]);
 
     useEffect(() => {
         if (activeCampaign) {
@@ -30,9 +31,11 @@ export function CampaignProvider({ children }) {
                 if (!data.success) {
                     setActiveSave(null);
                     setCampaignEquipment([]);
+                    setCampaignCharacters([]);
                 } else {
                     setActiveSave(data.data);
                     setCampaignEquipment(data.data.equipment || []);
+                    setCampaignCharacters(data.data.characters || []);
                 }
             });
         }
@@ -49,6 +52,7 @@ export function CampaignProvider({ children }) {
         campaignDataRef,
         campaignSaveData: activeSave,
         campaignEquipment,
+        campaignCharacters,
         loadCampaign: (campaign) => {
             if (!campaign) {
                 setLoaded(true);
@@ -89,6 +93,7 @@ export function CampaignProvider({ children }) {
                     type: 'campaign',
                     maps: [],
                     equipment: campaignEquipment,
+                    characters: campaignCharacters,
                 };
             }
 

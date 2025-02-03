@@ -16,6 +16,7 @@ import SaveDialog from './SaveDialog';
 import VictoryDialog from './VictoryDialog';
 import DialogTopLeftImage from '../../assets/dialog_top_left.png';
 import DialogBottomRightImage from '../../assets/dialog_bottom_right.png';
+import EquipmentDialog from './EquipmentDialog';
 
 export default function GameMap() {
     const { map } = useContext(MapContext);
@@ -219,6 +220,7 @@ export default function GameMap() {
                 <GameMenu />
             </div>
         </div>}
+        {mode === UI_MODE.EQUIPMENT_MENU && <EquipmentDialog />}
         {mode === UI_MODE.SAVE_MENU && <SaveDialog />}
         {gameState === GAME_STATE.WON && <VictoryDialog />}
     </>);

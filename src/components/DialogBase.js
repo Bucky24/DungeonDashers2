@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-export default function DialogBase({ children }) {
+export default function DialogBase({ children, onClose }) {
     const dialogRef = useRef();
 
     useEffect(() => {
@@ -8,6 +8,19 @@ export default function DialogBase({ children }) {
     }, [dialogRef.current]);
 
     return <dialog style={{ top: 40 }} ref={dialogRef}>
-        {children}
+        <div style={{
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            padding: 10,
+            cursor: 'pointer',
+        }} onClick={() => {
+            if (onClose) onClose();
+        }}>X</div>
+        <div style={{
+            paddingTop: 10,
+        }}>
+            {children}
+        </div>
     </dialog>
 }

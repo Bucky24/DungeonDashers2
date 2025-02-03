@@ -67,7 +67,14 @@ export function GameProvider({ children }) {
     const justLoadedRef = useRef(false);
     const [gameState, setGameState] = useState(GAME_STATE.PLAYING);
     const [gameEquipment, setGameEquipment] = useState([]);
-    const { handleMapVictory, activeCampaign, loadCampaign, saveCampaignSave, campaignEquipment } = useContext(CampaignContext);
+    const {
+        handleMapVictory,
+        activeCampaign,
+        loadCampaign,
+        saveCampaignSave,
+        campaignEquipment,
+        campaignCharacters,
+    } = useContext(CampaignContext);
 
     // this is the main way to enter combat
     useEffect(() => {
@@ -154,7 +161,24 @@ export function GameProvider({ children }) {
     const value = {
         loaded,
         objects,
-        characters,
+        characters: characters.map((character) => {
+            // not efficient
+            let campaignCharacter = null;
+            if (activeCampaign) {
+                for (const char of campaignCharacters) {
+                    if (char.type === character.type) {
+                        campaignCharacter = char;
+                    }
+                }
+            }
+            if (campaignCharacter) {
+                return {
+                    ...character,
+                    slots: campaignCharacter.slots,
+                };
+            }
+            return character;
+        }),
         activeCharacterIndex,
         gold,
         paused,
