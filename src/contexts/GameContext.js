@@ -403,6 +403,7 @@ export function GameProvider({ children }) {
                 type,
                 x,
                 y,
+                slots: [],
             };
 
             setCharacters((entities) => {
@@ -506,6 +507,9 @@ export function GameProvider({ children }) {
             }
         },
         setGameState,
+        assignEquipmentToCharacter: (characterType, equipmentType) => {
+
+        },
     };
 
     return (

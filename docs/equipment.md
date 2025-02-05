@@ -13,7 +13,7 @@ The Manifest is a JSON file with the following format:
 | Key | Description |
 | -- | -- |
 | id | the ID of the equipment (must match the ID in the module manifest.json) |
-| type | The type of the equipment (equipment can only be put into a Slot of matching type) |
+| slot | The slot of the equipment (equipment can only be put into a Slot of matching type) |
 | name | The name of the equipment |
 | mainImage | The portrait image for the equipment |
 | stats | A list of StatModifiers |

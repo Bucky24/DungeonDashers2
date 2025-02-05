@@ -57,6 +57,12 @@ export default function ModuleEquipmentEditor({ module }) {
                         }} /></td>
                     </tr>
                     <tr>
+                        <td>Slot</td>
+                        <td><TextField value={activeEquipmentData.slot} onBlur={(newValue) => {
+                            changeEquipment(module, activeEquipment, "slot", newValue);
+                        }} /></td>
+                    </tr>
+                    <tr>
                         <td>Main Image</td>
                         <td><TextField value={activeEquipmentData.mainImage.image} onBlur={(newValue) => {
                             changeEquipment(module, activeEquipment, "mainImage.image", newValue);
