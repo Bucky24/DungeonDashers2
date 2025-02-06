@@ -25,7 +25,7 @@ export const MENU_ITEMS = [
 ];
 
 export function UIProvider({ children }) {
-    const [mode, setMode] = useState(UI_MODE.GAME);
+    const [mode, setMode] = useState(UI_MODE.EQUIPMENT_MENU);
     const [cellSelectData, setCellSelectData] = useState();
     const [dialog, setDialog] = useState();
     const [showMenu, setShowMenu] = useState(false);

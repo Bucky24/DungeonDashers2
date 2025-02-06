@@ -92,10 +92,11 @@ export function CampaignProvider({ children }) {
                 saveData = {
                     type: 'campaign',
                     maps: [],
-                    equipment: campaignEquipment,
-                    characters: campaignCharacters,
                 };
             }
+
+            saveData.equipment = campaignEquipment;
+            saveData.characters = campaignCharacters;
 
             const existingMaps = saveData.maps.map((data) => data.map);
             if (existingMaps.includes(map)) {
@@ -118,9 +119,11 @@ export function CampaignProvider({ children }) {
                 saveData = {
                     type: 'campaign',
                     maps: [],
-                    equipment: campaignEquipment,
                 };
             }
+
+            saveData.equipment = campaignEquipment;
+            saveData.characters = campaignCharacters;
 
             Coms.send('updateCampaignSave', { campaign: activeCampaign, data: saveData });
         },
@@ -133,6 +136,42 @@ export function CampaignProvider({ children }) {
         addCampaignEquipment: (type) => {
             setCampaignEquipment((equipment) => {
                 return [...equipment, { type }];
+            });
+        },
+        assignCampaignEquipment: (characterType, equipmentType, slot) => {
+            setCampaignCharacters((entities) => {
+                const newEntities = [...entities];
+                let found = false;
+                for (const char of newEntities) {
+                    if (char.type === characterType) {
+                        found = true;
+                        const newSlots = char.slots || [];
+                        newSlots.push({
+                            type: equipmentType,
+                            slot,
+                        });
+                        break;
+                    }
+                }
+
+                if (!found) {
+                    newEntities.push({
+                        type: characterType,
+                        slots: [{
+                            type: equipmentType,
+                            slot,
+                        }],
+                    });
+                }
+
+                return newEntities;
+            });
+            setCampaignEquipment((equipments) => {
+                const firstIndex = equipments.findIndex(item => item.type === equipmentType);
+                console.log(equipments, equipmentType, firstIndex);
+                const newEquipment = [...equipments];
+                newEquipment.splice(firstIndex, 1);
+                return newEquipment;
             });
         },
     };

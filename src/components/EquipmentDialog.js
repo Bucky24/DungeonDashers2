@@ -8,8 +8,18 @@ import ModuleContext from '../contexts/ModuleContext';
 export default function EquipmentDialog() {
     const { setMode } = useContext(UIContext);
     const { characters: characterData, equipment: equipmentData } = useContext(ModuleContext);
-    const { gameEquipment, characters } = useContext(GameContext);
+    const { gameEquipment, characters, assignEquipmentToCharacter } = useContext(GameContext);
     const [tempAssign, setTempAssign] = useState({});
+
+    const assignedEquipment = [];
+    characters.map((character) => {
+        for (const slot of character.slots) {
+            assignedEquipment.push({
+                ...slot,
+                character: character.type,
+            });
+        }
+    });
 
     return <DialogBase onClose={() => {
         setMode(UI_MODE.GAME);
@@ -49,8 +59,22 @@ export default function EquipmentDialog() {
 
                                         const characterInfo = characterData[character];
                                         const equipmentInfo = equipmentData[equipment.type];
+                                        const gameCharacter = characters.find((char) => {
+                                            return char.type === character;
+                                        });
 
-                                        console.log(characterInfo, equipmentInfo);
+                                        const equippedSlots = (gameCharacter.slots || []).map(item => item.slot);
+                                        const validSlots = [];
+                                        for (const characterSlot of characterInfo.slots) {
+                                            if (characterSlot.type === equipmentInfo.slot && !equippedSlots.includes(equipment.slot)) {
+                                                validSlots.push(equipmentInfo.slot);
+                                            }
+                                        }
+
+                                        if (validSlots.length === 0) return;
+                                        const slot = validSlots[0];
+
+                                        assignEquipmentToCharacter(character, equipment.type, slot);
                                     }}>
                                         Assign
                                     </button>
@@ -62,6 +86,26 @@ export default function EquipmentDialog() {
             </div>
             <div>
                 Assigned equipment
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Assigned To</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {assignedEquipment.map((equipment) => {
+                            return <tr>
+                                <td>{equipment.type}</td>
+                                <td>{equipment.character}</td>
+                                <td>
+                                    <button>Remove</button>
+                                </td>
+                            </tr>
+                        })}
+                    </tbody>
+                </table>
             </div>
         </div>
     </DialogBase>
