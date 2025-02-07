@@ -76,6 +76,7 @@ v0.8.0 (unreleased)
 * Added directions for characters
 * Added equipment slots for characters
 * Equipment as an item in modules and editor
+* Equipment assign and unassign dialog
 
 Bug Fixes:
 * Sir Jacob is no longer stopped by chests

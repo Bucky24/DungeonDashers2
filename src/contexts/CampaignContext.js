@@ -174,6 +174,29 @@ export function CampaignProvider({ children }) {
                 return newEquipment;
             });
         },
+        removeCampaignEquipment: (characterType, equipmentType) => {
+            setCampaignCharacters((entities) => {
+                const newEntities = [...entities];
+                for (const char of newEntities) {
+                    if (char.type === characterType) {
+                        const newSlots = [...char.slots] || [];
+                        const firstIndex = newSlots.findIndex(item => item.type === equipmentType);
+                        newSlots.splice(firstIndex, 1);
+                        char.slots = newSlots;
+                        break;
+                    }
+                }
+
+                return newEntities;
+            });
+            setCampaignEquipment((equipments) => {
+                const newEquipment = [...equipments];
+                newEquipment.push({
+                    type: equipmentType,
+                });
+                return newEquipment;
+            });
+        },
     };
 
     return <CampaignContext.Provider value={value}>

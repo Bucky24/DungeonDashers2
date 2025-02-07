@@ -75,6 +75,7 @@ export function GameProvider({ children }) {
         campaignEquipment,
         campaignCharacters,
         assignCampaignEquipment,
+        removeCampaignEquipment,
     } = useContext(CampaignContext);
 
     // this is the main way to enter combat
@@ -529,6 +530,31 @@ export function GameProvider({ children }) {
                 setGameEquipment((equipments) => {
                     const firstIndex = equipments.findIndex(item => item.type === equipmentType);
                     return [...equipments].splice(firstIndex, 1);
+                });
+            }
+        },
+        removeEquipmentFromCharacter: (characterType, equipmentType) => {
+            if (activeCampaign) {
+                removeCampaignEquipment(characterType, equipmentType);
+            } else {
+                setCharacters((entities) => {
+                    const newEntities = [...entities];
+                    for (const char of newEntities) {
+                        if (char.type === characterType) {
+                            const newSlots = [...char.slots] || [];
+                            const firstIndex = newSlots.findIndex(item => item.type === equipmentType);
+                            newSlots.splice(firstIndex, 1);
+                        }
+                    }
+    
+                    return newEntities;
+                });
+                setGameEquipment((equipments) => {
+                    const newEquipment = [...equipments];
+                    newEquipment.push({
+                        type: equipmentType,
+                    });
+                    return newEquipment;
                 });
             }
         },

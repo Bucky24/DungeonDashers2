@@ -8,7 +8,12 @@ import ModuleContext from '../contexts/ModuleContext';
 export default function EquipmentDialog() {
     const { setMode } = useContext(UIContext);
     const { characters: characterData, equipment: equipmentData } = useContext(ModuleContext);
-    const { gameEquipment, characters, assignEquipmentToCharacter } = useContext(GameContext);
+    const {
+        gameEquipment,
+        characters,
+        assignEquipmentToCharacter,
+        removeEquipmentFromCharacter,
+    } = useContext(GameContext);
     const [tempAssign, setTempAssign] = useState({});
 
     const assignedEquipment = [];
@@ -37,7 +42,7 @@ export default function EquipmentDialog() {
                     </thead>
                     <tbody>
                         {gameEquipment.map((equipment, index) => {
-                            return <tr>
+                            return <tr key={`unassigned_${index}`}>
                                 <td>{equipment.type}</td>
                                 <td>
                                     <select onChange={(e) => {
@@ -48,7 +53,7 @@ export default function EquipmentDialog() {
                                     }}>
                                         <option value=''>None</option>
                                         {characters.map((character) => {
-                                            return <option value={character.type}>{character.type}</option>
+                                            return <option key={character} value={character.type}>{character.type}</option>
                                         })}
                                     </select>
                                     <button onClick={() => {
@@ -95,12 +100,14 @@ export default function EquipmentDialog() {
                         </tr>
                     </thead>
                     <tbody>
-                        {assignedEquipment.map((equipment) => {
-                            return <tr>
+                        {assignedEquipment.map((equipment, index) => {
+                            return <tr key={`assigned_${index}`}>
                                 <td>{equipment.type}</td>
-                                <td>{equipment.character}</td>
+                                <td>{equipment.character} - {equipment.slot}</td>
                                 <td>
-                                    <button>Remove</button>
+                                    <button onClick={() => {
+                                        removeEquipmentFromCharacter(equipment.character, equipment.type);
+                                    }}>Remove</button>
                                 </td>
                             </tr>
                         })}
