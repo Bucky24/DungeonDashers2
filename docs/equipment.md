@@ -34,8 +34,8 @@ There are a few valid Stats that can be modified by Equipment
 
 | Stat | Description |
 | -- | -- |
-| maxHp | The max hp of the Entity |
-| actionPoints | The action points the Entity has |
+| maxHP | The max hp of the Entity |
+| maxActionPoints | The max action points the Entity has |
 
 ## Operator
 

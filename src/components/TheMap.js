@@ -27,6 +27,8 @@ export default function TheMap({
     combatTurnName,
     combatPointsLeft,
     combatPointsMax,
+    combatHp,
+    combatMaxHp,
     fullFocus,
     showInactive,
     heightOffset,
@@ -425,6 +427,7 @@ export default function TheMap({
                 <Text x={size.width-200} y={size.height-200+24} font="24px Arial">Combat</Text>
                 <Text x={size.width-200} y={size.height-200+36} font="12px Arial">Current Turn: {combatTurnName}</Text>
                 <Text x={size.width-200} y={size.height-200+48} font="12px Arial">AP Left: {combatPointsLeft}/{combatPointsMax}</Text>
+                <Text x={size.width-200} y={size.height-200+60} font="12px Arial">HP: {combatHp}/{combatMaxHp}</Text>
             </>}
         </Canvas>
     );

@@ -522,6 +522,8 @@ export function GameProvider({ children }) {
                                 type: equipmentType,
                                 slot,
                             });
+                            char.slots = newSlots;
+                            break;
                         }
                     }
     
@@ -529,7 +531,9 @@ export function GameProvider({ children }) {
                 });
                 setGameEquipment((equipments) => {
                     const firstIndex = equipments.findIndex(item => item.type === equipmentType);
-                    return [...equipments].splice(firstIndex, 1);
+                    const newEquipment = [...equipments];
+                    newEquipment.splice(firstIndex, 1);
+                    return newEquipment;
                 });
             }
         },
@@ -544,6 +548,7 @@ export function GameProvider({ children }) {
                             const newSlots = [...char.slots] || [];
                             const firstIndex = newSlots.findIndex(item => item.type === equipmentType);
                             newSlots.splice(firstIndex, 1);
+                            char.slots = newSlots;
                         }
                     }
     
