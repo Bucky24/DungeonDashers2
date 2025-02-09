@@ -50,3 +50,16 @@ export function getHp(character) {
 
     return getMaxHp(character);
 }
+
+export function getMaxActionPoints(character) {
+    const stats = getCharacterStats(character);
+    return stats.maxActionPoints;
+}
+
+export function getActionPoints(character) {
+    if (character.actionPoints) {
+        return character.actionPoints;
+    }
+
+    return getMaxActionPoints(character);
+}

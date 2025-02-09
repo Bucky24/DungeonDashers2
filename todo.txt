@@ -2,12 +2,11 @@ For v0.8.0
 * QOL
     * Improve green square for selection of spaces
     * Add in tooltips for actions at specific parts
-* Add equipment back, provide effects
 * Two full campaign missions from original game
 * Full data validation and version control/conversion
 * Add portraits for all four characters (missing Sir Jacob)
 * Begin work on audio system
-* Basic menu for character stats/equipment
+* Basic menu for character stats
 * More nuanced stats for characters and enemies
 * Better enemy AI
     * Better pathfinding
@@ -32,3 +31,8 @@ For v0.9.0
 * Better victory dialog
 * Character xp and basic leveling
 * Projectiles for ranged attacks
+* Additional stats should be modified by equipment
+    * HP
+    * attack
+    * Armor
+* Improve and merge character stats and equipment, make it look like original

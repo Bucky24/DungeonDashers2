@@ -3,12 +3,20 @@ import { useContext } from 'react';
 import GameContext, { EVENTS } from '../contexts/GameContext';
 import getEntityFlags from '../utils/getEntityFlags';
 import { getCharacters, getEnemies, getObjects } from '../data/moduleData';
+import { getActionPoints, getHp } from '../data/attributeHelper';
 
 function useGetGenericEntityContext() {
     return (entityData, moduleData, entityType, updateEntity) => {
         const myFlags = getEntityFlags({ type: entityType, entity: entityData }, moduleData);
-        const myHp = entityData.hp || moduleData.maxHP;
-        const actionPoints = entityData.actionPoints || moduleData.actionPoints;
+
+        let myHp = entityData.hp || moduleData.maxHP;
+        if (entityType === 'character') {
+            myHp = getHp(entityData);
+        }
+        let actionPoints = entityData.actionPoints || moduleData.actionPoints;
+        if (entityType === 'character') {
+            actionPoints = getActionPoints(entityData);
+        }
 
         return {
             entityType,

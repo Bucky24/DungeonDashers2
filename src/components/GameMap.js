@@ -17,7 +17,7 @@ import VictoryDialog from './VictoryDialog';
 import DialogTopLeftImage from '../../assets/dialog_top_left.png';
 import DialogBottomRightImage from '../../assets/dialog_bottom_right.png';
 import EquipmentDialog from './EquipmentDialog';
-import { getHp, getMaxHp } from '../data/attributeHelper';
+import { getHp, getMaxHp, getActionPoints, getMaxActionPoints } from '../data/attributeHelper';
 
 export default function GameMap() {
     const { map } = useContext(MapContext);
@@ -104,11 +104,8 @@ export default function GameMap() {
     if (combatTurn === COMBAT_TURN.PLAYER) {
         const activeCharacter = characters[activeCharacterIndex];
         const activeData = characterData[activeCharacter.type];
-        totalAp = activeCharacter.actionPoints;
-        if (totalAp === undefined) {
-            totalAp = activeData.actionPoints;
-        }
-        maxAp = activeData?.actionPoints;
+        totalAp = getActionPoints(activeCharacter);
+        maxAp = getMaxActionPoints(activeCharacter);
         combatName = activeData.name;
         hp = getHp(activeCharacter);
         maxHp = getMaxHp(activeCharacter);

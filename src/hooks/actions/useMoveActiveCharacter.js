@@ -5,6 +5,7 @@ import ModuleContext from "../../contexts/ModuleContext";
 import useTriggerEvent from "../events/useTriggerEvent";
 import getEntityFlags from "../../utils/getEntityFlags";
 import getEntityData from "../../data/helpers/getEntityData";
+import { getActionPoints } from "../../data/attributeHelper";
 
 export default function useMoveActiveCharacter() {
     const {
@@ -71,10 +72,7 @@ export default function useMoveActiveCharacter() {
         const pointCost = collidableEntities.length > 0 ? COMBAT_ACTION.ATTACK : COMBAT_ACTION.MOVE;
         let totalPoints;
         if (hasActiveEnemies) {
-            totalPoints = character.actionPoints;
-            if (totalPoints === undefined) {
-                totalPoints = charData.actionPoints;
-            }
+            totalPoints = getActionPoints(character);
             if (totalPoints < pointCost) {
                 return;
             }

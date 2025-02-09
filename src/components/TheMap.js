@@ -6,6 +6,7 @@ import NotFoundImage from '../../assets/not_found.png';
 import { FLAGS } from '../contexts/GameContext';
 import { BASE_STATES } from '../contexts/MapContext';
 import ModuleContext from '../contexts/ModuleContext';
+import { getHp, getMaxHp } from '../data/attributeHelper';
 
 export default function TheMap({
     map,
@@ -238,8 +239,8 @@ export default function TheMap({
                         let width = data?.width || 1;
                         let height = data?.height || 1;
 
-                        let maxHp = 1;
-                        let hp = character.hp;
+                        let maxHp = getMaxHp(character);
+                        let hp = getHp(character);
 
                         if (data) {
                             const state = character.state || BASE_STATES.DOWN;
@@ -259,11 +260,6 @@ export default function TheMap({
                             if (imageForState) {
                                 const imageName = imageForState.image;
                                 image = getImage(imageName);
-                            }
-
-                            maxHp = data.maxHP;
-                            if (!hp) {
-                                hp = maxHp;
                             }
                         }
 
