@@ -21,12 +21,14 @@ function getCharacterStats(character) {
     const charsData = getCharacters();
     const charData = charsData[character.type];
 
+    if (!charData) {
+        return {};
+    }
+
     const initialStats = {
         maxHP: charData.maxHP,
         maxActionPoints: charData.actionPoints,
     };
-
-    console.log(initialStats, character.slots);
 
     let currentStats = {...initialStats};
     if (character.slots) {

@@ -78,6 +78,7 @@ v0.8.0 (unreleased)
 * Equipment as an item in modules and editor
 * Equipment assign and unassign dialog
 * Max HP and Action Points can be modified by equipment
+* Improve green square for selection of spaces
 
 Bug Fixes:
 * Sir Jacob is no longer stopped by chests

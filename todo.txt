@@ -1,6 +1,5 @@
 For v0.8.0
 * QOL
-    * Improve green square for selection of spaces
     * Add in tooltips for actions at specific parts
 * Two full campaign missions from original game
 * Full data validation and version control/conversion

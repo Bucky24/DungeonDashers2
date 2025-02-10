@@ -56,6 +56,7 @@ export function UIProvider({ children }) {
                     cells.push({
                         x: i,
                         y: startY,
+                        direction: 'left',
                     });
                 }
                 // right line
@@ -63,6 +64,7 @@ export function UIProvider({ children }) {
                     cells.push({
                         x: i,
                         y: startY,
+                        direction: 'right',
                     });
                 }
                 // top line
@@ -70,6 +72,7 @@ export function UIProvider({ children }) {
                     cells.push({
                         x: startX,
                         y: i,
+                        direction: 'up',
                     });
                 }
                 // bottom line
@@ -77,6 +80,7 @@ export function UIProvider({ children }) {
                     cells.push({
                         x: startX,
                         y: i,
+                        direction: 'down',
                     });
                 }
             } else if (Array.isArray(type)) {

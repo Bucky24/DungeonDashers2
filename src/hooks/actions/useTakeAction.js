@@ -5,6 +5,7 @@ import { useContext } from "react";
 import GameContext from "../../contexts/GameContext";
 import UIContext, { UI_MODE } from "../../contexts/UIContext";
 import { getCharacters } from "../../data/moduleData";
+import { getMaxActionPoints } from "../../data/attributeHelper";
 
 export default function takeAction() {
     const moveActiveCharacter = useMoveActiveCharacter();
