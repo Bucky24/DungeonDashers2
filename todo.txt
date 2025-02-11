@@ -6,7 +6,6 @@ For v0.8.0
 * Add portraits for all four characters (missing Sir Jacob)
 * Begin work on audio system
 * Basic menu for character stats
-* More nuanced stats for characters and enemies
 * Better enemy AI
     * Better pathfinding
 * Fix known bugs
@@ -14,6 +13,7 @@ For v0.8.0
 For v0.9.0
 * Basic animation system, movement and attack
 * Editor for equipment
+* More nuanced stats for characters and enemies (stat ranges)
 * Three full campaign missions from original game
 * More complex AI - better pathfinding, fleeing after attack, summoning
 * Improve script editor
