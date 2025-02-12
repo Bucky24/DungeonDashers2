@@ -13,5 +13,7 @@ module.exports = function({ campaign, data }) {
         };
     }
 
+    data.version = 2;
+
     fs.writeFileSync(file, JSON.stringify(data, null, 4));
 }

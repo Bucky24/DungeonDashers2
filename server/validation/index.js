@@ -1,6 +1,6 @@
 const validators = require("./validators");
 
-function validateData(type, data) {
+async function validateData(type, data) {
     if (!validators[type]) {
         console.error(`No validator for type ${type}`);
         return;
@@ -16,8 +16,10 @@ function validateData(type, data) {
         return;
     }
 
-    const validator = validators[type][data.version];
+    const validator = await validators[type][data.version];
 
     // validator should throw errors if bad validation
-    validator(data);
+    return validator(data);
 }
+
+module.exports = validateData;

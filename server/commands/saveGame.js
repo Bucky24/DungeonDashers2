@@ -7,6 +7,7 @@ module.exports = function({ name, saveData }) {
     const dir = directories.saves.save[0];
     const fullFile = path.resolve(dir, `${name}.json`);
     saveData.type = "game";
+    saveData.version = 2;
 
     if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });

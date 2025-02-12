@@ -23,6 +23,7 @@ const updateCampaignSave = require("./commands/updateCampaignSave");
 const loadSavedCampaign = require("./commands/loadSavedCampaign");
 const getModuleNames = require("./commands/getModuleNames");
 const setSetting = require("./commands/setSetting");
+const validateData = require('./validation');
 
 module.exports = {
     getSettings,
@@ -47,7 +48,7 @@ module.exports = {
             games: filteredSaves,
         };
     },
-    getSavedGame: ({ name }) => {
+    getSavedGame: async ({ name }) => {
         const file = locateInDirectories(`${name}.json`, directories.saves.load);
 
         if (!file) {
@@ -59,10 +60,18 @@ module.exports = {
 
         const content = getJsonFile(file);
 
-        return {
-            success: true,
-            game: content,
-        };
+        try {
+            const validatedContent = await validateData("save", content);
+            return {
+                success: true,
+                game: validatedContent,
+            };
+        } catch (err) {
+            return {
+                success: false,
+                error: err.message,
+            };
+        }
     },
     getMap: ({ name }) => {
         const file = locateInDirectories(`${name}.json`, directories.maps.load);
