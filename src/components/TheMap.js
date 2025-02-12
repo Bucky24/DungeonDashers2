@@ -6,6 +6,8 @@ import NotFoundImage from '../../assets/not_found.png';
 import { FLAGS } from '../contexts/GameContext';
 import { BASE_STATES } from '../contexts/MapContext';
 import ModuleContext from '../contexts/ModuleContext';
+import { getHp, getMaxHp } from '../data/attributeHelper';
+import { Shape } from '@bucky24/react-canvas/build/main';
 
 export default function TheMap({
     map,
@@ -27,6 +29,8 @@ export default function TheMap({
     combatTurnName,
     combatPointsLeft,
     combatPointsMax,
+    combatHp,
+    combatMaxHp,
     fullFocus,
     showInactive,
     heightOffset,
@@ -236,8 +240,8 @@ export default function TheMap({
                         let width = data?.width || 1;
                         let height = data?.height || 1;
 
-                        let maxHp = 1;
-                        let hp = character.hp;
+                        let maxHp = getMaxHp(character);
+                        let hp = getHp(character);
 
                         if (data) {
                             const state = character.state || BASE_STATES.DOWN;
@@ -257,11 +261,6 @@ export default function TheMap({
                             if (imageForState) {
                                 const imageName = imageForState.image;
                                 image = getImage(imageName);
-                            }
-
-                            maxHp = data.maxHP;
-                            if (!hp) {
-                                hp = maxHp;
                             }
                         }
 
@@ -395,7 +394,29 @@ export default function TheMap({
                     })}
                 </Layer>
                 {selectionRectangles && <Layer id="selection">
-                    {selectionRectangles.map(({ x, y }) => {
+                    {selectionRectangles.map(({ x, y, direction }) => {
+                        const pointsByDir = {
+                            left: [
+                                { x: 14, y: 5, },
+                                { x: 7, y: 12, },
+                                { x: 14, y: 20, },
+                            ],
+                            right: [
+                                { x: 10, y: 5, },
+                                { x: 17, y: 12, },
+                                { x: 10, y: 20, },
+                            ],
+                            up: [
+                                { x: 12, y: 9, },
+                                { x: 5, y: 16, },
+                                { x: 20, y: 16, },
+                            ],
+                            down: [
+                                { x: 12, y: 16, },
+                                { x: 5, y: 9, },
+                                { x: 20, y: 9, },
+                            ],
+                        }
                         return <Cell
                             key={`selection_${x}_${y}`}
                             x={x}
@@ -403,11 +424,26 @@ export default function TheMap({
                             width={1}
                             height={1}
                             cb={(dims) => {
-                                return <Rect
-                                    {...dims}
-                                    color="#0f0"
-                                    fill={selectedRectangle?.x === x && selectedRectangle?.y === y}
-                                />
+                                return <>
+                                    <Rect
+                                        {...dims}
+                                        color="#0f0"
+                                        fill={selectedRectangle?.x === x && selectedRectangle?.y === y}
+                                    />
+                                    {pointsByDir[direction] && <>
+                                        <Shape
+                                            {...dims}
+                                            points={pointsByDir[direction]}
+                                            color="#000"
+                                            fill={true}
+                                        />
+                                        <Shape
+                                            {...dims}
+                                            points={pointsByDir[direction]}
+                                            color="#0f0"
+                                        />
+                                    </>}
+                                </>
                             }}
                         />
                     })}
@@ -425,6 +461,7 @@ export default function TheMap({
                 <Text x={size.width-200} y={size.height-200+24} font="24px Arial">Combat</Text>
                 <Text x={size.width-200} y={size.height-200+36} font="12px Arial">Current Turn: {combatTurnName}</Text>
                 <Text x={size.width-200} y={size.height-200+48} font="12px Arial">AP Left: {combatPointsLeft}/{combatPointsMax}</Text>
+                <Text x={size.width-200} y={size.height-200+60} font="12px Arial">HP: {combatHp}/{combatMaxHp}</Text>
             </>}
         </Canvas>
     );

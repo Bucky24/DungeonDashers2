@@ -25,7 +25,7 @@ export const MENU_ITEMS = [
 ];
 
 export function UIProvider({ children }) {
-    const [mode, setMode] = useState(UI_MODE.EQUIPMENT_MENU);
+    const [mode, setMode] = useState(UI_MODE.GAME);
     const [cellSelectData, setCellSelectData] = useState();
     const [dialog, setDialog] = useState();
     const [showMenu, setShowMenu] = useState(false);
@@ -56,6 +56,7 @@ export function UIProvider({ children }) {
                     cells.push({
                         x: i,
                         y: startY,
+                        direction: 'left',
                     });
                 }
                 // right line
@@ -63,6 +64,7 @@ export function UIProvider({ children }) {
                     cells.push({
                         x: i,
                         y: startY,
+                        direction: 'right',
                     });
                 }
                 // top line
@@ -70,6 +72,7 @@ export function UIProvider({ children }) {
                     cells.push({
                         x: startX,
                         y: i,
+                        direction: 'up',
                     });
                 }
                 // bottom line
@@ -77,6 +80,7 @@ export function UIProvider({ children }) {
                     cells.push({
                         x: startX,
                         y: i,
+                        direction: 'down',
                     });
                 }
             } else if (Array.isArray(type)) {

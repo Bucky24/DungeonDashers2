@@ -17,7 +17,8 @@ export default function EquipmentDialog() {
     const [tempAssign, setTempAssign] = useState({});
 
     const assignedEquipment = [];
-    characters.map((character) => {
+    characters.forEach((character) => {
+        if (!character.slots) return;
         for (const slot of character.slots) {
             assignedEquipment.push({
                 ...slot,

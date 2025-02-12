@@ -11,7 +11,7 @@
                 "type": "CONST",
                 "data": 10
             },
-            "stat": "actionPoints"
+            "stat": "maxHP"
         }
     ],
     "scripts": [],

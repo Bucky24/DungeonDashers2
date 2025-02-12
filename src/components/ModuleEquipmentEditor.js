@@ -87,8 +87,8 @@ export default function ModuleEquipmentEditor({ module }) {
                                 <select value={stat.stat} onChange={(e) => {
                                     changeEquipment(module, activeEquipment, `stats.${index}.stat`, e.target.value);
                                 }}>
-                                    <option value="maxHp">Max HP</option>
-                                    <option value="actionPoints">Action Points</option>
+                                    <option value="maxHP">Max HP</option>
+                                    <option value="maxActionPoints">Max Action Points</option>
                                 </select>
                             </td>
                             <td>

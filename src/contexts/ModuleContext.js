@@ -24,7 +24,7 @@ const NUMERIC_ENTITY_FILEDS = [
     'width',
     'height',
     'actionPoints',
-    'maxHp',
+    'maxHP',
 ];
 
 export function ModuleProvider({ children }) {

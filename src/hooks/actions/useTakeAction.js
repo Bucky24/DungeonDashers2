@@ -5,6 +5,7 @@ import { useContext } from "react";
 import GameContext from "../../contexts/GameContext";
 import UIContext, { UI_MODE } from "../../contexts/UIContext";
 import { getCharacters } from "../../data/moduleData";
+import { getMaxActionPoints } from "../../data/attributeHelper";
 
 export default function takeAction() {
     const moveActiveCharacter = useMoveActiveCharacter();
@@ -49,8 +50,7 @@ export default function takeAction() {
         [ACTION_MAP.NEXT_CHARACTER]: () => {
             if (paused) return;
             const activeCharacter = characters[activeCharacterIndex];
-            const charData = characterData[activeCharacter.type];
-            setCharacterProperty(activeCharacter.type, "actionPoints", charData.actionPoints);
+            setCharacterProperty(activeCharacter.type, "actionPoints", getMaxActionPoints(activeCharacter));
             setNextActiveCharacter();
         },
         [ACTION_MAP.OPEN_MENU]: () => {

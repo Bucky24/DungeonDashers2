@@ -1,22 +1,29 @@
 For v0.8.0
 * QOL
-    * Improve green square for selection of spaces
     * Add in tooltips for actions at specific parts
-* Add equipment back, provide effects
 * Two full campaign missions from original game
-* Full data validation and version control/conversion
+* Validation system for saves
 * Add portraits for all four characters (missing Sir Jacob)
 * Begin work on audio system
 * Basic menu for character stats
 * Better enemy AI
-    * Better pathfinding
+    * Better pathfinding (don't get stuck or move back and forth)
 * Fix known bugs
 
 For v0.9.0
 * Basic animation system, movement and attack
 * Three full campaign missions from original game
-* More complex AI - better pathfinding, fleeing after attack, summoning
+* More nuanced stats for characters and enemies (stat ranges)
+* More complex AI
+    * better pathfinding
+    * fleeing after attack
+    * summoning
+    * Ranged attacks
+* Add ability to use utility scripts and use scripts from other modules
 * Improve script editor
+    * Function helper
+    * Maybe intellisense-like system?
+    * Color coding
 * Full images for all directions for characters/enemies
 * Add asset editor for adding images/sounds/etc to modules
 * Nicer UI for editors
@@ -33,4 +40,9 @@ For v0.9.0
 * Projectiles for ranged attacks
 * More equipment possibilities
 * Schema validation and editors for object data
-* More nuanced stats for characters and enemies
+* Additional stats should be modified by equipment
+    * HP
+    * attack
+    * Armor
+* Improve and merge character stats and equipment, make it look like original
+* Data validation for modules

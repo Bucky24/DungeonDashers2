@@ -4,6 +4,7 @@ import Coms from '../utils/coms';
 import MapContext from './MapContext';
 import CampaignContext from './CampaignContext';
 import { getCharacters, getEnemies } from '../data/moduleData';
+import { getActionPoints, getMaxActionPoints } from '../data/attributeHelper';
 
 const GameContext = React.createContext({});
 export default GameContext;
@@ -115,8 +116,9 @@ export function GameProvider({ children }) {
         if (!activeCharacter) {
             return;
         }
+        const actionPoints = getActionPoints(activeCharacter);
         // if on the last character and they are out of action points
-        if (activeCharacter.actionPoints === 0 && activeCharacterIndex === characters.length-1) {
+        if (actionPoints === 0 && activeCharacterIndex === characters.length-1) {
             setCombatTurn(COMBAT_TURN.ENEMY);
             setActiveEnemyIndex(0);
         }
@@ -136,7 +138,7 @@ export function GameProvider({ children }) {
             // reset action points for all characters
             for (const character of newCharacters) {
                 const data = characterData[character.type];
-                character.actionPoints = data?.actionPoints;
+                character.actionPoints = getMaxActionPoints(character);
             }
             
             return newCharacters;
@@ -522,6 +524,8 @@ export function GameProvider({ children }) {
                                 type: equipmentType,
                                 slot,
                             });
+                            char.slots = newSlots;
+                            break;
                         }
                     }
     
@@ -529,7 +533,9 @@ export function GameProvider({ children }) {
                 });
                 setGameEquipment((equipments) => {
                     const firstIndex = equipments.findIndex(item => item.type === equipmentType);
-                    return [...equipments].splice(firstIndex, 1);
+                    const newEquipment = [...equipments];
+                    newEquipment.splice(firstIndex, 1);
+                    return newEquipment;
                 });
             }
         },
@@ -544,6 +550,7 @@ export function GameProvider({ children }) {
                             const newSlots = [...char.slots] || [];
                             const firstIndex = newSlots.findIndex(item => item.type === equipmentType);
                             newSlots.splice(firstIndex, 1);
+                            char.slots = newSlots;
                         }
                     }
     

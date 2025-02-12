@@ -17,6 +17,7 @@ import VictoryDialog from './VictoryDialog';
 import DialogTopLeftImage from '../../assets/dialog_top_left.png';
 import DialogBottomRightImage from '../../assets/dialog_bottom_right.png';
 import EquipmentDialog from './EquipmentDialog';
+import { getHp, getMaxHp, getActionPoints, getMaxActionPoints } from '../data/attributeHelper';
 
 export default function GameMap() {
     const { map } = useContext(MapContext);
@@ -98,15 +99,16 @@ export default function GameMap() {
     let totalAp = 1;
     let maxAp = 1;
     let combatName;
+    let hp = 1;
+    let maxHp = 1;
     if (combatTurn === COMBAT_TURN.PLAYER) {
         const activeCharacter = characters[activeCharacterIndex];
         const activeData = characterData[activeCharacter.type];
-        totalAp = activeCharacter.actionPoints;
-        if (totalAp === undefined) {
-            totalAp = activeData.actionPoints;
-        }
-        maxAp = activeData?.actionPoints;
+        totalAp = getActionPoints(activeCharacter);
+        maxAp = getMaxActionPoints(activeCharacter);
         combatName = activeData.name;
+        hp = getHp(activeCharacter);
+        maxHp = getMaxHp(activeCharacter);
     } else if (combatTurn === COMBAT_TURN.ENEMY) {
         const activeEnemy = enemies[activeEnemyIndex];
         if (activeEnemy) {
@@ -132,6 +134,8 @@ export default function GameMap() {
             combatTurnName={combatName}
             combatPointsLeft={totalAp}
             combatPointsMax={maxAp}
+            combatHp={hp}
+            combatMaxHp={maxHp}
             fullFocus={mode === UI_MODE.GAME || mode === UI_MODE.CELL_SELECT}
             onKey={(code) => {
                 if (combatTurn === COMBAT_TURN.ENEMY) {
