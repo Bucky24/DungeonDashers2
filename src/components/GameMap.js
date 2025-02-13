@@ -12,12 +12,12 @@ import useRunScript from '../hooks/useRunScript';
 import useGetEntityContext from '../hooks/useGetEntityContext';
 import useTriggerEvent from '../hooks/events/useTriggerEvent';
 import GameMenu from './GameMenu';
-import SaveDialog from './SaveDialog';
 import VictoryDialog from './VictoryDialog';
 import DialogTopLeftImage from '../../assets/dialog_top_left.png';
 import DialogBottomRightImage from '../../assets/dialog_bottom_right.png';
 import EquipmentDialog from './EquipmentDialog';
 import { getHp, getMaxHp, getActionPoints, getMaxActionPoints } from '../data/attributeHelper';
+import StatsDialog from './StatsDialog';
 
 export default function GameMap() {
     const { map } = useContext(MapContext);
@@ -225,7 +225,8 @@ export default function GameMap() {
             </div>
         </div>}
         {mode === UI_MODE.EQUIPMENT_MENU && <EquipmentDialog />}
-        {mode === UI_MODE.SAVE_MENU && <SaveDialog />}
+        {mode === UI_MODE.SAVE_MENU && <StatsDialog />}
         {gameState === GAME_STATE.WON && <VictoryDialog />}
+        {mode === UI_MODE.STATS_MENU && <StatsDialog />}
     </>);
 }

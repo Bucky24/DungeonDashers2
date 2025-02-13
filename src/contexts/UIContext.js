@@ -11,6 +11,7 @@ export const UI_MODE = {
     SAVE_MENU: 'mode/save_menu',
     GAME_END: 'mode/game_end',
     EQUIPMENT_MENU: 'mode/equipment_menu',
+    STATS_MENU: 'mode/stats_menu',
 };
 
 export const LOCATION = {
@@ -20,6 +21,7 @@ export const LOCATION = {
 export const MENU_ITEMS = [
     'Continue',
     'Equipment',
+    'Stats',
     'Save Game',
     'Exit Game',
 ];

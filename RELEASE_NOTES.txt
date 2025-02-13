@@ -80,6 +80,7 @@ v0.8.0 (unreleased)
 * Max HP and Action Points can be modified by equipment
 * Improve green square for selection of spaces
 * Validation system for saves
+* Basic menu for character stats
 
 Bug Fixes:
 * Sir Jacob is no longer stopped by chests
