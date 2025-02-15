@@ -16,6 +16,14 @@ Entities can have a number of flags applied to them. These can be custom, and ca
 
 Data is a field that can exist on the Entity in the Map file. It contains pass-through data that can be accessed by scripts. Data can be any valid object, it is not read by the main game code.
 
+## Sound
+
+The following sound names are used by the game system:
+
+| Name | Use |
+| -- | -- |
+| moving | Sound used when character moves through the map |
+
 ## EntityContext
 
 The following data and methods are available on every Entity's script context

@@ -22,6 +22,7 @@ The Manifest is a JSON file with the following format:
 | skills | A map of skill name to Skill |
 | scripts | An array of file paths to scripts used for the Object. If you have a script as part of an Event and it is not listed here, it will not be loaded |
 | slots | An array of Slot objects. This provides info on where Equipment can be added. |
+| sounds | A map with key being the sound name and value being a Sound (relative to the module folder). Some keys are used by the system (see the entry in entity.md for more)
 
 ## Skill
 
@@ -53,6 +54,14 @@ A Slot provides information about a place that Equipment can be equipped to.
 | -- | -- |
 | type | This indicates the type of the slot. This determines which types of Equipment can be put into this Slot (the type of the Equipment must match the type of the Slot). |
 | name | The name of the slot. Optional, type is used as a default. |
+
+## Sound
+
+A Sound provides info about the given sound
+
+| Key | Description |
+| -- | -- |
+| file | The path to the sound file (relative to the module directory) |
 
 ## CharacterContext
 
