@@ -8,5 +8,6 @@
     "images": {
         "exists": "assets/objects/rock_spike1.png"
     },
-    "scripts": []
+    "scripts": [],
+    "sounds": {}
 }

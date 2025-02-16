@@ -23,5 +23,6 @@
             "type": "script",
             "file": "scripts/flame_collide.js"
         }
-    ]
+    ],
+    "sounds": {}
 }

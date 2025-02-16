@@ -23,5 +23,10 @@
             "type": "head",
             "name": "Head"
         }
-    ]
+    ],
+    "sounds": {
+        "walking": {
+            "file": "main_assets/characters/walking.wav"
+        }
+    }
 }

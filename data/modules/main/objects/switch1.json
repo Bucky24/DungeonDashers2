@@ -22,5 +22,6 @@
     "images": {
         "off": "assets/objects/switch1_off.png",
         "on": "assets/objects/switch1_on.png"
-    }
+    },
+    "sounds": {}
 }

@@ -33,6 +33,10 @@ module.exports = function(modulePrefix, entityMap) {
             }
         }
 
+        if (!entity.sounds) {
+            entity.sounds = {};
+        }
+
         allEntities.push(entity);
     }
 

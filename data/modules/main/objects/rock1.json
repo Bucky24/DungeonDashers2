@@ -11,5 +11,6 @@
     "images": {
         "exists": "assets/objects/rock1.png"
     },
-    "scripts": []
+    "scripts": [],
+    "sounds": {}
 }

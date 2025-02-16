@@ -23,5 +23,6 @@
     "defaultState": "exists",
     "flags": [
         "nonblocking"
-    ]
+    ],
+    "sounds": {}
 }

@@ -25,5 +25,6 @@
             "file": "scripts/enemy_door_spawn.js",
             "type": "script"
         }
-    ]
+    ],
+    "sounds": {}
 }

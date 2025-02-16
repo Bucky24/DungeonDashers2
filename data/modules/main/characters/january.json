@@ -26,5 +26,6 @@
             "type": "head",
             "name": "Head"
         }
-    ]
+    ],
+    "sounds": {}
 }

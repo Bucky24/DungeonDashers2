@@ -259,6 +259,13 @@ module.exports = {
             objectData.scripts = objectScripts;
         }
 
+        // process sounds
+        if (objectData.sounds) {
+            
+        } else {
+            objectData.sounds = {};
+        }
+
         return objectData;
     },
     getAllInDirectories,

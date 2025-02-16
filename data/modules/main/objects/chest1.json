@@ -24,5 +24,6 @@
     },
     "flags": [
         "destructable"
-    ]
+    ],
+    "sounds": {}
 }

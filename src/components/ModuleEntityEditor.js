@@ -268,6 +268,42 @@ export default function ModuleEntityEditor({
                     newScripts["unnamed"] = { script: 'main_unnamed'};
                     changeEntity(module, activeEntityKey, `scripts`, newScripts);
                 }}>Add Script</button>
+                <h3>Sounds</h3>
+                <table border={1}>
+                    <tbody>
+                        {Object.keys(activeEntityData.sounds).map((key) => {
+                            const sound = activeEntityData.sounds[key].file;
+                            return <tr key={`sound_${key}`}>
+                                <td>
+                                    <TextField
+                                        value={key}
+                                        onBlur={(newData) => {
+                                            const newSounds = {...activeEntityData.sounds};
+                                            newSounds[newData] = newSounds[key];
+                                            delete newSounds[key];
+                                            changeEntity(module, activeEntityKey, `sounds`, newSounds);
+                                        }}
+                                    />
+                                </td>
+                                <td>
+                                    <TextField
+                                        value={sound}
+                                        onBlur={(newData) => {
+                                            const newSounds = {...activeEntityData.sounds};
+                                            newSounds[key].file = newData
+                                            changeEntity(module, activeEntityKey, `sounds`, newSounds);
+                                        }}
+                                    />
+                                </td>
+                            </tr>
+                        })}
+                    </tbody>
+                </table>
+                <button onClick={() => {
+                    const newSounds = {...activeEntityData.sounds};
+                    newSounds["unnamed"] = { file: 'main_unnamed'};
+                    changeEntity(module, activeEntityKey, `sounds`, newSounds);
+                }}>Add Sound</button>
                 <h3>Events</h3>
                 <table border={1}>
                     <thead>

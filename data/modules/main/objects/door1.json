@@ -24,5 +24,6 @@
     ],
     "images": {
         "closed_horiz": "assets/objects/door1_horiz_closed.png"
-    }
+    },
+    "sounds": {}
 }

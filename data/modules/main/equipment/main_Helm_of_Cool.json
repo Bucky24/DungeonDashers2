@@ -15,5 +15,6 @@
         }
     ],
     "scripts": [],
-    "slot": "head"
+    "slot": "head",
+    "sounds": {}
 }

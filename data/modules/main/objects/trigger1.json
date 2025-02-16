@@ -22,5 +22,6 @@
     "scripts": [
         "scripts/handle_trigger.js"
     ],
-    "images": {}
+    "images": {},
+    "sounds": {}
 }
