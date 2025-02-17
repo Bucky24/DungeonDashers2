@@ -4,7 +4,7 @@ const path = require('path');
 const {
     locateInDirectories,
     getJsonFile,
-    getImageSlug,
+    getAssetSlug,
     decodeImageSlug,
     locateInDirectoriesForSave,
     getModuleComponent,
@@ -114,11 +114,12 @@ module.exports = {
         const manifest = getJsonFile(manifestFile);
         const allImages = {};
         const allScripts = {};
+        let allSounds = {};
 
         const tileData = Object.keys(manifest.tiles).reduce((obj, key) => {
             const tile = manifest.tiles[key];
 
-            allImages[modulePrefix + tile.image] = getImageSlug('modules', tile.image, { extra: name });
+            allImages[modulePrefix + tile.image] = getAssetSlug('image', 'modules', tile.image, { extra: name });
 
             tile.rawImage = tile.image;
             tile.image = modulePrefix + tile.image;
@@ -134,7 +135,7 @@ module.exports = {
         const objects = Object.keys(manifest.objects || {});
         const allManifestObjects = {};
         for (const object of objects) {
-            objectManifestData = getModuleComponent(name, moduleDir, manifest.objects[object], allScripts, allImages, object);
+            const { objectData: objectManifestData } = getModuleComponent(name, moduleDir, manifest.objects[object], allScripts, allImages, object);
 
             allManifestObjects[modulePrefix + object] = objectManifestData;
         }
@@ -144,7 +145,11 @@ module.exports = {
         const characters = Object.keys(manifest.characters || {});
         const allManifestCharacters = {};
         for (const character of characters) {
-            characterManifestData = getModuleComponent(name, moduleDir, manifest.characters[character], allScripts, allImages, character);
+            const { objectData: characterManifestData, sounds } = getModuleComponent(name, moduleDir, manifest.characters[character], allScripts, allImages, character);
+            allSounds = {
+                ...allSounds,
+                ...sounds,
+            };
 
             allManifestCharacters[modulePrefix + character] = characterManifestData;
         }
@@ -154,7 +159,7 @@ module.exports = {
         const enemies = Object.keys(manifest.enemies || {});
         const allManifestEnemies = {};
         for (const enemy of enemies) {
-            enemyManifestData = getModuleComponent(name, moduleDir, manifest.enemies[enemy], allScripts, allImages, enemy);
+             const { objectData: enemyManifestData } = getModuleComponent(name, moduleDir, manifest.enemies[enemy], allScripts, allImages, enemy);
 
             allManifestEnemies[modulePrefix + enemy] = enemyManifestData;
         }
@@ -164,7 +169,7 @@ module.exports = {
         const equipments = Object.keys(manifest.equipment || {});
         const allManifestEquipment = {};
         for (const equipment of equipments) {
-            equipmentManifestData = getModuleComponent(name, moduleDir, manifest.equipment[equipment], allScripts, allImages, equipment);
+            const { objectData: equipmentManifestData } = getModuleComponent(name, moduleDir, manifest.equipment[equipment], allScripts, allImages, equipment);
 
             allManifestEquipment[modulePrefix + equipment] = equipmentManifestData;
         }
@@ -172,6 +177,7 @@ module.exports = {
 
         manifest.images = allImages;
         manifest.scripts = allScripts;
+        manifest.sounds = allSounds;
 
         return {
             success: true,

@@ -2,7 +2,7 @@ const {
     directories,
     locateInDirectories,
     getJsonFile,
-    getImageSlug,
+    getAssetSlug,
 } = require("../utils");
 
 module.exports = function({ campaign }) {
@@ -19,7 +19,7 @@ module.exports = function({ campaign }) {
 
     // get path to background
     data.background.originalImage = data.background.image;
-    data.background.image = getImageSlug('campaigns', data.background.image);
+    data.background.image = getAssetSlug('image', 'campaigns', data.background.image);
 
     return {
         success: true,

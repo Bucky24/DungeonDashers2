@@ -104,8 +104,9 @@ function getCodeFile(file) {
     return contents;
 }
 
-function getImageSlug(type, filePath, data) {
+function getAssetSlug(fileType, type, filePath, data) {
     const resultObj = {
+        fileType,
         type,
         filePath,
         data,
@@ -184,7 +185,7 @@ module.exports = {
     },
     getJsonFile,
     getCodeFile,
-    getImageSlug,
+    getAssetSlug,
     decodeImageSlug: (slug) => {
         try {
         const json = JSON.parse(atob(slug));
@@ -219,7 +220,7 @@ module.exports = {
             if (objectData[path]) {
                 const imageData = objectData[path];
                 if (typeof imageData === 'string') {
-                    allImages[modulePrefix + imageData] = getImageSlug('modules', imageData, { extra: module });
+                    allImages[modulePrefix + imageData] = getAssetSlug('image', 'modules', imageData, { extra: module });
 
                     objectData[path] = {
                         image: modulePrefix + imageData,
@@ -232,7 +233,7 @@ module.exports = {
                             continue;
                         }
 
-                        allImages[modulePrefix + objectImagePath] = getImageSlug('modules', objectImagePath, { extra: module });
+                        allImages[modulePrefix + objectImagePath] = getAssetSlug('image', 'modules', objectImagePath, { extra: module });
 
                         imageData[state] = {
                             image: modulePrefix + objectImagePath,
@@ -260,13 +261,26 @@ module.exports = {
         }
 
         // process sounds
+        allSounds = {};
         if (objectData.sounds) {
-            
+            for (const key in objectData.sounds) {
+                const myKey = modulePrefix + key + "_" + componentName;
+                const soundData = objectData.sounds[key];
+                allSounds[myKey] = getAssetSlug('sound', 'modules', soundData.file, { extra: module });
+
+                objectData.sounds[key] = {
+                    sound: myKey,
+                    rawPath: soundData.file,
+                };
+            }
         } else {
             objectData.sounds = {};
         }
 
-        return objectData;
+        return {
+            objectData,
+            sounds: allSounds,
+        };
     },
     getAllInDirectories,
     getAllDirsInDirectories,
