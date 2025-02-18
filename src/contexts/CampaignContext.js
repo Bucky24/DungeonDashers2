@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import Coms from '../utils/coms';
-import ImageContext from './ImageContext';
+import AssetContext from './AssetContext';
 
 const CampaignContext = React.createContext({});
 export default CampaignContext;
@@ -11,7 +11,7 @@ export function CampaignProvider({ children }) {
     const [campaignData, setCampaignData] = useState(null);
     const campaignDataRef = useRef(null);
     const [loaded, setLoaded] = useState(true);
-    const { loadImage } = useContext(ImageContext);
+    const { loadImage } = useContext(AssetContext);
     const [activeSave, setActiveSave] = useState(null);
     const [campaignEquipment, setCampaignEquipment] = useState([]);
     const [campaignCharacters, setCampaignCharacters] = useState([]);

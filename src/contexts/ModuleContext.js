@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 
 import Coms from '../utils/coms';
-import ImageContext from './ImageContext';
+import AssetContext from './AssetContext';
 import { TILE_TYPE } from './MapContext';
 import {
     getModules,
@@ -29,7 +29,7 @@ const NUMERIC_ENTITY_FILEDS = [
 
 export function ModuleProvider({ children }) {
     const [loaded, setLoaded] = useState(false);
-    const { loadImage, images: loadedImages } = useContext(ImageContext);
+    const { loadImage, images: loadedImages, loadSound } = useContext(AssetContext);
     const render = useRender();
     const modules = getModules();
 
@@ -122,6 +122,15 @@ export function ModuleProvider({ children }) {
 
                     module.images[image] = {
                         id: imageId,
+                    };
+                }
+
+                for (const sound in module.sounds) {
+                    const soundData = module.images[sound];
+                    const soundId = loadSound(soundData);
+
+                    module.sounds[sound] = {
+                        id: soundId,
                     };
                 }
 

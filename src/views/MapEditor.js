@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import EditorContext from '../contexts/EditorContext';
 import ModuleContext from '../contexts/ModuleContext';
-import ImageContext from '../contexts/ImageContext';
+import AssetContext from '../contexts/AssetContext';
 import MapContext from '../contexts/MapContext';
 import EditorMap from '../components/EditorMap';
 import EditorControls from '../components/EditorControls';
@@ -14,7 +14,7 @@ import MapEntityEditor from '../components/MapEntityEditor';
 export default function MapEditor({ newMap }) {
     const { loaded: editorLoaded, loadMap, createNewMap, selectedCell } = useContext(EditorContext);
 	const { loaded: moduleLoaded } = useContext(ModuleContext);
-	const { loaded: imagesLoaded } = useContext(ImageContext);
+	const { loaded: imagesLoaded } = useContext(AssetContext);
     const { loaded: mapLoaded, entitiesAtPosition } = useContext(MapContext);
     const { map } = useParams();
     const navigate = useNavigate();

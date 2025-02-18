@@ -3,13 +3,13 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import CampaignContext from '../contexts/CampaignContext';
 import useLoaded from '../hooks/useLoaded';
-import ImageContext from '../contexts/ImageContext';
+import AssetContext from '../contexts/AssetContext';
 
 export default function CampaignView() {
     const { campaign } = useParams();
     const { loadCampaign, campaignData, campaignDataRef, campaignSaveData } = useContext(CampaignContext);
     const { campaignLoaded } = useLoaded();
-    const { getImage } = useContext(ImageContext);
+    const { getImage } = useContext(AssetContext);
     const [size, setSize] = useState({ width: 1, height: 1 });
     const [activeMap, setActiveMap] = useState(0);
     const enterHandlerRef = useRef(() => {});

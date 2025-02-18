@@ -5,7 +5,7 @@ import { BrowserRouter, HashRouter } from'react-router-dom';
 import App from './App';
 import { EditorProvider } from './contexts/EditorContext';
 import { GameProvider } from './contexts/GameContext';
-import { ImageProvider } from './contexts/ImageContext';
+import { AssetProvider } from './contexts/AssetContext';
 import { MapProvider } from './contexts/MapContext';
 import { ModuleProvider } from './contexts/ModuleContext';
 import { UIProvider } from './contexts/UIContext';
@@ -20,7 +20,7 @@ const providerStack = (
 <SettingsProvider>
     <SearchProvider>
         <UIProvider>
-            <ImageProvider>
+            <AssetProvider>
                 <CampaignProvider>
                     <ModuleProvider>
                         <MapProvider>
@@ -32,7 +32,7 @@ const providerStack = (
                         </MapProvider>
                     </ModuleProvider>
                 </CampaignProvider>
-            </ImageProvider>    
+            </AssetProvider>    
         </UIProvider>
     </SearchProvider>
 </SettingsProvider>

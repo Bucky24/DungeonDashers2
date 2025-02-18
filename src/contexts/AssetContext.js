@@ -2,28 +2,29 @@ import React, { useState, useRef } from 'react';
 
 import Coms from '../utils/coms';
 
-const ImageContext = React.createContext({});
-export default ImageContext;
+const AssetContext = React.createContext({});
+export default AssetContext;
 
-export function ImageProvider({ children }) {
+export function AssetProvider({ children }) {
     const [images, setImages] = useState({});
-    const imageIdRef = useRef(0);
-    const loadingImagesRef = useRef(0);
+    const assetIdRef = useRef(0);
+    const loadingAssetsRef = useRef(0);
     const [loaded, setLoaded] = useState(false);
     const [fullImages, setFullImages] = useState({});
+    const [sounds, setSounds] = useState({});
 
     const value = {
         loadImage: (data) => {
-            const id = imageIdRef.current;
+            const id = assetIdRef.current;
             const fullId = `image_${id}`;
-            imageIdRef.current ++;
+            assetIdRef.current ++;
 
             setLoaded(false);
-            loadingImagesRef.current += 1;
+            loadingAssetsRef.current += 1;
 
             Coms.send('getImage', { slug: data }).then((result) => {
-                loadingImagesRef.current -= 1;
-                if (loadingImagesRef.current === 0) {
+                loadingAssetsRef.current -= 1;
+                if (loadingAssetsRef.current === 0) {
                     setLoaded(true);
                 }
 
@@ -57,11 +58,28 @@ export function ImageProvider({ children }) {
         getImage: (id) => {
             return images[id];
         },
+        loadSound: (data) => {
+            const id = assetIdRef.current;
+            const fullId = `image_${id}`;
+            assetIdRef.current ++;
+
+            setLoaded(false);
+            loadingAssetsRef.current += 1;
+
+            //Coms.send('getSound', { slug: data }).then((result) => {
+                loadingAssetsRef.current -= 1;
+                if (loadingAssetsRef.current === 0) {
+                    setLoaded(true);
+                }
+            //});
+
+            return fullId;
+        },
     };
 
     return (
-        <ImageContext.Provider value={value}>
+        <AssetContext.Provider value={value}>
             {children}
-        </ImageContext.Provider>
+        </AssetContext.Provider>
     );
 }
