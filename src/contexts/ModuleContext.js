@@ -126,7 +126,7 @@ export function ModuleProvider({ children }) {
                 }
 
                 for (const sound in module.sounds) {
-                    const soundData = module.images[sound];
+                    const soundData = module.sounds[sound];
                     const soundId = loadSound(soundData);
 
                     module.sounds[sound] = {

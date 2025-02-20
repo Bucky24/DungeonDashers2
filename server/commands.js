@@ -5,7 +5,7 @@ const {
     locateInDirectories,
     getJsonFile,
     getAssetSlug,
-    decodeImageSlug,
+    decodeAssetSlug,
     locateInDirectoriesForSave,
     getModuleComponent,
     directories,
@@ -185,7 +185,7 @@ module.exports = {
         };
     },
     getImage: ({ slug }) => {
-        const decoded = decodeImageSlug(slug);
+        const decoded = decodeAssetSlug(slug);
 
         if (!decoded) {
             return {
@@ -214,6 +214,39 @@ module.exports = {
         return {
             success: true,
             image: imageData,
+            url: decoded.filePath,
+        };
+    },
+    getSound: ({ slug }) => {
+        const decoded = decodeAssetSlug(slug);
+
+        if (!decoded) {
+            return {
+                success: false,
+                message: 'Malformed slug',
+            };
+        }
+
+        const validDirectories = directories[decoded.type].load || [];
+        const extra = decoded.data?.extra ?? '';
+
+        const assetFile = locateInDirectories(decoded.filePath, validDirectories, extra);
+
+        if (!assetFile) {
+            console.error('Can\'t find asset', decoded, 'in directories', validDirectories);
+            return {
+                success: false,
+                message: `Couldn't find asset ${decoded.filePath} in any directories`,
+            };
+        }
+
+        const fullSound = fs.readFileSync(assetFile).toString('base64');
+        // assuming type here, we may need to fix this at some point
+        const soundData = "data:audio/mp3;base64," + fullSound;
+
+        return {
+            success: true,
+            sound: soundData,
             url: decoded.filePath,
         };
     },

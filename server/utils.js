@@ -186,7 +186,7 @@ module.exports = {
     getJsonFile,
     getCodeFile,
     getAssetSlug,
-    decodeImageSlug: (slug) => {
+    decodeAssetSlug: (slug) => {
         try {
         const json = JSON.parse(atob(slug));
 
