@@ -2,17 +2,15 @@ const validators = require("./validators");
 
 async function validateData(type, data) {
     if (!validators[type]) {
-        console.error(`No validator for type ${type}`);
-        return;
+        throw new Error(`No validator for type ${type}`);
     }
 
     if (!data.version) {
-        console.error("Data object is missing version");
-        return;
+        throw new Error(`Data object ${type} is missing version`);
     }
 
     if (!validators[type][data.version]) {
-        console.error(`Validator for type ${type} has no validator for version ${data.version}`);
+        throw new Error(`Validator for type ${type} has no validator for version ${data.version}`);
         return;
     }
 

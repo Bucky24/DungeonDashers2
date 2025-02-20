@@ -69,7 +69,7 @@ module.exports = {
         } catch (err) {
             return {
                 success: false,
-                error: err.message,
+                message: err.message,
             };
         }
     },

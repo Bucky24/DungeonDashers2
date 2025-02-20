@@ -66,12 +66,19 @@ export function AssetProvider({ children }) {
             setLoaded(false);
             loadingAssetsRef.current += 1;
 
-            //Coms.send('getSound', { slug: data }).then((result) => {
+            Coms.send('getSound', { slug: data }).then((result) => {
                 loadingAssetsRef.current -= 1;
                 if (loadingAssetsRef.current === 0) {
                     setLoaded(true);
                 }
-            //});
+
+                setSounds((sounds) => {
+                    return {
+                        ...sounds,
+                        [fullId]: result.sound,
+                    };
+                });
+            });
 
             return fullId;
         },

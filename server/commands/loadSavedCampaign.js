@@ -26,7 +26,7 @@ module.exports = async function({ campaign }) {
     } catch (err) {
         return {
             success: false,
-            error: err.message,
+            message: err.message,
         };
     }
 }

@@ -3,7 +3,7 @@ const { object, string, array, number, mixed } = require("yup");
 const saveGameSchema = object({
     type: string().required().oneOf(["game"]),
     map: string().required(),
-    campaign: string(),
+    campaign: string().nullable(),
     characters: array(object({
         type: string().required(),
         x: number().required(),
@@ -16,7 +16,7 @@ const saveGameSchema = object({
         x: number().required(),
         y: number().required(),
         id: number().required(),
-        flags: array(string()).required(),
+        flags: array(string()),
         data: mixed(),
     })),
     objects: array(object({
