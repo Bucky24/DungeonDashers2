@@ -3,7 +3,6 @@ For v0.8.0
     * Add in tooltips for actions at specific parts
 * Two full campaign missions from original game
 * Add portraits for all four characters (missing Sir Jacob)
-* Begin work on audio system
 * Better enemy AI
     * Better pathfinding (don't get stuck or move back and forth)
 * Fix known bugs

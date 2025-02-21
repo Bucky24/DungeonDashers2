@@ -18,7 +18,7 @@ export default function useMoveActiveCharacter() {
         setEnemyProperty,
     } = useContext(GameContext);
     const { getTile } = useContext(MapContext);
-    const { tiles, characters: characterData, enemies: enemyData } = useContext(ModuleContext);
+    const { tiles, characters: characterData, enemies: enemyData, getSound } = useContext(ModuleContext);
     const triggerEvent = useTriggerEvent();
 
     return async (xOff, yOff) => {
@@ -111,6 +111,17 @@ export default function useMoveActiveCharacter() {
                     { type: 'character', entity: character },
                     entity,
                 ]);
+            }
+        }
+
+        // play move sound
+        if (charData?.sounds?.walking) {
+            const sound = getSound(charData.sounds.walking.sound);
+            if (!sound) {
+                console.log(`Cannot find walking osund for ${character.type}, got ${charData.sounds.walking.sound}`);
+            } else {
+                const audio = new Audio(sound);
+                audio.play();
             }
         }
 

@@ -55,6 +55,7 @@ export function AssetProvider({ children }) {
         loaded,
         images,
         fullImages,
+        sounds,
         getImage: (id) => {
             return images[id];
         },

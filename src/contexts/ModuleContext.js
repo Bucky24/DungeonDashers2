@@ -14,6 +14,7 @@ import {
     getScripts,
     getImages,
     getEquipment,
+    getSounds,
 } from '../data/moduleData';
 import useRender from '../hooks/useRender';
 
@@ -29,7 +30,12 @@ const NUMERIC_ENTITY_FILEDS = [
 
 export function ModuleProvider({ children }) {
     const [loaded, setLoaded] = useState(false);
-    const { loadImage, images: loadedImages, loadSound } = useContext(AssetContext);
+    const {
+        loadImage,
+        images: loadedImages,
+        loadSound,
+        sounds: loadedSounds,
+    } = useContext(AssetContext);
     const render = useRender();
     const modules = getModules();
 
@@ -151,6 +157,16 @@ export function ModuleProvider({ children }) {
             const imageId = images[image].id;
 
             return loadedImages[imageId];
+        },
+        getSound: (sound) => {
+            const sounds = getSounds();
+            if (!sounds[sound]) {
+                return null;
+            }
+
+            const soundId = sounds[sound].id;
+
+            return loadedSounds[soundId];
         },
         loaded,
         tiles: getTiles(),

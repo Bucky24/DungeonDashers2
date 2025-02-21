@@ -81,6 +81,7 @@ v0.8.0 (unreleased)
 * Improve green square for selection of spaces
 * Validation system for saves
 * Basic menu for character stats
+* Begin work on audio system
 
 Bug Fixes:
 * Sir Jacob is no longer stopped by chests

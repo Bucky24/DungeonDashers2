@@ -10,6 +10,7 @@ function updateComputedData() {
     const allScripts = {};
     const allEnemies = {};
     const allEquipment = {};
+    const allSounds = {};
     for (const module in modules) {
         const moduleData = modules[module];
 
@@ -40,6 +41,10 @@ function updateComputedData() {
         for (const id in moduleData.equipment) {
             allEquipment[id] = moduleData.equipment[id];
         }
+
+        for (const id in moduleData.sounds) {
+            allSounds[id] = moduleData.sounds[id];
+        }
     }
 
     computedData = {
@@ -50,6 +55,7 @@ function updateComputedData() {
         scripts: allScripts,
         enemies: allEnemies,
         equipment: allEquipment,
+        sounds: allSounds,
     };
 }
 
@@ -95,4 +101,8 @@ export function getEnemies() {
 
 export function getEquipment() {
     return computedData.equipment || {};
+}
+
+export function getSounds() {
+    return computedData.sounds || {};
 }
