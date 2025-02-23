@@ -179,6 +179,14 @@ The getTargets method takes in some data and returns appropriate targets based o
 | y | The y to start from |
 | radius | The radius to search for targets |
 
+### showTooltip
+
+Shows a dismissable tooltip as soon as it is called.
+
+| Param | Description |
+| -- | -- |
+| text | The text to display. This can use parameters (see below) |
+
 ### TreasureType
 
 | Name | Description |
@@ -229,3 +237,11 @@ An object that indicates what kind of equipment should be given as treasure
 ### Point
 
 An object containing x and y coordinates as keys.
+
+## Parameters
+
+Some text can have parameters. Parameters use the standard template format: `my text {param here} and more text`.
+
+| Parameter | Description |
+| SPECIAL_KEY | The key used to trigger special moves |
+| CURRENT_CHARACTER | The name of the active character |
