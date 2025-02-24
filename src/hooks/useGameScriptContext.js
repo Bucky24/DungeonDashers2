@@ -26,7 +26,7 @@ export default function useGameScriptContext(triggerEvent) {
     const { getTile } = useContext(MapContext);
     const tiles = getTiles();
     const equipment = getEquipment();
-    const { enterCellSelect, startDialog, setMode } = useContext(UIContext);
+    const { enterCellSelect, startDialog, setMode, setTooltip } = useContext(UIContext);
     const runMapTrigger = useRunMapTrigger();
     const getEntityContext = useGetEntityContext();
     const finalTriggerEvent = triggerEvent || useTriggerEvent();
@@ -216,6 +216,9 @@ export default function useGameScriptContext(triggerEvent) {
             });
 
             return targets;
+        },
+        showTooltip: (text) => {
+            setTooltip(text);
         },
     };
 

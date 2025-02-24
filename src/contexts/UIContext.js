@@ -32,6 +32,7 @@ export function UIProvider({ children }) {
     const [dialog, setDialog] = useState();
     const [showMenu, setShowMenu] = useState(false);
     const [activeMenuItem, setActiveMenuItem] = useState(0);
+    const [tooltip, setTooltip] = useState(null);
     const navigate = useNavigate();
 
     const value = {
@@ -40,6 +41,8 @@ export function UIProvider({ children }) {
         dialog,
         showMenu,
         activeMenuItem,
+        tooltip,
+        setTooltip,
         enterCellSelect: (startX, startY, min, max, type, callback) => {
             const data = {
                 startX,
