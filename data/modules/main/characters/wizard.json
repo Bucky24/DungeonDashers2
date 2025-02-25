@@ -28,7 +28,8 @@
     ],
     "sounds": {
         "walking": {
-            "file": "assets/characters/walking.mp3"
+            "sound": "main_walking_wizard",
+            "rawPath": "assets/characters/walking.mp3"
         }
     }
 }

@@ -26,7 +26,8 @@
     ],
     "sounds": {
         "walking": {
-            "file": "assets/characters/walking.mp3"
+            "sound": "main_walking_sir_jacob",
+            "rawPath": "assets/characters/walking.mp3"
         }
     }
 }

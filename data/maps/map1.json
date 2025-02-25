@@ -142,6 +142,16 @@
                     }
                 }
             ]
+        },
+        {
+            "type": "main_trigger1",
+            "x": 10,
+            "y": 8,
+            "id": 4,
+            "data": {
+                "width": 2,
+                "height": 2
+            }
         }
     ],
     "enemies": [],

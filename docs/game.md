@@ -187,6 +187,14 @@ Shows a dismissable tooltip as soon as it is called.
 | -- | -- |
 | text | The text to display. This can use parameters (see below) |
 
+### editor
+
+The Editor parameter is true when the script in question is being called from an editor context, and false if called from the game.
+
+### draw
+
+The draw object contains the ability to draw to the screen. This object is only populated when running a script from the "draw" action.
+
 ### TreasureType
 
 | Name | Description |

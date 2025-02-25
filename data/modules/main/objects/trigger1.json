@@ -17,10 +17,16 @@
             ],
             "type": "script",
             "file": "scripts/handle_trigger.js"
+        },
+        {
+            "on": "draw",
+            "type": "script",
+            "file": "scripts/draw_trigger.js"
         }
     ],
     "scripts": [
-        "scripts/handle_trigger.js"
+        "scripts/handle_trigger.js",
+        "scripts/draw_trigger.js"
     ],
     "images": {},
     "sounds": {}
