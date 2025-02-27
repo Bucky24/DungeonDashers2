@@ -35,6 +35,15 @@ module.exports = function(modulePrefix, entityMap) {
 
         if (!entity.sounds) {
             entity.sounds = {};
+        } else {
+            entity.sounds = Object.keys(entity.sounds).reduce((obj, key) => {
+                return {
+                    ...obj,
+                    [key]: {
+                        file: entity.sounds[key].rawPath,
+                    },
+                };
+            }, {});
         }
 
         allEntities.push(entity);

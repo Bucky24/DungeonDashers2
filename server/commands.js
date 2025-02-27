@@ -308,6 +308,7 @@ module.exports = {
 
         const scriptData = data.scripts;
         delete data.scripts;
+        delete data.sounds;
 
         const manifestFile = path.join(dir, "manifest.json");
 
