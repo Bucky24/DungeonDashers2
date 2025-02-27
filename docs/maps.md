@@ -49,6 +49,8 @@ The file structure is as follows:
 | id | The pre-defined ID of the object. Optional |
 | data | A JSON blob of data used by the object's scripts. Optional |
 | flags | A list of flags to be applied to the object. Optional |
+| width | Overrides the width on the data object. Optional |
+| height | Overrides the height on the data object. Optional |
 
 ## MapEnemy
 
@@ -56,7 +58,7 @@ The file structure is as follows:
 | -- | -- |
 | type | The type of enemy. Prepended with the module it came from |
 | x | X coord of character |
-| y | Y coord of character |
+| y | Y coord of characterØ |
 | id | The pre-defined ID of the enemy. Optional |
 | flags | A list of flags to be applied to the enemy. Optional |
 

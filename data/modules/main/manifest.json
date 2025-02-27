@@ -123,16 +123,5 @@
         "Helm_of_Cool": {
             "manifest": "equipment/main_Helm_of_Cool.json"
         }
-    },
-    "sounds": {
-        "main_walking_sir_jacob": {
-            "id": "image_41"
-        },
-        "main_walking_ryder": {
-            "id": "image_42"
-        },
-        "main_walking_wizard": {
-            "id": "image_43"
-        }
     }
 }

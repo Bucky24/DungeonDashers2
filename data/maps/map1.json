@@ -148,10 +148,8 @@
             "x": 10,
             "y": 8,
             "id": 4,
-            "data": {
-                "width": 2,
-                "height": 2
-            }
+            "width": 2,
+            "height": 2
         }
     ],
     "enemies": [],

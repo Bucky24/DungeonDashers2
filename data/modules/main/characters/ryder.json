@@ -27,8 +27,7 @@
     ],
     "sounds": {
         "walking": {
-            "sound": "main_walking_ryder",
-            "rawPath": "assets/characters/walking.mp3"
+            "file": "assets/characters/walking.mp3"
         }
     }
 }
