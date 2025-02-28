@@ -149,9 +149,24 @@
             "y": 8,
             "id": 4,
             "width": 2,
-            "height": 2
+            "height": 2,
+            "data": [
+                {
+                    "type": "map_trigger",
+                    "name": "trigger1"
+                }
+            ]
         }
     ],
     "enemies": [],
-    "triggers": {}
+    "triggers": {
+        "trigger": {
+            "effects": [
+                {
+                    "type": "script",
+                    "code": "showTooltip(\"test tip\");"
+                }
+            ]
+        }
+    }
 }

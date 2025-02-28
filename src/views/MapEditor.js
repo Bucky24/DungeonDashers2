@@ -10,6 +10,7 @@ import EditorControls from '../components/EditorControls';
 import TabBar from '../components/TabBar';
 import MapTriggerEditor from '../components/MapTriggerEditor';
 import MapEntityEditor from '../components/MapEntityEditor';
+import SearchContext from '../contexts/SearchContext';
 
 export default function MapEditor({ newMap }) {
     const { loaded: editorLoaded, loadMap, createNewMap, selectedCell } = useContext(EditorContext);
@@ -18,6 +19,7 @@ export default function MapEditor({ newMap }) {
     const { loaded: mapLoaded, entitiesAtPosition } = useContext(MapContext);
     const { map } = useParams();
     const navigate = useNavigate();
+    const { search, changeSearch } = useContext(SearchContext);
 
 	const loaded = editorLoaded && moduleLoaded && imagesLoaded && mapLoaded;
 
@@ -42,7 +44,13 @@ export default function MapEditor({ newMap }) {
             )}
             {loaded && (<>
                 <button onClick={() => navigate("/editor/map")}>Back</button>
-                <TabBar tabs={["Map", "Triggers"]} initialTab="Map">
+                <TabBar
+                    tabs={["Map", "Triggers"]}
+                    initialTab={search.map_tab || 'Map'}
+                    onChange={(newTab) => {
+                        changeSearch("map_tab", newTab);
+                    }}
+                >
                     <div style={{ position: 'relative' }}>
                         <EditorMap />
                         <EditorControls newMap={newMap} />

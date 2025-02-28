@@ -132,7 +132,34 @@ export function MapProvider({ children }) {
                     ...triggers,
                     [id]: thisTrigger,
                 };
-            })
+            });
+        },
+        createTrigger: (id) => {
+            setTriggers((triggers) => {
+                if (triggers[id]) {
+                    return triggers;
+                }
+                return {
+                    ...triggers,
+                    [id]: {
+                        effects: [],
+                    },
+                };
+            });
+        },
+        createEffect: (id, effectObj) => {
+            setTriggers((triggers) => {
+                if (!triggers[id]) {
+                    console.error(`No map trigger found with id ${id}`);
+                    return triggers;
+                }
+                const thisTrigger = {...triggers[id]};
+                thisTrigger.effects.push(effectObj);
+                return {
+                    ...triggers,
+                    [id]: thisTrigger,
+                };
+            });
         },
         createObject: (x, y, type) => {
             setObjects((entities) => {

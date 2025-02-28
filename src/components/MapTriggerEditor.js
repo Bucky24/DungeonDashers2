@@ -4,7 +4,7 @@ import EditorContext from '../contexts/EditorContext';
 import CodeEditor from './CodeEditor';
 
 export default function MapTriggerEditor() {
-    const { triggers, updateTriggerEffect } = useContext(MapContext);
+    const { triggers, updateTriggerEffect, createTrigger, createEffect } = useContext(MapContext);
     const [activeTriggerId, setActiveTriggerId] = useState("");
     const { saveMap } = useContext(EditorContext);
 
@@ -23,6 +23,9 @@ export default function MapTriggerEditor() {
                     }}
                 >{triggerId}</div>
             })}
+            <button onClick={() => {
+                createTrigger(prompt("Trigger name?"));
+            }}>Create</button>
         </div>
         {activeTrigger && <div style={{flexGrow: 1}}>
             <h2>{activeTriggerId}</h2>
@@ -38,6 +41,9 @@ export default function MapTriggerEditor() {
                     />
                 </div>
             })}
+            <button onClick={() => {
+                createEffect(activeTriggerId, { type: 'script', code: '' });
+            }}>Add Effect</button>
         </div>}
     </div>
 }
