@@ -9,7 +9,6 @@ for (const effect of effects) {
     if (type === "map_trigger") {
         this.game.runTrigger(name);
     }
-
     if (disable) {
         this.entity.setState("disabled");
     }

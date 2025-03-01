@@ -146,25 +146,26 @@
         {
             "type": "main_trigger1",
             "x": 10,
-            "y": 8,
+            "y": 7,
             "id": 4,
             "width": 2,
             "height": 2,
             "data": [
                 {
                     "type": "map_trigger",
-                    "name": "trigger1"
+                    "name": "trigger1",
+                    "disable": true
                 }
             ]
         }
     ],
     "enemies": [],
     "triggers": {
-        "trigger": {
+        "trigger1": {
             "effects": [
                 {
                     "type": "script",
-                    "code": "showTooltip(\"test tip\");"
+                    "code": "this.game.showTooltip(\"test tip\");"
                 }
             ]
         }

@@ -47,6 +47,8 @@ export default function GameMap() {
         activeMenuItem,
         setActiveMenuItem,
         chooseMenuItem,
+        tooltip,
+        setTooltip,
     } = useContext(UIContext);
     const {
         characters: characterData,
@@ -138,6 +140,7 @@ export default function GameMap() {
             combatMaxHp={maxHp}
             fullFocus={mode === UI_MODE.GAME || mode === UI_MODE.CELL_SELECT}
             onKey={(code) => {
+                setTooltip(null);
                 if (combatTurn === COMBAT_TURN.ENEMY) {
                     return;
                 }
@@ -228,5 +231,20 @@ export default function GameMap() {
         {mode === UI_MODE.SAVE_MENU && <StatsDialog />}
         {gameState === GAME_STATE.WON && <VictoryDialog />}
         {mode === UI_MODE.STATS_MENU && <StatsDialog />}
+        {tooltip && <div style={{
+            position: 'fixed',
+            bottom: 40,
+            width: '100vw',
+            display: 'flex',
+            justifyContent: 'center',
+        }}>
+            <div style={{
+                backgroundColor: 'white',
+                padding: 10,
+                display: 'inline-block',
+            }}>
+                {tooltip}
+            </div>
+        </div>}
     </>);
 }
