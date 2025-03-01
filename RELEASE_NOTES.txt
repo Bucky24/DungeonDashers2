@@ -82,6 +82,7 @@ v0.8.0 (unreleased)
 * Validation system for saves
 * Basic menu for character stats
 * Begin work on audio system
+* Add capacity to show tooltips via triggers
 
 Bug Fixes:
 * Sir Jacob is no longer stopped by chests
