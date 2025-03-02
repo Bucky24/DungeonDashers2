@@ -185,7 +185,7 @@ Shows a dismissable tooltip as soon as it is called.
 
 | Param | Description |
 | -- | -- |
-| text | The text to display. This can use parameters (see below) |
+| text | The text to display. This is a TemplatedString and can use parameters (see below) |
 
 ### editor
 
@@ -246,7 +246,7 @@ An object that indicates what kind of equipment should be given as treasure
 
 An object containing x and y coordinates as keys.
 
-## Parameters
+## TemplatedString
 
 Some text can have parameters. Parameters use the standard template format: `my text {param here} and more text`.
 

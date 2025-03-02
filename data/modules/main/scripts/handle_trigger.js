@@ -2,9 +2,9 @@ if (this.entity.getState() === "disabled") {
     return;
 }
 
-const effects = this.entity.getData();
+const triggerData = this.entity.getData();
 
-for (const effect of effects) {
+for (const effect of triggerData) {
     const { type, name, disable } = effect;
     if (type === "map_trigger") {
         this.game.runTrigger(name);

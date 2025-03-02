@@ -1,6 +1,4 @@
 For v0.8.0
-* QOL
-    * Add in tooltips for actions at specific parts
 * Two full campaign missions from original game
 * Add portraits for all four characters (missing Sir Jacob)
 * Better enemy AI

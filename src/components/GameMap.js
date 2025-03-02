@@ -18,6 +18,8 @@ import DialogBottomRightImage from '../../assets/dialog_bottom_right.png';
 import EquipmentDialog from './EquipmentDialog';
 import { getHp, getMaxHp, getActionPoints, getMaxActionPoints } from '../data/attributeHelper';
 import StatsDialog from './StatsDialog';
+import SaveDialog from './SaveDialog';
+import Tooltip from './Tooltip';
 
 export default function GameMap() {
     const { map } = useContext(MapContext);
@@ -228,23 +230,9 @@ export default function GameMap() {
             </div>
         </div>}
         {mode === UI_MODE.EQUIPMENT_MENU && <EquipmentDialog />}
-        {mode === UI_MODE.SAVE_MENU && <StatsDialog />}
+        {mode === UI_MODE.SAVE_MENU && <SaveDialog />}
         {gameState === GAME_STATE.WON && <VictoryDialog />}
         {mode === UI_MODE.STATS_MENU && <StatsDialog />}
-        {tooltip && <div style={{
-            position: 'fixed',
-            bottom: 40,
-            width: '100vw',
-            display: 'flex',
-            justifyContent: 'center',
-        }}>
-            <div style={{
-                backgroundColor: 'white',
-                padding: 10,
-                display: 'inline-block',
-            }}>
-                {tooltip}
-            </div>
-        </div>}
+        {tooltip && <Tooltip text={tooltip} />}
     </>);
 }
