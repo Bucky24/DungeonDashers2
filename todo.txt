@@ -1,8 +1,6 @@
 For v0.8.0
 * Two full campaign missions from original game
 * Add portraits for all four characters (missing Sir Jacob)
-* Better enemy AI
-    * Better pathfinding (don't get stuck or move back and forth)
 * Fix known bugs
 
 For v0.9.0
@@ -10,7 +8,7 @@ For v0.9.0
 * Three full campaign missions from original game
 * More nuanced stats for characters and enemies (stat ranges)
 * More complex AI
-    * better pathfinding
+    * better pathfinding (true A*)
     * fleeing after attack
     * summoning
     * Ranged attacks

@@ -82,6 +82,10 @@ The canTakeAction method returns a boolean indicating if the Entity has enough a
 | action | A COMBAT_ACTION from the GameContext |
 | times | The number of times to take the action. Defaults 1 |
 
+### canTakeActions
+
+The canTakeAction method returns a boolean indicating if the Entity has enough action points to take the given actions, one after another. It takes in an array of arrays, where each inner array has hte action to take, and the times to take it.
+
 ### moveTowards
 
 The moveTowards method allows the Entity to move a certain number of steps along a path towards given coordinates. Returns true if the movement was successful.

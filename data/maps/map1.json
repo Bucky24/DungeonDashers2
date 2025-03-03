@@ -142,24 +142,20 @@
                     }
                 }
             ]
-        },
-        {
-            "type": "main_trigger1",
-            "x": 10,
-            "y": 7,
-            "id": 4,
-            "width": 2,
-            "height": 2,
-            "data": [
-                {
-                    "type": "map_trigger",
-                    "name": "trigger1",
-                    "disable": true
-                }
-            ]
         }
     ],
-    "enemies": [],
+    "enemies": [
+        {
+            "type": "main_bat1",
+            "x": 11,
+            "y": 9
+        },
+        {
+            "type": "main_bat1",
+            "x": 10,
+            "y": 9
+        }
+    ],
     "triggers": {
         "trigger1": {
             "effects": [

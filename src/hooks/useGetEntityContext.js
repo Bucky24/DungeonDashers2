@@ -81,6 +81,13 @@ function useGetGenericEntityContext() {
                 // action will be one of COMBAT_ACTION which has a point cost associated as the value
                 return action && this.actionPoints >= action*times;
             },
+            canTakeActions: function(actionList) {
+                const totalPointsNeeded = actionList.reduce((counter, action) => {
+                    return counter + action[0] * (action[1] || 1);
+                }, 0);
+                // action will be one of COMBAT_ACTION which has a point cost associated as the value
+                return this.actionPoints >= totalPointsNeeded;
+            },
             takeAction: function(action) {
                 this.actionPoints -= action;
                 this.actionPoints = Math.max(this.actionPoints, 0);
@@ -211,8 +218,11 @@ function useGetEnemyContext() {
                 let curX = this.x;
                 let curY = this.y;
                 for (let i=0;i<steps;i++) {
-                    curX += xOff;
-                    curY += yOff;
+                    if (curX !== x) {
+                        curX += xOff;
+                    } else {
+                        curY += yOff;
+                    }
 
                     if (collide) {
                         const entities = getEntitiesAtPosition(curX, curY);

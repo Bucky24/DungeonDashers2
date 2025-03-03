@@ -83,6 +83,7 @@ v0.8.0 (unreleased)
 * Basic menu for character stats
 * Begin work on audio system
 * Add capacity to show tooltips via triggers
+* Improve movement AI of enemies
 
 Bug Fixes:
 * Sir Jacob is no longer stopped by chests
