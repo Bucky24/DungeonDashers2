@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 
 import Coms from '../utils/coms';
 import ModuleContext from './ModuleContext';
+import { setMap as setMapData } from '../data/mapData';
 
 const MapContext = React.createContext({});
 export default MapContext;
@@ -59,6 +60,10 @@ export function MapProvider({ children }) {
             setTriggers(result.map.triggers || {});
 
             setLoaded(true);
+
+            setMapData({
+                tiles: result.map.map || [],
+            });
             
             return {
                 objects: result.map.objects || [],

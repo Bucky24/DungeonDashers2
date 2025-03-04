@@ -52,7 +52,7 @@
         {
             "x": 8,
             "y": 6,
-            "tile": "main_ground1"
+            "tile": "main_bottom_wall"
         },
         {
             "x": 9,
@@ -107,9 +107,9 @@
     ],
     "characters": [
         {
-            "type": "main_wizard",
-            "x": 9,
-            "y": 7
+            "type": "main_ryder",
+            "x": 10,
+            "y": 6
         }
     ],
     "objects": [
@@ -124,9 +124,7 @@
             "x": 12,
             "y": 7,
             "id": 2,
-            "flags": [
-                "locked"
-            ]
+            "flags": []
         },
         {
             "type": "main_chest1",
@@ -144,18 +142,7 @@
             ]
         }
     ],
-    "enemies": [
-        {
-            "type": "main_bat1",
-            "x": 11,
-            "y": 9
-        },
-        {
-            "type": "main_bat1",
-            "x": 10,
-            "y": 9
-        }
-    ],
+    "enemies": [],
     "triggers": {
         "trigger1": {
             "effects": [

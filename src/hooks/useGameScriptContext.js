@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import GameContext, { TREASURE, MOVEMENT, COMBAT_ACTION, GAME_STATE, TARGET_TYPE } from "../contexts/GameContext";
-import UIContext, { LOCATION, UI_MODE } from "../contexts/UIContext";
+import UIContext, { LOCATION, LOCATION_FILTER, UI_MODE } from "../contexts/UIContext";
 import useRunMapTrigger from "./useRunMapTrigger";
 import useGetEntityContext from "./useGetEntityContext";
 import useTriggerEvent from "./events/useTriggerEvent";
@@ -33,6 +33,7 @@ export default function useGameScriptContext(triggerEvent) {
     
     const context = {
         LOCATION,
+        LOCATION_FILTER,
         MOVEMENT,
         COMBAT_ACTION,
         TARGET_TYPE,
@@ -52,9 +53,9 @@ export default function useGameScriptContext(triggerEvent) {
                 console.error(`Unknown treasure type: ${type}`);
             }
         },
-        userChooseLocation: (x, y, min, max, directionOrPoints) => {
+        userChooseLocation: (x, y, min, max, directionOrPoints, filter) => {
             return new Promise((resolve) => {
-                enterCellSelect(x, y, min, max, directionOrPoints, resolve);
+                enterCellSelect(x, y, min, max, directionOrPoints, filter, resolve);
             });
         },
         runTrigger: function(name) {

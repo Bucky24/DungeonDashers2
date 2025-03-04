@@ -23,6 +23,7 @@ The userChooseLocation method allows the player to select a location on the game
 | min | The min distance away from the x,y that the selection must be |
 | max | The max distance away from the x,y that the selection must be |
 | typeOrPoints | Determines what cells are valid to select, one of LOCATION, or an array of Point objects |
+| filter | Optional filter to indicate how to filter selection of cells. One of LOCATION_FILTER |
 
 ### runTrigger
 
@@ -253,3 +254,9 @@ Some text can have parameters. Parameters use the standard template format: `my 
 | Parameter | Description |
 | SPECIAL_KEY | The key used to trigger special moves |
 | CURRENT_CHARACTER | The name of the active character |
+
+### LOCATION_FILTER
+
+| Value | Description |
+| -- | -- |
+| WALKABLE | Any space that could be normally walked on |

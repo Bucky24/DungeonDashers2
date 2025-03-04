@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { getTile } from '../data/mapData';
+import { getTile as getModuleTile } from '../data/moduleData';
+
 const UIContext = React.createContext({});
 export default UIContext;
 
@@ -16,6 +19,10 @@ export const UI_MODE = {
 
 export const LOCATION = {
     STRAIGHT_LINES: 'location/straight_lines',
+};
+
+export const LOCATION_FILTER = {
+    WALKABLE: 'location_filter/walkable',
 };
 
 export const MENU_ITEMS = [
@@ -43,7 +50,7 @@ export function UIProvider({ children }) {
         activeMenuItem,
         tooltip,
         setTooltip,
-        enterCellSelect: (startX, startY, min, max, type, callback) => {
+        enterCellSelect: (startX, startY, min, max, type, filter, callback) => {
             const data = {
                 startX,
                 startY,
@@ -52,6 +59,7 @@ export function UIProvider({ children }) {
                 type,
                 callback,
                 selected: null,
+                filter,
             };
 
             let cells = [];
@@ -94,6 +102,24 @@ export function UIProvider({ children }) {
                 console.error(`Invalid direction ${type}`);
                 callback(null);
                 return;
+            }
+
+            if (filter) {
+                cells = cells.filter((cell) => {
+                    if (filter === LOCATION_FILTER.WALKABLE) {
+                        const tileData = getTile(cell.x, cell.y);
+                        if (!tileData) {
+                            return false;
+                        }
+
+                        const moduleTile = getModuleTile(tileData.tile);
+                        
+                        if (moduleTile.type !== "ground") {
+                            return false;
+                        }
+                    }
+                    return true;
+                });
             }
 
             data.cells = cells;

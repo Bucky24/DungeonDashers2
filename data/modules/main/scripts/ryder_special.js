@@ -4,6 +4,7 @@ const userResponse = await this.game.userChooseLocation(
     2,
     2,
     this.game.LOCATION.STRAIGHT_LINES,
+    this.game.LOCATION_FILTER.WALKABLE,
 );
 if (!userResponse) {
     return;

@@ -84,6 +84,7 @@ v0.8.0 (unreleased)
 * Begin work on audio system
 * Add capacity to show tooltips via triggers
 * Improve movement AI of enemies
+* Can filter user pickable map cells.
 
 Bug Fixes:
 * Sir Jacob is no longer stopped by chests
@@ -93,3 +94,4 @@ Bug Fixes:
 * Entity editor no longer saves various numeric fields as strings
 * Game no longer crashes when going into combat with a character that has no max HP
 * Ryder is now disabled on map 1 when Sir Jacob is in the initial fight sequence
+* Ryder's special can no longer teleport to unwalkable spaces (or off map)

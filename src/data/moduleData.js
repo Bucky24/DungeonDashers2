@@ -79,6 +79,10 @@ export function getTiles() {
     return computedData.tiles || {};
 }
 
+export function getTile(id) {
+    return computedData.tiles[id] || null;
+}
+
 export function getImages() {
     return computedData.images || {};
 }
