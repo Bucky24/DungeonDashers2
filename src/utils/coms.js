@@ -26,7 +26,7 @@ if (ipcRenderer) {
     });
 }
 
-export default {
+const Coms = {
     isElectron: !!ipcRenderer,
 	send: (command, data) => {
         if (ipcRenderer) {
@@ -81,3 +81,5 @@ export default {
         }
 	}
 };
+
+export default Coms;

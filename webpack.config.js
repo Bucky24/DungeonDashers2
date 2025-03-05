@@ -7,7 +7,7 @@ module.exports = {
 	output: {
 		path: path.resolve(__dirname, 'build'),
 		filename: 'main.bundle.js',
-		publicPath: process.env.ELECTRON ? '/' : '/',
+		publicPath: process.env.ELECTRON ? './' : '/',
 	},
 	mode: "development",
 	module: {

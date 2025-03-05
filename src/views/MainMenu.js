@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import StandardMenu from '../components/StandardMenu';
 import MenuOuter from '../components/MenuOuter';
+import Coms from '../utils/coms';
 
 export default function MainMenu() {
     const navigate = useNavigate();
@@ -19,8 +20,10 @@ export default function MainMenu() {
                     navigate("/game/new");
                 } else if (item === "Settings") {
                     navigate("/settings");
+                } else if (item === 'Exit Game') {
+                    Coms.send("quit", {});
                 } else {
-                    console.log(item);
+                    console.log(`Unknown menu item ${item}`);
                 }
             }}
         />

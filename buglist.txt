@@ -1,6 +1,4 @@
 * Characters should be able to move through each other as long as they have action points to move afterwards.
-* Quit button doesn't do anything (quit app)
 * Closing the electron window keeps the process alive still
 * Doors are centered wrong in their square
-* It's possible for Ryder to finish map 1 because when he blinks from 1 pad to the other the collision happens on both!
-* Enemies get stuck on characters or other enemies
+* It's possible for Ryder to finish map 1 because when he blinks from 1 pad to the other the collision happens on both!c

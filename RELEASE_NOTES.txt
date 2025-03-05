@@ -95,3 +95,4 @@ Bug Fixes:
 * Game no longer crashes when going into combat with a character that has no max HP
 * Ryder is now disabled on map 1 when Sir Jacob is in the initial fight sequence
 * Ryder's special can no longer teleport to unwalkable spaces (or off map)
+* Game correctly quits when using the "Exit Game" button

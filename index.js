@@ -12,6 +12,10 @@ const {
 } = electron;
 
 ipc.on('comsCommand', async (event, { command, data, id }) => {
+	if (command === "quit") {
+		app.quit();
+		return;
+	}
 	if (!commands[command]) {
 		console.error('Unknown command', command);
 		return;
