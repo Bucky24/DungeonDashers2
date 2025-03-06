@@ -96,3 +96,4 @@ Bug Fixes:
 * Ryder is now disabled on map 1 when Sir Jacob is in the initial fight sequence
 * Ryder's special can no longer teleport to unwalkable spaces (or off map)
 * Game correctly quits when using the "Exit Game" button
+* Ryder can no longer trigger two portals at once with his special move

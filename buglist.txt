@@ -1,4 +1,5 @@
 * Characters should be able to move through each other as long as they have action points to move afterwards.
 * Closing the electron window keeps the process alive still
 * Doors are centered wrong in their square
-* It's possible for Ryder to finish map 1 because when he blinks from 1 pad to the other the collision happens on both!c
+* The iron door in the first map can be opened before ryder hits the lever
+* enemies can go off the map (second fight in first map)

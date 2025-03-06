@@ -23,7 +23,8 @@ const moveOff = async () => {
     }
 }
 
-while (true) {
+// unlikely we need to do this more than 100 times
+for (let i=0;i<100;i++) {
     console.log(h, 'entity is at', this.entity.getPos());
     const objectsAround = this.game.getEntitiesWithinRange(this.entity.getPos().x, this.entity.getPos().y, 1);
 

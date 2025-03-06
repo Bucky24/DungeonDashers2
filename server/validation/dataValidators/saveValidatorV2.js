@@ -9,7 +9,7 @@ const saveGameSchema = object({
         x: number().required(),
         y: number().required(),
         id: number().required(),
-        flags: array(string()).required(),
+        flags: array(string()).optional(),
     })),
     enemies: array(object({
         type: string().required(),
