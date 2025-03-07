@@ -4239,7 +4239,8 @@
             "type": "main_door2",
             "id": 42,
             "x": 32,
-            "y": 25
+            "y": 25,
+            "flags": ["locked"]
         },
         {
             "type": "main_trigger1",
