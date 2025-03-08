@@ -2,8 +2,9 @@ import { useContext } from 'react';
 
 import GameContext, { EVENTS } from '../contexts/GameContext';
 import getEntityFlags from '../utils/getEntityFlags';
-import { getCharacters, getEnemies, getObjects } from '../data/moduleData';
+import { getCharacters, getEnemies, getObjects, getTile as getModuleTile } from '../data/moduleData';
 import { getActionPoints, getHp } from '../data/attributeHelper';
+import { getTile } from '../data/mapData';
 
 function useGetGenericEntityContext() {
     return (entityData, moduleData, entityType, updateEntity) => {
@@ -222,6 +223,17 @@ function useGetEnemyContext() {
                         curX += xOff;
                     } else {
                         curY += yOff;
+                    }
+
+                    const tileData = getTile(curX, curY);
+                    if (!tileData) {
+                        return false;
+                    }
+
+                    const moduleTile = getModuleTile(tileData.tile);
+                    
+                    if (moduleTile.type !== "ground") {
+                        return false;
                     }
 
                     if (collide) {

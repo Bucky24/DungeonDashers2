@@ -1,1 +1,0 @@
-* enemies can go off the map (second fight in first map)
