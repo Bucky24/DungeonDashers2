@@ -21,6 +21,8 @@ For v0.9.0
 * Nicer UI for editors
     * Entity
     * Map
+        * Drag-and-drop for tile placement
+        * Maybe auto-wall?
     * Tile
     * Equipment
 * Test multiple modules in one map (should work, but lets check)
