@@ -41,3 +41,5 @@ For v0.9.0
 * Improve and merge character stats and equipment, make it look like original
 * Data validation for modules
 * Let characters move through each other similar to enemies
+* Add tile-sets
+    * Select tileset in map editor, better way to click and select tiles to add
