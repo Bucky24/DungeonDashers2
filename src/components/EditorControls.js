@@ -18,6 +18,8 @@ export default function EditorControls({ newMap }) {
         tool,
         setTool,
         map,
+        removeUnder,
+        setRemoveUnder,
     } = useContext(EditorContext);
     const tiles = getTiles();
     const objects = getObjects();
@@ -98,6 +100,10 @@ export default function EditorControls({ newMap }) {
                         return <option key={`select_${toolSelectName}_${item}`} value={item}>{text}</option>
                     })}
                 </select>
+                <div>
+                    <span>Remove Under</span>
+                    <input type="checkbox" checked={removeUnder} onChange={(e) => setRemoveUnder(e.target.checked)} />
+                </div>
             </div>}
         </div>
     );

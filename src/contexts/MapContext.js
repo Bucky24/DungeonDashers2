@@ -73,30 +73,26 @@ export function MapProvider({ children }) {
         },
         editable,
         // change the tile at x, y. Pass null as tile to remove
-        setTile: (x, y, tile) => {
+        setTile: (x, y, tile, removeExisting = true) => {
             if (!editable) {
                 console.error("setTile called but map is set to not be editable");
                 return;
             }
 
-            const existingIndex = map.findIndex((tile) => {
-                return tile.x === x && tile.y === y;
-            });
-
-            if (existingIndex > -1) {
-                if (tile === null) {
-                    map.splice(existingIndex, 1);
-                } else {
-                    map[existingIndex].tile = tile;
+            if (removeExisting) {
+                for (let i=0;i<map.length;i++) {
+                    const tile = map[i];
+                    if (tile.x === x && tile.y === y) {
+                        map.splice(i, 1);
+                    }
                 }
-            } else {
-                if (tile !== null) {
-                    map.push({
-                        x,
-                        y,
-                        tile,
-                    });
-                }
+            }
+            if (tile !== null) {
+                map.push({
+                    x,
+                    y,
+                    tile,
+                });
             }
 
             setMap([

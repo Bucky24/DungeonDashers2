@@ -19,7 +19,7 @@ export const EDITOR_MAP_TOOLS = {
 };
 
 export function EditorProvider({ children}) {
-    const { loadMap, getSaveData: getMapSaveData, createNewMap } = useContext(MapContext);
+    const { loadMap, getSaveData: getMapSaveData, createNewMap, setTile } = useContext(MapContext);
     const { loadModules, getSaveData: getModuleSaveData, createNewModule } = useContext(ModuleContext);
 
     const [loaded, setLoaded] = useState(false);
@@ -30,12 +30,15 @@ export function EditorProvider({ children}) {
     const [activeItem, setActiveItem] = useState('');
     const [tool, setTool] = useState(EDITOR_MAP_TOOLS.SELECT);
     const [selectedCell, setSelectedCell] = useState(null);
+    const [removeUnder, setRemoveUnder] = useState(true);
 
     const value = {
         loaded,
         map,
         selectedCell,
         setSelectedCell,
+        removeUnder,
+        setRemoveUnder,
         loadMap: async (map) => {
             setLoaded(true);
             setMap(map);
@@ -100,6 +103,13 @@ export function EditorProvider({ children}) {
         saving,
         setTool,
         tool,
+        setTile: (x, y, tile) => {
+            if (tool === EDITOR_MAP_TOOLS.PLACE_TILE) {
+                setTile(x, y, tile, removeUnder);
+            } else {
+                setTile(x, y, null);
+            }
+        },
     };
 
     return (

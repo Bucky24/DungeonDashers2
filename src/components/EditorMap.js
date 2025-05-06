@@ -8,7 +8,6 @@ import EditorContext, { EDITOR_MAP_TOOLS} from '../contexts/EditorContext';
 export default function EditorMap() {
     const {
         map,
-        setTile,
         objects,
         characters,
         enemies,
@@ -22,6 +21,7 @@ export default function EditorMap() {
         activeItem,
         tool,
         setSelectedCell,
+        setTile,
     } = useContext(EditorContext);
 
     return (
