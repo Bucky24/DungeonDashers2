@@ -8,6 +8,7 @@ const EditorContext = React.createContext({});
 export default EditorContext;
 
 export const EDITOR_MAP_TOOLS = {
+    MOVE: 'map_tools/move',
     SELECT: 'map_tools/select',
     PLACE_TILE: 'map_tools/place_tile',
     PLACE_OBJECT: 'map_tools/place_object',
@@ -28,17 +29,20 @@ export function EditorProvider({ children}) {
     const [module, setModule] = useState(null);
     const [hoveredEntities, setHoveredEntities] = useState([]);
     const [activeItem, setActiveItem] = useState('');
-    const [tool, setTool] = useState(EDITOR_MAP_TOOLS.SELECT);
-    const [selectedCell, setSelectedCell] = useState(null);
+    const [tool, setTool] = useState(EDITOR_MAP_TOOLS.MOVE);
+    const [selectedCells, setSelectedCells] = useState([]);
     const [removeUnder, setRemoveUnder] = useState(true);
+    const [selectStart, setSelectStart] = useState(null);
 
     const value = {
         loaded,
         map,
-        selectedCell,
-        setSelectedCell,
+        selectedCells,
+        setSelectedCells,
         removeUnder,
         setRemoveUnder,
+        selectStart,
+        setSelectStart,
         loadMap: async (map) => {
             setLoaded(true);
             setMap(map);

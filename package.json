@@ -24,7 +24,7 @@
     },
     "dependencies": {
         "@bucky24/react-canvas": "3.1.6",
-        "@bucky24/react-canvas-map": "2.0.8",
+        "@bucky24/react-canvas-map": "2.1.0",
         "appdata-path": "^1.0.0",
         "classnames": "^2.5.1",
         "cross-env": "^7.0.3",

@@ -34,6 +34,8 @@ export default function TheMap({
     fullFocus,
     showInactive,
     heightOffset,
+    onPress,
+    onRelease,
 }) {
     const [size, setSize] = useState({ width: 0, height: 0 });
     const {
@@ -170,6 +172,8 @@ export default function TheMap({
                 moveType={moveLocked ? MoveType.NONE : MoveType.MOUSE}
                 centerX={centerX}
                 centerY={centerY}
+                onPress={onPress}
+                onRelease={onRelease}
             >
                 <Layer id="tiles">
                     {map?.map(({ x, y, tile }, index) => {

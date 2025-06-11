@@ -12,8 +12,8 @@ importers:
         specifier: 3.1.6
         version: 3.1.6(react@18.2.0)
       '@bucky24/react-canvas-map':
-        specifier: 2.0.8
-        version: 2.0.8(@bucky24/react-canvas@3.1.6(react@18.2.0))
+        specifier: 2.1.0
+        version: 2.1.0(@bucky24/react-canvas@3.1.6(react@18.2.0))
       appdata-path:
         specifier: ^1.0.0
         version: 1.0.0
@@ -630,8 +630,8 @@ packages:
     resolution: {integrity: sha512-6mQNsaLeXTw0nxYUYu+NSa4Hx4BlF1x1x8/PMFbiR+GBSr+2DkECc69b8hgy2frEodNcvPffeH8YfWd3LI6jhQ==}
     engines: {node: '>=6.9.0'}
 
-  '@bucky24/react-canvas-map@2.0.8':
-    resolution: {integrity: sha512-A5yo9OZ0pNzZFsPC6Ua3B6jc2+KwNiCWE9fHpL/f7CZj39ISMeeWoVFAFxNP4X6C9z1pE/4cnFWAVNhUpSbdxQ==}
+  '@bucky24/react-canvas-map@2.1.0':
+    resolution: {integrity: sha512-DqY6BplkY4IhFuu580lyw0AddNmUgLgS/wyBJlt3HC4ABGLxF8cs/xsy40p/xfIuf1fyzUZg8T7ChEDEM8DJNg==}
     peerDependencies:
       '@bucky24/react-canvas': ^3.1.5
 
@@ -3301,7 +3301,7 @@ snapshots:
       '@babel/helper-validator-identifier': 7.24.5
       to-fast-properties: 2.0.0
 
-  '@bucky24/react-canvas-map@2.0.8(@bucky24/react-canvas@3.1.6(react@18.2.0))':
+  '@bucky24/react-canvas-map@2.1.0(@bucky24/react-canvas@3.1.6(react@18.2.0))':
     dependencies:
       '@bucky24/react-canvas': 3.1.6(react@18.2.0)
       '@bucky24/toolbox': 0.1.0

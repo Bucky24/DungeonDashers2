@@ -20,8 +20,10 @@ export default function EditorMap() {
         setHoveredEntities,
         activeItem,
         tool,
-        setSelectedCell,
+        setSelectedCells,
         setTile,
+        setSelectStart,
+        selectStart,
     } = useContext(EditorContext);
 
     return (
@@ -57,16 +59,53 @@ export default function EditorMap() {
                     } else if (tool === EDITOR_MAP_TOOLS.REMOVE_ENTITY) {
                         removeEntities(cellX, cellY);
                     } else if (tool === EDITOR_MAP_TOOLS.SELECT) {
-                        setSelectedCell({ x: cellX, y: cellY });
+                        setSelectedCells([{ x: cellX, y: cellY }]);
                     }
                 } else if (button === ButtonTypes.RIGHT) {
-                    setTile(cellX, cellY, null);
+                    if (tool === EDITOR_MAP_TOOLS.PLACE_TILE) {
+                        setTile(cellX, cellY, null);
+                    }
                 }
+
+                setSelectStart(null);
             }}
             onHover={(entities) => {
                 setHoveredEntities(entities);
             }}
             showInvalidEntities={true}
+            moveLocked={tool === EDITOR_MAP_TOOLS.SELECT}
+            onPress={(x, y, button) => {
+                if (button === ButtonTypes.LEFT) {
+                    if (tool === EDITOR_MAP_TOOLS.SELECT) {
+                        setSelectStart({ x, y });
+                    }
+                }
+            }}
+            onRelease={(x, y, button) => {
+                setSelectStart(null);
+                if (selectStart.x === x && selectStart.y === y) {
+                    return;
+                }
+                if (button === ButtonTypes.LEFT) {
+                    if (tool === EDITOR_MAP_TOOLS.SELECT) {
+                        // figure out all entries in between the two points
+                        // and select them all
+                        const minX = Math.min(x, selectStart.x);
+                        const minY = Math.min(y, selectStart.y);
+                        const maxX = Math.max(x, selectStart.x);
+                        const maxY = Math.max(y, selectStart.y);
+
+                        const selectedCells = [];
+                        for (let i=minX;i<=maxX;i++) {
+                            for (let j=minY;j<maxY;j++) {
+                                selectedCells.push({ x: i, y: j });
+                            }
+                        }
+
+                        setSelectedCells(selectedCells);
+                    }
+                }
+            }}
         />
     );
 }

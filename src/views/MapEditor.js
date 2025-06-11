@@ -13,7 +13,7 @@ import MapEntityEditor from '../components/MapEntityEditor';
 import SearchContext from '../contexts/SearchContext';
 
 export default function MapEditor({ newMap }) {
-    const { loaded: editorLoaded, loadMap, createNewMap, selectedCell } = useContext(EditorContext);
+    const { loaded: editorLoaded, loadMap, createNewMap, selectedCells } = useContext(EditorContext);
 	const { loaded: moduleLoaded } = useContext(ModuleContext);
 	const { loaded: imagesLoaded } = useContext(AssetContext);
     const { loaded: mapLoaded, entitiesAtPosition } = useContext(MapContext);
@@ -33,7 +33,7 @@ export default function MapEditor({ newMap }) {
         }
     }, [map, newMap]);
 
-    const positionalEntities = selectedCell ? entitiesAtPosition(selectedCell.x, selectedCell.y) : [];
+    const positionalEntities = selectedCells.length > 0 ? entitiesAtPosition(selectedCells[0].x, selectedCells[0].y) : [];
 
     return (
         <>
@@ -62,7 +62,7 @@ export default function MapEditor({ newMap }) {
                             height: '100vh',
                             minWidth: 300,
                         }}>
-                            Selected {selectedCell.x}, {selectedCell.y}
+                            Selected {selectedCells[0].x}, {selectedCells[0].y}
                             {positionalEntities.map((entity, index) => {
                                 return <MapEntityEditor key={`entity_${index}`} entity={entity} />
                             })}
