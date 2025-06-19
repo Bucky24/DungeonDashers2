@@ -20,7 +20,17 @@ export const EDITOR_MAP_TOOLS = {
 };
 
 export function EditorProvider({ children}) {
-    const { loadMap, getSaveData: getMapSaveData, createNewMap, setTile } = useContext(MapContext);
+    const {
+        loadMap,
+        getSaveData:
+        getMapSaveData,
+        createNewMap,
+        setTile,
+        updateEnemy,
+        updateObject,
+        getAtPosition,
+        placeCharacter,
+    } = useContext(MapContext);
     const { loadModules, getSaveData: getModuleSaveData, createNewModule } = useContext(ModuleContext);
 
     const [loaded, setLoaded] = useState(false);
@@ -112,6 +122,40 @@ export function EditorProvider({ children}) {
                 setTile(x, y, tile, removeUnder);
             } else {
                 setTile(x, y, null);
+            }
+        },
+        moveSelection: (xOff, yOff) => {
+            // we need to move everything by the given offset
+            const previousTiles = [];
+            for (const cell of selectedCells) {
+                const { tiles, characters, enemies, objects } = getAtPosition(cell.x, cell.y);
+
+                for (const character of characters) {
+                    placeCharacter(character.x + xOff, character.y + yOff, character.type);
+                }
+
+                for (const enemy of enemies) {
+                    updateEnemy(enemy.id, 'x', enemy.x + xOff);
+                    updateEnemy(enemy.id, 'y', enemy.y + yOff);
+                }
+
+                for (const object of objects) {
+                    updateObject(object.id, 'x', object.x + xOff);
+                    updateObject(object.id, 'y', object.y + yOff);
+                }
+
+                previousTiles.push(...tiles);
+            }
+
+            // using previousTiles since this operation might overwrite tiles that we have yet to 
+            // process, previousTiles has a backup of those tiles so we can still run over them.
+            // also why we do this in two steps, otherwise the null can overwrite the previous actions
+            // if we go in some directions
+            for (const tile of previousTiles) {
+                setTile(tile.x, tile.y, null);
+            }
+            for (const tile of previousTiles) {
+                setTile(tile.x + xOff, tile.y + yOff, tile.tile);
             }
         },
     };

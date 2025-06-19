@@ -20,6 +20,8 @@ export default function EditorControls({ newMap }) {
         map,
         removeUnder,
         setRemoveUnder,
+        moveSelection,
+        selectedCells,
     } = useContext(EditorContext);
     const tiles = getTiles();
     const objects = getObjects();
@@ -41,6 +43,9 @@ export default function EditorControls({ newMap }) {
     } else if (tool === EDITOR_MAP_TOOLS.PLACE_ENEMY) {
         toolSelectData = enemies;
         toolSelectName = "Enemy";
+    } else if (tool === EDITOR_MAP_TOOLS.SELECT) {
+        toolSelectData = null;
+        toolSelectName = "Select";
     }
 
     return (
@@ -104,6 +109,13 @@ export default function EditorControls({ newMap }) {
                     <span>Remove Under</span>
                     <input type="checkbox" checked={removeUnder} onChange={(e) => setRemoveUnder(e.target.checked)} />
                 </div>
+            </div>}
+            {toolSelectName === "Select" && <div>
+                <div>Move Selected Cells ({selectedCells.length}):</div>
+                <button onClick={() => moveSelection(0, -1)}>Up</button>
+                <button onClick={() => moveSelection(0, 1)}>Down</button>
+                <button onClick={() => moveSelection(-1, 0)}>Left</button>
+                <button onClick={() => moveSelection(1, 0)}>Right</button>
             </div>}
         </div>
     );

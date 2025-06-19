@@ -106,6 +106,44 @@ export function MapProvider({ children }) {
 
             return existing;
         },
+        getAtPosition: (x, y) => {
+            const result = {
+                tiles: [],
+                characters: [],
+                enemies: [],
+                objects: [],
+            };
+
+            for (let i=0;i<map.length;i++) {
+                const tile = map[i];
+                if (tile.x === x && tile.y === y) {
+                    result.tiles.push(tile);
+                }
+            }
+
+            for (let i=0;i<characters.length;i++) {
+                const character = characters[i];
+                if (character.x === x && character.y === y) {
+                    result.characters.push(character);
+                }
+            }
+
+            for (let i=0;i<enemies.length;i++) {
+                const enemy = enemies[i];
+                if (enemy.x === x && enemy.y === y) {
+                    result.enemies.push(enemy);
+                }
+            }
+
+            for (let i=0;i<objects.length;i++) {
+                const object = objects[i];
+                if (object.x === x && object.y === y) {
+                    result.objects.push(object);
+                }
+            }
+            
+            return result;
+        },
         getSaveData: () => {
             const modules = getLoadedModules();
 
@@ -182,6 +220,21 @@ export function MapProvider({ children }) {
         },
         updateObject: (id, key, value) => {
             setObjects((entities) => {
+                const newEntities = entities.map((entity) => {
+                    if (entity.id === id) {
+                        return {
+                           ...entity,
+                            [key]: value,
+                        };   
+                    }
+                    return entity;
+                });
+
+                return newEntities;
+            });
+        },
+        updateEnemy: (id, key, value) => {
+            setEnemies((entities) => {
                 const newEntities = entities.map((entity) => {
                     if (entity.id === id) {
                         return {

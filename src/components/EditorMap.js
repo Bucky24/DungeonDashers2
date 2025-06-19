@@ -83,7 +83,7 @@ export default function EditorMap() {
             }}
             onRelease={(x, y, button) => {
                 setSelectStart(null);
-                if (selectStart.x === x && selectStart.y === y) {
+                if (!selectStart || (selectStart.x === x && selectStart.y === y)) {
                     return;
                 }
                 if (button === ButtonTypes.LEFT) {
