@@ -155,7 +155,7 @@ export function EditorProvider({ children}) {
                 setTile(tile.x, tile.y, null);
             }
             for (const tile of previousTiles) {
-                setTile(tile.x + xOff, tile.y + yOff, tile.tile);
+                setTile(tile.x + xOff, tile.y + yOff, tile.tile, false);
             }
         },
     };
