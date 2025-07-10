@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@bucky24/react-canvas':
-        specifier: 3.1.4
-        version: 3.1.4(react@18.2.0)
+        specifier: 3.1.6
+        version: 3.1.6(react@18.2.0)
       '@bucky24/react-canvas-map':
-        specifier: 2.0.3
-        version: 2.0.3(@bucky24/react-canvas@3.1.4(react@18.2.0))
+        specifier: 2.1.0
+        version: 2.1.0(@bucky24/react-canvas@3.1.6(react@18.2.0))
       appdata-path:
         specifier: ^1.0.0
         version: 1.0.0
@@ -29,6 +29,9 @@ importers:
       express:
         specifier: 4.20.0
         version: 4.20.0
+      prismjs:
+        specifier: ^1.29.0
+        version: 1.30.0
       prop-types:
         specifier: 15.8.1
         version: 15.8.1
@@ -41,6 +44,12 @@ importers:
       react-router-dom:
         specifier: ^6.22.3
         version: 6.23.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      react-simple-code-editor:
+        specifier: ^0.14.1
+        version: 0.14.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      yup:
+        specifier: ^1.6.1
+        version: 1.6.1
     devDependencies:
       '@babel/core':
         specifier: 7.24.0
@@ -622,13 +631,13 @@ packages:
     resolution: {integrity: sha512-6mQNsaLeXTw0nxYUYu+NSa4Hx4BlF1x1x8/PMFbiR+GBSr+2DkECc69b8hgy2frEodNcvPffeH8YfWd3LI6jhQ==}
     engines: {node: '>=6.9.0'}
 
-  '@bucky24/react-canvas-map@2.0.3':
-    resolution: {integrity: sha512-CSOlv51ILWwvyJLa/E7n2SVXi7rBPyXzO4ZynH9KUNHARQRrjLWBCTmivrd5VeMjznAVRUnpDlzjsqO51LJh2g==}
+  '@bucky24/react-canvas-map@2.1.0':
+    resolution: {integrity: sha512-DqY6BplkY4IhFuu580lyw0AddNmUgLgS/wyBJlt3HC4ABGLxF8cs/xsy40p/xfIuf1fyzUZg8T7ChEDEM8DJNg==}
     peerDependencies:
-      '@bucky24/react-canvas': ^3.1.4
+      '@bucky24/react-canvas': ^3.1.5
 
-  '@bucky24/react-canvas@3.1.4':
-    resolution: {integrity: sha512-t9n6rUoWRHJUe3yRy3LS4RZQJtW+QHA+K+hqBUtr2i8QyySGQfVZjCfcUFKMoEExpHoJqhJHMm3c6vWKNVE2Iw==}
+  '@bucky24/react-canvas@3.1.6':
+    resolution: {integrity: sha512-wcb5svnSx6z8CcpNDibJ9wU7G4e549hvlzunFjazi2AyNvKRHmVDGk5rmtN8XnuOwiZk9gLYl38eIW3B74Envw==}
     peerDependencies:
       react: 18.x.x
 
@@ -1963,6 +1972,10 @@ packages:
   pretty-error@2.1.2:
     resolution: {integrity: sha512-EY5oDzmsX5wvuynAByrmY0P0hcp+QpnAKbJng2A2MPjVKXCxrDSUkzghVJ4ZGPIv+JC4gX8fPUWscC0RtjsWGw==}
 
+  prismjs@1.30.0:
+    resolution: {integrity: sha512-DEvV2ZF2r2/63V+tK8hQvrR2ZGn10srHbXviTlcv7Kpzw8jWiNTqbVgjO3IY8RxrrOUF8VPMQQFysYYYv0YZxw==}
+    engines: {node: '>=6'}
+
   process-nextick-args@2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
 
@@ -1975,6 +1988,9 @@ packages:
 
   prop-types@15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
+
+  property-expr@2.0.6:
+    resolution: {integrity: sha512-SVtmxhRE/CGkn3eZY1T6pC8Nln6Fr/lu1mKSgRud0eC73whjGfoAogbn78LkD8aFL0zz3bAFerKSnOl7NlErBA==}
 
   proxy-addr@2.0.7:
     resolution: {integrity: sha512-llQsMLSUDUPT44jdrU/O37qlnifitDP+ZwrmmZcoSKyLKvtZxpyV0n2/bD/N4tBAAZ/gJEdZU7KMraoK1+XYAg==}
@@ -2036,6 +2052,12 @@ packages:
     engines: {node: '>=14.0.0'}
     peerDependencies:
       react: '>=16.8'
+
+  react-simple-code-editor@0.14.1:
+    resolution: {integrity: sha512-BR5DtNRy+AswWJECyA17qhUDvrrCZ6zXOCfkQY5zSmb96BVUbpVAv03WpcjcwtCwiLbIANx3gebHOcXYn1EHow==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
 
   react@18.2.0:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
@@ -2336,6 +2358,9 @@ packages:
   thunky@1.1.0:
     resolution: {integrity: sha512-eHY7nBftgThBqOyHGVN+l8gF0BucP09fMo0oO/Lb0w1OF80dJv+lDVpXG60WMQvkcxAkNybKsrEIE3ZtKGmPrA==}
 
+  tiny-case@1.0.3:
+    resolution: {integrity: sha512-Eet/eeMhkO6TX8mnUteS9zgPbUMQa4I6Kkp5ORiBD5476/m+PIRiumP5tmh5ioJpH7k51Kehawy2UDfsnxxY8Q==}
+
   to-fast-properties@2.0.0:
     resolution: {integrity: sha512-/OaKK0xYrs3DmxRYqL/yDc+FxFUVYhDlXMhRmv3z915w2HF1tnN1omB354j8VUGO/hbRzyD6Y3sA7v7GS/ceog==}
     engines: {node: '>=4'}
@@ -2347,6 +2372,9 @@ packages:
   toidentifier@1.0.1:
     resolution: {integrity: sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA==}
     engines: {node: '>=0.6'}
+
+  toposort@2.0.2:
+    resolution: {integrity: sha512-0a5EOkAUp8D4moMi2W8ZF8jcga7BgZd91O/yabJCFY8az+XSzeGyTKs0Aoo897iV1Nj6guFq8orWDS96z91oGg==}
 
   tree-dump@1.0.3:
     resolution: {integrity: sha512-il+Cv80yVHFBwokQSfd4bldvr1Md951DpgAGfmhydt04L+YzHgubm2tQ7zueWDcGENKHq0ZvGFR/hjvNXilHEg==}
@@ -2363,6 +2391,10 @@ packages:
   type-fest@0.13.1:
     resolution: {integrity: sha512-34R7HTnG0XIJcBSn5XhDd7nNFPRcXYRZrBB2O2jdKqYODldSzBAqzsWoZYYvduky73toYS/ESqxPvkDf/F0XMg==}
     engines: {node: '>=10'}
+
+  type-fest@2.19.0:
+    resolution: {integrity: sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA==}
+    engines: {node: '>=12.20'}
 
   type-is@1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
@@ -2540,6 +2572,9 @@ packages:
 
   yauzl@2.10.0:
     resolution: {integrity: sha512-p4a9I6X6nu6IhoGmBqAcbJy1mlC4j27vEPZX9F4L4/vZT3Lyq1VkFHw/V/PUcB9Buo+DG3iHkT0x3Qya58zc3g==}
+
+  yup@1.6.1:
+    resolution: {integrity: sha512-JED8pB50qbA4FOkDol0bYF/p60qSEDQqBD0/qeIrUCG1KbPBIQ776fCUNb9ldbPcSTxA69g/47XTo4TqWiuXOA==}
 
 snapshots:
 
@@ -3191,14 +3226,14 @@ snapshots:
       '@babel/helper-validator-identifier': 7.24.5
       to-fast-properties: 2.0.0
 
-  '@bucky24/react-canvas-map@2.0.3(@bucky24/react-canvas@3.1.4(react@18.2.0))':
+  '@bucky24/react-canvas-map@2.1.0(@bucky24/react-canvas@3.1.6(react@18.2.0))':
     dependencies:
       '@bucky24/react-canvas': 3.1.6(react@18.2.0)
       '@bucky24/toolbox': 0.1.0
       prop-types: 15.8.1
       react-fast-compare: 3.2.2
 
-  '@bucky24/react-canvas@3.1.4(react@18.2.0)':
+  '@bucky24/react-canvas@3.1.6(react@18.2.0)':
     dependencies:
       prop-types: 15.7.2
       react: 18.2.0
@@ -4597,6 +4632,8 @@ snapshots:
       lodash: 4.17.21
       renderkid: 2.0.7
 
+  prismjs@1.30.0: {}
+
   process-nextick-args@2.0.1: {}
 
   progress@2.0.3: {}
@@ -4612,6 +4649,8 @@ snapshots:
       loose-envify: 1.4.0
       object-assign: 4.1.1
       react-is: 16.13.1
+
+  property-expr@2.0.6: {}
 
   proxy-addr@2.0.7:
     dependencies:
@@ -4671,6 +4710,11 @@ snapshots:
     dependencies:
       '@remix-run/router': 1.16.0
       react: 18.2.0
+
+  react-simple-code-editor@0.14.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
 
   react@18.2.0:
     dependencies:
@@ -5045,6 +5089,8 @@ snapshots:
 
   thunky@1.1.0: {}
 
+  tiny-case@1.0.3: {}
+
   to-fast-properties@2.0.0: {}
 
   to-regex-range@5.0.1:
@@ -5052,6 +5098,8 @@ snapshots:
       is-number: 7.0.0
 
   toidentifier@1.0.1: {}
+
+  toposort@2.0.2: {}
 
   tree-dump@1.0.3(tslib@2.8.1):
     dependencies:
@@ -5063,6 +5111,8 @@ snapshots:
 
   type-fest@0.13.1:
     optional: true
+
+  type-fest@2.19.0: {}
 
   type-is@1.6.18:
     dependencies:
@@ -5254,3 +5304,10 @@ snapshots:
     dependencies:
       buffer-crc32: 0.2.13
       fd-slicer: 1.1.0
+
+  yup@1.6.1:
+    dependencies:
+      property-expr: 2.0.6
+      tiny-case: 1.0.3
+      toposort: 2.0.2
+      type-fest: 2.19.0
