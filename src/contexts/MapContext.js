@@ -288,10 +288,16 @@ export function MapProvider({ children }) {
         createEnemy: (x, y, type) => {
             setEnemies((entities) => {
                 const newEntities = [...entities];
+                let highestId = 0;
+                for (const entity of entities) {
+                    if (!entity.id) continue;
+                    highestId = Math.max(highestId, entity.id);
+                }
                 newEntities.push({
                     type,
                     x,
                     y,
+                    id: highestId + 1,
                 });
 
                 return newEntities;

@@ -155,7 +155,15 @@ export function EditorProvider({ children}) {
                 setTile(tile.x, tile.y, null);
             }
             for (const tile of previousTiles) {
+                console.log(tile.x, tile.y, xOff, yOff, tile.tile, false);
                 setTile(tile.x + xOff, tile.y + yOff, tile.tile, false);
+            }
+
+            // now update our selection so we are still selecting the same tiles
+
+            for (const cell of selectedCells) {
+                cell.x += xOff;
+                cell.y += yOff;
             }
         },
     };

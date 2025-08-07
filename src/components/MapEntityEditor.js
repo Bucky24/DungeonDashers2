@@ -4,12 +4,16 @@ import TextArea from "./TextArea";
 import TextField from "./TextField";
 
 export default function MapEntityEditor({ entity }) {
-    const { updateObject } = useContext(MapContext);
+    const { updateObject, updateEnemy } = useContext(MapContext);
     const [newFlag, setNewFlag] = useState('');
+
+    let updateFunc;
+    if (entity.type === 'object') updateFunc = updateObject;
+    if (entity.type === 'enemy') updateFunc = updateEnemy;
 
     return <div>
         <h3>{entity.type} of type {entity.entity.type} with id {entity.entity.id}</h3>
-        {entity.type === "object" && <div>
+        {(entity.type === "object" || entity.type === "enemy") && <div>
             <table>
                 <thead>
                     <tr>
@@ -24,7 +28,7 @@ export default function MapEntityEditor({ entity }) {
                             <TextArea
                                 value={JSON.stringify(entity.entity.data || {})}
                                 onBlur={(value) => {
-                                    updateObject(entity.entity.id, "data", JSON.parse(value));
+                                    updateFunc(entity.entity.id, "data", JSON.parse(value));
                                 }}
                             />
                         </td>
@@ -39,9 +43,9 @@ export default function MapEntityEditor({ entity }) {
                                             <td>{flag}</td>
                                             <td>
                                                 <button onClick={() => {
-                                                    const newFlags = [...entity.entity.flags];
+                                                    const newFlags = [...entity.entity.flags || []];
                                                     newFlags.splice(index, 1);
-                                                    updateObject(entity.entity.id, "flags", newFlags);
+                                                    updateFunc(entity.entity.id, "flags", newFlags);
                                                 }}>X</button>
                                             </td>
                                         </tr>
@@ -52,7 +56,7 @@ export default function MapEntityEditor({ entity }) {
                                         </td>
                                         <td>
                                             <button onClick={() => {
-                                                updateObject(entity.entity.id, "flags", [
+                                                updateFunc(entity.entity.id, "flags", [
                                                     ...entity.entity.flags || [],
                                                     newFlag,
                                                 ]);
