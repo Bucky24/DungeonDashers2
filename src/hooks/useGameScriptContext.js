@@ -210,7 +210,7 @@ export default function useGameScriptContext(triggerEvent) {
             const targets = entities.filter((entity) => {
                 switch (targetType) {
                     case TARGET_TYPE.ATTACKABLE:
-                        return entity.flags && entity.flags.includes("attackable");
+                        return entity.entityType === "enemy" || entity.flags && entity.flags.includes("attackable");
                     default:
                         throw new Error(`Invalid target type ${targetType}`);
                 }

@@ -122,6 +122,11 @@ export function UIProvider({ children }) {
                 });
             }
 
+            if (cells.length === 0) {
+                callback(null);
+                return;
+            }
+
             data.cells = cells;
             setCellSelectData(data);
             setMode(UI_MODE.CELL_SELECT);

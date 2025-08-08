@@ -14,11 +14,11 @@
     "skills": {
         "special": {
             "type": "script",
-            "file": "scripts/january_special.js"
+            "file": "scripts/wizard_special.js"
         }
     },
     "scripts": [
-        "scripts/january_special.js"
+        "scripts/wizard_special.js"
     ],
     "slots": [
         {

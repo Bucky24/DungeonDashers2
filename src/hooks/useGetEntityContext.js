@@ -265,6 +265,16 @@ function useGetEnemyContext() {
                 setEnemyProperty(this.id, "x", x);
                 setEnemyProperty(this.id, "y", y);
             },
+            damage: async function(amount) {
+                const results = await triggerEvent(EVENTS.ATTACKED, [generic._getEntity()]);
+                // if any false result, cancel damage
+                if (results.some((result) => result === false)) {
+                    return;
+                }
+
+                const newHp = Math.max(0, this.hp - amount);
+                setEnemyProperty(this.id, "hp", newHp);
+            },
         };
     }
 }
