@@ -99,3 +99,4 @@ Bug Fixes:
 * Ryder can no longer trigger two portals at once with his special move
 * The iron door in the first map can no longer be opened before Ryder hits the lever
 * moveTo no longer attempts to move to an invalid location
+* Characters can now have AP taken away with the takeAction function

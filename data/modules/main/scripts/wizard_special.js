@@ -1,3 +1,7 @@
+if (!this.entity.canTakeAction(this.game.COMBAT_ACTION.SPECIAL)) {
+    return;
+} 
+
 const targets = this.game.getTargets(
     this.game.TARGET_TYPE.ATTACKABLE,
     this.entity.getPos().x,
@@ -29,5 +33,6 @@ if (selectedTargetPosition) {
 
     if (selectedTarget) {
         selectedTarget.damage(4);
+        this.entity.takeAction(this.game.COMBAT_ACTION.SPECIAL);
     }
 }

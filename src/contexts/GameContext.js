@@ -33,6 +33,7 @@ export const MOVEMENT = {
 export const COMBAT_ACTION = {
     MOVE: 1,
     ATTACK: 10,
+    SPECIAL: 10,
 };
 
 export const COMBAT_TURN = {

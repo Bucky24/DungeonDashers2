@@ -157,7 +157,9 @@ function useGetCharacterContext() {
     return (characterData, triggerEvent) => {
         const characters = getCharacters();
         const data = characters[characterData.type];
-        const generic = getGenericEntityContext(characterData, data, "character", setCharacterProperty);
+        const generic = getGenericEntityContext(characterData, data, "character", (id, key, value) => {
+            setCharacterProperty(characterData.type, key, value);
+        });
         
         return {
             ...generic,

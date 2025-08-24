@@ -228,6 +228,7 @@ An object that indicates what kind of equipment should be given as treasure
 | -- | -- |
 | MOVE | Movement action |
 | ATTACK | Attack action |
+| SPECIAL | Special action |
 
 ### EntityType
 

@@ -1,2 +1,2 @@
 enemies can walk through objects
-Special counts for no ap
+skeletons do no damage when attacking
