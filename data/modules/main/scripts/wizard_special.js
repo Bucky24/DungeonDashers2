@@ -32,7 +32,7 @@ if (selectedTargetPosition) {
     }
 
     if (selectedTarget) {
-        selectedTarget.damage(4);
+        selectedTarget.damage(10);
         this.entity.takeAction(this.game.COMBAT_ACTION.SPECIAL);
     }
 }

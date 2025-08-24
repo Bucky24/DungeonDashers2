@@ -43,6 +43,7 @@ export function EditorProvider({ children}) {
     const [selectedCells, setSelectedCells] = useState([]);
     const [removeUnder, setRemoveUnder] = useState(true);
     const [selectStart, setSelectStart] = useState(null);
+    const [selectionOffset, setSelectionOffset] = useState(0);
 
     const value = {
         loaded,
@@ -53,6 +54,13 @@ export function EditorProvider({ children}) {
         setRemoveUnder,
         selectStart,
         setSelectStart,
+        selectionOffset,
+        setSelectionOffset,
+        incrementSelectionOffset: () => {
+            setSelectionOffset((offset) => {
+                return offset + 1;
+            });
+        },
         loadMap: async (map) => {
             setLoaded(true);
             setMap(map);

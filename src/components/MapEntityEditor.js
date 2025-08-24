@@ -4,16 +4,22 @@ import TextArea from "./TextArea";
 import TextField from "./TextField";
 
 export default function MapEntityEditor({ entity }) {
-    const { updateObject, updateEnemy } = useContext(MapContext);
+    const { updateObject, updateEnemy, updateCharacter } = useContext(MapContext);
     const [newFlag, setNewFlag] = useState('');
 
     let updateFunc;
     if (entity.type === 'object') updateFunc = updateObject;
     if (entity.type === 'enemy') updateFunc = updateEnemy;
+    if (entity.type === "character") updateFunc = updateCharacter;
+
+    let id = entity.entity.id;
+    if (entity.type === "character") {
+        id = entity.entity.type;
+    }
 
     return <div>
-        <h3>{entity.type} of type {entity.entity.type} with id {entity.entity.id}</h3>
-        {(entity.type === "object" || entity.type === "enemy") && <div>
+        <h3>{entity.type} of type {entity.entity.type} with id {id}</h3>
+        <div>
             <table>
                 <thead>
                     <tr>
@@ -56,7 +62,7 @@ export default function MapEntityEditor({ entity }) {
                                         </td>
                                         <td>
                                             <button onClick={() => {
-                                                updateFunc(entity.entity.id, "flags", [
+                                                updateFunc(id, "flags", [
                                                     ...entity.entity.flags || [],
                                                     newFlag,
                                                 ]);
@@ -72,6 +78,6 @@ export default function MapEntityEditor({ entity }) {
                     </tr>
                 </tbody>
             </table>
-        </div>}
+        </div>
     </div>
 }

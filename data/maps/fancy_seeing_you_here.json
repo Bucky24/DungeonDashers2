@@ -3855,6 +3855,14 @@
             "type": "main_wizard",
             "x": 5,
             "y": 20
+        },
+        {
+            "type": "main_january",
+            "x": 15,
+            "y": 6,
+            "flags": [
+                "disabled"
+            ]
         }
     ],
     "objects": [
@@ -3987,6 +3995,55 @@
             "x": 7,
             "y": 11,
             "id": 20
+        },
+        {
+            "type": "main_chest1",
+            "x": 11,
+            "y": 1,
+            "id": 21
+        },
+        {
+            "type": "main_chest1",
+            "x": 13,
+            "y": 1,
+            "id": 22
+        },
+        {
+            "type": "main_chest1",
+            "x": 12,
+            "y": 2,
+            "id": 23
+        },
+        {
+            "type": "main_chest1",
+            "x": 11,
+            "y": 2,
+            "id": 24
+        },
+        {
+            "type": "main_chest1",
+            "x": 13,
+            "y": 2,
+            "id": 25
+        },
+        {
+            "type": "main_door1",
+            "x": 18,
+            "y": 2,
+            "id": 26
+        },
+        {
+            "type": "main_trigger1",
+            "x": 10,
+            "y": 5,
+            "id": 27,
+            "data": [
+                {
+                    "type": "map_trigger",
+                    "name": "convo1",
+                    "disable": true
+                }
+            ]
         }
     ],
     "enemies": [
@@ -4015,5 +4072,14 @@
             }
         }
     ],
-    "triggers": {}
+    "triggers": {
+        "convo1": {
+            "effects": [
+                {
+                    "type": "script",
+                    "code": "this.game.setPause(true)\nawait this.game.showMultipleDialog([\n{dialog: \"Hello forest dweller.\", character: \"main_wizard\"}\n]);\nthis.game.setPause(false);\nconst januaryCharacter = this.game.getCharacterByType(\"main_january\");\njanuaryCharacter.removeFlag(\"disabled\");"
+                }
+            ]
+        }
+    }
 }

@@ -248,6 +248,21 @@ export function MapProvider({ children }) {
                 return newEntities;
             });
         },
+        updateCharacter: (type, key, value) => {
+            setCharacters((entities) => {
+                const newEntities = entities.map((entity) => {
+                    if (entity.type === type) {
+                        return {
+                           ...entity,
+                            [key]: value,
+                        };   
+                    }
+                    return entity;
+                });
+
+                return newEntities;
+            });
+        },
         placeCharacter: (x, y, type) => {
             setCharacters((entities) => {
                 const newEntities = [...entities].filter((entity) => entity.type !== type);

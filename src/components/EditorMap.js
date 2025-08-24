@@ -20,10 +20,13 @@ export default function EditorMap() {
         setHoveredEntities,
         activeItem,
         tool,
+        selectedCells,
         setSelectedCells,
         setTile,
         setSelectStart,
         selectStart,
+        incrementSelectionOffset,
+        setSelectionOffset,
     } = useContext(EditorContext);
 
     return (
@@ -60,6 +63,14 @@ export default function EditorMap() {
                         removeEntities(cellX, cellY);
                     } else if (tool === EDITOR_MAP_TOOLS.SELECT) {
                         setSelectedCells([{ x: cellX, y: cellY }]);
+                        // was this specific cell already selected?
+                        if (selectedCells.length === 1 && selectedCells[0].x === cellX && selectedCells[0].y === cellY) {
+                            // increment the selection offset
+                            incrementSelectionOffset();
+                        } else {
+                            // reset the selection offset
+                            setSelectionOffset(0);
+                        }
                     }
                 } else if (button === ButtonTypes.RIGHT) {
                     if (tool === EDITOR_MAP_TOOLS.PLACE_TILE) {
