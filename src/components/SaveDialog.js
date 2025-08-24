@@ -3,11 +3,13 @@ import React, { useContext, useEffect, useRef } from 'react';
 import UIContext, { UI_MODE } from '../contexts/UIContext';
 import GameContext from '../contexts/GameContext';
 import DialogBase from './DialogBase';
+import { useNavigate } from 'react-router-dom';
 
 export default function SaveDialog() {
     const inputRef = useRef();
     const { setMode } = useContext(UIContext);
     const { saveGame } = useContext(GameContext);
+    const navigate = useNavigate();
 
     useEffect(() => {
         inputRef.current.focus();
@@ -29,6 +31,7 @@ export default function SaveDialog() {
                 }
                 e.stopPropagation();
                 await saveGame(name);
+                navigate(`/game/load/${name}`);
                 setMode(UI_MODE.GAME);
             }
         }} />
