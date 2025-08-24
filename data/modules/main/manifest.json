@@ -63,6 +63,30 @@
         "cliff_left_bot_corner": {
             "type": "hole",
             "image": "assets/tiles/cliff_left_bot_corner.png"
+        },
+        "cliff_top_left_bot": {
+            "type": "hole",
+            "image": "assets/tiles/cliff_top_left_bot_hole.png"
+        },
+        "cliff_top_bot": {
+            "type": "hole",
+            "image": "assets/tiles/cliff_top_bot_hole.png"
+        },
+        "cliff_left_nubs": {
+            "type": "hole",
+            "image": "assets/tiles/cliff_left_nubs_hole.png"
+        },
+        "cliff_left_hole": {
+            "type": "hole",
+            "image": "assets/tiles/cliff_left_hole.png"
+        },
+        "cliff_bot_hole": {
+            "type": "hole",
+            "image": "assets/tiles/cliff_bot.png"
+        },
+        "cliff_left_top_corner_hole": {
+            "type": "hole",
+            "image": "assets/tiles/cliff_left_top_corner_hole.png"
         }
     },
     "objects": {
