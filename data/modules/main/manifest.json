@@ -86,7 +86,15 @@
         },
         "cliff_left_top_corner_hole": {
             "type": "hole",
-            "image": "assets/tiles/cliff_left_top_corner_hole.png"
+            "image": "assets/tiles/cliff_left_top_corner.png"
+        },
+        "cliff_right_top_corner_hole": {
+            "type": "hole",
+            "image": "assets/tiles/cliff_right_top_corner.png"
+        },
+        "cliff_right_hole": {
+            "type": "hole",
+            "image": "assets/tiles/cliff_right.png"
         }
     },
     "objects": {
@@ -141,6 +149,9 @@
         },
         "skeleton1": {
             "manifest": "enemies/skeleton1.json"
+        },
+        "goblin_archer1": {
+            "manifest": "enemies/main_goblin_archer1.json"
         }
     },
     "equipment": {

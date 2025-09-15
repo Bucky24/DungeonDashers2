@@ -271,7 +271,7 @@ export default function ModuleEntityEditor({
                 <h3>Sounds</h3>
                 <table border={1}>
                     <tbody>
-                        {Object.keys(activeEntityData.sounds).map((key) => {
+                        {Object.keys(activeEntityData?.sounds || []).map((key) => {
                             const sound = activeEntityData.sounds[key].file;
                             return <tr key={`sound_${key}`}>
                                 <td>

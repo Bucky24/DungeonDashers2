@@ -1636,21 +1636,6 @@
         },
         {
             "x": 22,
-            "y": 6,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 22,
-            "y": 7,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 22,
-            "y": 8,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 22,
             "y": 8,
             "tile": "main_bottom_wall"
         },
@@ -1676,33 +1661,8 @@
         },
         {
             "x": 23,
-            "y": 2,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 23,
             "y": 5,
             "tile": "main_ground1"
-        },
-        {
-            "x": 23,
-            "y": 6,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 23,
-            "y": 7,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 23,
-            "y": 8,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 23,
-            "y": 8,
-            "tile": "main_bottom_wall"
         },
         {
             "x": 24,
@@ -1726,11 +1686,6 @@
         },
         {
             "x": 24,
-            "y": 2,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 24,
             "y": 5,
             "tile": "main_ground1"
         },
@@ -1766,17 +1721,7 @@
         },
         {
             "x": 25,
-            "y": 2,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 25,
             "y": 5,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 25,
-            "y": 6,
             "tile": "main_ground1"
         },
         {
@@ -1803,21 +1748,6 @@
             "x": 26,
             "y": 1,
             "tile": "main_upper_wall_middle"
-        },
-        {
-            "x": 26,
-            "y": 2,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 26,
-            "y": 5,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 26,
-            "y": 6,
-            "tile": "main_ground1"
         },
         {
             "x": 26,
@@ -1856,21 +1786,6 @@
         },
         {
             "x": 27,
-            "y": 4,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 27,
-            "y": 5,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 27,
-            "y": 6,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 27,
             "y": 7,
             "tile": "main_ground1"
         },
@@ -1902,21 +1817,6 @@
         {
             "x": 28,
             "y": 3,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 28,
-            "y": 4,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 28,
-            "y": 5,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 28,
-            "y": 6,
             "tile": "main_ground1"
         },
         {
@@ -2121,11 +2021,6 @@
         },
         {
             "x": 34,
-            "y": 5,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 34,
             "y": 6,
             "tile": "main_ground1"
         },
@@ -2156,11 +2051,6 @@
         },
         {
             "x": 35,
-            "y": 5,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 35,
             "y": 6,
             "tile": "main_ground1"
         },
@@ -2187,16 +2077,6 @@
         {
             "x": 36,
             "y": 4,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 36,
-            "y": 5,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 36,
-            "y": 6,
             "tile": "main_ground1"
         },
         {
@@ -3670,36 +3550,6 @@
             "tile": "main_ground1"
         },
         {
-            "x": 19,
-            "y": 4,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 19,
-            "y": 5,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 19,
-            "y": 6,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 19,
-            "y": 7,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 19,
-            "y": 8,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 19,
-            "y": 8,
-            "tile": "main_bottom_wall"
-        },
-        {
             "x": 21,
             "y": -2,
             "tile": "main_right_top_corner"
@@ -3736,47 +3586,12 @@
         },
         {
             "x": 21,
-            "y": 6,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 21,
-            "y": 7,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 21,
-            "y": 8,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 21,
             "y": 8,
             "tile": "main_bottom_wall"
         },
         {
             "x": 20,
             "y": 3,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 20,
-            "y": 4,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 20,
-            "y": 5,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 20,
-            "y": 6,
-            "tile": "main_ground1"
-        },
-        {
-            "x": 20,
-            "y": 7,
             "tile": "main_ground1"
         },
         {
@@ -3835,16 +3650,6 @@
             "tile": "main_cliff_bot_hole"
         },
         {
-            "x": 25,
-            "y": 4,
-            "tile": "main_cliff_bot_hole"
-        },
-        {
-            "x": 26,
-            "y": 4,
-            "tile": "main_cliff_left_bot_nub"
-        },
-        {
             "x": 18,
             "y": 8,
             "tile": "main_cliff_left_hole"
@@ -3883,6 +3688,161 @@
             "x": 18,
             "y": 4,
             "tile": "main_cliff_left_top_corner_hole"
+        },
+        {
+            "x": 19,
+            "y": 4,
+            "tile": "main_cliff_top"
+        },
+        {
+            "x": 20,
+            "y": 4,
+            "tile": "main_cliff_right_top_corner_hole"
+        },
+        {
+            "x": 20,
+            "y": 5,
+            "tile": "main_cliff_right_hole"
+        },
+        {
+            "x": 21,
+            "y": 6,
+            "tile": "main_cliff_top"
+        },
+        {
+            "x": 21,
+            "y": 8,
+            "tile": "main_cliff_left_hole"
+        },
+        {
+            "x": 19,
+            "y": 8,
+            "tile": "main_cliff_right_hole"
+        },
+        {
+            "x": 20,
+            "y": 7,
+            "tile": "main_cliff_bot_hole"
+        },
+        {
+            "x": 21,
+            "y": 8,
+            "tile": "main_bottom_wall"
+        },
+        {
+            "x": 19,
+            "y": 8,
+            "tile": "main_bottom_wall"
+        },
+        {
+            "x": 23,
+            "y": 0,
+            "tile": "main_cliff_right_top_corner_hole"
+        },
+        {
+            "x": 23,
+            "y": 1,
+            "tile": "main_cliff_right_hole"
+        },
+        {
+            "x": 26,
+            "y": 3,
+            "tile": "main_cliff_right_hole"
+        },
+        {
+            "x": 25,
+            "y": 5,
+            "tile": "main_cliff_left_hole"
+        },
+        {
+            "x": 24,
+            "y": 2,
+            "tile": "main_cliff_top"
+        },
+        {
+            "x": 25,
+            "y": 2,
+            "tile": "main_cliff_top"
+        },
+        {
+            "x": 26,
+            "y": 2,
+            "tile": "main_cliff_right_top_corner_hole"
+        },
+        {
+            "x": 27,
+            "y": 4,
+            "tile": "main_cliff_top"
+        },
+        {
+            "x": 28,
+            "y": 4,
+            "tile": "main_cliff_top"
+        },
+        {
+            "x": 28,
+            "y": 6,
+            "tile": "main_cliff_bot_hole"
+        },
+        {
+            "x": 27,
+            "y": 6,
+            "tile": "main_cliff_bot_hole"
+        },
+        {
+            "x": 26,
+            "y": 6,
+            "tile": "main_cliff_bot_hole"
+        },
+        {
+            "x": 25,
+            "y": 6,
+            "tile": "main_cliff_left_bot_corner"
+        },
+        {
+            "x": 22,
+            "y": 6,
+            "tile": "main_cliff_top"
+        },
+        {
+            "x": 23,
+            "y": 6,
+            "tile": "main_cliff_right_top_corner_hole"
+        },
+        {
+            "x": 23,
+            "y": 7,
+            "tile": "main_cliff_right_hole"
+        },
+        {
+            "x": 23,
+            "y": 8,
+            "tile": "main_cliff_right_hole"
+        },
+        {
+            "x": 23,
+            "y": 8,
+            "tile": "main_bottom_wall"
+        },
+        {
+            "x": 36,
+            "y": 5,
+            "tile": "main_cliff_top_bot"
+        },
+        {
+            "x": 34,
+            "y": 5,
+            "tile": "main_cliff_top_bot"
+        },
+        {
+            "x": 35,
+            "y": 5,
+            "tile": "main_cliff_top_bot"
+        },
+        {
+            "x": 36,
+            "y": 6,
+            "tile": "main_ground1"
         }
     ],
     "characters": [
@@ -4076,6 +4036,39 @@
                     "disable": true
                 }
             ]
+        },
+        {
+            "type": "main_door1",
+            "x": 29,
+            "y": 7,
+            "id": 28
+        },
+        {
+            "type": "main_door1",
+            "x": 38,
+            "y": 7,
+            "id": 29
+        },
+        {
+            "type": "main_door2",
+            "x": 37,
+            "y": 7,
+            "id": 30,
+            "flags": [
+                "locked"
+            ]
+        },
+        {
+            "type": "main_bell1",
+            "x": 35,
+            "y": 4,
+            "id": 31,
+            "data": [
+                {
+                    "type": "open_door",
+                    "id": 30
+                }
+            ]
         }
     ],
     "enemies": [
@@ -4102,6 +4095,33 @@
             "data": {
                 "doorTrigger": 1
             }
+        },
+        {
+            "type": "main_bat1",
+            "x": 22,
+            "y": 0,
+            "id": 3,
+            "data": {
+                "doorTrigger": 26
+            }
+        },
+        {
+            "type": "main_goblin_archer1",
+            "x": 27,
+            "y": 2,
+            "id": 4
+        },
+        {
+            "type": "main_goblin_archer1",
+            "x": 20,
+            "y": 8,
+            "id": 5
+        },
+        {
+            "type": "main_goblin_archer1",
+            "x": 21,
+            "y": 3,
+            "id": 6
         }
     ],
     "triggers": {

@@ -175,6 +175,21 @@ module.exports = {
         }
         manifest.equipment = allManifestEquipment;
 
+        // lookup all scripts in the scripts directory
+        const scriptsDir = path.join(moduleDir, "scripts");
+        if (fs.existsSync(scriptsDir)) {
+            const contents = fs.readdirSync(scriptsDir);
+            for (const file of contents) {
+                if (file.endsWith(".js")) {
+                    const scriptName = `${modulePrefix}scripts/${file}`;
+                    if (!allScripts[scriptName]) {
+                        const contents = fs.readFileSync(path.join(scriptsDir, file), 'utf8');
+                        allScripts[scriptName] = contents;
+                    }
+                }
+            }
+        }
+
         manifest.images = allImages;
         manifest.scripts = allScripts;
         manifest.sounds = allSounds;
