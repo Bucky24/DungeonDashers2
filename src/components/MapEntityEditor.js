@@ -51,7 +51,7 @@ export default function MapEntityEditor({ entity }) {
                                                 <button onClick={() => {
                                                     const newFlags = [...entity.entity.flags || []];
                                                     newFlags.splice(index, 1);
-                                                    updateFunc(entity.entity.id, "flags", newFlags);
+                                                    updateFunc(id, "flags", newFlags);
                                                 }}>X</button>
                                             </td>
                                         </tr>

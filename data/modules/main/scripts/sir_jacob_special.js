@@ -1,3 +1,7 @@
+if (!this.entity.canTakeAction(this.game.COMBAT_ACTION.SPECIAL)) {
+    return;
+}
+
 const pos = this.entity.getPos();
 const coord = await this.game.userChooseLocation(
     pos.x,
@@ -48,4 +52,6 @@ while (true) {
     for (const entity of collidableEntities) {
         entity.damage(100);
     }
+    
+    this.entity.takeAction(this.game.COMBAT_ACTION.SPECIAL);
 }

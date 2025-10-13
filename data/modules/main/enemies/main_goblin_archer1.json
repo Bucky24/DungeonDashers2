@@ -2,8 +2,8 @@
     "version": 2,
     "id": "goblin_archer1",
     "scripts": [
-        "scripts/enemy_door_spawn.js",
-        "scripts/enemy_ranged_ai.js"
+        "scripts/enemy_ranged_ai.js",
+        "scripts/enemy_door_spawn.js"
     ],
     "images": {
         "base_down": "assets/enemies/goblin_archer_down.png",
@@ -20,5 +20,12 @@
             "type": "script",
             "file": "scripts/enemy_ranged_ai.js"
         }
-    }
+    },
+    "events": [
+        {
+            "on": "door_opened",
+            "type": "script",
+            "file": "scripts/enemy_door_spawn.js"
+        }
+    ]
 }

@@ -127,6 +127,9 @@
         },
         "flame": {
             "manifest": "objects/flame.json"
+        },
+        "teleport": {
+            "manifest": "objects/main_teleport.json"
         }
     },
     "characters": {

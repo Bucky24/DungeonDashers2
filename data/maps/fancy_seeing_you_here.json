@@ -3854,7 +3854,10 @@
         {
             "type": "main_january",
             "x": 14,
-            "y": 6
+            "y": 6,
+            "flags": [
+                "disabled"
+            ]
         }
     ],
     "objects": [
@@ -4069,6 +4072,12 @@
                     "id": 30
                 }
             ]
+        },
+        {
+            "type": "main_teleport",
+            "x": 41,
+            "y": 3,
+            "id": 32
         }
     ],
     "enemies": [
@@ -4103,25 +4112,46 @@
             "id": 3,
             "data": {
                 "doorTrigger": 26
-            }
+            },
+            "flags": [
+                "inactive"
+            ]
         },
         {
             "type": "main_goblin_archer1",
             "x": 27,
             "y": 2,
-            "id": 4
+            "id": 4,
+            "data": {
+                "doorTrigger": 26
+            },
+            "flags": [
+                "inactive"
+            ]
         },
         {
             "type": "main_goblin_archer1",
             "x": 20,
             "y": 8,
-            "id": 5
+            "id": 5,
+            "data": {
+                "doorTrigger": 26
+            },
+            "flags": [
+                "inactive"
+            ]
         },
         {
             "type": "main_goblin_archer1",
             "x": 21,
             "y": 3,
-            "id": 6
+            "id": 6,
+            "data": {
+                "doorTrigger": 26
+            },
+            "flags": [
+                "inactive"
+            ]
         }
     ],
     "triggers": {
@@ -4129,7 +4159,7 @@
             "effects": [
                 {
                     "type": "script",
-                    "code": "this.game.setPause(true)\nawait this.game.showMultipleDialog([\n{dialog: \"Hello forest dweller.\", character: \"main_wizard\"},\n{dialog: \"Hey old man. How've you been?\", character: \"main_january\"),\n{dialog: \"I have been quite well thank you... until tonight.\", character: \"main_wizard\"},\n{dialog: \"I guess you saw the symbol too?\", character: \"main_january\"),\n{dialog: \"Yes. I felt a cold blue essence permeating from this location.\", character: \"main_wizard\"},\n{dialog: \"What do you suppose it means?\", character: \"main_january\"),\n{dialog: \"It's too early to tell. I suspect its meaning runs deeper than the cave.\", character: \"main_wizard\"},\n{dialog: \"Are you still living in that beat-up shak in the woods?\", character: \"main_january\"),\n{dialog: \"If you're referring to my abode, then yes. Far away from any of those moronic townsfolk.\", character: \"main_wizard\"},\n{dialog: \"You're such an old grump Ardon.\", character: \"main_january\"),\n{dialog: \"-Hmmph-\", character: \"main_wizard\"},\n{dialog: \"So now what?\", character: \"main_january\"),\n{dialog: \"Well we can't go back...\", character: \"main_wizard\"},\n{dialog: \"Then you'd better try to keep up old man!\", character: \"main_january\"),\n{dialog: \"-Grumble-\", character: \"main_wizard\"},\n]);\nthis.game.setPause(false);\nconst januaryCharacter = this.game.getCharacterByType(\"main_january\");\njanuaryCharacter.removeFlag(\"disabled\");"
+                    "code": "this.game.setPause(true);\nawait this.game.showMultipleDialog([\n{dialog: \"Hello forest dweller.\", character: \"main_wizard\"},\n{dialog: \"Hey old man. How've you been?\", character: \"main_january\"},\n{dialog: \"I have been quite well thank you... until tonight.\", character: \"main_wizard\"},\n{dialog: \"I guess you saw the symbol too?\", character: \"main_january\"},\n{dialog: \"Yes. I felt a cold blue essence permeating from this location.\", character: \"main_wizard\"},\n{dialog: \"What do you suppose it means?\", character: \"main_january\"},\n{dialog: \"It's too early to tell. I suspect its meaning runs deeper than the cave.\", character: \"main_wizard\"},\n{dialog: \"Are you still living in that beat-up shak in the woods?\", character: \"main_january\"},\n{dialog: \"If you're referring to my abode, then yes. Far away from any of those moronic townsfolk.\", character: \"main_wizard\"},\n{dialog: \"You're such an old grump Ardon.\", character: \"main_january\"},\n{dialog: \"-Hmmph-\", character: \"main_wizard\"},\n{dialog: \"So now what?\", character: \"main_january\"},\n{dialog: \"Well we can't go back...\", character: \"main_wizard\"},\n{dialog: \"Then you'd better try to keep up old man!\", character: \"main_january\"},\n{dialog: \"-Grumble-\", character: \"main_wizard\"},\n]);\nthis.game.setPause(false);\nconst januaryCharacter = this.game.getCharacterByType(\"main_january\");\njanuaryCharacter.removeFlag(\"disabled\");"
                 }
             ]
         }

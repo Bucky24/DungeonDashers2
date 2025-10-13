@@ -9,6 +9,8 @@ module.exports = function({ name, saveData }) {
     saveData.type = "game";
     saveData.version = 2;
 
+    console.log(`Saving game to ${fullFile}`);
+
     if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
     }
