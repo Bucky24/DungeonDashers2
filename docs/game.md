@@ -163,7 +163,7 @@ The getEntitiesOfType method locates all Entities matching the give EntityType a
 | Param | Description |
 | -- | -- |
 | entityType | One of EntityType |
-| type | The specific type ID of the Entities you want |
+| type | The specific type ID of the Entities you want. Optional (if not given, returns all matching the given entityType) |
 
 ### victory
 
@@ -196,6 +196,19 @@ The Editor parameter is true when the script in question is being called from an
 
 The draw object contains the ability to draw to the screen. This object is only populated when running a script from the "draw" action.
 
+### findValidLocation
+
+The findValidLocation method finds the first valid point that matches the criteria.
+
+| Param | Description |
+| -- | -- |
+| x | The x to start the search from |
+| y | The y to start the search from |
+| min | The min distance away from the x,y that the selection must be |
+| max | The max distance away from the x,y that the selection must be |
+| typeOrPoints | Determines what cells are valid to select, one of LOCATION, or an array of Point objects |
+| filters | Optional filters to indicate how to filter selection of cells. Array of LOCATION_FILTER |
+
 ### TreasureType
 
 | Name | Description |
@@ -215,6 +228,7 @@ An object that indicates what kind of equipment should be given as treasure
 | Value | Description |
 | -- | -- |
 | STRAIGHT_LINES | Horizontal and Vertical lines only |
+| CIRCLE | A circle of points |
 
 ### MOVEMENT
 
@@ -261,3 +275,4 @@ Some text can have parameters. Parameters use the standard template format: `my 
 | Value | Description |
 | -- | -- |
 | WALKABLE | Any space that could be normally walked on |
+| OPEN | Any space with no entity on it |

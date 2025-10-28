@@ -19,21 +19,21 @@ const root = createRoot(document.getElementById('root'));
 const providerStack = (
 <SettingsProvider>
     <SearchProvider>
-        <UIProvider>
-            <AssetProvider>
-                <CampaignProvider>
-                    <ModuleProvider>
-                        <MapProvider>
-                            <EditorProvider>
-                                <GameProvider>
+        <AssetProvider>
+            <CampaignProvider>
+                <ModuleProvider>
+                    <MapProvider>
+                        <EditorProvider>
+                            <GameProvider>
+                                <UIProvider>
                                     <App />
-                                </GameProvider>
-                            </EditorProvider>
-                        </MapProvider>
-                    </ModuleProvider>
-                </CampaignProvider>
-            </AssetProvider>    
-        </UIProvider>
+                                </UIProvider>
+                            </GameProvider>
+                        </EditorProvider>
+                    </MapProvider>
+                </ModuleProvider>
+            </CampaignProvider>
+        </AssetProvider>    
     </SearchProvider>
 </SettingsProvider>
 );

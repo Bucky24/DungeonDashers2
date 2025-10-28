@@ -21,5 +21,8 @@
             "file": "scripts/teleport_collide.js"
         }
     ],
-    "defaultState": "exists"
+    "defaultState": "exists",
+    "flags": [
+        "nonblocking"
+    ]
 }

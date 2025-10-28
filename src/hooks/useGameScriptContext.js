@@ -26,7 +26,7 @@ export default function useGameScriptContext(triggerEvent) {
     const { getTile } = useContext(MapContext);
     const tiles = getTiles();
     const equipment = getEquipment();
-    const { enterCellSelect, startDialog, setMode, setTooltip } = useContext(UIContext);
+    const { enterCellSelect, startDialog, setMode, setTooltip, getCellsMatching } = useContext(UIContext);
     const runMapTrigger = useRunMapTrigger();
     const getEntityContext = useGetEntityContext();
     const finalTriggerEvent = triggerEvent || useTriggerEvent();
@@ -192,6 +192,9 @@ export default function useGameScriptContext(triggerEvent) {
             } else if (entityType == "enemy") {
                 entities = enemies;
             }
+            if (!type) {
+                return entities.map(entity => getEntityContext({ type: entityType, entity }));
+            }
             for (const entity of entities) {
                 if (entity.type === type) {
                     matching.push(getEntityContext({ type: entityType, entity }));
@@ -221,6 +224,15 @@ export default function useGameScriptContext(triggerEvent) {
         showTooltip: (text) => {
             setTooltip(text);
         },
+        findValidLocation: (x, y, min, max, directionOrPoints, filter) => {
+            const cells = getCellsMatching(x, y, min, max, directionOrPoints, filter);
+
+            if (cells.length === 0) {
+                return null;
+            }
+
+            return cells[0];
+        }
     };
 
     return context;

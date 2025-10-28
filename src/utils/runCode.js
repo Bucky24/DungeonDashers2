@@ -7,6 +7,6 @@ export default async function runCode(code, data = {}) {
 
         return await myFunc();
     } catch (error) {
-        console.error(`Error running code ${code}: ${error.message}`)
+        console.error(`Error running code ${code}: ${error.message}`, error);
     }
 }
