@@ -1,6 +1,5 @@
 For v0.8.0
 * Two full campaign missions from original game
-* Add portraits for all four characters (missing Sir Jacob)
 
 For v0.9.0
 * Basic animation system, movement and attack
@@ -47,3 +46,4 @@ For v0.9.0
 * Varied floor tiles
 * Fix the cave tileset, lots of the holes are not from the editor but are from the game so the lighting is background
 * MAYBE: Try to get some dynamic lighting
+* Expose errors in scripts to main game

@@ -4240,7 +4240,9 @@
             "id": 42,
             "x": 32,
             "y": 25,
-            "flags": ["locked"]
+            "flags": [
+                "locked"
+            ]
         },
         {
             "type": "main_trigger1",
@@ -4478,7 +4480,7 @@
             "effects": [
                 {
                     "type": "script",
-                    "code": "this.game.setPause(true);\nawait this.game.showMultipleDialog([\n  {dialog:'WHAT! You blinked! You\\'re a wizard?', character:'main_sir_jacob'},\n  {dialog:'Sort of...',character:'main_ryder'},\n  {dialog: 'Well as long as you\\'re on the side of good deeds then we shall have no quarrel.', character: 'sir_jacob'}\n]);\nthis.game.setPause(false);\nthis.game.getEntityById(44).setState('disabled');\nthis.game.getEntityById(45).setState('disabled');\nthis.game.getEntityById(46).setState('disabled');"
+                    "code": "this.game.setPause(true);\nawait this.game.showMultipleDialog([\n  {dialog:'WHAT! You blinked! You\\'re a wizard?', character:'main_sir_jacob'},\n  {dialog:'Sort of...',character:'main_ryder'},\n  {dialog: 'Well as long as you\\'re on the side of good deeds then we shall have no quarrel.', character: 'main_sir_jacob'}\n]);\nthis.game.setPause(false);\nthis.game.getEntityById(44).setState('disabled');\nthis.game.getEntityById(45).setState('disabled');\nthis.game.getEntityById(46).setState('disabled');"
                 }
             ]
         },
