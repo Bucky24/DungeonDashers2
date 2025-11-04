@@ -4078,6 +4078,120 @@
             "x": 41,
             "y": 3,
             "id": 32
+        },
+        {
+            "type": "main_rock_spike1",
+            "x": 37,
+            "y": -5,
+            "id": 33
+        },
+        {
+            "type": "main_rock_spike1",
+            "x": 43,
+            "y": -5,
+            "id": 34
+        },
+        {
+            "type": "main_rock_spike1",
+            "x": 42,
+            "y": -5,
+            "id": 35
+        },
+        {
+            "type": "main_rock_spike1",
+            "x": 41,
+            "y": -5,
+            "id": 36
+        },
+        {
+            "type": "main_rock1",
+            "x": 36,
+            "y": -5,
+            "id": 37
+        },
+        {
+            "type": "main_door1",
+            "x": 39,
+            "y": -1,
+            "id": 38
+        },
+        {
+            "type": "main_door1",
+            "x": 37,
+            "y": -8,
+            "id": 39
+        },
+        {
+            "type": "main_chest1",
+            "x": 39,
+            "y": -12,
+            "id": 40
+        },
+        {
+            "type": "main_chest1",
+            "x": 33,
+            "y": -11,
+            "id": 41
+        },
+        {
+            "type": "main_chest1",
+            "x": 33,
+            "y": -12,
+            "id": 42
+        },
+        {
+            "type": "main_chest1",
+            "x": 33,
+            "y": -13,
+            "id": 43
+        },
+        {
+            "type": "main_chest1",
+            "x": 34,
+            "y": -12,
+            "id": 44
+        },
+        {
+            "type": "main_flame",
+            "x": 36,
+            "y": -14,
+            "id": 45,
+            "data": [
+                {
+                    "type": "open_door",
+                    "id": 13
+                }
+            ]
+        },
+        {
+            "type": "main_rock_spike1",
+            "x": 40,
+            "y": -14,
+            "id": 46
+        },
+        {
+            "type": "main_rock_spike1",
+            "x": 39,
+            "y": -14,
+            "id": 47
+        },
+        {
+            "type": "main_rock1",
+            "x": 42,
+            "y": -14,
+            "id": 48
+        },
+        {
+            "type": "main_bell1",
+            "x": 44,
+            "y": -14,
+            "id": 49
+        },
+        {
+            "type": "main_door2",
+            "x": 33,
+            "y": -18,
+            "id": 51
         }
     ],
     "enemies": [
@@ -4148,6 +4262,30 @@
             "id": 6,
             "data": {
                 "doorTrigger": 26
+            },
+            "flags": [
+                "inactive"
+            ]
+        },
+        {
+            "type": "main_skeleton1",
+            "x": 36,
+            "y": -6,
+            "id": 7,
+            "data": {
+                "doorTrigger": 38
+            },
+            "flags": [
+                "inactive"
+            ]
+        },
+        {
+            "type": "main_goblin_archer1",
+            "x": 42,
+            "y": -6,
+            "id": 8,
+            "data": {
+                "doorTrigger": 38
             },
             "flags": [
                 "inactive"
