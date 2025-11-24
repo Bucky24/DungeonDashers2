@@ -51,7 +51,7 @@ export function MapProvider({ children }) {
             }
 
             const modules = result.map.modules;
-            loadModules(modules);
+            await loadModules(modules);
             setMap(result.map.map || []);
             setObjects(result.map.objects || []);
             setCharacters(result.map.characters || []);

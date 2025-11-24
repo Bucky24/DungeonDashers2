@@ -130,6 +130,9 @@
         },
         "teleport": {
             "manifest": "objects/main_teleport.json"
+        },
+        "block1": {
+            "manifest": "objects/main_block1.json"
         }
     },
     "characters": {

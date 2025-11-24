@@ -85,6 +85,7 @@ v0.8.0 (unreleased)
 * Add capacity to show tooltips via triggers
 * Improve movement AI of enemies
 * Can filter user pickable map cells.
+* Two maps from original campaign
 
 Bug Fixes:
 * Sir Jacob is no longer stopped by chests
@@ -100,3 +101,4 @@ Bug Fixes:
 * The iron door in the first map can no longer be opened before Ryder hits the lever
 * moveTo no longer attempts to move to an invalid location
 * Characters can now have AP taken away with the takeAction function
+* It is now possible to trigger collision events on non-enemy entities while in combat

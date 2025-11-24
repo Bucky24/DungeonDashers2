@@ -106,7 +106,7 @@ export function ModuleProvider({ children }) {
     }
  
     const value = {
-        loadModules: (names) => {
+        loadModules: async (names) => {
             if (!names) {
                 return;
             }
@@ -144,7 +144,7 @@ export function ModuleProvider({ children }) {
                 render();
             });
 
-            Promise.all(promises).then(() => {
+            await Promise.all(promises).then(() => {
                 setLoaded(true);
             });
         },

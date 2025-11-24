@@ -179,6 +179,7 @@ The getTargets method takes in some data and returns appropriate targets based o
 | x | The x to start from |
 | y | The y to start from |
 | radius | The radius to search for targets |
+| ignoreLos | If true, does not perform a line of sight check to ensure the target can be seen. Default false |
 
 ### showTooltip
 

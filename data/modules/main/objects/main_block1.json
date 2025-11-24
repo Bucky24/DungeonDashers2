@@ -1,0 +1,20 @@
+{
+    "version": 2,
+    "id": "block1",
+    "scripts": [],
+    "images": {
+        "up": "assets/objects/block1_up.png",
+        "down": "assets/objects/block1_down.png"
+    },
+    "states": [
+        "up",
+        "down"
+    ],
+    "defaultState": "up",
+    "flags": [
+        "wall"
+    ],
+    "sounds": {},
+    "width": 1,
+    "height": 2
+}

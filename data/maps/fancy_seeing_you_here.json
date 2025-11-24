@@ -4158,8 +4158,8 @@
             "id": 45,
             "data": [
                 {
-                    "type": "open_door",
-                    "id": 13
+                    "type": "open_block",
+                    "id": 53
                 }
             ]
         },
@@ -4176,22 +4176,46 @@
             "id": 47
         },
         {
-            "type": "main_rock1",
-            "x": 42,
-            "y": -14,
-            "id": 48
-        },
-        {
             "type": "main_bell1",
             "x": 44,
             "y": -14,
-            "id": 49
+            "id": 49,
+            "data": [
+                {
+                    "type": "open_door",
+                    "id": 51
+                }
+            ]
         },
         {
             "type": "main_door2",
             "x": 33,
             "y": -18,
             "id": 51
+        },
+        {
+            "type": "main_rock1",
+            "x": 42,
+            "y": -14,
+            "id": 52
+        },
+        {
+            "type": "main_block1",
+            "x": 41,
+            "y": -14,
+            "id": 53
+        },
+        {
+            "type": "main_portal1",
+            "x": 24,
+            "y": -18,
+            "id": 54
+        },
+        {
+            "type": "main_portal1",
+            "x": 27,
+            "y": -18,
+            "id": 55
         }
     ],
     "enemies": [

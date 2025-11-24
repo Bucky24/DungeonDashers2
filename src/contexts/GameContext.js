@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import Coms from '../utils/coms';
 import MapContext from './MapContext';
 import CampaignContext from './CampaignContext';
-import { getCharacters, getEnemies } from '../data/moduleData';
+import { getCharacters, getEnemies, getObject } from '../data/moduleData';
 import { getActionPoints, getMaxActionPoints } from '../data/attributeHelper';
 
 const GameContext = React.createContext({});
@@ -54,7 +54,7 @@ export const TARGET_TYPE = {
 
 export function GameProvider({ children }) {
     const [loaded, setLoaded] = useState(false);
-    const { loadMap, mapName } = useContext(MapContext);
+    const { loadMap, mapName, map } = useContext(MapContext);
     const [activeCharacterIndex, setActiveCharacterIndex] = useState(-1);
     const [objects, setObjects] = useState([]);
     const [characters, setCharacters] = useState([]);
@@ -227,7 +227,6 @@ export function GameProvider({ children }) {
             });
         },
         newGame: async (map) => {
-            loadMap(map);
             const mapData = await loadMap(map);
 
             // make this smarter to avoid id collision
@@ -238,6 +237,11 @@ export function GameProvider({ children }) {
                         ...object,
                         id: objectId++,
                     };
+                }
+
+                if (!object.flags) {
+                    const data = getObject(object.type);
+                    object.flags = data.flags ?? [];
                 }
 
                 return object;
@@ -310,6 +314,16 @@ export function GameProvider({ children }) {
                         type: 'enemy',
                         entity,
                     });
+                }
+            }
+
+            return result;
+        },
+        getTilesAtPosition: (x, y) => {
+            const result = [];
+            for (const tile of map) {
+                if (tile.x ===x && tile.y === y) {
+                    result.push(tile);
                 }
             }
 
