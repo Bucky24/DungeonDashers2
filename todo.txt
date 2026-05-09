@@ -1,5 +1,4 @@
 For v0.8.0
-* Two full campaign missions from original game
 * Add portraits for all four characters (missing Sir Jacob)
 
 For v0.9.0
