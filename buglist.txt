@@ -1,8 +1,5 @@
-enemies can walk through objects
-skeletons do no damage when attacking
 Targets can be selected when they are inactive
 January can shoot the bat in her first combat room when it's around the corner
-January cannot target the goblin archer in the far corner unless she moves - wall tile in the wrong place?
-Goblin archer in wizard first combat moves and does not attack
+January cannot target the goblin archer in the far corner unless she moves - its more than 7 tiles away. How far can she shoot?
 Objects with height overflow downwards instead of upwards
 Entities should be drawn in descending y-order

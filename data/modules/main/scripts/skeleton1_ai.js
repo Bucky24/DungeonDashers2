@@ -114,7 +114,7 @@ for (let i=0;i<100;i++) {
                     closest.getPos().x,
                     closest.getPos().y,
                     1,
-                    false,
+                    true,
                 );
                 if (!moved) {
                     console.log(h, "unable to move in the right direction");

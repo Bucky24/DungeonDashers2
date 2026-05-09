@@ -6,7 +6,8 @@
     ],
     "defaultState": "exists",
     "flags": [
-        "destructable"
+        "destructable",
+        "wall"
     ],
     "images": {
         "exists": "assets/objects/rock1.png"

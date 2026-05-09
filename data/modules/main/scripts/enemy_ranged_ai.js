@@ -35,12 +35,13 @@ for (let i=0;i<100;i++) {
     if (objectsAround.length > 0) {
         let validTarget = null;
         for (const target of objectsAround) {
-            const target = objectsAround[0];
             if (target.entityType === "character") {
                 validTarget = target;
                 break;
             }
         }
+        
+        console.log(validTarget);
 
         if (validTarget) {
             console.log(h,'we have a target');

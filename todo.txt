@@ -44,3 +44,4 @@ For v0.9.0
 * Fix the cave tileset, lots of the holes are not from the editor but are from the game so the lighting is background
 * MAYBE: Try to get some dynamic lighting
 * Expose errors in scripts to main game
+* Enemies should be able to move on top of each other correctly and not stop when on top of each other. Also I disabled this for the skeleton because it was walking through objects so we might need some smarter scripting for that.
