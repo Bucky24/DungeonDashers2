@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { getTile } from '../data/mapData';
 import { getTile as getModuleTile } from '../data/moduleData';
+import GameContext from './GameContext';
 
 const UIContext = React.createContext({});
 export default UIContext;
@@ -19,10 +20,12 @@ export const UI_MODE = {
 
 export const LOCATION = {
     STRAIGHT_LINES: 'location/straight_lines',
+    CIRCLE: 'location/circle',
 };
 
 export const LOCATION_FILTER = {
     WALKABLE: 'location_filter/walkable',
+    OPEN: 'location_filter/open',
 };
 
 export const MENU_ITEMS = [
@@ -41,6 +44,108 @@ export function UIProvider({ children }) {
     const [activeMenuItem, setActiveMenuItem] = useState(0);
     const [tooltip, setTooltip] = useState(null);
     const navigate = useNavigate();
+    const { getEntitiesAtPosition } = useContext(GameContext);
+
+    const getCellsMatching = (startX, startY, min, max, type, filters) => {
+        let cells = [];
+        if (type === LOCATION.STRAIGHT_LINES) {
+            // left line
+            for (let i=startX-max;i<=startX-min;i++) {
+                cells.push({
+                    x: i,
+                    y: startY,
+                    direction: 'left',
+                });
+            }
+            // right line
+            for (let i=startX+min;i<=startX+max;i++) {
+                cells.push({
+                    x: i,
+                    y: startY,
+                    direction: 'right',
+                });
+            }
+            // top line
+            for (let i=startY-max;i<=startY-min;i++) {
+                cells.push({
+                    x: startX,
+                    y: i,
+                    direction: 'up',
+                });
+            }
+            // bottom line
+            for (let i=startY+min;i<=startY+max;i++) {
+                cells.push({
+                    x: startX,
+                    y: i,
+                    direction: 'down',
+                });
+            }
+        } else if (type === LOCATION.CIRCLE) {
+            // top line
+            for (let i=startX-max;i<=startX+max;i++) {
+                cells.push({
+                    x: i,
+                    y: startY-max,
+                    direction: 'circle',
+                });
+            }
+            // bottom line
+            for (let i=startX-max;i<=startX+max;i++) {
+                cells.push({
+                    x: i,
+                    y: startY+max,
+                    direction: 'circle',
+                });
+            }
+            // left line
+            for (let i=startY-max;i<=startY+max;i++) {
+                cells.push({
+                    x: startX-max,
+                    y: i,
+                    direction: 'circle',
+                });
+            }
+            // right line
+            for (let i=startY-max;i<=startY+max;i++) {
+                cells.push({
+                    x: startX+max,
+                    y: i,
+                    direction: 'circle',
+                });
+            }
+        } else if (Array.isArray(type)) {
+            cells = [...type];
+        } else {
+            console.error(`Invalid direction ${type}`);
+            callback(null);
+            return;
+        }
+
+        if (filters) {
+            cells = cells.filter((cell) => {
+                for (const filter of filters) {
+                    if (filter === LOCATION_FILTER.WALKABLE) {
+                        const tileData = getTile(cell.x, cell.y);
+                        if (!tileData) {
+                            return false;
+                        }
+
+                        const moduleTile = getModuleTile(tileData.tile);
+                        
+                        if (moduleTile.type !== "ground") {
+                            return false;
+                        }
+                    } else if (filter === LOCATION_FILTER.OPEN) {
+                        const entities = getEntitiesAtPosition(cell.x, cell.y);
+                        if (entities.length > 0) return false;
+                    }
+                }
+                return true;
+            });
+        }
+        return cells;
+    }
 
     const value = {
         mode,
@@ -50,6 +155,7 @@ export function UIProvider({ children }) {
         activeMenuItem,
         tooltip,
         setTooltip,
+        getCellsMatching,
         enterCellSelect: (startX, startY, min, max, type, filter, callback) => {
             const data = {
                 startX,
@@ -62,65 +168,7 @@ export function UIProvider({ children }) {
                 filter,
             };
 
-            let cells = [];
-            if (type === LOCATION.STRAIGHT_LINES) {
-                // left line
-                for (let i=startX-max;i<=startX-min;i++) {
-                    cells.push({
-                        x: i,
-                        y: startY,
-                        direction: 'left',
-                    });
-                }
-                // right line
-                for (let i=startX+min;i<=startX+max;i++) {
-                    cells.push({
-                        x: i,
-                        y: startY,
-                        direction: 'right',
-                    });
-                }
-                // top line
-                for (let i=startY-max;i<=startY-min;i++) {
-                    cells.push({
-                        x: startX,
-                        y: i,
-                        direction: 'up',
-                    });
-                }
-                // bottom line
-                for (let i=startY+min;i<=startY+max;i++) {
-                    cells.push({
-                        x: startX,
-                        y: i,
-                        direction: 'down',
-                    });
-                }
-            } else if (Array.isArray(type)) {
-                cells = [...type];
-            } else {
-                console.error(`Invalid direction ${type}`);
-                callback(null);
-                return;
-            }
-
-            if (filter) {
-                cells = cells.filter((cell) => {
-                    if (filter === LOCATION_FILTER.WALKABLE) {
-                        const tileData = getTile(cell.x, cell.y);
-                        if (!tileData) {
-                            return false;
-                        }
-
-                        const moduleTile = getModuleTile(tileData.tile);
-                        
-                        if (moduleTile.type !== "ground") {
-                            return false;
-                        }
-                    }
-                    return true;
-                });
-            }
+            const cells = getCellsMatching(startX, startY, min, max, type, [filter]);
 
             if (cells.length === 0) {
                 callback(null);

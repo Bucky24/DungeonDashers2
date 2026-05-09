@@ -1,3 +1,7 @@
+if (!this.entity.canTakeAction(this.game.COMBAT_ACTION.SPECIAL)) {
+    return;
+}
+
 const userResponse = await this.game.userChooseLocation(
     this.entity.getPos().x,
     this.entity.getPos().y,
@@ -13,3 +17,4 @@ if (!userResponse) {
 const { x, y } = userResponse;
 
 await this.entity.moveTo(x, y);
+this.entity.takeAction(this.game.COMBAT_ACTION.SPECIAL);

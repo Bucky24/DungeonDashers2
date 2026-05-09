@@ -1,0 +1,28 @@
+{
+    "version": 2,
+    "id": "teleport",
+    "scripts": [
+        "scripts/teleport_collide.js"
+    ],
+    "images": {
+        "exists": "assets/objects/teleport.png"
+    },
+    "name": "teleport",
+    "width": 1,
+    "height": 1,
+    "states": [
+        "exists"
+    ],
+    "sounds": {},
+    "events": [
+        {
+            "on": "intersect",
+            "type": "script",
+            "file": "scripts/teleport_collide.js"
+        }
+    ],
+    "defaultState": "exists",
+    "flags": [
+        "nonblocking"
+    ]
+}

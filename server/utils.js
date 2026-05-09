@@ -62,7 +62,7 @@ if (process.env.NODE_ENV === 'development') {
 function locateInDirectories(name, dirs, extra = '') {
     let foundFile = null;
 
-    if (name === "") {
+    if (name === "" || !name) {
         return foundFile;
     }
 

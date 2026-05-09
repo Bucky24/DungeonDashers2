@@ -95,6 +95,10 @@ export function getObjects() {
     return computedData.objects || {};
 }
 
+export function getObject(id) {
+    return computedData.objects[id] || null;
+}
+
 export function getScripts() {
     return computedData.scripts || {};
 }

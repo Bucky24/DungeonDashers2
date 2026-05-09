@@ -5,7 +5,7 @@ import useRunMapTrigger from "./useRunMapTrigger";
 import useGetEntityContext from "./useGetEntityContext";
 import useTriggerEvent from "./events/useTriggerEvent";
 import MapContext, { TILE_TYPE } from "../contexts/MapContext";
-import { getTiles, getEquipment } from "../data/moduleData";
+import { getTiles, getEquipment, getTile, getObject } from "../data/moduleData";
 
 export default function useGameScriptContext(triggerEvent) {
     const {
@@ -22,11 +22,12 @@ export default function useGameScriptContext(triggerEvent) {
         enemies,
         setGameState,
         addEquipment,
+        getTilesAtPosition,
     } = useContext(GameContext);
     const { getTile } = useContext(MapContext);
     const tiles = getTiles();
     const equipment = getEquipment();
-    const { enterCellSelect, startDialog, setMode, setTooltip } = useContext(UIContext);
+    const { enterCellSelect, startDialog, setMode, setTooltip, getCellsMatching } = useContext(UIContext);
     const runMapTrigger = useRunMapTrigger();
     const getEntityContext = useGetEntityContext();
     const finalTriggerEvent = triggerEvent || useTriggerEvent();
@@ -192,6 +193,9 @@ export default function useGameScriptContext(triggerEvent) {
             } else if (entityType == "enemy") {
                 entities = enemies;
             }
+            if (!type) {
+                return entities.map(entity => getEntityContext({ type: entityType, entity }));
+            }
             for (const entity of entities) {
                 if (entity.type === type) {
                     matching.push(getEntityContext({ type: entityType, entity }));
@@ -204,7 +208,7 @@ export default function useGameScriptContext(triggerEvent) {
             setMode(UI_MODE.GAME_END);
             setGameState(GAME_STATE.WON);
         },
-        getTargets: (targetType, x, y, range) => {
+        getTargets: (targetType, x, y, range, ignoreLos) => {
             const entities = context.getEntitiesWithinRange(x, y, range);
 
             const targets = entities.filter((entity) => {
@@ -216,11 +220,80 @@ export default function useGameScriptContext(triggerEvent) {
                 }
             });
 
-            return targets;
+            const targetsInSight = targets.filter((entity) => {
+                console.log('cehcking at', x, y, entity.x, entity.y);
+                if (!ignoreLos) {
+                    // verify we can see the entity from x, y
+                    // how we do this is basically plot every square from
+                    // entity to our x, y and check if it's visible. If it
+                    // isn't, then we can't see this target
+                    const xDist = Math.abs(entity.x - x);
+                    const yDist = Math.abs(entity.y - y);
+                    let xPer, yPer, min, max;
+                    if (xDist > yDist) {
+                        const negative = entity.x > x ? entity.y < y : y < entity.y;
+                        const dir = negative ? -1 : 1;
+                        xPer = 1;
+                        yPer = yDist / xDist * dir;
+                        min = Math.min(entity.x, x);
+                        max = Math.max(entity.x, x);
+                    } else {
+                        const negative = entity.y > y ? entity.x < x : x < entity.x;
+                        const dir = negative ? -1 : 1;
+                        yPer = 1;
+                        xPer = (xDist / yDist) * dir;
+                        min = Math.min(entity.y, y);
+                        max = Math.max(entity.y, y);
+                    }
+                    let xCur = x;
+                    let yCur = y;
+                    for (let i=min;i<=max;i+=1) {
+                        // check current square
+                        const unitX = Math.round(xCur);
+                        const unitY = Math.round(yCur);
+
+                        const entities = getEntitiesAtPosition(unitX, unitY);
+                        const tilesOnSquare = getTilesAtPosition(unitX, unitY);
+                        console.log(unitX, unitY, tilesOnSquare);
+
+                        for (const entity of entities) {
+                            const data = getObject(entity.entity.type);
+                            if (entity.entity.flags?.includes("wall")) {
+                                return false;
+                            }
+                        }
+
+                        for (const tile of tilesOnSquare) {
+                            if (tiles[tile.tile]) {
+                                const type = getTile(tile.tile)?.type;
+                                if (type === "wall") {
+                                    return false;
+                                }
+                            }
+                        }
+
+                        xCur += xPer;
+                        yCur += yPer;
+                    }
+                }
+
+                return true;
+            })
+
+            return targetsInSight;
         },
         showTooltip: (text) => {
             setTooltip(text);
         },
+        findValidLocation: (x, y, min, max, directionOrPoints, filter) => {
+            const cells = getCellsMatching(x, y, min, max, directionOrPoints, filter);
+
+            if (cells.length === 0) {
+                return null;
+            }
+
+            return cells[0];
+        }
     };
 
     return context;

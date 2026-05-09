@@ -20,6 +20,18 @@ for (const effect of data) {
             entity.removeFlag("locked");
             entity.setFlag('nonblocking');
         }
+    } else if (effect.type === "open_block") {
+        const doorId = effect.id;
+
+        const entity = this.game.getEntityById(doorId);
+
+        if (!entity) {
+            console.error(`Cannot find block with id ${doorId}`);
+        } else {
+            entity.setState("down");
+            entity.removeFlag("wall");
+            entity.setFlag('nonblocking');
+        }
     } else {
         console.error(`Unknown flame effect ${effect.type}`);
     }

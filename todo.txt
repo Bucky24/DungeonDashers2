@@ -1,6 +1,3 @@
-For v0.8.0
-* Add portraits for all four characters (missing Sir Jacob)
-
 For v0.9.0
 * Basic animation system, movement and attack
 * Three full campaign missions from original game
@@ -35,7 +32,7 @@ For v0.9.0
 * Schema validation and editors for object data
 * Additional stats should be modified by equipment
     * HP
-    * attack
+    * Attack
     * Armor
 * Improve and merge character stats and equipment, make it look like original
 * Data validation for modules
@@ -46,3 +43,4 @@ For v0.9.0
 * Varied floor tiles
 * Fix the cave tileset, lots of the holes are not from the editor but are from the game so the lighting is background
 * MAYBE: Try to get some dynamic lighting
+* Expose errors in scripts to main game

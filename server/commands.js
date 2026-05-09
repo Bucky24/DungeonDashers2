@@ -244,7 +244,6 @@ module.exports = {
 
         const validDirectories = directories[decoded.type].load || [];
         const extra = decoded.data?.extra ?? '';
-
         const assetFile = locateInDirectories(decoded.filePath, validDirectories, extra);
 
         if (!assetFile) {

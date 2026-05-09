@@ -79,7 +79,7 @@ export default function GameMap() {
             const enemy = enemies[activeEnemyIndex];
             const data = enemyData[enemy.type];
 
-            if (enemy.flags.includes("inactive")) {
+            if (enemy.flags?.includes("inactive")) {
                 nextEnemy();
                 return;
             }

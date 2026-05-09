@@ -3854,7 +3854,10 @@
         {
             "type": "main_january",
             "x": 14,
-            "y": 6
+            "y": 6,
+            "flags": [
+                "disabled"
+            ]
         }
     ],
     "objects": [
@@ -4069,6 +4072,150 @@
                     "id": 30
                 }
             ]
+        },
+        {
+            "type": "main_teleport",
+            "x": 41,
+            "y": 3,
+            "id": 32
+        },
+        {
+            "type": "main_rock_spike1",
+            "x": 37,
+            "y": -5,
+            "id": 33
+        },
+        {
+            "type": "main_rock_spike1",
+            "x": 43,
+            "y": -5,
+            "id": 34
+        },
+        {
+            "type": "main_rock_spike1",
+            "x": 42,
+            "y": -5,
+            "id": 35
+        },
+        {
+            "type": "main_rock_spike1",
+            "x": 41,
+            "y": -5,
+            "id": 36
+        },
+        {
+            "type": "main_rock1",
+            "x": 36,
+            "y": -5,
+            "id": 37
+        },
+        {
+            "type": "main_door1",
+            "x": 39,
+            "y": -1,
+            "id": 38
+        },
+        {
+            "type": "main_door1",
+            "x": 37,
+            "y": -8,
+            "id": 39
+        },
+        {
+            "type": "main_chest1",
+            "x": 39,
+            "y": -12,
+            "id": 40
+        },
+        {
+            "type": "main_chest1",
+            "x": 33,
+            "y": -11,
+            "id": 41
+        },
+        {
+            "type": "main_chest1",
+            "x": 33,
+            "y": -12,
+            "id": 42
+        },
+        {
+            "type": "main_chest1",
+            "x": 33,
+            "y": -13,
+            "id": 43
+        },
+        {
+            "type": "main_chest1",
+            "x": 34,
+            "y": -12,
+            "id": 44
+        },
+        {
+            "type": "main_flame",
+            "x": 36,
+            "y": -14,
+            "id": 45,
+            "data": [
+                {
+                    "type": "open_block",
+                    "id": 53
+                }
+            ]
+        },
+        {
+            "type": "main_rock_spike1",
+            "x": 40,
+            "y": -14,
+            "id": 46
+        },
+        {
+            "type": "main_rock_spike1",
+            "x": 39,
+            "y": -14,
+            "id": 47
+        },
+        {
+            "type": "main_bell1",
+            "x": 44,
+            "y": -14,
+            "id": 49,
+            "data": [
+                {
+                    "type": "open_door",
+                    "id": 51
+                }
+            ]
+        },
+        {
+            "type": "main_door2",
+            "x": 33,
+            "y": -18,
+            "id": 51
+        },
+        {
+            "type": "main_rock1",
+            "x": 42,
+            "y": -14,
+            "id": 52
+        },
+        {
+            "type": "main_block1",
+            "x": 41,
+            "y": -14,
+            "id": 53
+        },
+        {
+            "type": "main_portal1",
+            "x": 24,
+            "y": -18,
+            "id": 54
+        },
+        {
+            "type": "main_portal1",
+            "x": 27,
+            "y": -18,
+            "id": 55
         }
     ],
     "enemies": [
@@ -4103,25 +4250,70 @@
             "id": 3,
             "data": {
                 "doorTrigger": 26
-            }
+            },
+            "flags": [
+                "inactive"
+            ]
         },
         {
             "type": "main_goblin_archer1",
             "x": 27,
             "y": 2,
-            "id": 4
+            "id": 4,
+            "data": {
+                "doorTrigger": 26
+            },
+            "flags": [
+                "inactive"
+            ]
         },
         {
             "type": "main_goblin_archer1",
             "x": 20,
             "y": 8,
-            "id": 5
+            "id": 5,
+            "data": {
+                "doorTrigger": 26
+            },
+            "flags": [
+                "inactive"
+            ]
         },
         {
             "type": "main_goblin_archer1",
             "x": 21,
             "y": 3,
-            "id": 6
+            "id": 6,
+            "data": {
+                "doorTrigger": 26
+            },
+            "flags": [
+                "inactive"
+            ]
+        },
+        {
+            "type": "main_skeleton1",
+            "x": 36,
+            "y": -6,
+            "id": 7,
+            "data": {
+                "doorTrigger": 38
+            },
+            "flags": [
+                "inactive"
+            ]
+        },
+        {
+            "type": "main_goblin_archer1",
+            "x": 42,
+            "y": -6,
+            "id": 8,
+            "data": {
+                "doorTrigger": 38
+            },
+            "flags": [
+                "inactive"
+            ]
         }
     ],
     "triggers": {
@@ -4129,7 +4321,7 @@
             "effects": [
                 {
                     "type": "script",
-                    "code": "this.game.setPause(true)\nawait this.game.showMultipleDialog([\n{dialog: \"Hello forest dweller.\", character: \"main_wizard\"},\n{dialog: \"Hey old man. How've you been?\", character: \"main_january\"),\n{dialog: \"I have been quite well thank you... until tonight.\", character: \"main_wizard\"},\n{dialog: \"I guess you saw the symbol too?\", character: \"main_january\"),\n{dialog: \"Yes. I felt a cold blue essence permeating from this location.\", character: \"main_wizard\"},\n{dialog: \"What do you suppose it means?\", character: \"main_january\"),\n{dialog: \"It's too early to tell. I suspect its meaning runs deeper than the cave.\", character: \"main_wizard\"},\n{dialog: \"Are you still living in that beat-up shak in the woods?\", character: \"main_january\"),\n{dialog: \"If you're referring to my abode, then yes. Far away from any of those moronic townsfolk.\", character: \"main_wizard\"},\n{dialog: \"You're such an old grump Ardon.\", character: \"main_january\"),\n{dialog: \"-Hmmph-\", character: \"main_wizard\"},\n{dialog: \"So now what?\", character: \"main_january\"),\n{dialog: \"Well we can't go back...\", character: \"main_wizard\"},\n{dialog: \"Then you'd better try to keep up old man!\", character: \"main_january\"),\n{dialog: \"-Grumble-\", character: \"main_wizard\"},\n]);\nthis.game.setPause(false);\nconst januaryCharacter = this.game.getCharacterByType(\"main_january\");\njanuaryCharacter.removeFlag(\"disabled\");"
+                    "code": "this.game.setPause(true);\nawait this.game.showMultipleDialog([\n{dialog: \"Hello forest dweller.\", character: \"main_wizard\"},\n{dialog: \"Hey old man. How've you been?\", character: \"main_january\"},\n{dialog: \"I have been quite well thank you... until tonight.\", character: \"main_wizard\"},\n{dialog: \"I guess you saw the symbol too?\", character: \"main_january\"},\n{dialog: \"Yes. I felt a cold blue essence permeating from this location.\", character: \"main_wizard\"},\n{dialog: \"What do you suppose it means?\", character: \"main_january\"},\n{dialog: \"It's too early to tell. I suspect its meaning runs deeper than the cave.\", character: \"main_wizard\"},\n{dialog: \"Are you still living in that beat-up shak in the woods?\", character: \"main_january\"},\n{dialog: \"If you're referring to my abode, then yes. Far away from any of those moronic townsfolk.\", character: \"main_wizard\"},\n{dialog: \"You're such an old grump Ardon.\", character: \"main_january\"},\n{dialog: \"-Hmmph-\", character: \"main_wizard\"},\n{dialog: \"So now what?\", character: \"main_january\"},\n{dialog: \"Well we can't go back...\", character: \"main_wizard\"},\n{dialog: \"Then you'd better try to keep up old man!\", character: \"main_january\"},\n{dialog: \"-Grumble-\", character: \"main_wizard\"},\n]);\nthis.game.setPause(false);\nconst januaryCharacter = this.game.getCharacterByType(\"main_january\");\njanuaryCharacter.removeFlag(\"disabled\");"
                 }
             ]
         }

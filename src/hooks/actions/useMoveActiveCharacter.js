@@ -81,21 +81,20 @@ export default function useMoveActiveCharacter() {
             if (hasActiveEnemies) {
                 // find the first enemy in the stack and damage them
                 const enemy = collidableEntities.find((entity) => entity.type === "enemy");
-                if (!enemy) {
+                if (enemy) {
+                    const eData = enemyData[enemy.entity.type];
+                    let enemyHp = enemy.entity.hp || eData.maxHP;
+                    setEnemyProperty(enemy.entity.id, "hp", Math.max(0, enemyHp - 5));
+                    setCharacterProperty(character.type, "actionPoints", totalPoints - pointCost);
                     return;
                 }
-
-                const eData = enemyData[enemy.entity.type];
-                let enemyHp = enemy.entity.hp || eData.maxHP;
-                setEnemyProperty(enemy.entity.id, "hp", Math.max(0, enemyHp - 5));
-                setCharacterProperty(character.type, "actionPoints", totalPoints - pointCost);
-            } else {
-                for (const entity of collidableEntities) {
-                    await triggerEvent(EVENTS.COLLIDE, [
-                        { type: 'character', entity: character },
-                        entity,
-                    ]);
-                }
+            }
+            // if no enemy hit, handle collision
+            for (const entity of collidableEntities) {
+                await triggerEvent(EVENTS.COLLIDE, [
+                    { type: 'character', entity: character },
+                    entity,
+                ]);
             }
 
             return;
